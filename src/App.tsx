@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
 import Routes from "./Routes";
+import './styles/simple-grid.scss'
+import './App.scss'
 
 function App() {
   return (

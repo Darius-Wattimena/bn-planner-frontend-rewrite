@@ -1,0 +1,48 @@
+@import "./styles/Variables";
+
+* {
+  margin: 0;
+}
+
+body {
+  .App {
+    width: 100vw;
+    height: 100vh;
+    background-color: $color-background;
+  }
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+}
+
+button, a.button {
+  padding: $padding;
+  border-radius: 5px;
+  border: 2px solid $color-primary;
+
+  &.primary {
+    color: white;
+    background-color: $color-primary;
+  }
+
+  &.osu-button {
+    color: white;
+    background-color: $osu-colour-dark;
+    border-color: $osu-colour-darker;
+
+    &:hover {
+      background-color: $osu-colour-darker;
+    }
+  }
+
+  &.secondary {
+    color: $color-primary;
+    background-color: $color-secondary;
+  }
+}
+
+.footer {
+  background-color: $color-footer-background;
+}

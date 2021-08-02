@@ -1,0 +1,35 @@
+// Osu colours
+$osu-colour-dark: #cc5288;
+$osu-colour-darker: #bb1177;
+$bn-colour: #7249A5;
+$pbn-colour: #995BA5;
+$nat-colour: #A53D3C;
+$rc-colour: #696969;
+
+// Beatmap status colours
+$status-pending-colour: #538ea5;
+$status-bubbled-colour: #2b56a5;
+$status-qualified-colour: #2da554;
+$status-ranked-colour: #5aa500;
+$status-popped-colour: #a57d5d;
+$status-disqualified-colour: #a54e4b;
+$status-graved-colour: #a5a5a5;
+$status-unfinished-colour: #6253a5;
+
+// Application colours
+$color-primary: $bn-colour;
+$color-primary-light: lighten($color-primary, 5%);
+$color-secondary: #BEB2C8;
+$color-secondary-dark: darken($color-secondary, 5%);
+$color-text: #333447;
+$color-link: #527ad0;
+$color-background: #D7D6D6;
+$color-container-background: #bababa;
+$color-highlight-background: #EE4266;
+$color-footer-background: #0A0F0D;
+
+// Paddings
+$padding-smallest: 0.25em;
+$padding-small: 0.5em;
+$padding: 1em;
+$padding-large: 2em;

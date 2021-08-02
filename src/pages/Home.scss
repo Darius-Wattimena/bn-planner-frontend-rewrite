@@ -1,0 +1,29 @@
+@import "src/styles/Variables";
+$catch-logo: url("../assets/catch.svg");
+
+.landing-page {
+  .welcome-screen {
+    text-align: center;
+    background-color: $color-background;
+
+    .logo {
+      padding-top: 5em;
+
+      width: 25%;
+      height: 25%;
+    }
+
+    .actions {
+      padding-top: $padding-large;
+
+      .main-action, .sub-action {
+        font-size: 1.5em;
+        margin: .2em;
+      }
+
+      .sub-action:hover {
+        background-color: $color-secondary-dark;
+      }
+    }
+  }
+}
