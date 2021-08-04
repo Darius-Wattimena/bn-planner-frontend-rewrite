@@ -11,6 +11,10 @@ $catch-logo: url("../assets/catch.svg");
 
       width: 25%;
       height: 25%;
+
+      path.catch-logo {
+        fill: $color-primary;
+      }
     }
 
     .actions {

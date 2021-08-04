@@ -9,6 +9,12 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: $color-background;
+
+    .page-container {
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 
@@ -33,7 +39,7 @@ button, a.button {
     border-color: $osu-colour-darker;
 
     &:hover {
-      background-color: $osu-colour-darker;
+      background-color: darken($osu-colour-dark, 5%);
     }
   }
 

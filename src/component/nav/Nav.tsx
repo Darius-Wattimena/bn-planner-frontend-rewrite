@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import greaperLogo from '../../assets/greaper.png'
+import NavProfile from "./NavProfile";
 import './Nav.scss'
 
 function Nav() {
@@ -8,7 +9,7 @@ function Nav() {
     <header className="site-header">
       <nav className={"navbar"}>
         <div className={"navbar-logo"}>
-          <a href={"https://greaper.net"}>
+          <a href={"https://osu.ppy.sh/users/2369776"}>
             <img src={greaperLogo} alt={"Greaper.net"} />
           </a>
         </div>
@@ -40,11 +41,7 @@ function Nav() {
               My Icons
             </div>
           </NavLink>
-          <NavLink to="/logout">
-            <div className={"navbar-item"}>
-              Logout
-            </div>
-          </NavLink>
+          <NavProfile userId={"11081858"} username={"GIGACHAD"} role={"Retired"} />
         </div>
       </nav>
     </header>

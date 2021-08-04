@@ -1,15 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import catchLogo from '../assets/catch.svg'
+import { ReactComponent as Logo } from '../assets/catch.svg';
 import "./Home.scss"
 
 function Home() {
   return (
     <div className={"landing-page"}>
       <div className={"welcome-screen"}>
-        <object type="image/svg+xml" data={catchLogo} className={"logo"}>
-          <p>osu!catch logo</p>
-        </object>
+        <Logo className={"logo"}/>
         <h1>Nomination Planner</h1>
         <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for osu!catch beatmap nominators</p>
 
