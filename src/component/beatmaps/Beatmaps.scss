@@ -115,13 +115,31 @@
 
             .nominated {
               color: $status-ranked-colour;
+
+              .react-icons {
+                fill: $status-ranked-colour;
+                font-size: 1.2em;
+              }
             }
 
             .not-nominated {
               color: $status-disqualified-colour;
+
+              .react-icons {
+                fill: $status-disqualified-colour;
+                font-size: 1.2em;
+              }
             }
           }
         }
+      }
+    }
+
+    .beatmap-card-footer {
+      font-size: 1.2em;
+      padding: $padding-smallest 0;
+      a {
+        padding: 0 $padding-smallest;
       }
     }
   }

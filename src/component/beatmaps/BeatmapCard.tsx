@@ -1,5 +1,10 @@
 import React from "react";
 import {Beatmap} from "../../models/Types";
+import { AiOutlinePaperClip } from 'react-icons/ai';
+import { GoCommentDiscussion } from 'react-icons/go';
+import { FiSearch, FiDownload } from 'react-icons/fi';
+import { NavLink } from "react-router-dom";
+import {BsCheck, BsX} from "react-icons/all";
 
 interface BeatmapCardProps {
   beatmap: Beatmap
@@ -46,6 +51,13 @@ function BeatmapCard({ beatmap }: BeatmapCardProps) {
           <BeatmapCardNominator nominatorId={beatmap.nominators[1]} nominated={beatmap.nominatedByBNTwo} />
         </div>
       </div>
+
+      <div className={"beatmap-card-footer"}>
+        <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`}><AiOutlinePaperClip /></a>
+        <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`}><GoCommentDiscussion /></a>
+        <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/download`}><FiDownload /></a>
+        <NavLink to={`/beatmaps/${beatmap.osuId}`}><FiSearch /></NavLink>
+      </div>
     </div>
   )
 }
@@ -75,7 +87,15 @@ function BeatmapCardNominator({ nominatorId, nominated }: BeatmapCardNominatorPr
           {nominatorId}
         </div>
         <div className={hasNominatedClass}>
-          {(nominated) ? "Nominated" : "Nominated"}
+          {(nominated) ? (
+            <>
+              <BsCheck /> Nominated
+            </>
+          ) : (
+            <>
+              <BsX /> Nominated
+            </>
+          )}
         </div>
       </div>
     </div>
