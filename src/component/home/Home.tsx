@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { ReactComponent as Logo } from '../assets/catch.svg';
+import { ReactComponent as Logo } from '../../assets/catch.svg';
 import "./Home.scss"
 
 function Home() {

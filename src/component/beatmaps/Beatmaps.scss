@@ -1,0 +1,128 @@
+@import "../../styles/Variables";
+
+.card-container {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+
+  .beatmap-card {
+    width: 25em;
+    margin: $padding-small;
+    background-color: $color-table-background;
+    box-shadow: 3px 3px 3px $color-table-border;
+    text-align: center;
+
+    .beatmap-user-username {
+      margin-top: 5px;
+      border-radius: 10px;
+      min-width: 50px;
+      padding: 0 $padding-small;
+
+      &.role-nat {
+        background-color: $nat-colour;
+        color: $color-text-light;
+      }
+
+      &.role-bn {
+        background-color: $bn-colour;
+        color: $color-text-light;
+      }
+
+      &.role-user {
+        background-color: $color-table-border;
+        color: $color-text-light;
+      }
+    }
+
+    .beatmap-banner-container {
+      .beatmap-banner {
+        background-size: cover;
+        width: 100%;
+        height: 100px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .beatmap-mapper-container {
+          .beatmap-mapper-spacer {
+            height: 50px;
+          }
+          .beatmap-mapper-picture {
+            border-radius: 25px;
+            box-shadow: 2px 2px 3px 0 $color-table-border;
+            background-size: cover;
+            width: 75px;
+            height: 75px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+    }
+
+    .beatmap-details {
+      margin-top: 60px;
+      .beatmap-details-artist, .beatmap-details-title {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .beatmap-details-title {
+        font-size: 1.3em;
+      }
+
+      .beatmap-details-artist {
+        font-size: 1.1em;
+      }
+
+      .beatmap-nominators {
+        display: flex;
+        justify-content: center;
+        padding: $padding-small 0;
+
+        .beatmap-nominator {
+          display: flex;
+          margin: 0 $padding-small;
+
+          .beatmap-nominator-picture {
+            background-size: cover;
+            width: 75px;
+            height: 75px;
+            border-radius: 25px;
+            box-shadow: 2px 2px 3px 0 $color-table-border;
+          }
+
+          .beatmap-nominator-text {
+            text-align: left;
+            margin-left: $padding-smallest;
+
+            .beatmap-nominator-name {
+              font-size: 1.2em;
+              text-align: center;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              width: 80%;
+              margin-left: auto;
+              margin-right: auto;
+            }
+
+            .nominated {
+              color: $status-ranked-colour;
+            }
+
+            .not-nominated {
+              color: $status-disqualified-colour;
+            }
+          }
+        }
+      }
+    }
+  }
+}

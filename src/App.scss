@@ -6,12 +6,17 @@
 
 body {
   .App {
-    width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: $color-background;
 
     .page-container {
       width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .page-container-full {
+      width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -29,12 +34,12 @@ button, a.button {
   border: 2px solid $color-primary;
 
   &.primary {
-    color: white;
+    color: $color-text-light;
     background-color: $color-primary;
   }
 
   &.osu-button {
-    color: white;
+    color: $color-text-light;
     background-color: $osu-colour-dark;
     border-color: $osu-colour-darker;
 

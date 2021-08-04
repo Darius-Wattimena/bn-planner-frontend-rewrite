@@ -51,7 +51,7 @@
         padding: 0 $padding-smallest;
 
         .username, .role .role-text {
-          color: white;
+          color: $color-text-light;
         }
 
         .username {
@@ -81,7 +81,7 @@
       font-size: 1.2em;
 
       text-decoration: none;
-      color: white;
+      color: $color-text-light;
 
       &.active,
       &:hover {

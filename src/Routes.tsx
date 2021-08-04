@@ -1,7 +1,8 @@
 import React from "react";
 import { HashRouter, Route } from 'react-router-dom';
-import Home from "./pages/Home";
 import Nav from "./component/nav/Nav";
+import Home from "./component/home/Home";
+import Beatmaps from "./component/beatmaps/Beatmaps";
 
 function Routes() {
   return (
@@ -9,7 +10,7 @@ function Routes() {
       <div className={"container"}>
         <Nav />
         <Route exact path={"/"} component={Home} />
-        <Route path={"/beatmaps"} component={Home} />
+        <Route path={"/beatmaps"} component={Beatmaps} />
       </div>
     </HashRouter>
   )

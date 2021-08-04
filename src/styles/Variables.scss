@@ -22,9 +22,12 @@ $color-primary-light: lighten($color-primary, 5%);
 $color-secondary: #BEB2C8;
 $color-secondary-dark: darken($color-secondary, 5%);
 $color-text: #333447;
+$color-text-light: #fff;
 $color-link: #527ad0;
 $color-background: #D7D6D6;
-$color-container-background: #bababa;
+$color-table-background: #c1c1c1;
+$color-table-hover: darken($color-table-background, 5%);
+$color-table-border: darken($color-table-background, 20%);
 $color-highlight-background: #EE4266;
 $color-footer-background: #0A0F0D;
 

@@ -1,0 +1,53 @@
+@import '../../styles/Variables';
+
+table {
+  width: 100%;
+  border-spacing: unset;
+  margin-top: $padding;
+
+  thead {
+    background-color: $color-primary;
+  }
+
+  tbody {
+    tr {
+      background-color: $color-table-background;
+
+      &:hover {
+        background-color: $color-table-hover;
+      }
+    }
+  }
+
+  th, td {
+    padding: $padding;
+    text-align: center;
+  }
+
+  th {
+    color: $color-text-light;
+  }
+
+  td {
+    border-top: 1px solid $color-table-border;
+
+    &.beatmap-banner-container {
+      height: auto;
+      min-width: 200px;
+      padding: 0;
+
+      .beatmap-banner {
+        margin: $padding-smallest;
+        background-size: cover;
+        width: 237px;
+        height: 63px;
+      }
+    }
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
