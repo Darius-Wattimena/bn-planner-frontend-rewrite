@@ -2,7 +2,7 @@ import React from "react";
 import {Beatmap} from "../../models/Types";
 import { AiOutlinePaperClip } from 'react-icons/ai';
 import { GoCommentDiscussion } from 'react-icons/go';
-import { FiSearch, FiDownload } from 'react-icons/fi';
+import { FiDownload, FiInfo} from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
 import {BsCheck, BsX} from "react-icons/all";
 
@@ -56,7 +56,7 @@ function BeatmapCard({ beatmap }: BeatmapCardProps) {
         <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`}><AiOutlinePaperClip /></a>
         <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`}><GoCommentDiscussion /></a>
         <a href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/download`}><FiDownload /></a>
-        <NavLink to={`/beatmaps/${beatmap.osuId}`}><FiSearch /></NavLink>
+        <NavLink to={`/beatmaps/${beatmap.osuId}`}><FiInfo /></NavLink>
       </div>
     </div>
   )
