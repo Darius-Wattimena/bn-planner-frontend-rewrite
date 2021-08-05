@@ -19,6 +19,7 @@ $status-unfinished-colour: #6253a5;
 // Application colours
 $color-primary: #2d2d2d;
 $color-primary-light: lighten($color-primary, 5%);
+$color-primary-lighter: lighten($color-primary, 10%);
 $color-secondary: #bbbbbb;
 $color-secondary-dark: darken($color-secondary, 5%);
 $color-text: #333447;

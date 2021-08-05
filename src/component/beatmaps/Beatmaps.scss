@@ -5,21 +5,25 @@
   align-items: flex-start;
 
   .beatmap-filter {
-    background-color: $color-highlight-background;
-    min-width: 15vw;
+    background-color: $color-primary-lighter;
+    min-width: 10vw;
     align-self: stretch;
   }
 
   .beatmap-card-container {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
+    max-width: 80%;
+
+    .beatmap-card-flex {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      width: 100%;
+    }
 
     .beatmap-card {
-      width: 25em;
-      margin: $padding-small;
+      flex:0 1 calc(25% - 0.5em);
+      min-width: calc(25% - 0.5em);
+      margin: $padding-smallest;
       background-color: $color-table-background;
       box-shadow: 3px 3px 3px $color-table-border;
       text-align: center;
@@ -102,16 +106,18 @@
 
         .beatmap-nominators {
           display: flex;
-          justify-content: center;
+          flex-wrap: wrap;
           padding: $padding-small 0;
 
           .beatmap-nominator {
             display: flex;
             border-radius: 10px;
-            margin: 0 $padding-small;
             padding: $padding-small;
             background-color: $color-secondary;
             box-shadow: 1px 1px 2px 1px $color-table-border;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
 
             &.nominated {
               background-color: $color-confirmed;

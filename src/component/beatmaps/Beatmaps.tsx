@@ -11,11 +11,13 @@ function Beatmaps() {
     <div className={"page-container-full beatmap-page"}>
       <BeatmapFilter />
       <div className={"beatmap-card-container"}>
-        {tempBeatmaps.map(beatmap => {
-          return (
-            <BeatmapCard beatmap={beatmap} />
-          )
-        })}
+        <div className={"beatmap-card-flex"}>
+          {tempBeatmaps.map(beatmap => {
+            return (
+              <BeatmapCard beatmap={beatmap} />
+            )
+          })}
+        </div>
       </div>
     </div>
   )
