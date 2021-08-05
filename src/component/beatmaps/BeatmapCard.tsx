@@ -4,7 +4,6 @@ import { AiOutlinePaperClip } from 'react-icons/ai';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { FiDownload, FiInfo} from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
-import {BsCheck, BsX} from "react-icons/all";
 
 interface BeatmapCardProps {
   beatmap: Beatmap
@@ -30,7 +29,9 @@ function BeatmapCard({ beatmap }: BeatmapCardProps) {
           <div className={"beatmap-mapper-container"}>
             <div className={"beatmap-mapper"}>
               <div className={"beatmap-mapper-spacer"} />
-              <div className={"beatmap-mapper-picture"} style={{ backgroundImage: `url(https://a.ppy.sh/${beatmap.mapperId})`}} />
+              <div className={"beatmap-mapper-picture-container"}>
+                <div className={"beatmap-mapper-picture"} style={{ backgroundImage: `url(https://a.ppy.sh/${beatmap.mapperId})`}} />
+              </div>
               <div className={`beatmap-user-username ${mapperRoleClass}`}>
                 {beatmap.mapper}
               </div>
@@ -78,15 +79,22 @@ function BeatmapCardNominator({ nominatorId, nominated }: BeatmapCardNominatorPr
   }
 
   return (
-    <div className={"beatmap-nominator"}>
-      <div
-        className={`beatmap-nominator-picture ${hasNominatedClass}`}
-        style={{ backgroundImage: `url(https://a.ppy.sh/${nominatorId})`}} />
+    <div className={`beatmap-nominator ${hasNominatedClass}`}>
+      <div className={`beatmap-nominator-picture-container`}>
+        <div
+          className={`beatmap-nominator-picture`}
+          style={{ backgroundImage: `url(https://a.ppy.sh/${nominatorId})`}} />
+      </div>
       <div className={"beatmap-nominator-text"}>
-        <div className={`beatmap-user-username beatmap-nominator-name ${nominatorRoleClass}`}>
-          {nominatorId}
+        <div className={`beatmap-user-username beatmap-nominator-name`}>
+          <div className={"beatmap-nominator-name-text"}>
+            {nominatorId}
+          </div>
+          <div className={`beatmap-nominator-role ${nominatorRoleClass}`}>
+            NAT
+          </div>
         </div>
-        <div className={hasNominatedClass}>
+        {/*<div className={hasNominatedClass}>
           {(nominated) ? (
             <>
               <BsCheck /> Nominated
@@ -96,7 +104,7 @@ function BeatmapCardNominator({ nominatorId, nominated }: BeatmapCardNominatorPr
               <BsX /> Nominated
             </>
           )}
-        </div>
+        </div>*/}
       </div>
     </div>
   )

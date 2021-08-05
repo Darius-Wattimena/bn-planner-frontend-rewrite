@@ -7,6 +7,10 @@
   flex-direction: row;
   justify-content: center;
 
+  .beatmap-filter {
+
+  }
+
   .beatmap-card {
     width: 25em;
     margin: $padding-small;
@@ -16,23 +20,25 @@
 
     .beatmap-user-username {
       margin-top: 5px;
-      border-radius: 10px;
-      min-width: 50px;
-      padding: 0 $padding-small;
+      border-radius: 5px;
+      padding: 0 $padding-smallest;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
 
-      &.role-nat {
+      &.role-nat, .role-nat {
         background-color: $nat-colour;
         color: $color-text-light;
       }
 
-      &.role-bn {
+      &.role-bn, .role-bn {
         background-color: $bn-colour;
         color: $color-text-light;
       }
 
-      &.role-user {
-        background-color: $color-table-border;
-        color: $color-text-light;
+      &.role-user, .role-user {
+        background-color: $color-background;
+        color: $color-text;
       }
     }
 
@@ -50,14 +56,20 @@
           .beatmap-mapper-spacer {
             height: 50px;
           }
-          .beatmap-mapper-picture {
+          .beatmap-mapper-picture-container {
+            background-color: $color-background;
             border-radius: 25px;
-            box-shadow: 2px 2px 3px 0 $color-table-border;
-            background-size: cover;
             width: 75px;
             height: 75px;
             margin-left: auto;
             margin-right: auto;
+
+            .beatmap-mapper-picture {
+              border-radius: 25px;
+              width: 75px;
+              height: 75px;
+              background-size: cover;
+            }
           }
         }
       }
@@ -89,14 +101,24 @@
 
         .beatmap-nominator {
           display: flex;
+          border-radius: 10px;
           margin: 0 $padding-small;
+          padding: $padding-small;
+          background-color: $color-secondary;
+          box-shadow: 1px 1px 2px 1px $color-table-border;
 
-          .beatmap-nominator-picture {
-            background-size: cover;
-            width: 75px;
-            height: 75px;
-            border-radius: 25px;
-            box-shadow: 2px 2px 3px 0 $color-table-border;
+          &.nominated {
+            background-color: $color-confirmed;
+          }
+
+          .beatmap-nominator-picture-container {
+
+            .beatmap-nominator-picture {
+              background-size: cover;
+              width: 50px;
+              height: 50px;
+              border-radius: 10px;
+            }
           }
 
           .beatmap-nominator-text {
@@ -109,8 +131,16 @@
               white-space: nowrap;
               text-overflow: ellipsis;
               width: 80%;
+              margin-top: 0;
               margin-left: auto;
               margin-right: auto;
+
+              .beatmap-nominator-role {
+                font-size: 0.8em;
+                border-radius: 10px;
+                width: fit-content;
+                padding: 0 $padding-small;
+              }
             }
 
             .nominated {

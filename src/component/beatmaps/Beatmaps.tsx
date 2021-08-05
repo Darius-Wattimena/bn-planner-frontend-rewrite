@@ -168,6 +168,9 @@ const TEMP_BEATMAPS: Array<Beatmap> = [{
 function Beatmaps() {
   return (
     <div className={"page-container-full"}>
+      <div className={"filter-container"}>
+
+      </div>
       <div className={"card-container"}>
         {TEMP_BEATMAPS.map(beatmap => {
           return (
@@ -175,7 +178,6 @@ function Beatmaps() {
           )
         })}
       </div>
-      {/*<BeatmapTable beatmaps={TEMP_BEATMAPS} />*/}
     </div>
   )
 }

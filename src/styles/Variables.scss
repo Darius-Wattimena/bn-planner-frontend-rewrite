@@ -17,18 +17,19 @@ $status-graved-colour: #a5a5a5;
 $status-unfinished-colour: #6253a5;
 
 // Application colours
-$color-primary: $bn-colour;
+$color-primary: #2d2d2d;
 $color-primary-light: lighten($color-primary, 5%);
-$color-secondary: #BEB2C8;
+$color-secondary: #bbbbbb;
 $color-secondary-dark: darken($color-secondary, 5%);
 $color-text: #333447;
 $color-text-light: #fff;
 $color-link: #527ad0;
-$color-background: #D7D6D6;
-$color-table-background: #c1c1c1;
+$color-background: #fff;
+$color-table-background: #dedede;
 $color-table-hover: darken($color-table-background, 5%);
 $color-table-border: darken($color-table-background, 20%);
 $color-highlight-background: #EE4266;
+$color-confirmed: #60e062;
 $color-footer-background: #0A0F0D;
 
 // Possible dark theme
