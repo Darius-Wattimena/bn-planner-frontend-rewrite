@@ -13,3 +13,9 @@ export interface Beatmap {
   interested: number[]
   note: string
 }
+
+export interface BeatmapStatus {
+  id: number
+  name: string
+  className: string
+}

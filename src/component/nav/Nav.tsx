@@ -14,29 +14,29 @@ function Nav() {
           </a>
         </div>
         <div className={"navbar-start"}>
-          <NavLink to="/beatmaps">
+          <NavLink to="/beatmaps" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
               Beatmaps
             </div>
           </NavLink>
-          <NavLink to="/graveyard">
+          <NavLink to="/graveyard" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
               Graveyard
             </div>
           </NavLink>
-          <NavLink to="/ranked">
+          <NavLink to="/ranked" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
               Ranked
             </div>
           </NavLink>
-          <NavLink to="/statistics">
+          <NavLink to="/statistics" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
               Statistics
             </div>
           </NavLink>
         </div>
         <div className={"navbar-end"}>
-          <NavLink to="/my-icons">
+          <NavLink to="/my-icons" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
               My Icons
             </div>

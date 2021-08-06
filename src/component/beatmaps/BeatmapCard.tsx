@@ -4,6 +4,7 @@ import { AiOutlinePaperClip } from 'react-icons/ai';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { FiInfo } from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
+import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 
 interface BeatmapCardProps {
   beatmap: Beatmap
@@ -21,9 +22,11 @@ function getRole(userId: number) {
 
 function BeatmapCard({ beatmap }: BeatmapCardProps) {
   let mapperRoleClass = getRole(beatmap.mapperId)
+  const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
     <div className={"beatmap-card"}>
+      <div className={`beatmap-status-stripe ${beatmapStatus?.className}`} />
       <div className={"beatmap-banner-container"}>
         <div className={"beatmap-banner"} style={{ backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card@2x.jpg)`}}>
           <div className={"beatmap-mapper-container"}>

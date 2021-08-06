@@ -1,6 +1,8 @@
 // Osu colours
-$osu-colour-dark: #cc5288;
-$osu-colour-darker: #bb1177;
+
+$osu-colour: #cc5288;
+$osu-colour-dark: darken($osu-colour, 20%);
+$osu-colour-darker: darken($osu-colour, 30%);
 $bn-colour: #7249A5;
 $pbn-colour: #995BA5;
 $nat-colour: #A53D3C;
@@ -18,19 +20,18 @@ $status-unfinished-colour: #6253a5;
 
 // Application colours
 $color-primary: #2d2d2d;
-$color-primary-light: lighten($color-primary, 5%);
-$color-primary-lighter: lighten($color-primary, 10%);
-$color-secondary: #bbbbbb;
+$color-primary-light: lighten($color-primary, 3%);
+$color-secondary: #6d6d6d;
 $color-secondary-dark: darken($color-secondary, 5%);
-$color-text: #333447;
-$color-text-light: #fff;
+$color-text: #f6f6f6;
+$color-text-light: #ffffff;
 $color-link: #527ad0;
-$color-background: #fff;
-$color-table-background: #dedede;
-$color-table-hover: darken($color-table-background, 5%);
-$color-table-border: darken($color-table-background, 20%);
+$color-background: #1d1d1d;
+$color-table-background: #404040;
+$color-table-hover: lighten($color-table-background, 5%);
+$color-table-border: lighten($color-table-background, 20%);
 $color-highlight-background: #EE4266;
-$color-confirmed: #60e062;
+$color-confirmed: #2b922b;
 $color-footer-background: #0A0F0D;
 
 // Possible dark theme

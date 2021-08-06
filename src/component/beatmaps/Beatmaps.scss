@@ -5,8 +5,8 @@
   align-items: flex-start;
 
   .beatmap-filter {
-    background-color: $color-primary-lighter;
-    min-width: 10vw;
+    background-color: $color-primary-light;
+    min-width: 10%;
     align-self: stretch;
   }
 
@@ -21,11 +21,11 @@
     }
 
     .beatmap-card {
-      flex:0 1 calc(25% - 0.5em);
-      min-width: calc(25% - 0.5em);
-      margin: $padding-smallest;
+      flex:0 1 calc(25% - 1em);
+      min-width: calc(25% - 1em);
+      margin: $padding-small;
       background-color: $color-table-background;
-      box-shadow: 3px 3px 3px $color-table-border;
+      box-shadow: 1px 1px 3px $color-table-border;
       text-align: center;
 
       .beatmap-user-username {
@@ -49,6 +49,41 @@
         &.role-user, .role-user {
           background-color: $color-background;
           color: $color-text;
+        }
+      }
+
+      .beatmap-status-stripe {
+        height: 10px;
+        &.beatmap-status-unfinished {
+          background-color: $status-unfinished-colour;
+        }
+
+        &.beatmap-status-pending {
+          background-color: $status-pending-colour;
+        }
+
+        &.beatmap-status-bubbled {
+          background-color: $status-bubbled-colour;
+        }
+
+        &.beatmap-status-qualified {
+          background-color: $status-qualified-colour;
+        }
+
+        &.beatmap-status-ranked {
+          background-color: $status-ranked-colour;
+        }
+
+        &.beatmap-status-popped {
+          background-color: $status-popped-colour;
+        }
+
+        &.beatmap-status-disqualified {
+          background-color: $status-disqualified-colour;
+        }
+
+        &.beatmap-status-graved {
+          background-color: $status-graved-colour;
         }
       }
 
