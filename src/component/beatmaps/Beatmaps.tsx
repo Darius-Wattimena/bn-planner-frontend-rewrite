@@ -11,7 +11,7 @@ function Beatmaps() {
     <div className={"page-container-full beatmap-page"}>
       <BeatmapFilter />
       <div className={"beatmap-card-container"}>
-        <div className={"beatmap-card-flex"}>
+        <div className={"beatmap-card-grid"}>
           {tempBeatmaps.map(beatmap => {
             return (
               <BeatmapCard beatmap={beatmap} />
@@ -19,6 +19,8 @@ function Beatmaps() {
           })}
         </div>
       </div>
+
+      {/*<BeatmapTable beatmaps={tempBeatmaps} />*/}
     </div>
   )
 }

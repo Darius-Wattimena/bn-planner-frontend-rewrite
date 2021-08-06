@@ -8,11 +8,6 @@ function Nav() {
   return (
     <header className="site-header">
       <nav className={"navbar"}>
-        <div className={"navbar-logo"}>
-          <a href={"https://osu.ppy.sh/users/2369776"}>
-            <img src={greaperLogo} alt={"Greaper.net"} />
-          </a>
-        </div>
         <div className={"navbar-start"}>
           <NavLink to="/beatmaps" activeClassName={"navbar-active"}>
             <div className={"navbar-item"}>
@@ -34,6 +29,11 @@ function Nav() {
               Statistics
             </div>
           </NavLink>
+        </div>
+        <div className={"navbar-logo"}>
+          <a className={"navbar-logo-wrapper"} href={"https://osu.ppy.sh/users/2369776"}>
+            <img src={greaperLogo} alt={"Greaper.net"} />
+          </a>
         </div>
         <div className={"navbar-end"}>
           <NavLink to="/my-icons" activeClassName={"navbar-active"}>
