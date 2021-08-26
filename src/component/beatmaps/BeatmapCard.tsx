@@ -1,27 +1,19 @@
 import React from "react";
-import {Beatmap} from "../../models/Types";
+import {Beatmap, User} from "../../models/Types";
 import { AiOutlinePaperClip } from 'react-icons/ai';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { FiInfo } from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
-import { getBeatmapStatus } from "../../utils/BeatmapUtils";
+import {getBeatmapStatus, getRoleClass} from "../../utils/BeatmapUtils";
 
 interface BeatmapCardProps {
   beatmap: Beatmap
+  users: User[]
 }
 
-function getRole(userId: number) {
-  if (userId === 702598) {
-    return "role-nat"
-  } else if (userId === 6345176) {
-    return "role-bn"
-  } else {
-    return "role-user"
-  }
-}
-
-function BeatmapCard({ beatmap }: BeatmapCardProps) {
-  let mapperRoleClass = getRole(beatmap.mapperId)
+function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
+  let mapperDetails = users.find(user => user.osuId === beatmap.mapperId)
+  let mapperRoleClass = getRoleClass(mapperDetails?.role)
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
@@ -51,8 +43,8 @@ function BeatmapCard({ beatmap }: BeatmapCardProps) {
           {beatmap.artist}
         </div>
         <div className={"beatmap-nominators"}>
-          <BeatmapCardNominator nominatorId={beatmap.nominators[0]} nominated={beatmap.nominatedByBNOne} />
-          <BeatmapCardNominator nominatorId={beatmap.nominators[1]} nominated={beatmap.nominatedByBNTwo} />
+          <BeatmapCardNominator nominatorId={beatmap.nominators[0]} nominated={beatmap.nominatedByBNOne} users={users} />
+          <BeatmapCardNominator nominatorId={beatmap.nominators[1]} nominated={beatmap.nominatedByBNTwo} users={users} />
         </div>
       </div>
 
@@ -68,48 +60,51 @@ function BeatmapCard({ beatmap }: BeatmapCardProps) {
 interface BeatmapCardNominatorProps {
   nominatorId: number
   nominated: boolean
+  users: User[]
 }
 
-function BeatmapCardNominator({ nominatorId, nominated }: BeatmapCardNominatorProps) {
-  let nominatorName;
-  let nominatorProfilePictureUri;
+function BeatmapCardNominator({ nominatorId, nominated, users }: BeatmapCardNominatorProps) {
 
   if (nominatorId === 0) {
-    nominatorName = "-"
-    nominatorProfilePictureUri = "https://osu.ppy.sh/images/layout/avatar-guest@2x.png";
+    return (
+      <div className="beatmap-nominator" />
+    )
   } else {
-    nominatorName = nominatorId
-    nominatorProfilePictureUri = `https://a.ppy.sh/${nominatorId}`;
-  }
+    let nominatorDetails = users.find(user => user.osuId === nominatorId)
+    let nominatorName = nominatorDetails?.osuName
+    let nominatorProfilePictureUri = `https://a.ppy.sh/${nominatorId}`
 
-  let hasNominatedClass;
-  let nominatorRoleClass = getRole(nominatorId)
+    let hasNominatedClass;
+    let nominatorRoleClass = getRoleClass(nominatorDetails?.role)
 
-  if (nominated) {
-    hasNominatedClass = "nominated"
-  } else {
-    hasNominatedClass = "not-nominated"
-  }
+    if (nominated) {
+      hasNominatedClass = "nominated"
+    } else {
+      hasNominatedClass = "not-nominated"
+    }
 
-  return (
-    <div className={`beatmap-nominator ${hasNominatedClass}`}>
-      <div className={`beatmap-nominator-picture-container`}>
-        <div
-          className={`beatmap-nominator-picture`}
-          style={{ backgroundImage: `url(${nominatorProfilePictureUri})`}} />
-      </div>
-      <div className={"beatmap-nominator-text"}>
-        <div className={`beatmap-user-username beatmap-nominator-name`}>
-          <div className={"beatmap-nominator-name-text"}>
-            {nominatorName}
-          </div>
-          <div className={`beatmap-nominator-role ${nominatorRoleClass}`}>
-            NAT
+    return (
+      <div className={`beatmap-nominator ${hasNominatedClass}`}>
+        <div className={`beatmap-nominator-picture-container`}>
+          <div
+            className={`beatmap-nominator-picture`}
+            style={{ backgroundImage: `url(${nominatorProfilePictureUri})`}} />
+        </div>
+        <div className={"beatmap-nominator-text"}>
+          <div className={`beatmap-user-username beatmap-nominator-name`}>
+            <div className={"beatmap-nominator-name-text"}>
+              {nominatorName}
+            </div>
+            {nominatorDetails != null &&
+            <div className={`beatmap-nominator-role ${nominatorRoleClass}`}>
+              {nominatorDetails.role}
+            </div>
+            }
           </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default BeatmapCard

@@ -20,6 +20,105 @@
     background-color: $color-primary-light;
     min-width: 10%;
     align-self: stretch;
+    height: 100%;
+    overflow-y: scroll;
+
+    .beatmap-filter-nominators {
+      .beatmap-filter-title {
+        padding: $padding-small;
+      }
+      .beatmap-filter-nominators-groups {
+        .Collapsible:not(:first-child) {
+          margin-top: $padding-smallest;
+          margin-bottom: $padding-smallest;
+        }
+      }
+
+      .beatmap-filter-user, .beatmap-filter-status {
+        display: flex;
+        align-items: center;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-table-border;
+        }
+      }
+    }
+  }
+
+  .beatmap-user-username {
+    margin-top: 5px;
+    border-radius: 5px;
+    padding: 0 $padding-smallest;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .beatmap-user-username, .Collapsible .Collapsible__trigger {
+    &.role-nat, .role-nat {
+      background-color: $nat-colour;
+      color: $color-text-light;
+    }
+
+    &.role-bn, .role-bn {
+      background-color: $bn-colour;
+      color: $color-text-light;
+    }
+
+    &.role-pbn, .role-pbn {
+      background-color: $pbn-colour;
+      color: $color-text-light;
+    }
+
+    &.role-retired, .role-retired {
+      background-color: $rc-colour;
+      color: $color-text-light;
+    }
+
+    &.role-user, .role-user {
+      background-color: $color-background;
+      color: $color-text;
+    }
+  }
+
+  .beatmap-filter-status {
+    label {
+      padding-left: $padding-smallest;
+      padding-right: $padding-smallest;
+      border-radius: 4px;
+    }
+
+    .beatmap-status-unfinished {
+      background-color: $status-unfinished-colour;
+    }
+
+    .beatmap-status-pending {
+      background-color: $status-pending-colour;
+    }
+
+    .beatmap-status-bubbled {
+      background-color: $status-bubbled-colour;
+    }
+
+    .beatmap-status-qualified {
+      background-color: $status-qualified-colour;
+    }
+
+    .beatmap-status-ranked {
+      background-color: $status-ranked-colour;
+    }
+
+    .beatmap-status-popped {
+      background-color: $status-popped-colour;
+    }
+
+    .beatmap-status-disqualified {
+      background-color: $status-disqualified-colour;
+    }
+
+    .beatmap-status-graved {
+      background-color: $status-graved-colour;
+    }
   }
 
   .beatmap-card-container {
@@ -69,30 +168,6 @@
 
       &.beatmap-status-graved {
         box-shadow: boxShadowWithColor($status-graved-colour);
-      }
-
-      .beatmap-user-username {
-        margin-top: 5px;
-        border-radius: 5px;
-        padding: 0 $padding-smallest;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-
-        &.role-nat, .role-nat {
-          background-color: $nat-colour;
-          color: $color-text-light;
-        }
-
-        &.role-bn, .role-bn {
-          background-color: $bn-colour;
-          color: $color-text-light;
-        }
-
-        &.role-user, .role-user {
-          background-color: $color-background;
-          color: $color-text;
-        }
       }
 
       .beatmap-status-stripe {

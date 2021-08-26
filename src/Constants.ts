@@ -12,11 +12,6 @@ export const BEATMAP_STATUS: BeatmapStatus[] = [
     className: 'beatmap-status-bubbled'
   },
   {
-    id: 5,
-    name: 'Pending',
-    className: 'beatmap-status-pending'
-  },
-  {
     id: 3,
     name: 'Disqualified',
     className: 'beatmap-status-disqualified'
@@ -25,6 +20,11 @@ export const BEATMAP_STATUS: BeatmapStatus[] = [
     id: 4,
     name: 'Popped',
     className: 'beatmap-status-popped'
+  },
+  {
+    id: 5,
+    name: 'Pending',
+    className: 'beatmap-status-pending'
   },
   {
     id: 6,

@@ -57,3 +57,98 @@ button, a.button {
 .footer {
   background-color: $color-footer-background;
 }
+
+.Collapsible {
+  background-color: $color-primary;
+
+  &:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+
+//The content within the collaspable area
+.Collapsible__contentInner {
+  //padding: 10px;
+  border: 1px solid $color-secondary-dark;
+  border-top: 0;
+
+  p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+input[type="checkbox"]{
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  background: $color-text-light;
+  border-radius: 5px;
+  position: relative;
+  box-sizing: content-box ;
+  width: 1.3em;
+  height: 1.3em;
+  border-width: 0;
+  transition: all .2s linear;
+  margin: $padding-small;
+}
+input[type="checkbox"]:checked{
+  background-color: $status-qualified-colour;
+}
+input[type="checkbox"]:focus{
+  outline: 0 none;
+  box-shadow: none;
+}
+
+.collapsible-parent-group {
+  margin-top: $padding-small;
+  .Collapsible__trigger {
+    //background: $color-primary;
+    font-size: 1.3em;
+  }
+  .collapsible-child-group .Collapsible__trigger  {
+    //background: $color-table-background;
+    font-size: unset;
+  }
+}
+
+.Collapsible__contentInner {
+  border: none;
+}
+
+//The link which when clicked opens the collapsable area
+.Collapsible__trigger {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  padding: $padding-small;
+  //background: $color-table-background;
+  color: $color-text-light;
+
+  &:after {
+    content: '>';
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: block;
+    transition: transform 500ms;
+  }
+
+  &.is-open {
+    &:after {
+      transform: rotateZ(180deg);
+    }
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    background-color: grey;
+  }
+}
