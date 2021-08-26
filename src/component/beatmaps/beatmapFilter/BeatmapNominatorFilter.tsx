@@ -70,7 +70,6 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
     <div className={"beatmap-filter-nominators"}>
       <Collapsible
         trigger={"Nominator"}
-        open={true}
         className={"collapsible-parent-group"}
         openedClassName={"collapsible-parent-group"}
       >
@@ -81,7 +80,6 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
             return (
               <Collapsible
                 trigger={key}
-                open={key === "BN" || key === "PBN"}
                 className={`collapsible-child-group`}
                 triggerClassName={nominatorRoleClass}
                 triggerOpenedClassName={nominatorRoleClass}

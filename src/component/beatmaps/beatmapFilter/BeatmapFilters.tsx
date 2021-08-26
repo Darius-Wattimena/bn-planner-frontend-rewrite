@@ -33,15 +33,7 @@ function BeatmapFilters({ users }: BeatmapFilterProps) {
 
   return (
     <div className={"beatmap-filter"}>
-      <div className={"beatmap-filter-nominators"}>
-        <BeatmapNominatorFilter
-          nominators={users.filter(isNominator)}
-          beatmapFilter={beatmapFilters}
-          setBeatmapFormFilter={setBeatmapFilters}
-          timeout={timeout}
-          setQueryFilter={setQueryFilter}
-        />
-      </div>
+      <h3 className={"beatmap-filter-main-title"}>Beatmap Filters</h3>
       <div className={"beatmap-filter-status"}>
         <BeatmapStatusFilter
           statuses={BEATMAP_STATUS.filter(status => status.id !== 6 && status.id !== 7)}
@@ -50,7 +42,15 @@ function BeatmapFilters({ users }: BeatmapFilterProps) {
           timeout={timeout}
           setQueryFilter={setQueryFilter}
         />
-
+      </div>
+      <div className={"beatmap-filter-nominators"}>
+        <BeatmapNominatorFilter
+          nominators={users.filter(isNominator)}
+          beatmapFilter={beatmapFilters}
+          setBeatmapFormFilter={setBeatmapFilters}
+          timeout={timeout}
+          setQueryFilter={setQueryFilter}
+        />
       </div>
       <div className={"beatmap-filter-artist"}>
 

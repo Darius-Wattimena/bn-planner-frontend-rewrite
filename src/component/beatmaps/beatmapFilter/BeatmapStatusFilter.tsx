@@ -66,7 +66,6 @@ function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, ti
     <div className={"beatmap-filter-nominators"}>
       <Collapsible
         trigger={"Status"}
-        open={true}
         className={"collapsible-parent-group"}
         openedClassName={"collapsible-parent-group"}
       >

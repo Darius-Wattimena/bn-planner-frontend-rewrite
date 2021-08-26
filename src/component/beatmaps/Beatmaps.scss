@@ -23,6 +23,10 @@
     height: 100%;
     overflow-y: scroll;
 
+    .beatmap-filter-main-title {
+      padding: $padding-small;
+    }
+
     .beatmap-filter-nominators {
       .beatmap-filter-title {
         padding: $padding-small;
