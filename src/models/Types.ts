@@ -24,6 +24,12 @@ export interface Beatmap {
   note: string
 }
 
+export interface UserRole {
+  id: string
+  name: string
+  className: string
+}
+
 export interface BeatmapStatus {
   id: number
   name: string

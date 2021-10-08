@@ -1,0 +1,178 @@
+@import "../../styles/Variables";
+
+.beatmap-details-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 93vh;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  scrollbar-width: none;
+
+  .beatmap-details-container-border {
+    box-shadow: $color-table-background 0 0 0 4px;
+    background-color: $color-table-background;
+    height: calc(100% - 2em);
+    overflow-y: scroll;
+    margin-top: $padding;
+    margin-bottom: $padding;
+
+    .beatmap-details-container {
+      .beatmap-banner {
+        background-size: cover;
+        background-position: center;
+        width: calc(80vw - #{$padding});
+        min-height: 100px;
+        height: 20vh;
+      }
+
+      .beatmap-details-sub-container {
+        background-color: $color-background;
+        justify-self: stretch;
+        //width: 99%;
+      }
+
+      .beatmap-details-sub-container-title {
+        font-size: 1.3em;
+        background-color: $color-primary;
+        padding: $padding;
+      }
+
+      .beatmap-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        grid-gap: 10px;
+        width: 100%;
+
+        .beatmap-mapper-container, .beatmap-nominators-container {
+          .beatmap-user {
+            display: flex;
+
+            .beatmap-user-picture-container {
+              background-color: $color-background;
+              border-radius: 25px;
+              width: 120px;
+              height: 120px;
+              margin: $padding;
+
+              .beatmap-user-picture {
+                border-radius: 25px;
+                width: 120px;
+                height: 120px;
+                background-size: cover;
+              }
+            }
+
+            .beatmap-user-details {
+              margin-top: $padding-small;
+              margin-right: $padding-small;
+
+              .beatmap-user-username {
+                font-size: 1.3em;
+                padding-bottom: $padding-smallest;
+              }
+
+              .beatmap-user-role {
+                font-size: 1.1em;
+                padding: $padding-smallest;
+                border-radius: 5px;
+              }
+
+              .beatmap-user-nomination-status {
+                padding-top: $padding-smallest;
+
+                div {
+                  display: flex;
+                  align-items: center;
+                  svg {
+                    margin-right: $padding-smallest;
+                  }
+                }
+
+                .beatmap-user-nominated {
+                  color: $status-qualified-colour;
+                  fill: $status-qualified-colour;
+                }
+
+                .beatmap-user-not-nominated {
+                  color: $status-disqualified-colour;
+                  fill: $status-disqualified-colour;
+                }
+              }
+            }
+          }
+        }
+
+        .beatmap-nominators-container {
+          .beatmap-nominator-container {
+            margin: $padding;
+          }
+        }
+
+        .beatmap-metadata-container {
+          .beatmap-metadata {
+            margin: $padding;
+
+            .beatmap-metadata-item {
+              .beatmap-metadata-label {
+                font-size: 1.1em;
+                font-weight: 400;
+              }
+
+              p {
+                font-size: 1em;
+                font-weight: unset;
+              }
+            }
+          }
+        }
+      }
+
+      .beatmap-actions {
+        margin-top: $padding-small;
+
+        .actions-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: $padding 0;
+
+          .actions-button-group {
+            display: flex;
+            align-items: center;
+            padding: 0 $padding;
+
+            &.actions-button-group-left {
+              .button:not(:first-child) {
+                margin: 0 $padding-smallest;
+              }
+            }
+
+            &.actions-button-group-right {
+              .button:not(:last-child) {
+                margin: 0 $padding-smallest;
+              }
+            }
+
+            .actions-title {
+              margin-right: $padding;
+            }
+
+            .button {
+              display: flex;
+              align-items: center;
+
+              svg {
+                margin-right: $padding-smallest;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

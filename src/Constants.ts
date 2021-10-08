@@ -1,4 +1,4 @@
-import {BeatmapStatus} from "./models/Types";
+import {BeatmapStatus, UserRole} from "./models/Types";
 
 export const BEATMAP_STATUS: BeatmapStatus[] = [
   {
@@ -43,35 +43,35 @@ export const BEATMAP_STATUS: BeatmapStatus[] = [
   }
 ]
 
-export const USER_ROLES = {
-  BeatmapNominator: {
+export const USER_ROLES: UserRole[] = [
+  {
     id: 'BN',
     name: 'Beatmap Nominator',
-    className: 'user-role-bn'
+    className: 'role-bn'
   },
-  ProbationBeatmapNominator: {
+  {
     id: 'PBN',
     name: 'Probation Beatmap Nominator',
-    className: 'user-role-pbn'
+    className: 'role-pbn'
   },
-  NominationAssessmentTeam: {
+  {
     id: 'NAT',
-    name: 'Nomination Assessment Team',
-    className: 'user-role-nat'
+    name: 'Nomination Assessment',
+    className: 'role-nat'
   },
-  RetiredCatch: {
+  {
     id: 'CA',
     name: 'Retired Nominator',
-    className: 'user-role-rc'
+    className: 'role-retired'
   },
-  Observer: {
+  {
     id: 'OBS',
     name: 'Observer',
-    className: 'user-role-observer'
+    className: 'role-user'
   },
-  Guest: {
+  {
     id: 'GST',
     name: 'Guest',
-    className: 'user-role-observer'
+    className: 'role-user'
   }
-}
+]

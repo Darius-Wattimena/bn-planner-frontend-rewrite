@@ -4,7 +4,8 @@ import { AiOutlinePaperClip } from 'react-icons/ai';
 import { GoCommentDiscussion } from 'react-icons/go';
 import { FiInfo } from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
-import {getBeatmapStatus, getRoleClass} from "../../utils/BeatmapUtils";
+import {getBeatmapStatus} from "../../utils/BeatmapUtils";
+import {getUserRole} from "../../utils/UserUtils";
 
 interface BeatmapCardProps {
   beatmap: Beatmap
@@ -13,7 +14,7 @@ interface BeatmapCardProps {
 
 function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
   let mapperDetails = users.find(user => user.osuId === beatmap.mapperId)
-  let mapperRoleClass = getRoleClass(mapperDetails?.role)
+  let mapperRoleClass = getUserRole(mapperDetails)?.className
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
@@ -75,7 +76,7 @@ function BeatmapCardNominator({ nominatorId, nominated, users }: BeatmapCardNomi
     let nominatorProfilePictureUri = `https://a.ppy.sh/${nominatorId}`
 
     let hasNominatedClass;
-    let nominatorRoleClass = getRoleClass(nominatorDetails?.role)
+    let nominatorRoleClass = getUserRole(nominatorDetails)?.className
 
     if (nominated) {
       hasNominatedClass = "nominated"

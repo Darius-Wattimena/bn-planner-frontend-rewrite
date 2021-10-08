@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {BeatmapFilter, NominatorSelectFilterItem, User} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import * as _ from 'lodash'
-import {getRoleClass} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";
+import {getRole} from "../../../utils/UserUtils";
 
 interface BeatmapNominatorFilterProps {
   nominators: User[]
@@ -32,7 +32,7 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
     })
 
     setFilterItems(preparedNominators)
-  }, [selectedNominators])
+  }, [nominators, selectedNominators])
 
   function removeNumber(value: number, numbers: number[]){
     numbers.forEach( (item, index) => {
@@ -75,20 +75,21 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
       >
         <div className={"beatmap-filter-nominators-groups"}>
           {Object.keys(groupedFilterItems).map((key, index) => {
-            let nominatorRoleClass = getRoleClass(key)
+            let nominatorRoleClass = getRole(key)?.className
 
             return (
               <Collapsible
+                key={index}
                 trigger={key}
                 className={`collapsible-child-group`}
                 triggerClassName={nominatorRoleClass}
                 triggerOpenedClassName={nominatorRoleClass}
                 openedClassName={`collapsible-child-group`}>
                 <div className={`beatmap-filter-nominators-group`}>
-                  { groupedFilterItems[key].map(selectItem => {
+                  { groupedFilterItems[key].map((selectItem, groupIndex) => {
 
                     return (
-                      <div className={`beatmap-filter-user`}>
+                      <div className={`beatmap-filter-user`} key={groupIndex}>
                         <input
                           type="checkbox"
                           id={`${selectItem.index}-nominator`}

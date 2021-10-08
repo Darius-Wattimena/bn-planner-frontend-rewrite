@@ -28,6 +28,23 @@ a {
   text-decoration: none;
 }
 
+button {
+  font-size: 1em;
+}
+
+.button-cancel {
+  background-color: $status-disqualified-colour;
+}
+
+.button-edit {
+  background-color: $status-popped-colour;
+}
+
+.button-text, .button-icon {
+  color: $color-text;
+  fill: $color-text;
+}
+
 button, a.button {
   padding: $padding;
   border-radius: 5px;
@@ -58,15 +75,34 @@ button, a.button {
   background-color: $color-footer-background;
 }
 
-.Collapsible {
-  background-color: $color-primary;
-
-  &:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
+.role-nat {
+  background-color: $nat-colour;
+  color: $color-text-light;
 }
 
+.role-bn {
+  background-color: $bn-colour;
+  color: $color-text-light;
+}
+
+.role-pbn {
+  background-color: $pbn-colour;
+  color: $color-text-light;
+}
+
+.role-retired {
+  background-color: $rc-colour;
+  color: $color-text-light;
+}
+
+.role-user {
+  background-color: $color-background;
+  color: $color-text;
+}
+
+.Collapsible {
+  background-color: $color-primary;
+}
 
 //The content within the collaspable area
 .Collapsible__contentInner {
@@ -85,7 +121,7 @@ button, a.button {
   }
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -99,22 +135,24 @@ input[type="checkbox"]{
   transition: all .2s linear;
   margin: $padding-small;
 }
-input[type="checkbox"]:checked{
+
+input[type="checkbox"]:checked {
   background-color: $status-qualified-colour;
 }
-input[type="checkbox"]:focus{
+
+input[type="checkbox"]:focus {
   outline: 0 none;
   box-shadow: none;
 }
 
 .collapsible-parent-group {
   margin-top: $padding-small;
+
   .Collapsible__trigger {
-    //background: $color-primary;
     font-size: 1.3em;
   }
+
   .collapsible-child-group .Collapsible__trigger  {
-    //background: $color-table-background;
     font-size: unset;
   }
 }
@@ -129,7 +167,6 @@ input[type="checkbox"]:focus{
   text-decoration: none;
   position: relative;
   padding: $padding-small;
-  //background: $color-table-background;
   color: $color-text-light;
 
   &:after {

@@ -7,17 +7,3 @@ export function getBeatmapStatus(statusId: number) {
 
   return null
 }
-
-export function getRoleClass(role: string | null | undefined) {
-  if (role === "NAT") {
-    return "role-nat"
-  } else if (role === "BN") {
-    return "role-bn"
-  } else if (role === "PBN") {
-    return "role-pbn"
-  } else if (role === "CA") {
-    return "role-retired"
-  } else {
-    return "role-user"
-  }
-}

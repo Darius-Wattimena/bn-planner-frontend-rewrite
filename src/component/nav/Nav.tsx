@@ -32,7 +32,7 @@ function Nav() {
         </div>
         <div className={"navbar-logo"}>
           <a className={"navbar-logo-wrapper"} href={"https://osu.ppy.sh/users/2369776"}>
-            <img src={greaperLogo} alt={"Greaper.net"} />
+            <img src={greaperLogo} alt={"Greaper"} />
           </a>
         </div>
         <div className={"navbar-end"}>

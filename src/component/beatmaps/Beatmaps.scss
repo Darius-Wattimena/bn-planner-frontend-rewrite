@@ -27,6 +27,23 @@
       padding: $padding-small;
     }
 
+    .beatmap-filter-textbox {
+      display: flex;
+      flex-direction: column;
+      padding: $padding-small;
+      background-color: $color-primary;
+      margin-top: 0.5em;
+
+      label {
+        font-size: 1.3em;
+        margin-bottom: $padding-smallest;
+      }
+
+      input {
+        color: $color-text-dark;
+      }
+    }
+
     .beatmap-filter-nominators {
       .beatmap-filter-title {
         padding: $padding-small;
@@ -56,33 +73,6 @@
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .beatmap-user-username, .Collapsible .Collapsible__trigger {
-    &.role-nat, .role-nat {
-      background-color: $nat-colour;
-      color: $color-text-light;
-    }
-
-    &.role-bn, .role-bn {
-      background-color: $bn-colour;
-      color: $color-text-light;
-    }
-
-    &.role-pbn, .role-pbn {
-      background-color: $pbn-colour;
-      color: $color-text-light;
-    }
-
-    &.role-retired, .role-retired {
-      background-color: $rc-colour;
-      color: $color-text-light;
-    }
-
-    &.role-user, .role-user {
-      background-color: $color-background;
-      color: $color-text;
-    }
   }
 
   .beatmap-filter-status {

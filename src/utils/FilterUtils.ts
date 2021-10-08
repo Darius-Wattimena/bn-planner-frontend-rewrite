@@ -21,12 +21,22 @@ export function setArrayValue<T> (
   })
 }
 
+function debounce<T extends Function>(cb: T, wait = 20) {
+  let h = 0;
+  let callable = (...args: any) => {
+    clearTimeout(h);
+    h = window.setTimeout(() => cb(...args), wait);
+  };
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  return <T>(<any>callable);
+}
+
 export function debouncingFilter<T> (
   formValues: T,
+  timeoutValue: number,
   group: keyof T,
   value: any,
   setFormValues: React.Dispatch<React.SetStateAction<T>>,
-  timeoutValue: number,
   setTimeoutValue: React.Dispatch<React.SetStateAction<number>>,
   setFilter: React.Dispatch<React.SetStateAction<T>>
 ) {
@@ -39,12 +49,12 @@ export function debouncingFilter<T> (
     clearTimeout(timeoutValue)
   }
 
-  setTimeoutValue(setTimeout(() => {
+  setTimeoutValue(window.setTimeout(() => {
     setFilter({
       ...formValues
     })
     clearTimeout(timeoutValue)
-  }, 500)[Symbol.toPrimitive])
+  }, 500))
 }
 
 export function instantFilter<T> (

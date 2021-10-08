@@ -30,7 +30,7 @@ function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, ti
     })
 
     setFilterItems(preparedStatuses)
-  }, [selectedStatuses])
+  }, [selectedStatuses, statuses])
 
   function removeNumber(value: number, numbers: number[]){
     numbers.forEach( (item, index) => {
@@ -66,15 +66,16 @@ function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, ti
     <div className={"beatmap-filter-nominators"}>
       <Collapsible
         trigger={"Status"}
+        open={true}
         className={"collapsible-parent-group"}
         openedClassName={"collapsible-parent-group"}
       >
         <div className={"beatmap-filter-nominators-groups"}>
-          {filterItems.map((selectItem) => {
+          {filterItems.map((selectItem, index) => {
             let statusClass = getBeatmapStatus(selectItem.value)?.className
 
             return (
-              <div className={`beatmap-filter-status`}>
+              <div className={`beatmap-filter-status`} key={index}>
                 <input
                   type="checkbox"
                   id={`${selectItem.index}-status`}
