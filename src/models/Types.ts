@@ -1,5 +1,13 @@
 export type NominatorPair = Array<number>
 
+export interface FindResponse<T> {
+  total: number,
+  count: number,
+  response: T[],
+  hasMoreData: boolean
+  uuid: string
+}
+
 export interface User {
   aliases: string[];
   hasAdminPermissions: boolean;
