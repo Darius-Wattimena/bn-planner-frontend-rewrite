@@ -5,14 +5,16 @@ import { GoCommentDiscussion } from 'react-icons/go';
 import { FiInfo } from 'react-icons/fi';
 import { NavLink } from "react-router-dom";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
-import {getUserRole} from "../../utils/UserUtils";
+import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 
 interface BeatmapCardProps {
-  beatmap: Beatmap
+  beatmap: Beatmap | undefined
   users: User[]
 }
 
 function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
+  if (!beatmap) return <></>
+
   let mapperDetails = users.find(user => user.osuId === beatmap.mapperId)
   let mapperRoleClass = getUserRole(mapperDetails)?.className
   const beatmapStatus = getBeatmapStatus(beatmap.status)
@@ -21,7 +23,7 @@ function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
     <div className={`beatmap-card ${beatmapStatus?.className}`}>
       <div className={`beatmap-status-stripe ${beatmapStatus?.className}`} />
       <div className={"beatmap-banner-container"}>
-        <div className={"beatmap-banner"} style={{ backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card@2x.jpg)`}}>
+        <div className={"beatmap-banner"} style={{ backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}}>
           <div className={"beatmap-mapper-container"}>
             <div className={"beatmap-mapper"}>
               <div className={"beatmap-mapper-spacer"} />
@@ -38,10 +40,10 @@ function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
 
       <div className={"beatmap-details"}>
         <div className={"beatmap-details-title"}>
-          {beatmap.title}
+          {truncate(beatmap.title, 25)}
         </div>
         <div className={"beatmap-details-artist"}>
-          {beatmap.artist}
+          {truncate(beatmap.artist, 25)}
         </div>
         <div className={"beatmap-nominators"}>
           <BeatmapCardNominator nominatorId={beatmap.nominators[0]} nominated={beatmap.nominatedByBNOne} users={users} />
@@ -56,6 +58,10 @@ function BeatmapCard({ beatmap, users }: BeatmapCardProps) {
       </div>
     </div>
   )
+}
+
+function truncate(str: string, n: number){
+  return (str.length > n) ? str.substr(0, n - 1) + '...' : str;
 }
 
 interface BeatmapCardNominatorProps {
@@ -73,7 +79,7 @@ function BeatmapCardNominator({ nominatorId, nominated, users }: BeatmapCardNomi
   } else {
     let nominatorDetails = users.find(user => user.osuId === nominatorId)
     let nominatorName = nominatorDetails?.osuName
-    let nominatorProfilePictureUri = `https://a.ppy.sh/${nominatorId}`
+    let nominatorProfilePictureUri = getProfilePictureUri(nominatorId)
 
     let hasNominatedClass;
     let nominatorRoleClass = getUserRole(nominatorDetails)?.className

@@ -24,22 +24,26 @@ function filterToUrlParams<T>(filter: T) {
 }
 
 const Api = {
-  fetchInitialBeatmapsByFilter: (filter: BeatmapFilter): AxiosRequestConfig => {
+  fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {
     return {
       method: 'GET',
-      url: '/v2/beatmap/findInitialBeatmaps' + filterToUrlParams(filter)
+      url: `/v2/beatmap/${beatmapId}`
     }
   },
-  fetchBeatmapsByFilter: (filter: BeatmapFilter, total: number, step: number): AxiosRequestConfig => {
+  fetchCountBeatmapsByFilter: (filter: BeatmapFilter): AxiosRequestConfig => {
+    return {
+      method: 'GET',
+      url: '/v2/beatmap/countBeatmaps' + filterToUrlParams(filter)
+    }
+  },
+  fetchBeatmapsByFilter: (filter: BeatmapFilter, from: number, to: number): AxiosRequestConfig => {
     const urlParams = filterToUrlParams(filter)
     let preparedUrlParams
 
-    console.log({urlParams})
-
     if (urlParams === '') {
-      preparedUrlParams = `?step=${step}&total=${total}`
+      preparedUrlParams = `?from=${from}&to=${to}`
     } else {
-      preparedUrlParams = urlParams + `&step=${step}&total=${total}`
+      preparedUrlParams = urlParams + `&from=${from}&to=${to}`
     }
 
     return {

@@ -16,3 +16,16 @@ export function getRole(role: string | null | undefined) {
     return USER_ROLES.find(it => it.id === "GST")
   }
 }
+
+export function getProfilePictureUri(userId: string | number | undefined) {
+  let profilePictureUri
+  const parsedUserId = userId?.toString()
+
+  if (!parsedUserId || parsedUserId === "0") {
+    profilePictureUri = 'https://osu.ppy.sh/images/layout/avatar-guest.png'
+  } else {
+    profilePictureUri = `https://a.ppy.sh/${parsedUserId}`
+  }
+
+  return profilePictureUri
+}

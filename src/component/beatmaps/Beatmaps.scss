@@ -18,7 +18,7 @@
 
   .beatmap-filter {
     background-color: $color-primary-light;
-    min-width: 10%;
+    width: 15%;
     align-self: stretch;
     height: 100%;
     overflow-y: scroll;
@@ -116,21 +116,40 @@
   }
 
   .beatmap-card-container {
-    width: 80%;
-    height: 100%;
-    overflow-y: scroll;
+    width: 70%;
+    height: calc(100% - 0.5em);
+    margin-top: $padding-smallest;
+    margin-bottom: $padding-smallest;
 
-    .beatmap-card-grid .infinite-scroll-component__outerdiv .infinite-scroll-component {
+    .beatmap-card-grid {
+      height: 100%;
+    }
+
+    .beatmap-grid-row {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap
+    }
+
+    /*.beatmap-card-grid .infinite-scroll-component__outerdiv .infinite-scroll-component,
+    .beatmap-card-grid .beatmap-scroll-container .ReactVirtualized__Grid__innerScrollContainer {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
       width: 100%;
-    }
+    }*/
 
     .beatmap-card {
+      //display: inline-flex;
+      flex-direction: row;
+      min-width: 450px;
+
       margin: $padding-small;
       background-color: $color-table-background;
       box-shadow: 1px 1px 3px $color-table-border;
       text-align: center;
+
+      // Setting height to not have rendering issues
+      height: 370px;
 
       &.beatmap-status-unfinished {
         box-shadow: boxShadowWithColor($status-unfinished-colour);

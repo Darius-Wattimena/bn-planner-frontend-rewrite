@@ -32,6 +32,33 @@ export interface Beatmap {
   note: string
 }
 
+export interface DetailedBeatmap {
+  osuId: number
+  artist: string
+  title: string
+  status: number
+  mapper: string
+  mapperId: number
+  nominatedByBNOne: boolean
+  nominatedByBNTwo: boolean
+  nominators: NominatorPair
+  interested: number[]
+  note: string
+  dateAdded: number
+  dateRanked: number
+  dateUpdated: number
+  osuEvents: Event[]
+  plannerEvents: Event[]
+  aiessEvents: Event[]
+}
+
+export interface Event {
+  title: string,
+  description: string
+  userId: number,
+  timestamp: number
+}
+
 export interface UserRole {
   id: string
   name: string

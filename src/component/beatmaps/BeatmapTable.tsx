@@ -27,7 +27,7 @@ function BeatmapTable({ beatmaps }: BeatmapTableProps) {
             <>
               <tr key={beatmap.osuId}>
                 <td className={"beatmap-banner-container"}>
-                  <div className={"beatmap-banner"} style={{ backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card@2x.jpg)`}} />
+                  <div className={"beatmap-banner"} style={{ backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}} />
                 </td>
                 <td>
                   <p>{beatmap.artist}</p>

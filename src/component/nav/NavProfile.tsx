@@ -1,4 +1,5 @@
 import React from "react";
+import {getProfilePictureUri} from "../../utils/UserUtils";
 
 interface NavProfileProps {
   userId: string
@@ -7,7 +8,7 @@ interface NavProfileProps {
 }
 
 function NavProfile({ userId, username, role }: NavProfileProps) {
-  const profilePictureUri = 'https://a.ppy.sh/' + userId
+  let profilePictureUri = getProfilePictureUri(userId)
 
   return (
     <div className={"navbar-profile"}>

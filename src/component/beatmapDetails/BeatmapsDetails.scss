@@ -24,7 +24,7 @@
     .beatmap-details-container {
       .beatmap-banner {
         background-size: cover;
-        background-position: center;
+        background-position: center top;
         width: calc(80vw - #{$padding});
         min-height: 100px;
         height: 20vh;

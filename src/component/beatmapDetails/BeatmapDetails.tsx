@@ -1,54 +1,53 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, User, UserRole} from "../../models/Types";
-import {NavLink, useParams} from "react-router-dom";
+import {Beatmap, DetailedBeatmap, User, UserRole} from "../../models/Types";
+import {useParams} from "react-router-dom";
 import './BeatmapsDetails.scss';
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
-import {getUserRole} from "../../utils/UserUtils";
+import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {ImCheckmark, ImCross, ImBin2, FaStickyNote} from "react-icons/all";
 import { IconContext } from "react-icons";
 import { useHistory } from "react-router-dom";
+import useAxios from "axios-hooks";
+import Api from "../../resources/Api";
 
 interface BeatmapDetailsParams {
   beatmapId: string | undefined
 }
 
 function BeatmapDetails() {
-  const [beatmap, setBeatmap] = useState<Beatmap>()
+  const [beatmap, setBeatmap] = useState<DetailedBeatmap>()
   let { beatmapId } = useParams<BeatmapDetailsParams>();
 
-  let tempBeatmaps = require('./../beatmaps/temp-beatmaps.json') as Beatmap[];
   let tempUsers = require('./../beatmaps/temp-users.json') as User[];
 
+  const [{data, loading}] = useAxios<DetailedBeatmap>(Api.fetchBeatmapById(Number(beatmapId)))
+
   useEffect(() => {
-    // TODO replace with a call to the API
-    const numberBeatmapId = Number(beatmapId)
-    if (!isNaN(+numberBeatmapId)) {
-      const foundBeatmap = tempBeatmaps.find(item => item.osuId === Number(beatmapId))
-      setBeatmap(foundBeatmap)
+    if (data) {
+      setBeatmap(data)
     }
-  }, [beatmapId, tempBeatmaps])
+  }, [data])
 
   return (
     <div className={"page-container beatmap-details-page"}>
-      { (beatmap) ? (
-        <BeatmapDetailsContainer beatmap={beatmap} users={tempUsers} />
-      ) : (
-        (
-          <p>Could not find Beatmap with Id {beatmapId}</p>
-        )
-      )}
+      {
+        loading ? <p>Loading Beatmap</p>
+          : beatmap ? <BeatmapDetailsContainer beatmap={beatmap} users={tempUsers} />
+          : <p>Could not find Beatmap with Id {beatmapId}</p>
+      }
     </div>
   )
 }
 
 interface BeatmapDetailsContainerProps {
-  beatmap: Beatmap,
+  beatmap: DetailedBeatmap,
   users: User[]
 }
 
 function BeatmapDetailsContainer({ beatmap, users }: BeatmapDetailsContainerProps) {
   let history = useHistory()
 
+  // TODO show beatmap events
   const mapperDetails = users.find(user => user.osuId === beatmap.mapperId)
   const roleDetails = getUserRole(mapperDetails)
   const beatmapStatus = getBeatmapStatus(beatmap.status)
@@ -65,7 +64,7 @@ function BeatmapDetailsContainer({ beatmap, users }: BeatmapDetailsContainerProp
         hasEditPermissions: false,
         osuId: 0,
         osuName: "-",
-        profilePictureUri: "https://osu.ppy.sh/images/layout/avatar-guest@2x.png",
+        profilePictureUri: getProfilePictureUri(nominatorId),
         role: "GST"
       } as User
     } else {
@@ -76,7 +75,7 @@ function BeatmapDetailsContainer({ beatmap, users }: BeatmapDetailsContainerProp
   return (
     <div className={"beatmap-details-container-border"}>
       <div className={"beatmap-details-container"}>
-        <div className={"beatmap-banner"} style={{backgroundImage: `linear-gradient(to top, rgba(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/cover@2x.jpg)`}}/>
+        <div className={"beatmap-banner"} style={{backgroundImage: `linear-gradient(to top, rgba(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/cover.jpg)`}}/>
         <div className={"beatmap-details"}>
           <div className={"beatmap-details-sub-container beatmap-nominators-container"}>
             <div className={"beatmap-details-sub-container-title"}>
@@ -159,10 +158,12 @@ interface BeatmapDetailsUserProps {
 }
 
 function BeatmapDetailsUser({ userId, username, role, hasNominated, editable }: BeatmapDetailsUserProps) {
+  const profilePictureUri = getProfilePictureUri(userId)
+
   return (
     <div className={"beatmap-user"}>
       <div className={"beatmap-user-picture-container"}>
-        <div className={"beatmap-user-picture"} style={{ backgroundImage: `url(https://a.ppy.sh/${userId})`}} />
+        <div className={"beatmap-user-picture"} style={{ backgroundImage: `url(${profilePictureUri})`}} />
       </div>
       <div className={"beatmap-user-details"}>
         <div className={`beatmap-user-username`}>

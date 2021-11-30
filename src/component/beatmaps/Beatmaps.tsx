@@ -1,98 +1,114 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Beatmap, BeatmapFilter, FindResponse, User} from "../../models/Types";
-import BeatmapCard from "./BeatmapCard";
 import './Beatmaps.scss';
 import BeatmapFilters from "./beatmapFilter/BeatmapFilters";
-import useAxios from "axios-hooks";
-import Api from "../../resources/Api";
-import InfiniteScroll from "react-infinite-scroll-component";
+import BeatmapCard from "./BeatmapCard";
+import {InfiniteLoader, List, AutoSizer, Index, IndexRange, ListRowProps} from "react-virtualized";
+import {RenderedRows} from "react-virtualized/dist/es/List";
 
-const filterDefaultState: BeatmapFilter = {
-  artist: null,
-  title: null,
-  mapper: null,
-  status: [],
-  nominators: [],
-  page: "PENDING",
-  hideWithTwoNominators: false
+interface BeatmapsProps {
+  loadedBeatmapData: Array<Beatmap | undefined>
+  beatmapFilter: BeatmapFilter
+  setBeatmapFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
+  queryFilter: BeatmapFilter
+  setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
+  fetchNewData: (range: IndexRange) => void
+  users: User[]
 }
 
 // TODO add support for infinite scrolling
-function Beatmaps() {
-  const [visibleBeatmapData, setVisibleBeatmapData] = useState<Beatmap[]>([])
-  const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
-  const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
-  const [step, setStep] = useState<number>(0)
-  const [total, setTotal] = useState<number>(0)
+function Beatmaps(
+  {
+    loadedBeatmapData,
+    fetchNewData,
+    users,
+    beatmapFilter,
+    setBeatmapFilter,
+    queryFilter,
+    setQueryFilter
+  }: BeatmapsProps
+) {
 
-  const [{data, loading}, execute] = useAxios<FindResponse<Beatmap>>(Api.fetchInitialBeatmapsByFilter(queryFilter))
-
-  useEffect(() => {
-    setVisibleBeatmapData([])
-    execute(Api.fetchInitialBeatmapsByFilter(queryFilter))
-  }, [queryFilter])
-
-  useEffect(() => {
-    if (!loading && visibleBeatmapData.length === 0) {
-      setTotal(data?.total || 0)
-    }
-  }, [loading])
-  
-  useEffect(() => {
-    console.log({ data })
-
-    if (data) {
-      setVisibleBeatmapData(visibleBeatmapData.concat(data.response))
-    }
-  }, [data])
-
-  useEffect(() => {
-    if (step > 0) {
-      const config = Api.fetchBeatmapsByFilter(queryFilter, total, step)
-      console.log({url: config.url})
-      execute(config)
-    }
-
-  }, [step])
-  
-  function fetchNewData() {
-    const newStep = (step || 0) + 1
-    setStep(newStep)
+  interface CustomRowRender {
+    i: number
   }
 
+  function rowRenderer({ i }: CustomRowRender) {
+    const beatmap = loadedBeatmapData[i]
+    return (<BeatmapCard beatmap={beatmap} users={users} />)
+  }
 
-  let tempUsers = require('./temp-users.json') as User[];
+  function isRowLoaded({ index }: Index) {
+    return !!loadedBeatmapData[index]
+  }
 
-  return (
-    <div className={"page-container-full beatmap-page"}>
-      <BeatmapFilters
-        users={tempUsers}
-        beatmapFilter={beatmapFilter}
-        setBeatmapFilter={setBeatmapFilter}
-        queryFilter={queryFilter}
-        setQueryFilter={setQueryFilter}
-      />
-      <div id={"beatmap-scroll-container"} className={"beatmap-card-container"}>
-        <div className={"beatmap-card-grid"}>
-          <InfiniteScroll
-            dataLength={visibleBeatmapData.length}
-            next={fetchNewData}
-            hasMore={data?.hasMoreData || true}
-            loader={<h4>Loading...</h4>}
-            scrollableTarget={"beatmap-scroll-container"}
-          >
-            {visibleBeatmapData.map((beatmap, index) => {
-              return (
-                <BeatmapCard beatmap={beatmap} users={tempUsers} key={index} />
-              )
-            })}
-          </InfiniteScroll>
-        </div>
+  function loadMoreRows ({ startIndex, stopIndex }: IndexRange) {
+    fetchNewData({ startIndex, stopIndex })
+    return new Promise(() => null)
+  }
+
+  const MIN_ITEM_SIZE = 450
+
+  return <div className={"page-container-full beatmap-page"}>
+    <BeatmapFilters
+      users={users}
+      beatmapFilter={beatmapFilter}
+      setBeatmapFilter={setBeatmapFilter}
+      queryFilter={queryFilter}
+      setQueryFilter={setQueryFilter}
+    />
+    <div className={"beatmap-card-container"}>
+      <div className={"beatmap-card-grid"}>
+        <InfiniteLoader
+          isRowLoaded={isRowLoaded}
+          loadMoreRows={loadMoreRows}
+          minimumBatchSize={4}
+          rowCount={loadedBeatmapData.length}>
+          {({onRowsRendered, registerChild}) => (
+            <AutoSizer className={"beatmap-scroll-autosizer"}>
+              {({width, height}) => {
+                const estimatedItemsPerRow = Math.floor(width / MIN_ITEM_SIZE)
+                const itemsPerRow = Math.floor((width - estimatedItemsPerRow * 16) / MIN_ITEM_SIZE)
+                const rowCount = Math.ceil(loadedBeatmapData.length / itemsPerRow)
+
+                return <List
+                  className={"beatmap-scroll-container"}
+                  ref={registerChild}
+                  width={width}
+                  height={height}
+                  onRowsRendered={onRowsRendered}
+                  rowCount={rowCount}
+                  rowHeight={370}
+                  rowRenderer={ props => {
+                    const { index, isVisible, key, style }: ListRowProps = props
+                    const items = [];
+                    const fromIndex = index * itemsPerRow;
+                    const toIndex = Math.min(fromIndex + itemsPerRow, loadedBeatmapData.length);
+
+                    for (let i = fromIndex; i < toIndex; i++) {
+                      items.push(rowRenderer({ i }))
+                    }
+
+                    return (
+                      <div
+                        className='beatmap-grid-row'
+                        key={key}
+                        style={style}
+                      >
+                        {items}
+                      </div>
+                    )
+                  }}
+                />
+              }}
+            </AutoSizer>
+          )}
+        </InfiniteLoader>
       </div>
-
-      {/*<BeatmapTable beatmaps={tempBeatmaps} />*/}
     </div>
-  )
+
+    {/*<BeatmapTable beatmaps={tempBeatmaps} />*/}
+  </div>;
 }
 
 export default Beatmaps
