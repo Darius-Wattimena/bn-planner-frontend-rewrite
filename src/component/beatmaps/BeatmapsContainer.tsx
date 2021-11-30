@@ -50,19 +50,18 @@ function BeatmapsContainer() {
   }, [loadingTotal])
 
   useEffect(() => {
-    if (!loading) {
-      console.log({ loading, data, lastSet, total, visibleBeatmapData: loadedBeatmapData })
+    console.log({ loading, data, lastSet, total, visibleBeatmapData: loadedBeatmapData })
+
+    if (!loading && data) {
       let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
-      if (data) {
-        for (let i = lastSet; i < lastSet + data.length; i++) {
-          newLoadedBeatmapData[i] = data[i - lastSet]
-        }
-        setLastSet(lastSet + data.length)
-        setLoadedBeatmapData(newLoadedBeatmapData)
+      for (let i = lastSet; i < lastSet + data.length; i++) {
+        newLoadedBeatmapData[i] = data[i - lastSet]
       }
+      setLastSet(lastSet + data.length)
+      setLoadedBeatmapData(newLoadedBeatmapData)
     }
-  }, [loading])
+  }, [loading, data])
 
   function fetchNewData({ startIndex, stopIndex }: IndexRange) {
     const config = Api.fetchBeatmapsByFilter(queryFilter, startIndex, stopIndex)

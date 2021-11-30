@@ -131,13 +131,6 @@
       flex-wrap: wrap
     }
 
-    /*.beatmap-card-grid .infinite-scroll-component__outerdiv .infinite-scroll-component,
-    .beatmap-card-grid .beatmap-scroll-container .ReactVirtualized__Grid__innerScrollContainer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-      width: 100%;
-    }*/
-
     .beatmap-card {
       //display: inline-flex;
       flex-direction: row;

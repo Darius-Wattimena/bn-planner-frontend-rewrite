@@ -62,7 +62,7 @@ function Beatmaps(
         <InfiniteLoader
           isRowLoaded={isRowLoaded}
           loadMoreRows={loadMoreRows}
-          minimumBatchSize={4}
+          minimumBatchSize={1}
           rowCount={loadedBeatmapData.length}>
           {({onRowsRendered, registerChild}) => (
             <AutoSizer className={"beatmap-scroll-autosizer"}>
@@ -83,21 +83,23 @@ function Beatmaps(
                     const { index, isVisible, key, style }: ListRowProps = props
                     const items = [];
                     const fromIndex = index * itemsPerRow;
-                    const toIndex = Math.min(fromIndex + itemsPerRow, loadedBeatmapData.length);
+                    const toIndex = fromIndex + itemsPerRow;
 
-                    for (let i = fromIndex; i < toIndex; i++) {
-                      items.push(rowRenderer({ i }))
+                    if (isVisible) {
+                      for (let i = fromIndex; i < toIndex; i++) {
+                        items.push(rowRenderer({ i }))
+                      }
+
+                      return (
+                        <div
+                          className='beatmap-grid-row'
+                          key={key}
+                          style={style}
+                        >
+                          {items}
+                        </div>
+                      )
                     }
-
-                    return (
-                      <div
-                        className='beatmap-grid-row'
-                        key={key}
-                        style={style}
-                      >
-                        {items}
-                      </div>
-                    )
                   }}
                 />
               }}
