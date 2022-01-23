@@ -1,31 +1,25 @@
 @import "../../styles/Variables";
 
-.beatmap-details-page {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  height: 93vh;
+body .ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.7) !important;
 
-  /* width */
-  ::-webkit-scrollbar {
-    width: 0;
-  }
-
-  scrollbar-width: none;
-
-  .beatmap-details-container-border {
+  .ReactModal__Content.beatmap-details-container-border {
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
-    height: calc(100% - 2em);
-    overflow-y: scroll;
-    margin-top: $padding;
-    margin-bottom: $padding;
+    width: 1200px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 
     .beatmap-details-container {
+      width: 100%;
+
       .beatmap-banner {
         background-size: cover;
         background-position: center top;
-        width: calc(80vw - #{$padding});
+        width: 1200px;
         min-height: 100px;
         height: 20vh;
       }
@@ -44,7 +38,7 @@
 
       .beatmap-details {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
         grid-gap: 10px;
         width: 100%;
 
@@ -73,17 +67,20 @@
 
               .beatmap-user-username {
                 font-size: 1.3em;
+                width: fit-content;
                 padding-bottom: $padding-smallest;
               }
 
               .beatmap-user-role {
                 font-size: 1.1em;
+                width: fit-content;
                 padding: $padding-smallest;
                 border-radius: 5px;
               }
 
               .beatmap-user-nomination-status {
                 padding-top: $padding-smallest;
+                width: fit-content;
 
                 div {
                   display: flex;

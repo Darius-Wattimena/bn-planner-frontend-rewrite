@@ -1,5 +1,10 @@
 export type NominatorPair = Array<number>
 
+export enum ViewMode {
+  CARDS,
+  TABLE
+}
+
 export interface FindResponse<T> {
   total: number,
   count: number,
@@ -62,6 +67,7 @@ export interface Event {
 export interface UserRole {
   id: string
   name: string
+  short: string
   className: string
 }
 

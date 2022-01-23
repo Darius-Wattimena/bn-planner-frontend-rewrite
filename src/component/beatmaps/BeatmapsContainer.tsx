@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, FindResponse, User} from "../../models/Types";
+import {Beatmap, BeatmapFilter, DetailedBeatmap, FindResponse, User, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import Beatmaps from "./Beatmaps";
 import _ from "lodash";
 import {IndexRange} from "react-virtualized";
+import {useParams} from "react-router-dom";
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -17,15 +18,31 @@ const filterDefaultState: BeatmapFilter = {
   hideWithTwoNominators: false
 }
 
-function BeatmapsContainer() {
+interface BeatmapsContainerProps {
+  viewMode: ViewMode
+}
+interface BeatmapsContainerParams {
+  beatmapId: string | undefined
+}
+
+function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
 
+  let { beatmapId } = useParams<BeatmapsContainerParams>();
+  const [showBeatmapDetails, setShowBeatmapDetails] = useState<number>()
+
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>(Api.fetchBeatmapsByFilter(queryFilter, 0, 0), { manual: true })
+
+  useEffect(() => {
+    if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== showBeatmapDetails) {
+      setShowBeatmapDetails(Number(beatmapId))
+    }
+  }, [beatmapId, showBeatmapDetails])
 
   useEffect(() => {
     setLastSet(0)
@@ -50,8 +67,6 @@ function BeatmapsContainer() {
   }, [loadingTotal])
 
   useEffect(() => {
-    console.log({ loading, data, lastSet, total, visibleBeatmapData: loadedBeatmapData })
-
     if (!loading && data) {
       let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
@@ -77,9 +92,11 @@ function BeatmapsContainer() {
       users={tempUsers}
       beatmapFilter={beatmapFilter}
       setBeatmapFilter={setBeatmapFilter}
-      queryFilter={queryFilter}
       setQueryFilter={setQueryFilter}
       fetchNewData={fetchNewData}
+      openBeatmapId={showBeatmapDetails}
+      setOpenBeatmapId={setShowBeatmapDetails}
+      viewMode={viewMode}
     />
   )
 }

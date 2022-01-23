@@ -1,5 +1,5 @@
 import React from "react";
-import {Beatmap} from "../../models/Types";
+import {Beatmap} from "../../../models/Types";
 import BeatmapTableNominator from "./BeatmapTableNominator";
 import './BeatmapTable.scss'
 

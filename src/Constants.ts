@@ -47,31 +47,37 @@ export const USER_ROLES: UserRole[] = [
   {
     id: 'BN',
     name: 'Beatmap Nominator',
+    short: 'Nominator',
     className: 'role-bn'
   },
   {
     id: 'PBN',
     name: 'Probation Beatmap Nominator',
+    short: 'Probation',
     className: 'role-pbn'
   },
   {
     id: 'NAT',
     name: 'Nomination Assessment',
+    short: 'NAT',
     className: 'role-nat'
   },
   {
     id: 'CA',
     name: 'Retired Nominator',
+    short: 'Retired',
     className: 'role-retired'
   },
   {
     id: 'OBS',
     name: 'Observer',
+    short: 'Observer',
     className: 'role-user'
   },
   {
     id: 'GST',
     name: 'Guest',
+    short: 'Guest',
     className: 'role-user'
   }
 ]

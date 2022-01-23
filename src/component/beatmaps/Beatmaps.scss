@@ -115,13 +115,13 @@
     }
   }
 
-  .beatmap-card-container {
+  .beatmap-listing-container {
     width: 70%;
     height: calc(100% - 0.5em);
     margin-top: $padding-smallest;
     margin-bottom: $padding-smallest;
 
-    .beatmap-card-grid {
+    .beatmap-listing {
       height: 100%;
     }
 

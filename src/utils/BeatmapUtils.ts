@@ -1,6 +1,6 @@
 import {BEATMAP_STATUS} from "../Constants";
 
-export function getBeatmapStatus(statusId: number) {
+export function getBeatmapStatus(statusId: number | undefined) {
   if (statusId) {
     return BEATMAP_STATUS.find(i => i.id === statusId)
   }

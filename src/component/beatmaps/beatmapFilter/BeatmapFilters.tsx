@@ -9,16 +9,11 @@ interface BeatmapFilterProps {
   users: User[]
   beatmapFilter: BeatmapFilter
   setBeatmapFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
-  queryFilter: BeatmapFilter
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapFilters({ users, beatmapFilter, setBeatmapFilter, queryFilter, setQueryFilter }: BeatmapFilterProps) {
+function BeatmapFilters({ users, beatmapFilter, setBeatmapFilter, setQueryFilter }: BeatmapFilterProps) {
   const [timeout, setTimeout] = useState<number>(0)
-
-  useEffect(() => {
-    console.log({ queryFilter })
-  }, [queryFilter])
 
   function isNominator(user: User) {
     return user.role !== "GST" && user.role !== "OBS"
