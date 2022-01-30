@@ -138,8 +138,9 @@
 
       margin: $padding-small;
       background-color: $color-table-background;
-      box-shadow: 1px 1px 3px $color-table-border;
       text-align: center;
+
+      border-radius: 5px;
 
       // Setting height to not have rendering issues
       height: 370px;
@@ -177,6 +178,8 @@
       }
 
       .beatmap-status-stripe {
+        border-radius: 2px 2px 0 0;
+
         height: 10px;
         &.beatmap-status-unfinished {
           background-color: $status-unfinished-colour;
@@ -296,7 +299,7 @@
 
               .beatmap-nominator-name {
                 font-size: 1.2em;
-                text-align: center;
+                text-align: left;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 width: 80%;

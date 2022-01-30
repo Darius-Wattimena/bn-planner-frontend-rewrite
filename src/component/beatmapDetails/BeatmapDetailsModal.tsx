@@ -42,10 +42,11 @@ export function BeatmapDetailsModal({beatmap, users, openBeatmapId, setOpenBeatm
 
   return (
     <Modal
+      closeTimeoutMS={200}
       isOpen={beatmap !== undefined && openBeatmapId !== undefined}
       onRequestClose={() => setOpenBeatmapId(undefined)}
       contentLabel="Beatmap Modal"
-      className={"beatmap-details-container-border"}
+      className={"beatmap-details-modal"}
       shouldCloseOnEsc
       shouldCloseOnOverlayClick
     >
@@ -100,9 +101,6 @@ export function BeatmapDetailsModal({beatmap, users, openBeatmapId, setOpenBeatm
           </div>
         </div>
         <div className={"beatmap-details-sub-container beatmap-actions"}>
-          <div className={"beatmap-details-sub-container-title"}>
-            Actions
-          </div>
           <div className={"actions-row"}>
             <div className={"actions-button-group actions-button-group-left"}>
               <button onClick={() => {

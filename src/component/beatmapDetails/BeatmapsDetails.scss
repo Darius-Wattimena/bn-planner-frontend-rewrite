@@ -3,7 +3,7 @@
 body .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.7) !important;
 
-  .ReactModal__Content.beatmap-details-container-border {
+  .ReactModal__Content.beatmap-details-modal {
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
     width: 1200px;
@@ -20,8 +20,7 @@ body .ReactModal__Overlay {
         background-size: cover;
         background-position: center top;
         width: 1200px;
-        min-height: 100px;
-        height: 20vh;
+        height: 236px;
       }
 
       .beatmap-details-sub-container {

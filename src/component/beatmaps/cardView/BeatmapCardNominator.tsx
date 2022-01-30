@@ -14,7 +14,7 @@ export function BeatmapCardNominator({nominatorId, nominated, users}: BeatmapCar
   let nominatorProfilePictureUri = getProfilePictureUri(nominatorId)
 
   let hasNominatedClass;
-  let nominatorRoleClass = getUserRole(nominatorDetails)?.className
+  let nominatorRole = getUserRole(nominatorDetails)
 
   if (nominated) {
     hasNominatedClass = "nominated"
@@ -35,8 +35,8 @@ export function BeatmapCardNominator({nominatorId, nominated, users}: BeatmapCar
             {nominatorName}
           </div>
           {nominatorDetails != null &&
-          <div className={`beatmap-nominator-role ${nominatorRoleClass}`}>
-            {nominatorDetails.role}
+          <div className={`beatmap-nominator-role ${nominatorRole?.className}`}>
+            {nominatorRole?.short}
           </div>
           }
         </div>
