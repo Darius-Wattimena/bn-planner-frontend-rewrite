@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import BeatmapNominatorFilter from "./BeatmapNominatorFilter";
-import {BeatmapFilter, User} from "../../../models/Types";
+import {BeatmapFilter, NewBeatmapStatus, User} from "../../../models/Types";
 import BeatmapStatusFilter from "./BeatmapStatusFilter";
-import {BEATMAP_STATUS} from "../../../Constants";
 import {debouncingFilter} from "../../../utils/FilterUtils";
 
 interface BeatmapFilterProps {
@@ -24,7 +23,7 @@ function BeatmapFilters({ users, beatmapFilter, setBeatmapFilter, setQueryFilter
       <h3 className={"beatmap-filter-main-title"}>Beatmap Filters</h3>
       <div className={"beatmap-filter-status"}>
         <BeatmapStatusFilter
-          statuses={BEATMAP_STATUS.filter(status => status.id !== 6 && status.id !== 7)}
+          statuses={Object.values(NewBeatmapStatus)}
           beatmapFilter={beatmapFilter}
           setBeatmapFormFilter={setBeatmapFilter}
           timeout={timeout}

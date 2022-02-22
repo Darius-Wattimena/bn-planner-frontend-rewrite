@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, DetailedBeatmap, FindResponse, User, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, User, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -14,7 +14,7 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
-  page: "PENDING",
+  page: BeatmapPage.PENDING,
   hideWithTwoNominators: false
 }
 
@@ -32,11 +32,15 @@ function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
 
-  let { beatmapId } = useParams<BeatmapsContainerParams>();
+  let { beatmapId } = useParams<string>();
   const [showBeatmapDetails, setShowBeatmapDetails] = useState<number>()
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>(Api.fetchBeatmapsByFilter(queryFilter, 0, 0), { manual: true })
+
+  useEffect(() => {
+    console.log({beatmapFilter})
+  }, [beatmapFilter])
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== showBeatmapDetails) {

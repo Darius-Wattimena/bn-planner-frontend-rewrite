@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { ReactComponent as Logo } from '../../assets/catch.svg';
 import "./Home.scss"
+import {osuUrl} from "../../Routes";
 
 function Home() {
   return (
@@ -12,12 +12,12 @@ function Home() {
         <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for osu!catch beatmap nominators</p>
 
         <div className={"actions"}>
-          <NavLink to="/beatmaps" className={"button osu-button main-action"}>
+          <a href={osuUrl} className={"button osu-button main-action"}>
             Authenticate with osu!
-          </NavLink>
-          <NavLink to="/beatmaps" className={"button secondary sub-action"}>
+          </a>
+          <a href={osuUrl} className={"button secondary sub-action"}>
             Continue to beatmaps
-          </NavLink>
+          </a>
         </div>
       </div>
     </div>

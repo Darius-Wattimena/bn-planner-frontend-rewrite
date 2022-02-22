@@ -5,12 +5,36 @@ export enum ViewMode {
   TABLE
 }
 
+export interface UserContext {
+  user?: NewUser,
+  accessToken: string,
+  refreshToken: string,
+  validUntilEpochMilli: number
+}
+
 export interface FindResponse<T> {
   total: number,
   count: number,
   response: T[],
   hasMoreData: boolean
   uuid: string
+}
+
+export interface NewUser {
+  osuId: string,
+  username: string,
+  gamesmodes: UserGamemode[]
+}
+
+export interface UserGamemode {
+  gamemode: 'osu' | 'taiko' | 'fruit' | 'mania',
+  role: 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
+}
+
+export enum BeatmapPage {
+  PENDING = "PENDING",
+  RANKED = "RANKED",
+  GRAVEYARD = "GRAVEYARD"
 }
 
 export interface User {
@@ -80,7 +104,7 @@ export interface BeatmapStatus {
 export interface SelectFilterItem {
   index: number
   label: string
-  value: number
+  value: any
   selected: boolean
 }
 
@@ -96,8 +120,19 @@ export interface BeatmapFilter {
   artist: string | null,
   title: string | null,
   mapper: string | null,
-  status: number[],
-  page: 'PENDING' | 'RANKED' | 'GRAVEYARD',
+  status: NewBeatmapStatus[],
+  page: BeatmapPage,
   hideWithTwoNominators: boolean,
   nominators: number[]
+}
+
+export enum NewBeatmapStatus {
+  Qualified = "Qualified",
+  Bubbled = "Bubbled",
+  Disqualified = "Disqualified",
+  Popped = "Popped",
+  Pending = "Pending",
+  Ranked = "Ranked",
+  Graved = "Graved",
+  Unfinished = "Unfinished"
 }

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, BeatmapStatus, SelectFilterItem} from "../../../models/Types";
+import {BeatmapFilter, BeatmapStatus, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";
 
 interface BeatmapStatusFilterProps {
-  statuses: BeatmapStatus[]
+  statuses: NewBeatmapStatus[]
   beatmapFilter: BeatmapFilter
   setBeatmapFormFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   timeout: number
@@ -13,16 +13,16 @@ interface BeatmapStatusFilterProps {
 }
 
 function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, timeout, setQueryFilter }: BeatmapStatusFilterProps) {
-  const [selectedStatuses, setSelectedStatuses] = useState<number[]>([])
+  const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>([])
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
   useEffect(() => {
     const preparedStatuses = statuses.map((status, index) => {
-      const selectedStatus = selectedStatuses.find(item => item === status.id)
+      const selectedStatus = selectedStatuses.find(item => item === status)
       const item: SelectFilterItem = {
         index: index,
-        label: status.name,
-        value: status.id,
+        label: status,
+        value: status,
         selected: selectedStatus != null || selectedStatus !== undefined
       };
 
@@ -32,15 +32,15 @@ function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, ti
     setFilterItems(preparedStatuses)
   }, [selectedStatuses, statuses])
 
-  function removeNumber(value: number, numbers: number[]){
+  function removeNumber(value: NewBeatmapStatus, numbers: NewBeatmapStatus[]){
     numbers.forEach( (item, index) => {
       if(item === value) numbers.splice(index,1);
     });
   }
 
-  function updateSelectedItems(value: number, checked: boolean) {
+  function updateSelectedItems(value: NewBeatmapStatus, checked: boolean) {
     const selectedStatuses = beatmapFilter["status"]
-    const newStatuses: number[] = [];
+    const newStatuses: NewBeatmapStatus[] = [];
 
     selectedStatuses.forEach(val => newStatuses.push(val))
 

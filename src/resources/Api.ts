@@ -1,5 +1,16 @@
-import {BeatmapFilter} from "../models/Types";
+import {BeatmapFilter, UserContext} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
+
+function getAuthHeader() {
+  const localStorageContext = localStorage.getItem('userContext')
+
+  if (localStorageContext) {
+    const userContext = JSON.parse(localStorageContext) as UserContext
+    return { 'Authorization': 'Bearer ' + userContext.accessToken }
+  } else {
+    console.error("something went wrong when reading the UserContext from local storage")
+  }
+}
 
 function filterToUrlParams<T>(filter: T) {
   let result = ''
@@ -7,33 +18,47 @@ function filterToUrlParams<T>(filter: T) {
 
   for (const item in filter) {
     if (Object.prototype.hasOwnProperty.call(filter, item)) {
-      if (filter[item] === null) {
+      let value = filter[item]
+
+      if (!value) {
         continue
       }
 
       if (first) {
-        result += '?' + item + '=' + filter[item]
+        result += '?' + item + '=' + value
         first = false
       } else {
-        result += '&' + item + '=' + filter[item]
+        result += '&' + item + '=' + value
       }
     }
   }
+
+
+  console.log({result})
 
   return result
 }
 
 const Api = {
+  login: (token: string): AxiosRequestConfig<string> => {
+    return {
+      method: 'POST',
+      url: '/v2/auth',
+      data: token
+    }
+  },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {
     return {
       method: 'GET',
+      headers: getAuthHeader(),
       url: `/v2/beatmap/${beatmapId}`
     }
   },
   fetchCountBeatmapsByFilter: (filter: BeatmapFilter): AxiosRequestConfig => {
     return {
       method: 'GET',
-      url: '/v2/beatmap/countBeatmaps' + filterToUrlParams(filter)
+      headers: getAuthHeader(),
+      url: '/v2/beatmap/count' + filterToUrlParams(filter)
     }
   },
   fetchBeatmapsByFilter: (filter: BeatmapFilter, from: number, to: number): AxiosRequestConfig => {
@@ -48,7 +73,8 @@ const Api = {
 
     return {
       method: 'GET',
-      url: '/v2/beatmap/findBeatmaps' + preparedUrlParams
+      headers: getAuthHeader(),
+      url: '/v2/beatmap/find' + preparedUrlParams
     }
   },
 }
