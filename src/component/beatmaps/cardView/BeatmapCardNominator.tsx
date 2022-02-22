@@ -1,20 +1,18 @@
 import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
 import React from "react";
-import {User} from "../../../models/Types";
+import {NewUser} from "../../../models/Types";
 
 interface BeatmapCardNominatorProps {
-  nominatorId: number
+  user: NewUser
   nominated: boolean
-  users: User[]
 }
 
-export function BeatmapCardNominator({nominatorId, nominated, users}: BeatmapCardNominatorProps) {
-  let nominatorDetails = users.find(user => user.osuId === nominatorId)
-  let nominatorName = nominatorDetails?.osuName
-  let nominatorProfilePictureUri = getProfilePictureUri(nominatorId)
+export function BeatmapCardNominator({user, nominated}: BeatmapCardNominatorProps) {
+  let nominatorName = user.username
+  let nominatorProfilePictureUri = getProfilePictureUri(user.osuId)
 
   let hasNominatedClass;
-  let nominatorRole = getUserRole(nominatorDetails)
+  let nominatorRole = getUserRole(user)
 
   if (nominated) {
     hasNominatedClass = "nominated"
@@ -34,11 +32,9 @@ export function BeatmapCardNominator({nominatorId, nominated, users}: BeatmapCar
           <div className={"beatmap-nominator-name-text"}>
             {nominatorName}
           </div>
-          {nominatorDetails != null &&
-          <div className={`beatmap-nominator-role ${nominatorRole?.className}`}>
-            {nominatorRole?.short}
+          <div className={`beatmap-nominator-role ${nominatorRole.className}`}>
+            {nominatorRole.short}
           </div>
-          }
         </div>
       </div>
     </div>

@@ -1,9 +1,6 @@
-export type NominatorPair = Array<number>
-
-export enum ViewMode {
-  CARDS,
-  TABLE
-}
+export type Gamemode = 'osu' | 'taiko' | 'fruit' | 'mania'
+export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
+export type ViewMode = 'CARDS' | 'TABLE'
 
 export interface UserContext {
   user?: NewUser,
@@ -12,23 +9,15 @@ export interface UserContext {
   validUntilEpochMilli: number
 }
 
-export interface FindResponse<T> {
-  total: number,
-  count: number,
-  response: T[],
-  hasMoreData: boolean
-  uuid: string
-}
-
 export interface NewUser {
   osuId: string,
   username: string,
-  gamesmodes: UserGamemode[]
+  gamemodes: UserGamemode[]
 }
 
 export interface UserGamemode {
-  gamemode: 'osu' | 'taiko' | 'fruit' | 'mania',
-  role: 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
+  gamemode: Gamemode,
+  role: UserRole
 }
 
 export enum BeatmapPage {
@@ -51,51 +40,31 @@ export interface Beatmap {
   osuId: number
   artist: string
   title: string
-  status: number
-  mapper: string
-  mapperId: number
-  nominatedByBNOne: boolean
-  nominatedByBNTwo: boolean
-  nominators: NominatorPair
-  interested: number[]
-  note: string
+  note: string,
+  mapper: NewUser,
+  status: NewBeatmapStatus
+  gamemodes: BeatmapGamemode[]
 }
 
-export interface DetailedBeatmap {
-  osuId: number
-  artist: string
-  title: string
-  status: number
-  mapper: string
-  mapperId: number
-  nominatedByBNOne: boolean
-  nominatedByBNTwo: boolean
-  nominators: NominatorPair
-  interested: number[]
-  note: string
-  dateAdded: number
-  dateRanked: number
-  dateUpdated: number
-  osuEvents: Event[]
-  plannerEvents: Event[]
-  aiessEvents: Event[]
+export interface BeatmapGamemode {
+  gamemode: Gamemode,
+  nominators: BeatmapNominator[],
+  isReady: boolean
 }
 
-export interface Event {
-  title: string,
-  description: string
-  userId: number,
-  timestamp: number
+export interface BeatmapNominator {
+  nominator: NewUser,
+  hasNominated: boolean
 }
 
-export interface UserRole {
+export interface FrontendUserRole {
   id: string
   name: string
   short: string
   className: string
 }
 
-export interface BeatmapStatus {
+export interface FrontendBeatmapStatus {
   id: number
   name: string
   className: string
@@ -111,7 +80,7 @@ export interface SelectFilterItem {
 export interface NominatorSelectFilterItem {
   index: number
   label: string
-  value: number
+  value: string
   role: string
   selected: boolean
 }
@@ -123,7 +92,7 @@ export interface BeatmapFilter {
   status: NewBeatmapStatus[],
   page: BeatmapPage,
   hideWithTwoNominators: boolean,
-  nominators: number[]
+  nominators: string[]
 }
 
 export enum NewBeatmapStatus {

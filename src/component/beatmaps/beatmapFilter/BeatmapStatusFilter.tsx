@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, BeatmapStatus, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
+import {BeatmapFilter, FrontendBeatmapStatus, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";

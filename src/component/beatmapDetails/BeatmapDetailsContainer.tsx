@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DetailedBeatmap, User} from "../../models/Types";
+import {Beatmap} from "../../models/Types";
 import './BeatmapsDetails.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -11,17 +11,14 @@ interface BeatmapDetailsContainerParams {
 }
 
 function BeatmapDetailsContainer({ openBeatmapId, setOpenBeatmapId }: BeatmapDetailsContainerParams) {
-  const [beatmap, setBeatmap] = useState<DetailedBeatmap>()
+  const [beatmap, setBeatmap] = useState<Beatmap>()
 
-  let tempUsers = require('./../beatmaps/temp-users.json') as User[];
-
-  const [{data, loading}, execute] = useAxios<DetailedBeatmap>("", { manual: true })
+  const [{data, loading}, execute] = useAxios<Beatmap>("", { manual: true })
 
   useEffect(() => {
     if (openBeatmapId) {
       execute(Api.fetchBeatmapById(Number(openBeatmapId)))
     }
-
   }, [openBeatmapId])
 
   useEffect(() => {
@@ -30,7 +27,11 @@ function BeatmapDetailsContainer({ openBeatmapId, setOpenBeatmapId }: BeatmapDet
     }
   }, [data])
 
-  return (<BeatmapDetailsModal beatmap={beatmap} openBeatmapId={openBeatmapId} users={tempUsers} setOpenBeatmapId={setOpenBeatmapId} />)
+  if (beatmap) {
+    return (<BeatmapDetailsModal beatmap={beatmap} openBeatmapId={openBeatmapId} setOpenBeatmapId={setOpenBeatmapId} />)
+  } else {
+    return <div />
+  }
 }
 
 export default BeatmapDetailsContainer

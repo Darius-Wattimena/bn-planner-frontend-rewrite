@@ -1,19 +1,18 @@
-import {getProfilePictureUri} from "../../utils/UserUtils";
+import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
 import {ImCheckmark, ImCross} from "react-icons/im";
 import React from "react";
-import {UserRole} from "../../models/Types";
+import {NewUser} from "../../models/Types";
 
 interface BeatmapDetailsUserProps {
+  user: NewUser
   editable: boolean
-  userId?: number
-  username?: string
-  role?: UserRole
   hasNominated?: boolean
 }
 
-function BeatmapDetailsUser({userId, username, role, hasNominated, editable}: BeatmapDetailsUserProps) {
-  const profilePictureUri = getProfilePictureUri(userId)
+function BeatmapDetailsUser({user, hasNominated, editable}: BeatmapDetailsUserProps) {
+  const profilePictureUri = getProfilePictureUri(user.osuId)
+  const roleDetails = getUserRole(user)
 
   return (
     <div className={"beatmap-user"}>
@@ -22,12 +21,12 @@ function BeatmapDetailsUser({userId, username, role, hasNominated, editable}: Be
       </div>
       <div className={"beatmap-user-details"}>
         <div className={`beatmap-user-username`}>
-          {username}
+          {user.username}
         </div>
-        {role &&
-        <div className={`beatmap-user-role ${role.className}`}>
-          {role.short}
-        </div>
+        {roleDetails &&
+          <div className={`beatmap-user-role ${roleDetails.className}`}>
+            {roleDetails.short}
+          </div>
         }
         <div className="beatmap-user-nomination-status">
           {hasNominated === true &&

@@ -1,22 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import BeatmapNominatorFilter from "./BeatmapNominatorFilter";
-import {BeatmapFilter, NewBeatmapStatus, User} from "../../../models/Types";
+import {BeatmapFilter, NewBeatmapStatus} from "../../../models/Types";
 import BeatmapStatusFilter from "./BeatmapStatusFilter";
 import {debouncingFilter} from "../../../utils/FilterUtils";
 
 interface BeatmapFilterProps {
-  users: User[]
   beatmapFilter: BeatmapFilter
   setBeatmapFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapFilters({ users, beatmapFilter, setBeatmapFilter, setQueryFilter }: BeatmapFilterProps) {
+function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter }: BeatmapFilterProps) {
   const [timeout, setTimeout] = useState<number>(0)
-
-  function isNominator(user: User) {
-    return user.role !== "GST" && user.role !== "OBS"
-  }
 
   return (
     <div className={"beatmap-filter"}>
@@ -32,7 +27,7 @@ function BeatmapFilters({ users, beatmapFilter, setBeatmapFilter, setQueryFilter
       </div>
       <div className={"beatmap-filter-nominators"}>
         <BeatmapNominatorFilter
-          nominators={users.filter(isNominator)}
+          nominators={[]}
           beatmapFilter={beatmapFilter}
           setBeatmapFormFilter={setBeatmapFilter}
           timeout={timeout}

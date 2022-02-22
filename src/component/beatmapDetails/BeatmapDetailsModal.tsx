@@ -1,6 +1,6 @@
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
-import {DetailedBeatmap, User} from "../../models/Types";
+import {Beatmap} from "../../models/Types";
 import Modal from "react-modal";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
@@ -8,37 +8,13 @@ import React from "react";
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
 
 interface BeatmapDetailsModalProps {
-  beatmap: DetailedBeatmap | undefined
-  users: User[]
+  beatmap: Beatmap
   openBeatmapId: number | undefined
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-export function BeatmapDetailsModal({beatmap, users, openBeatmapId, setOpenBeatmapId}: BeatmapDetailsModalProps) {
-  // TODO show beatmap events
-  const mapperDetails = users.find(user => user.osuId === beatmap?.mapperId)
-  const roleDetails = getUserRole(mapperDetails)
-  const beatmapStatus = getBeatmapStatus(beatmap?.status)
-  const nominator1 = getNominatorDetails(beatmap?.nominators[0])
-  const nominator1Role = getUserRole(nominator1)
-  const nominator2 = getNominatorDetails(beatmap?.nominators[1])
-  const nominator2Role = getUserRole(nominator2)
-
-  function getNominatorDetails(nominatorId: number | undefined) {
-    if (nominatorId === 0) {
-      return {
-        aliases: [],
-        hasAdminPermissions: false,
-        hasEditPermissions: false,
-        osuId: 0,
-        osuName: "-",
-        profilePictureUri: getProfilePictureUri(nominatorId),
-        role: "GST"
-      } as User
-    } else {
-      return users.find(user => user.osuId === nominatorId)
-    }
-  }
+export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: BeatmapDetailsModalProps) {
+  const roleDetails = getUserRole(beatmap.mapper)
 
   return (
     <Modal
@@ -58,20 +34,15 @@ export function BeatmapDetailsModal({beatmap, users, openBeatmapId, setOpenBeatm
             <div className={"beatmap-details-sub-container-title"}>
               Nominators
             </div>
-            <BeatmapDetailsUser
-              userId={nominator1?.osuId}
-              username={nominator1?.osuName}
-              role={nominator1Role}
-              hasNominated={beatmap?.nominatedByBNOne}
-              editable={false}
-            />
-            <BeatmapDetailsUser
-              userId={nominator2?.osuId}
-              username={nominator2?.osuName}
-              role={nominator2Role}
-              hasNominated={beatmap?.nominatedByBNTwo}
-              editable={false}
-            />
+            {beatmap.gamemodes.map(gamemode =>
+              gamemode.nominators.map(gamemodeNominator =>
+                <BeatmapDetailsUser
+                  user={gamemodeNominator.nominator}
+                  hasNominated={gamemodeNominator.hasNominated}
+                  editable={false}
+                />
+              )
+            )}
           </div>
           <div className={"beatmap-details-sub-container beatmap-metadata-container"}>
             <div className={"beatmap-details-sub-container-title"}>
@@ -93,9 +64,7 @@ export function BeatmapDetailsModal({beatmap, users, openBeatmapId, setOpenBeatm
               Mapper
             </div>
             <BeatmapDetailsUser
-              userId={beatmap?.mapperId}
-              username={beatmap?.mapper}
-              role={roleDetails}
+              user={beatmap.mapper}
               editable={false}
             />
           </div>

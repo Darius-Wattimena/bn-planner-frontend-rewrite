@@ -1,7 +1,7 @@
 import React from "react";
 
 interface BeatmapTableNominatorProps {
-  osuId: number
+  osuId: string
 }
 
 function BeatmapTableNominator({ osuId }: BeatmapTableNominatorProps) {

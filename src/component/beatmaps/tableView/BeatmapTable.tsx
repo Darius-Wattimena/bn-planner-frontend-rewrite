@@ -38,8 +38,10 @@ function BeatmapTable({ beatmaps }: BeatmapTableProps) {
                 <td>
                   <p>{beatmap.mapper}</p>
                 </td>
-                <BeatmapTableNominator osuId={beatmap.nominators[0]}/>
-                <BeatmapTableNominator osuId={beatmap.nominators[1]}/>
+                {beatmap.gamemodes.map(gamemodeBeatmap =>
+                  gamemodeBeatmap.nominators.map(beatmapNominator =>
+                    <BeatmapTableNominator osuId={beatmapNominator.nominator.osuId}/>)
+                )}
                 <td>
                   <p>{beatmap.note}</p>
                 </td>

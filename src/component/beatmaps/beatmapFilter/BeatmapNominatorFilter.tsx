@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, NominatorSelectFilterItem, User} from "../../../models/Types";
+import {BeatmapFilter, NewUser, NominatorSelectFilterItem, User} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import * as _ from 'lodash'
 import Collapsible from "react-collapsible";
-import {getRole} from "../../../utils/UserUtils";
+import {getFrontendRole, getRole, getUsersHighestRole} from "../../../utils/UserUtils";
 
 interface BeatmapNominatorFilterProps {
-  nominators: User[]
+  nominators: NewUser[]
   beatmapFilter: BeatmapFilter
   setBeatmapFormFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   timeout: number
@@ -14,17 +14,20 @@ interface BeatmapNominatorFilterProps {
 }
 
 function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilter, timeout, setQueryFilter }: BeatmapNominatorFilterProps) {
-  const [selectedNominators, setSelectedNominators] = useState<number[]>([])
+  const [selectedNominators, setSelectedNominators] = useState<string[]>([])
   const [filterItems, setFilterItems] = useState<NominatorSelectFilterItem[]>([])
 
   useEffect(() => {
     const preparedNominators = nominators.map((nominator, index) => {
       const selectedNominator = selectedNominators.find(item => item === nominator.osuId)
+      const highestRole = getUsersHighestRole(nominator)
+      const frontendRole = getFrontendRole(highestRole)
+
       const item: NominatorSelectFilterItem = {
         index: index,
-        label: nominator.osuName,
+        label: nominator.username,
         value: nominator.osuId,
-        role: nominator.role,
+        role: frontendRole.id,
         selected: selectedNominator != null || selectedNominator !== undefined
       };
 
@@ -34,22 +37,22 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
     setFilterItems(preparedNominators)
   }, [nominators, selectedNominators])
 
-  function removeNumber(value: number, numbers: number[]){
-    numbers.forEach( (item, index) => {
-      if(item === value) numbers.splice(index,1);
+  function remove(value: string, array: string[]){
+    array.forEach( (item, index) => {
+      if(item === value) array.splice(index,1);
     });
   }
 
-  function updateSelectedItems(value: number, checked: boolean) {
+  function updateSelectedItems(value: string, checked: boolean) {
     const selectedNominators = beatmapFilter["nominators"]
-    const newSelectedNominators: number[] = [];
+    const newSelectedNominators: string[] = [];
 
     selectedNominators.forEach(val => newSelectedNominators.push(val))
 
     if (checked) {
       newSelectedNominators.push(value)
     } else {
-      removeNumber(value, newSelectedNominators)
+      remove(value, newSelectedNominators)
     }
 
     setSelectedNominators(newSelectedNominators)

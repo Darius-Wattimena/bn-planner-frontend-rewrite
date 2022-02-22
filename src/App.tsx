@@ -16,7 +16,7 @@ const axios = Axios.create({
 configure({ axios })
 
 function App() {
-  const [viewMode, setViewMode] = useState(ViewMode.CARDS)
+  const [viewMode, setViewMode] = useState<ViewMode>('CARDS')
   const [userContext] = useLocalStorage<UserContext>("userContext");
 
   return (

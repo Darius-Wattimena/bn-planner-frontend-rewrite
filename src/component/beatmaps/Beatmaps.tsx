@@ -1,11 +1,11 @@
 import React from "react";
-import {Beatmap, BeatmapFilter, FindResponse, User, ViewMode} from "../../models/Types";
-import './Beatmaps.scss';
+import {Beatmap, BeatmapFilter, ViewMode} from "../../models/Types";
 import BeatmapFilters from "./beatmapFilter/BeatmapFilters";
 import BeatmapCard from "./cardView/BeatmapCard";
 import {InfiniteLoader, List, AutoSizer, Index, IndexRange, ListRowProps} from "react-virtualized";
 import BeatmapTableRow from "./tableView/BeatmapTableRow";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
+import './Beatmaps.scss';
 
 interface BeatmapsProps {
   loadedBeatmapData: Array<Beatmap | undefined>
@@ -15,7 +15,6 @@ interface BeatmapsProps {
   fetchNewData: (range: IndexRange) => void
   openBeatmapId: number | undefined
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
-  users: User[]
   viewMode: ViewMode
 }
 
@@ -24,7 +23,6 @@ function Beatmaps(
   {
     loadedBeatmapData,
     fetchNewData,
-    users,
     beatmapFilter,
     setBeatmapFilter,
     setQueryFilter,
@@ -41,12 +39,12 @@ function Beatmaps(
   function rowRenderer({ i, viewMode }: CustomRowRender) {
     const beatmap = loadedBeatmapData[i]
 
-    if (viewMode === ViewMode.CARDS) {
-      return (<BeatmapCard key={i} beatmap={beatmap} users={users} setShowBeatmapDetails={setOpenBeatmapId} />)
+    if (viewMode === "CARDS") {
+      return (<BeatmapCard key={i} beatmap={beatmap} setShowBeatmapDetails={setOpenBeatmapId} />)
     }
 
-    if (viewMode === ViewMode.TABLE) {
-      return (<BeatmapTableRow key={i} beatmap={beatmap} users={users} />)
+    if (viewMode === "TABLE") {
+      return (<BeatmapTableRow key={i} beatmap={beatmap} />)
     }
 
     return <div/>
@@ -67,7 +65,6 @@ function Beatmaps(
     <>
       <div className={"page-container-full beatmap-page"}>
         <BeatmapFilters
-          users={users}
           beatmapFilter={beatmapFilter}
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}
@@ -123,8 +120,6 @@ function Beatmaps(
             </InfiniteLoader>
           </div>
         </div>
-
-        {/*<BeatmapTable beatmaps={tempBeatmaps} />*/}
       </div>
       <BeatmapDetailsContainer openBeatmapId={openBeatmapId} setOpenBeatmapId={setOpenBeatmapId} />
     </>

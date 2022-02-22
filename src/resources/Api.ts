@@ -20,7 +20,7 @@ function filterToUrlParams<T>(filter: T) {
     if (Object.prototype.hasOwnProperty.call(filter, item)) {
       let value = filter[item]
 
-      if (!value) {
+      if (!value || (Array.isArray(value) && value.length === 0)) {
         continue
       }
 
@@ -32,9 +32,6 @@ function filterToUrlParams<T>(filter: T) {
       }
     }
   }
-
-
-  console.log({result})
 
   return result
 }

@@ -9,15 +9,13 @@ import {BeatmapCardNominator} from "./BeatmapCardNominator";
 
 interface BeatmapCardProps {
   beatmap: Beatmap | undefined
-  users: User[]
   setShowBeatmapDetails: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-function BeatmapCard({ beatmap, users, setShowBeatmapDetails }: BeatmapCardProps) {
+function BeatmapCard({ beatmap, setShowBeatmapDetails }: BeatmapCardProps) {
   if (!beatmap) return <></>
 
-  let mapperDetails = users.find(user => user.osuId === beatmap.mapperId)
-  let mapperRoleClass = getUserRole(mapperDetails)?.className
+  let mapperRoleClass = getUserRole(beatmap.mapper)?.className
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
@@ -29,16 +27,15 @@ function BeatmapCard({ beatmap, users, setShowBeatmapDetails }: BeatmapCardProps
             <div className={"beatmap-mapper"}>
               <div className={"beatmap-mapper-spacer"} />
               <div className={"beatmap-mapper-picture-container"}>
-                <div className={"beatmap-mapper-picture"} style={{ backgroundImage: `url(https://a.ppy.sh/${beatmap.mapperId})`}} />
+                <div className={"beatmap-mapper-picture"} style={{ backgroundImage: `url(https://a.ppy.sh/${beatmap.mapper.osuId})`}} />
               </div>
               <div className={`beatmap-user-username ${mapperRoleClass}`}>
-                {beatmap.mapper}
+                {beatmap.mapper.username}
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div className={"beatmap-details"}>
         <div className={"beatmap-details-title"}>
           {truncate(beatmap.title, 25)}
@@ -47,8 +44,11 @@ function BeatmapCard({ beatmap, users, setShowBeatmapDetails }: BeatmapCardProps
           {truncate(beatmap.artist, 25)}
         </div>
         <div className={"beatmap-nominators"}>
-          <BeatmapCardNominator nominatorId={beatmap.nominators[0]} nominated={beatmap.nominatedByBNOne} users={users} />
-          <BeatmapCardNominator nominatorId={beatmap.nominators[1]} nominated={beatmap.nominatedByBNTwo} users={users} />
+          {beatmap.gamemodes.map(gamemodeBeatmap =>
+            gamemodeBeatmap.nominators.map(beatmapNominator =>
+              <BeatmapCardNominator user={beatmapNominator.nominator} nominated={beatmapNominator.hasNominated}/>
+            )
+          )}
         </div>
       </div>
 

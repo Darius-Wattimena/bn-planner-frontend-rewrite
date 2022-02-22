@@ -1,13 +1,12 @@
 import BeatmapTableNominator from "./BeatmapTableNominator";
 import React from "react";
-import {Beatmap, User} from "../../../models/Types";
+import {Beatmap} from "../../../models/Types";
 
 interface BeatmapTableRowProps {
   beatmap: Beatmap | undefined
-  users: User[]
 }
 
-function BeatmapTableRow({ beatmap, users }: BeatmapTableRowProps) {
+function BeatmapTableRow({ beatmap }: BeatmapTableRowProps) {
   if (beatmap) {
     return (
       <tr key={beatmap.osuId}>
@@ -21,10 +20,12 @@ function BeatmapTableRow({ beatmap, users }: BeatmapTableRowProps) {
           <p>{beatmap.title}</p>
         </td>
         <td>
-          <p>{beatmap.mapper}</p>
+          <p>{beatmap.mapper.username}</p>
         </td>
-        <BeatmapTableNominator osuId={beatmap.nominators[0]}/>
-        <BeatmapTableNominator osuId={beatmap.nominators[1]}/>
+        {beatmap.gamemodes.map(gamemodeBeatmap =>
+          gamemodeBeatmap.nominators.map(beatmapNominator =>
+            <BeatmapTableNominator osuId={beatmapNominator.nominator.osuId}/>)
+        )}
         <td>
           <p>{beatmap.note}</p>
         </td>

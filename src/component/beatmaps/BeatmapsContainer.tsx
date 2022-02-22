@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, User, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -87,13 +87,10 @@ function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
     execute(config)
   }
 
-  let tempUsers = require('./temp-users.json') as User[];
-
   return total === 0 ? <></>
     : (
     <Beatmaps
       loadedBeatmapData={loadedBeatmapData}
-      users={tempUsers}
       beatmapFilter={beatmapFilter}
       setBeatmapFilter={setBeatmapFilter}
       setQueryFilter={setQueryFilter}
