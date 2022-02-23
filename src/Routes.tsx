@@ -1,5 +1,5 @@
-import React from "react";
-import {BrowserRouter, Route, Navigate} from 'react-router-dom';
+import React, {useEffect} from "react";
+import {BrowserRouter, Route, useNavigate} from 'react-router-dom';
 import { Routes as ReactRoutes } from 'react-router-dom';
 import Nav from "./component/nav/Nav";
 import Home from "./component/home/Home";
@@ -17,11 +17,11 @@ interface RoutesProps {
 
 function Routes({ viewMode, userContext }: RoutesProps) {
   function RequireAuth({ children }: { children: JSX.Element }) {
-
-    if (!userContext || !userContext.user) {
-      return <Navigate to={osuUrl} />
-      /* return <Navigate to="/login" state={{ from: location }} replace />; */
-    }
+    useEffect(() => {
+        if (!userContext || !userContext.user) {
+          window.location.href = osuUrl
+        }
+    }, [])
 
     return children;
   }

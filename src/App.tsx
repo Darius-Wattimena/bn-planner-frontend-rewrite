@@ -17,7 +17,19 @@ configure({ axios })
 
 function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('CARDS')
-  const [userContext] = useLocalStorage<UserContext>("userContext");
+  const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
+
+  if (userContext) {
+    let now = Date.now()
+
+    console.log({
+      now, until: userContext.validUntilEpochMilli
+    })
+
+    if (now >= userContext.validUntilEpochMilli) {
+      setUserContext(undefined)
+    }
+  }
 
   return (
     <div className="App">
