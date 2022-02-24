@@ -3,10 +3,16 @@ export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessm
 export type ViewMode = 'CARDS' | 'TABLE'
 
 export interface UserContext {
-  user?: NewUser,
+  user: NewUser,
   accessToken: string,
   refreshToken: string,
   validUntilEpochMilli: number
+  permission: RolePermission
+}
+
+export interface RolePermission {
+  osuRole: UserRole,
+  roles: string[]
 }
 
 export interface NewUser {

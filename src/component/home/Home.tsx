@@ -1,7 +1,7 @@
 import React from "react";
 import { ReactComponent as Logo } from '../../assets/catch.svg';
 import "./Home.scss"
-import {osuUrl} from "../../Routes";
+import {osuUrl} from "../../AppRoutes";
 
 function Home() {
   return (

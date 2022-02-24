@@ -5,12 +5,8 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 
-interface LoginLocation {
-  code: string
-}
-
 function Login() {
-  const [{data, loading, error}, execute] = useAxios<UserContext>(Api.login(""), { manual: true })
+  const [{data, loading, error}, execute] = useAxios<UserContext>("", { manual: true })
   const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
   const location = useLocation()
 
@@ -30,21 +26,20 @@ function Login() {
       // TODO replace with error popup?
       console.error(error)
     } else if (!loading) {
-      console.log("Finished receiving token from backend")
-      console.log({ data })
-
       if (data) {
         setUserContext(data)
       }
-    } else {
-      console.log("Token request is still being processed")
     }
   }, [data, loading, error, setUserContext])
 
   if (userContext?.accessToken && userContext?.accessToken !== "") {
     return <Navigate to={"/"} />
   } else {
-    return <div />
+    return (
+      <div>
+        TODO : LOGIN OVERLAY/PAGE?
+      </div>
+    )
   }
 }
 

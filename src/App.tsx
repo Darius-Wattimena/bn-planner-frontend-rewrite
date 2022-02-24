@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Routes from "./Routes"
+import AppRoutes from "./AppRoutes"
 import './styles/simple-grid.scss'
 import './App.scss'
 import { IconContext } from 'react-icons'
@@ -22,20 +22,15 @@ function App() {
   if (userContext) {
     let now = Date.now()
 
-    console.log({
-      now, until: userContext.validUntilEpochMilli
-    })
-
     if (now >= userContext.validUntilEpochMilli) {
+      // FIXME instead of removing the UserContext, refresh using the refresh token
       setUserContext(undefined)
     }
   }
 
   return (
     <div className="App">
-      <IconContext.Provider value={{ className: 'react-icons' }}>
-        <Routes viewMode={viewMode} userContext={userContext} />
-      </IconContext.Provider>
+      <AppRoutes viewMode={viewMode} userContext={userContext} />
     </div>
   );
 }

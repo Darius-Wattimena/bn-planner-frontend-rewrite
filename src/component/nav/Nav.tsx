@@ -4,8 +4,13 @@ import greaperLogo from '../../assets/greaper.png'
 import NavProfile from "./NavProfile";
 import { Outlet } from 'react-router-dom'
 import './Nav.scss'
+import {UserContext} from "../../models/Types";
 
-function Nav() {
+interface NavProps {
+  userContext: UserContext | undefined
+}
+
+function Nav({ userContext }: NavProps) {
   return (
     <>
       <header className="site-header">
@@ -38,12 +43,16 @@ function Nav() {
             </a>
           </div>
           <div className={"navbar-end"}>
-            <NavLink to="/my-icons" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-              <div className={"navbar-item"}>
-                My Icons
-              </div>
-            </NavLink>
-            <NavProfile userId={"11081858"} username={"GIGACHAD"} role={"Retired"} />
+            {userContext &&
+              <>
+                <NavLink to="/my-icons" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                  <div className={"navbar-item"}>
+                    My Icons
+                  </div>
+                </NavLink>
+                <NavProfile user={userContext.user} role={userContext.permission.osuRole} />
+              </>
+            }
           </div>
         </nav>
       </header>

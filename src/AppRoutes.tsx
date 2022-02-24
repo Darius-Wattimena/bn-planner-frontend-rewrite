@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import {BrowserRouter, Route, useNavigate} from 'react-router-dom';
-import { Routes as ReactRoutes } from 'react-router-dom';
+import {Route} from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import Nav from "./component/nav/Nav";
 import Home from "./component/home/Home";
 import BeatmapsContainer from "./component/beatmaps/BeatmapsContainer";
@@ -15,7 +15,7 @@ interface RoutesProps {
   userContext?: UserContext
 }
 
-function Routes({ viewMode, userContext }: RoutesProps) {
+function AppRoutes({ viewMode, userContext }: RoutesProps) {
   function RequireAuth({ children }: { children: JSX.Element }) {
     useEffect(() => {
         if (!userContext || !userContext.user) {
@@ -28,23 +28,19 @@ function Routes({ viewMode, userContext }: RoutesProps) {
 
   return (
     <div className={"container"}>
-      <BrowserRouter>
-        <ReactRoutes>
-          <Route path="/" element={<Nav />}>
-            <Route index element={<Home />} />
-            <Route path="login" element={<Login />} />
-            <Route path="beatmaps" element={
-              <RequireAuth>
-                <BeatmapsContainer viewMode={viewMode} />
-              </RequireAuth>
-            } />
-          </Route>
-        </ReactRoutes>
-      </BrowserRouter>
+      <Nav userContext={userContext} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/beatmaps" element={
+          <RequireAuth>
+            <BeatmapsContainer viewMode={viewMode} />
+          </RequireAuth>
+        } />
+        <Route path="*" element={<div>TODO : NOT FOUND</div>} />
+      </Routes>
     </div>
   )
 }
 
-
-
-export default Routes
+export default AppRoutes

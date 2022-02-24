@@ -1,5 +1,3 @@
-import {FrontendBeatmapStatus, UserRole} from "./models/Types";
-
 export const BEATMAP_STATUS = {
   Qualified: {
     id: 1,

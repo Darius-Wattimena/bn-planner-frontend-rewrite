@@ -62,16 +62,16 @@ header.site-header {
         justify-content: space-evenly;
         padding: 0 $padding-smallest;
 
-        .username, .role .role-text {
+        /*.username, .role .role-text {
           color: $color-text-light;
-        }
+        }*/
 
         .username {
           font-size: 1.4em;
         }
 
         .role .role-text {
-          background-color: $rc-colour;
+          //background-color: $rc-colour;
           border-radius: 5px;
           width: fit-content;
           padding: 0 $padding-smallest;

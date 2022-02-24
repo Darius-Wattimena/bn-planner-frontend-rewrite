@@ -39,10 +39,6 @@ function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
   const [{data, loading}, execute] = useAxios<Beatmap[]>(Api.fetchBeatmapsByFilter(queryFilter, 0, 0), { manual: true })
 
   useEffect(() => {
-    console.log({beatmapFilter})
-  }, [beatmapFilter])
-
-  useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== showBeatmapDetails) {
       setShowBeatmapDetails(Number(beatmapId))
     }
