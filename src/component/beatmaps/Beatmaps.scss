@@ -5,9 +5,7 @@
 }
 
 .beatmap-page {
-  display: flex;
-  align-items: flex-start;
-  height: 93vh;
+  height: 89.5vh;
 
   /* width */
   ::-webkit-scrollbar {
@@ -15,6 +13,21 @@
   }
 
   scrollbar-width: none;
+
+  a.beatmap-button {
+    color: $color-text;
+    padding: $padding-smallest;
+    background-color: $color-primary-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 3px $color-background;
+    transition: background-color 300ms;
+
+    &:hover {
+      background-color: $color-highlight-background;
+    }
+  }
 
   .beatmap-filter {
     background-color: $color-primary-light;
@@ -116,31 +129,30 @@
   }
 
   .beatmap-listing-container {
-    width: 70%;
     height: calc(100% - 0.5em);
-    margin-top: $padding-smallest;
-    margin-bottom: $padding-smallest;
+    margin: $padding-smallest auto;
+
+    .beatmap-scroll-container {
+      //background-color: $color-primary;
+      border-radius: 3px;
+    }
 
     .beatmap-listing {
       height: 100%;
     }
 
-    .beatmap-grid-row {
+    .beatmap-grid-card {
       display: flex;
       flex-direction: column;
-      flex-wrap: wrap
+      flex-wrap: wrap;
     }
 
     .beatmap-card {
-      //display: inline-flex;
       flex-direction: row;
-      min-width: 450px;
 
       margin: $padding-small;
       background-color: $color-table-background;
       text-align: center;
-
-      border-radius: 5px;
 
       // Setting height to not have rendering issues
       height: 370px;
@@ -343,18 +355,8 @@
         display: flex;
         justify-content: space-evenly;
 
-        a {
-          padding: $padding-smallest;
-          background-color: $color-primary-light;
+        a.beatmap-button {
           width: 25%;
-          display: flex;
-          justify-content: center;
-          box-shadow: 1px 1px 3px $color-background;
-          transition: background-color 300ms;
-
-          &:hover {
-            background-color: $color-highlight-background;
-          }
         }
       }
     }

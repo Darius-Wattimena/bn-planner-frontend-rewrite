@@ -1,0 +1,35 @@
+@import "../../../styles/Variables";
+$icon-size: 1.2em;
+
+.beatmaps-header {
+  display: flex;
+  margin: 0.2em 0;
+  padding: 0.4em;
+  justify-content: space-between;
+  background-color: $color-table-background;
+  border-radius: 3px;
+
+  .beatmaps-header-left {
+
+  }
+  .beatmaps-header-right {
+    justify-content: flex-end;
+  }
+
+  .beatmap-button {
+    gap: 0.5em;
+    box-shadow: 1px 1px 3px $color-background;
+
+    &.icon-only {
+      height: 1.5em;
+      width: 1.5em;
+    }
+  }
+
+
+  .react-icons {
+    fill: $color-text;
+    font-size: $icon-size;
+  }
+}
+

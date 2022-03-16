@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, FrontendBeatmapStatus, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
+import {BeatmapFilter, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";
@@ -13,7 +13,7 @@ interface BeatmapStatusFilterProps {
 }
 
 function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, timeout, setQueryFilter }: BeatmapStatusFilterProps) {
-  const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>([])
+  const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>(beatmapFilter.status)
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
   useEffect(() => {

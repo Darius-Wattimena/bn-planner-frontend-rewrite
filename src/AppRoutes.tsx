@@ -8,14 +8,15 @@ import {UserContext, ViewMode} from "./models/Types";
 import Login from "./component/login/Login";
 import {CONFIG} from "./Settings";
 
-export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&client_id=${CONFIG.osu_id}&redirect_uri=${CONFIG.osu_redirect}&response_type=code&scope=identify public`
+export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&client_id=${CONFIG.osu_id}&redirect_uri=${CONFIG.osu_redirect}&scope=identify public`
 
 interface RoutesProps {
-  viewMode: ViewMode,
+  viewMode: ViewMode
+  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   userContext?: UserContext
 }
 
-function AppRoutes({ viewMode, userContext }: RoutesProps) {
+function AppRoutes({ viewMode, setViewMode, userContext }: RoutesProps) {
   function RequireAuth({ children }: { children: JSX.Element }) {
     useEffect(() => {
         if (!userContext || !userContext.user) {
@@ -34,7 +35,7 @@ function AppRoutes({ viewMode, userContext }: RoutesProps) {
         <Route path="/login" element={<Login />} />
         <Route path="/beatmaps" element={
           <RequireAuth>
-            <BeatmapsContainer viewMode={viewMode} />
+            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} />
           </RequireAuth>
         } />
         <Route path="*" element={<div>TODO : NOT FOUND</div>} />

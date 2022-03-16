@@ -1,7 +1,7 @@
 export const DEV_ENV: Settings = {
   is_dev: true, // shows an indication when its dev
   api_url: "http://localhost:8080/",
-  osu_id: 666, // osu! OAuth client ID
+  osu_id: 12978, // osu! OAuth client ID
   osu_redirect: "http://localhost:3000/login"
 };
 

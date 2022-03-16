@@ -7,6 +7,8 @@ import Beatmaps from "./Beatmaps";
 import _ from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
+import BeatmapFilters from "./beatmapFilter/BeatmapFilters";
+import BeatmapFiltersModal from "./beatmapFilter/BeatmapFiltersModal";
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -20,23 +22,22 @@ const filterDefaultState: BeatmapFilter = {
 
 interface BeatmapsContainerProps {
   viewMode: ViewMode
-}
-interface BeatmapsContainerParams {
-  beatmapId: string | undefined
+  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
 }
 
-function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
+function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
+  const [showBeatmapFilter, setShowBeatmapFilter] = useState(false)
 
   let { beatmapId } = useParams<string>();
   const [showBeatmapDetails, setShowBeatmapDetails] = useState<number>()
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
-  const [{data, loading}, execute] = useAxios<Beatmap[]>(Api.fetchBeatmapsByFilter(queryFilter, 0, 0), { manual: true })
+  const [{data, loading}, execute] = useAxios<Beatmap[]>("", { manual: true })
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== showBeatmapDetails) {
@@ -45,26 +46,27 @@ function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
   }, [beatmapId, showBeatmapDetails])
 
   useEffect(() => {
+    setTotal(0)
     setLastSet(0)
     setLoadedBeatmapData([])
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
-  }, [queryFilter])
+  }, [executeTotal, queryFilter])
 
   useEffect(() => {
     if (!loadingTotal) {
-      if (foundTotal && loadedBeatmapData.length === 0) {
+      if (foundTotal && foundTotal !== total) {
         let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
         setTotal(foundTotal)
 
         // initialize all beatmaps so they can be auto loaded later on
-        for (let i = 0; i < foundTotal - 1; i++) {
+        for (let i = 0; i < foundTotal; i++) {
           newLoadedBeatmapData[i] = undefined
         }
 
         setLoadedBeatmapData(newLoadedBeatmapData)
       }
     }
-  }, [loadingTotal])
+  }, [loadingTotal, foundTotal])
 
   useEffect(() => {
     if (!loading && data) {
@@ -80,21 +82,34 @@ function BeatmapsContainer({ viewMode }: BeatmapsContainerProps) {
 
   function fetchNewData({ startIndex, stopIndex }: IndexRange) {
     const config = Api.fetchBeatmapsByFilter(queryFilter, startIndex, stopIndex)
+    console.log({ url: config.url })
     execute(config)
   }
-
-  return total === 0 ? <></>
-    : (
-    <Beatmaps
-      loadedBeatmapData={loadedBeatmapData}
-      beatmapFilter={beatmapFilter}
-      setBeatmapFilter={setBeatmapFilter}
-      setQueryFilter={setQueryFilter}
-      fetchNewData={fetchNewData}
-      openBeatmapId={showBeatmapDetails}
-      setOpenBeatmapId={setShowBeatmapDetails}
-      viewMode={viewMode}
-    />
+  return (
+    <>
+      {
+        total === 0 ? <></>
+          : (
+            <>
+              <Beatmaps
+                setShowBeatmapFilter={setShowBeatmapFilter}
+                loadedBeatmapData={loadedBeatmapData}
+                fetchNewData={fetchNewData}
+                openBeatmapId={showBeatmapDetails}
+                setOpenBeatmapId={setShowBeatmapDetails}
+                viewMode={viewMode}
+              />
+            </>
+          )
+      }
+      <BeatmapFiltersModal
+        showBeatmapFilter={showBeatmapFilter}
+        setShowBeatmapFilter={setShowBeatmapFilter}
+        beatmapFilter={beatmapFilter}
+        setBeatmapFilter={setBeatmapFilter}
+        setQueryFilter={setQueryFilter}
+      />
+    </>
   )
 }
 
