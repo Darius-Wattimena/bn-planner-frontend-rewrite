@@ -61,11 +61,10 @@ function Beatmaps(
                   {({width, height}) => {
                     if (viewMode === "CARDS") {
                       const estimatedItemsPerRow = Math.floor(width / MIN_ITEM_SIZE)
-                      const actualTotalSpace = width - estimatedItemsPerRow
                       const totalSpace = width - estimatedItemsPerRow * 16
                       const itemsPerRow = Math.floor(totalSpace / MIN_ITEM_SIZE)
                       const rowCount = Math.ceil(loadedBeatmapData.length / itemsPerRow)
-                      const itemSize = actualTotalSpace / itemsPerRow
+                      const itemSize = width / itemsPerRow
                       return <Grid
                         className={"beatmap-scroll-container"}
                         ref={registerChild}

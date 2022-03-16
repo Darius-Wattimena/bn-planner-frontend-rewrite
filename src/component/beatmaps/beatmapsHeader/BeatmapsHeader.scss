@@ -1,7 +1,7 @@
 @import "../../../styles/Variables";
 $icon-size: 1.2em;
 
-.beatmaps-header {
+.beatmap-page .beatmaps-header {
   display: flex;
   margin: 0.2em 0;
   padding: 0.4em;
@@ -17,6 +17,8 @@ $icon-size: 1.2em;
   }
 
   .beatmap-button {
+    padding: 0.5em;
+
     gap: 0.5em;
     box-shadow: 1px 1px 3px $color-background;
 
