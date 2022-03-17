@@ -11,13 +11,13 @@ export function getUserRole(user: NewUser): FrontendUserRole {
       case "NominationAssessment":
         return USER_ROLES.NAT;
       case "Loved":
-        return USER_ROLES.Observer;
+        return USER_ROLES.Mapper;
       case "Mapper":
-        return USER_ROLES.Observer;
+        return USER_ROLES.Mapper;
     }
   }
 
-  return USER_ROLES.Observer;
+  return USER_ROLES.Mapper;
 }
 
 export function getFrontendRole(role: UserRole): FrontendUserRole {
@@ -29,9 +29,9 @@ export function getFrontendRole(role: UserRole): FrontendUserRole {
     case "NominationAssessment":
       return USER_ROLES.NAT;
     case "Loved":
-      return USER_ROLES.Observer;
+      return USER_ROLES.Mapper;
     case "Mapper":
-      return USER_ROLES.Observer;
+      return USER_ROLES.Mapper;
   }
 }
 
@@ -78,7 +78,7 @@ export function getRole(role: string | null | undefined) {
     case "CA":
       return USER_ROLES.Retired
     default:
-      return USER_ROLES.Guest
+      return USER_ROLES.Mapper
   }
 }
 

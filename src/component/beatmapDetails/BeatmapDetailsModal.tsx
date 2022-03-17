@@ -14,8 +14,6 @@ interface BeatmapDetailsModalProps {
 }
 
 export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: BeatmapDetailsModalProps) {
-  const roleDetails = getUserRole(beatmap.mapper)
-
   return (
     <Modal
       closeTimeoutMS={200}
@@ -35,11 +33,12 @@ export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: 
               Nominators
             </div>
             {beatmap.gamemodes.map(gamemode =>
-              gamemode.nominators.map(gamemodeNominator =>
+              gamemode.nominators.map((gamemodeNominator, index) =>
                 <BeatmapDetailsUser
                   user={gamemodeNominator.nominator}
                   hasNominated={gamemodeNominator.hasNominated}
                   editable={false}
+                  nominator={index + 1}
                 />
               )
             )}
@@ -88,7 +87,7 @@ export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: 
               <button onClick={() => {
                 setOpenBeatmapId(undefined)
               }} className={"button button-cancel button-text"}>
-                <ImCross/> Back
+                <ImCross/> Close
               </button>
             </div>
           </div>

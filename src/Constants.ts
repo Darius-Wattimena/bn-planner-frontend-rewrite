@@ -66,16 +66,10 @@ export const USER_ROLES = {
     short: 'Retired',
     className: 'role-retired'
   },
-  Observer: {
-    id: 'OBS',
-    name: 'Observer',
-    short: 'Observer',
-    className: 'role-user'
-  },
-  Guest: {
-    id: 'GST',
-    name: 'Guest',
-    short: 'Guest',
+  Mapper: {
+    id: 'MPR',
+    name: 'Mapper',
+    short: 'Mapper',
     className: 'role-user'
   }
 }

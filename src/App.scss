@@ -104,12 +104,12 @@ button, a.button {
 }
 
 .role-retired {
-  background-color: $rc-colour;
+  background-color: $retired-colour;
   color: $color-text-light;
 }
 
 .role-user {
-  background-color: $color-background;
+  background-color: unset;
   color: $color-text;
 }
 

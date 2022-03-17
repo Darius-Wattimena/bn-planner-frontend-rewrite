@@ -45,6 +45,12 @@ body .ReactModal__Overlay {
           .beatmap-user {
             display: flex;
 
+            &.beatmap-user-nominator.nominated {
+              .beatmap-user-picture-container {
+                box-shadow: 0 0 5px 1px $status-qualified-colour;
+              }
+            }
+
             .beatmap-user-picture-container {
               background-color: $color-background;
               border-radius: 25px;
@@ -57,6 +63,17 @@ body .ReactModal__Overlay {
                 width: 120px;
                 height: 120px;
                 background-size: cover;
+
+                .beatmap-user-ribbon {
+                  position: relative;
+                  display: flex;
+                  padding-top: 20px;
+                  left: -10px;
+
+                  .beatmap-user-role {
+                    padding: 0 10px;
+                  }
+                }
               }
             }
 
@@ -64,7 +81,7 @@ body .ReactModal__Overlay {
               margin-top: $padding-small;
               margin-right: $padding-small;
 
-              .beatmap-user-username {
+              .beatmap-user-text {
                 font-size: 1.3em;
                 width: fit-content;
                 padding-bottom: $padding-smallest;
