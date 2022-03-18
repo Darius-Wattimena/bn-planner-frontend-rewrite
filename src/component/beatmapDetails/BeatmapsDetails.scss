@@ -52,6 +52,7 @@ body .ReactModal__Overlay {
             }
 
             .beatmap-user-picture-container {
+              box-shadow: 0 0 1px 3px $color-table-background;
               background-color: $color-background;
               border-radius: 25px;
               width: 120px;
@@ -72,6 +73,8 @@ body .ReactModal__Overlay {
 
                   .beatmap-user-role {
                     padding: 0 10px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
                   }
                 }
               }

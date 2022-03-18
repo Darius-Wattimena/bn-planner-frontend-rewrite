@@ -1,6 +1,6 @@
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
-import {ImCheckmark, ImCross} from "react-icons/im";
+import {ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
 import {NewUser} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
@@ -10,9 +10,10 @@ interface BeatmapDetailsUserProps {
   editable: boolean
   hasNominated?: boolean
   nominator?: number
+  setOpenUserSearcher?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function BeatmapDetailsUser({user, hasNominated, editable, nominator}: BeatmapDetailsUserProps) {
+function BeatmapDetailsUser({user, hasNominated, editable, nominator, setOpenUserSearcher}: BeatmapDetailsUserProps) {
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
 
@@ -39,7 +40,11 @@ function BeatmapDetailsUser({user, hasNominated, editable, nominator}: BeatmapDe
           </div>
         }
         <div className={`beatmap-user-text`}>
-          {user.username}
+          {user.username} {nominator && setOpenUserSearcher &&
+            <a href="#">
+              <ImPencil onClick={() => setOpenUserSearcher(true)} />
+            </a>
+          }
         </div>
         <div className="beatmap-user-nomination-status">
           {hasNominated === true &&

@@ -129,8 +129,7 @@
   }
 
   .beatmap-listing-container {
-    height: calc(100% - 0.5em);
-    margin: $padding-smallest auto;
+    height: 100%;
 
     .beatmap-scroll-container {
       background-color: $color-primary;

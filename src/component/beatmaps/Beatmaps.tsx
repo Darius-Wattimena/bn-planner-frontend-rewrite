@@ -82,7 +82,6 @@ function Beatmaps(
                         rowHeight={370}
                         cellRenderer={props => {
                           const {columnIndex, rowIndex, isVisible, key, style}: GridCellProps = props
-                          const items = [];
 
                           if (isVisible) {
                             const fromIndex = rowIndex * itemsPerRow;
