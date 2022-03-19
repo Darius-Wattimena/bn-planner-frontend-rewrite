@@ -97,7 +97,10 @@ export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: 
           </div>
         </div>
       </Modal>
-      <UserSearcher openUserSearcher={openUserSearcher} setOpenUserSearcher={setOpenUserSearcher} />
+      <UserSearcher
+        openUserSearcher={openUserSearcher}
+        setOpenUserSearcher={setOpenUserSearcher}
+      />
     </>
   )
 }

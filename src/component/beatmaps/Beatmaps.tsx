@@ -50,7 +50,7 @@ function Beatmaps(
       <div className={"page-container beatmap-page"}>
         <div className={"beatmap-listing-container"}>
           <div className={"beatmap-listing"}>
-            <BeatmapsHeader setShowBeatmapFilter={setShowBeatmapFilter}/>
+            {/*<BeatmapsHeader setShowBeatmapFilter={setShowBeatmapFilter}/>*/}
             <InfiniteLoader
               isRowLoaded={isRowLoaded}
               loadMoreRows={loadMoreRows}

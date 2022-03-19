@@ -1,0 +1,88 @@
+import React from "react";
+
+function UserSearcherList() {
+  return (
+    <div className={"user-searcher-list"}>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+      <p>test</p>
+    </div>
+  )
+}
+
+export default UserSearcherList

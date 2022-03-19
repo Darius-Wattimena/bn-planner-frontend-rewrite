@@ -1,4 +1,4 @@
-export type Gamemode = 'osu' | 'taiko' | 'fruit' | 'mania'
+export type Gamemode = 'osu' | 'taiko' | 'fruits' | 'mania'
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
 export type ViewMode = 'CARDS' | 'TABLE'
 
@@ -89,6 +89,12 @@ export interface NominatorSelectFilterItem {
   value: string
   role: string
   selected: boolean
+}
+
+export interface UserSearchFilter {
+  username: string | null,
+  gamemodes: Gamemode[],
+  roles: UserRole[]
 }
 
 export interface BeatmapFilter {

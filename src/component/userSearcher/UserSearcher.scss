@@ -1,0 +1,88 @@
+@import "../../styles/Variables";
+
+.ReactModal__Content.user-searcher-modal {
+  position: absolute;
+  width: 800px;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  .user-searcher-content {
+    display: flex;
+    justify-content: space-between;
+
+    .user-searcher, .user-searcher-hotbar {
+      box-shadow: $color-table-background 0 0 0 4px;
+      background-color: $color-table-background;
+      height: fit-content;
+
+      .user-searcher-header {
+        background-color: $color-table-background;
+        padding: $padding-small;
+      }
+    }
+
+    .user-searcher-hotbar {
+      width: 20%;
+
+      .user-searcher-spacer {
+        margin: $padding-small 0;
+      }
+
+      .user-searcher-select-item {
+        display: flex;
+        align-items: center;
+        background-color: $color-background;
+
+        &.user-searcher-select-item-not-first {
+          border-top: 1px solid $color-table-border;
+        }
+      }
+    }
+
+    .user-searcher {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      .user-searcher-textbox {
+        display: flex;
+        align-items: stretch;
+
+        .user-searcher-textbox-icon {
+          background-color: $color-table-background;
+          border: 2px solid $color-table-border;
+          border-right: unset;
+          padding: $padding-small;
+          display: flex;
+          align-items: center;
+        }
+
+        input {
+          width: 100%;
+          box-sizing: border-box;
+          padding: $padding-small $padding-smallest;
+          background-color: $color-table-background;
+          border: 2px solid $color-table-border;
+
+          &:focus {
+            outline-width: 0;
+          }
+        }
+      }
+
+      .user-searcher-list {
+        max-height: 400px;
+        overflow-y: hidden;
+        padding: $padding-small;
+        background-color: $color-background;
+
+        p:not(:last-child) {
+          border-bottom: 1px solid $color-table-border;
+        }
+      }
+    }
+  }
+}
