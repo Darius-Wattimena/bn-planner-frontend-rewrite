@@ -1,4 +1,4 @@
-import {BeatmapFilter, UserContext} from "../models/Types";
+import {BeatmapFilter, UserContext, UserSearchFilter} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
 function getAuthHeader() {
@@ -74,6 +74,15 @@ const Api = {
       url: '/v2/beatmap/find' + preparedUrlParams
     }
   },
+  fetchUserSearchByFilter: (filter: UserSearchFilter): AxiosRequestConfig => {
+    const urlParams = filterToUrlParams(filter)
+
+    return {
+      method: 'GET',
+      headers: getAuthHeader(),
+      url: '/v2/user/search' + urlParams
+    }
+  }
 }
 
 export default Api

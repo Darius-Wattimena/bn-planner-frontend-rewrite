@@ -81,6 +81,7 @@ export interface SelectFilterItem {
   label: string
   value: any
   selected: boolean
+  disabled?: boolean
 }
 
 export interface NominatorSelectFilterItem {

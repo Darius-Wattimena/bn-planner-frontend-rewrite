@@ -100,6 +100,7 @@ export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: 
       <UserSearcher
         openUserSearcher={openUserSearcher}
         setOpenUserSearcher={setOpenUserSearcher}
+        beatmapGamemodes={beatmap.gamemodes}
       />
     </>
   )

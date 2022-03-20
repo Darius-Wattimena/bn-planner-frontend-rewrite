@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import './UserSearcher.scss'
-import {Gamemode, SelectFilterItem, UserRole, UserSearchFilter} from "../../models/Types";
+import {BeatmapGamemode, Gamemode, SelectFilterItem, UserRole, UserSearchFilter} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
 import {debouncingFilter, instantFilter} from "../../utils/FilterUtils";
 import UserSearcherListContainer from "./UserSearcherListContainer";
@@ -16,9 +16,10 @@ const filterDefaultState: UserSearchFilter = {
 interface UserSearcherProps {
   openUserSearcher: boolean
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
+  beatmapGamemodes: BeatmapGamemode[]
 }
 
-function UserSearcher({openUserSearcher, setOpenUserSearcher}: UserSearcherProps) {
+function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}: UserSearcherProps) {
 
   const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(filterDefaultState)
@@ -35,10 +36,34 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher}: UserSearcherProps
     let maniaGamemode = selectedGamemodes.find(item => item === "mania")
 
     setFilterGamemodes([
-      {index: 0, label: "Osu", value: "osu", selected: osuGamemode != null || osuGamemode !== undefined},
-      {index: 1, label: "Taiko", value: "taiko", selected: taikoGamemode != null || taikoGamemode !== undefined},
-      {index: 2, label: "Catch", value: "fruits", selected: catchGamemode != null || catchGamemode !== undefined},
-      {index: 3, label: "Mania", value: "mania", selected: maniaGamemode != null || maniaGamemode !== undefined}
+      {
+        index: 0,
+        label: "Osu",
+        value: "osu",
+        selected: osuGamemode != null || osuGamemode !== undefined,
+        disabled: !beatmapGamemodes.find(it => it.gamemode === "osu")
+      },
+      {
+        index: 1,
+        label: "Taiko",
+        value: "taiko",
+        selected: taikoGamemode != null || taikoGamemode !== undefined,
+        disabled: !beatmapGamemodes.find(it => it.gamemode === "taiko")
+      },
+      {
+        index: 2,
+        label: "Catch",
+        value: "fruits",
+        selected: catchGamemode != null || catchGamemode !== undefined,
+        disabled: !beatmapGamemodes.find(it => it.gamemode === "fruits")
+      },
+      {
+        index: 3,
+        label: "Mania",
+        value: "mania",
+        selected: maniaGamemode != null || maniaGamemode !== undefined,
+        disabled: !beatmapGamemodes.find(it => it.gamemode === "mania")
+      }
     ])
 
     let nominatorRole = selectedRoles.find(item => item === "Nominator")
@@ -138,16 +163,17 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher}: UserSearcherProps
           <h4 className={"user-searcher-header"}>Gamemodes</h4>
           {filterGamemodes.map((selectItem, index) => {
             return (
-              <div className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`} key={index}>
+              <div className={`user-searcher-select-item ${selectItem.disabled ? "disabled": ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`} key={index}>
                 <input
                   type="checkbox"
                   id={`${selectItem.index}-gamemode`}
                   checked={selectItem.selected}
+                  disabled={selectItem.disabled}
                   onChange={event => {
                     updateSelectedGamemodes(selectItem.value, event.target.checked)
                   }}
                 />
-                <label className={"todo"} htmlFor={`${selectItem.index}-status`}>
+                <label className={"todo"} htmlFor={`${selectItem.index}-gamemode`}>
                   {selectItem.label}
                 </label>
               </div>
@@ -159,13 +185,13 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher}: UserSearcherProps
               <div className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`} key={index}>
                 <input
                   type="checkbox"
-                  id={`${selectItem.index}-status`}
+                  id={`${selectItem.index}-roles`}
                   checked={selectItem.selected}
                   onChange={event => {
                     updateSelectedRoles(selectItem.value, event.target.checked)
                   }}
                 />
-                <label className={"todo"} htmlFor={`${selectItem.index}-status`}>
+                <label className={"todo"} htmlFor={`${selectItem.index}-roles`}>
                   {selectItem.label}
                 </label>
               </div>
@@ -188,7 +214,7 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher}: UserSearcherProps
               }}
             />
           </div>
-          <UserSearcherListContainer />
+          <UserSearcherListContainer queryFilter={queryFilter} />
         </div>
       </div>
     </Modal>
