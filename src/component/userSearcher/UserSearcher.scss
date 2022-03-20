@@ -85,12 +85,39 @@
 
       .user-searcher-list {
         max-height: 400px;
-        overflow-y: hidden;
+        overflow-y: scroll;
         padding: $padding-small;
         background-color: $color-background;
 
         p:not(:last-child) {
           border-bottom: 1px solid $color-table-border;
+        }
+
+        .user-searcher-user {
+          display: flex;
+          padding: $padding-smallest 0;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid $color-table-border;
+          }
+
+          .user-searcher-user-picture-container {
+            padding-right: $padding-small;
+
+            .user-searcher-user-picture {
+              border-radius: 10px;
+              width: 48px;
+              height: 48px;
+              background-color: $color-table-background;
+              background-size: cover;
+            }
+          }
+
+          .user-searcher-user-role {
+            border-radius: 5px;
+            width: fit-content;
+            padding: 0 $padding-smallest;
+          }
         }
       }
     }

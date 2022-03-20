@@ -20,7 +20,6 @@ interface UserSearcherProps {
 }
 
 function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}: UserSearcherProps) {
-
   const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [timeout, setTimeout] = useState<number>(0)
