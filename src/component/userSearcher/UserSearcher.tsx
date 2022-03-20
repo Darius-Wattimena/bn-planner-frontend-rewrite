@@ -213,7 +213,7 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
               }}
             />
           </div>
-          <UserSearcherListContainer queryFilter={queryFilter} />
+          <UserSearcherListContainer queryFilter={queryFilter} beatmapGamemodes={beatmapGamemodes} />
         </div>
       </div>
     </Modal>

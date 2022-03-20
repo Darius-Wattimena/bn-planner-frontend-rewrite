@@ -1,30 +1,41 @@
 import React from "react";
-import {NewUser} from "../../models/Types";
+import {BeatmapGamemode, NewUser, UserSearchFilter} from "../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 
 interface UserSearcherListProps {
     data: NewUser[] | undefined
     loading: boolean
+    beatmapGamemodes: BeatmapGamemode[]
 }
 
-function UserSearcherList({data, loading}: UserSearcherListProps) {
+function UserSearcherList({ data, loading, beatmapGamemodes}: UserSearcherListProps) {
     return (
         <div className={"user-searcher-list"}>
             {data && data.map(item => {
                 return (
-                    <UserSearcherUser osuId={item.osuId} username={item.username} gamemodes={item.gamemodes} />
+                    <UserSearcherUser
+                        user={item}
+                        alreadyNominator={!beatmapGamemodes.find(gamemode =>
+                            !gamemode.nominators.find(nominator => nominator.nominator.osuId === item.osuId)
+                        )}
+                    />
                 )
             })}
         </div>
     )
 }
 
-function UserSearcherUser(user: NewUser) {
+interface UserSearcherUserProps {
+    user: NewUser
+    alreadyNominator: boolean
+}
+
+function UserSearcherUser({ user, alreadyNominator }: UserSearcherUserProps) {
     const profilePictureUri = getProfilePictureUri(user.osuId)
     const roleDetails = getUserRole(user)
 
     return (
-        <div className={"user-searcher-user"}>
+        <div className={`user-searcher-user ${alreadyNominator ? "already-nominator" : ""}`}>
             <div className={"user-searcher-user-picture-container"}>
                 <div className={"user-searcher-user-picture"} style={{backgroundImage: `url(${profilePictureUri})`}} />
             </div>

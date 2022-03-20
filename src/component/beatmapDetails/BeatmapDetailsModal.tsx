@@ -28,7 +28,7 @@ export function BeatmapDetailsModal({beatmap, openBeatmapId, setOpenBeatmapId}: 
       >
         <div className={"beatmap-details-container"}>
           <div className={"beatmap-banner"}
-               style={{backgroundImage: `linear-gradient(to top, rgba(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap?.osuId}/covers/cover.jpg)`}}/>
+               style={{background: `linear-gradient(to top, rgba(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap?.osuId}/covers/cover.jpg)`}}/>
           <div className={"beatmap-details"}>
             <div className={"beatmap-details-sub-container beatmap-nominators-container"}>
               <div className={"beatmap-details-sub-container-title"}>

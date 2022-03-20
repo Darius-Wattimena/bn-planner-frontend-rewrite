@@ -101,6 +101,10 @@
             border-bottom: 1px solid $color-table-border;
           }
 
+          &.already-nominator {
+            background-color: $color-table-hover;
+          }
+
           .user-searcher-user-picture-container {
             padding-right: $padding-small;
 
