@@ -1,4 +1,4 @@
-import {BeatmapFilter, UserContext, UserSearchFilter} from "../models/Types";
+import {BeatmapFilter, Gamemode, UserContext, UserSearchFilter} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
 function getAuthHeader() {
@@ -81,6 +81,13 @@ const Api = {
       method: 'GET',
       headers: getAuthHeader(),
       url: '/v2/user/search' + urlParams
+    }
+  },
+  updateNominator: (beatmapId: number, gamemode: Gamemode, replacingUserId: string, newNominatorId: string): AxiosRequestConfig => {
+    return {
+      method: 'GET',
+      headers: getAuthHeader(),
+      url: `/v2/beatmap/${beatmapId}/${gamemode}/update?old=${replacingUserId}&new=${newNominatorId}`
     }
   }
 }

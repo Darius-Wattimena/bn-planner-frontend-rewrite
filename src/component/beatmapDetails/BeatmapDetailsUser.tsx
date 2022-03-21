@@ -2,7 +2,7 @@ import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
 import {ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
-import {NewUser} from "../../models/Types";
+import {Gamemode, NewUser} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
 
 interface BeatmapDetailsUserProps {
@@ -11,9 +11,14 @@ interface BeatmapDetailsUserProps {
   hasNominated?: boolean
   nominator?: number
   setOpenUserSearcher?: React.Dispatch<React.SetStateAction<boolean>>
+  gamemode?: Gamemode
+  setChangingGamemode?: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
+  setChangingUser?: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-function BeatmapDetailsUser({user, hasNominated, editable, nominator, setOpenUserSearcher}: BeatmapDetailsUserProps) {
+function BeatmapDetailsUser(
+  {user, hasNominated, editable, nominator, setOpenUserSearcher, setChangingGamemode, setChangingUser, gamemode}: BeatmapDetailsUserProps
+) {
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
 
@@ -21,7 +26,7 @@ function BeatmapDetailsUser({user, hasNominated, editable, nominator, setOpenUse
   const hasNominatedClassName = (hasNominated) ? "nominated" : ""
 
   return (
-    <div className={`beatmap-user ${nominatorClassName} ${hasNominatedClassName}`}>
+    <div key={user.osuId} className={`beatmap-user ${nominatorClassName} ${hasNominatedClassName}`}>
       <div className={"beatmap-user-picture-container"}>
         <div className={"beatmap-user-picture"} style={{backgroundImage: `url(${profilePictureUri})`}}>
           {roleDetails.id !== USER_ROLES.Mapper.id &&
@@ -40,9 +45,13 @@ function BeatmapDetailsUser({user, hasNominated, editable, nominator, setOpenUse
           </div>
         }
         <div className={`beatmap-user-text`}>
-          {user.username} {nominator && setOpenUserSearcher &&
+          {user.username} {nominator && setOpenUserSearcher && setChangingGamemode && setChangingUser &&
             <a href="#">
-              <ImPencil onClick={() => setOpenUserSearcher(true)} />
+              <ImPencil onClick={() => {
+                setOpenUserSearcher(true)
+                setChangingGamemode(gamemode)
+                setChangingUser(user.osuId)
+              }} />
             </a>
           }
         </div>

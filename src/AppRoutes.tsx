@@ -40,6 +40,9 @@ function AppRoutes({ viewMode, setViewMode, userContext }: RoutesProps) {
         } />
         <Route path="*" element={<div>TODO : NOT FOUND</div>} />
       </Routes>
+      <div className={"footer"}>
+
+      </div>
     </div>
   )
 }

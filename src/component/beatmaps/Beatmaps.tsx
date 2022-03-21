@@ -15,6 +15,7 @@ interface BeatmapsProps {
   fetchNewData: (range: IndexRange) => void
   openBeatmapId: number | undefined
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  resetPage: () => void
   viewMode: ViewMode
 }
 
@@ -26,6 +27,7 @@ function Beatmaps(
     fetchNewData,
     openBeatmapId,
     setOpenBeatmapId,
+    resetPage,
     viewMode
   }: BeatmapsProps
 ) {
@@ -48,9 +50,9 @@ function Beatmaps(
   return (
     <>
       <div className={"page-container beatmap-page"}>
+        <BeatmapsHeader setShowBeatmapFilter={setShowBeatmapFilter}/>
         <div className={"beatmap-listing-container"}>
           <div className={"beatmap-listing"}>
-            {/*<BeatmapsHeader setShowBeatmapFilter={setShowBeatmapFilter}/>*/}
             <InfiniteLoader
               isRowLoaded={isRowLoaded}
               loadMoreRows={loadMoreRows}
@@ -131,7 +133,7 @@ function Beatmaps(
           </div>
         </div>
       </div>
-      <BeatmapDetailsContainer openBeatmapId={openBeatmapId} setOpenBeatmapId={setOpenBeatmapId}/>
+      <BeatmapDetailsContainer resetPage={resetPage} openBeatmapId={openBeatmapId} setOpenBeatmapId={setOpenBeatmapId}/>
     </>
   )
 }

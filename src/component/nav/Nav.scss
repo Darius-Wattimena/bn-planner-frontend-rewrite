@@ -1,6 +1,7 @@
 @import "src/styles/Variables";
 
 header.site-header {
+  flex: 0 1 auto;
   background-color: $color-primary;
   height: 7vh;
 

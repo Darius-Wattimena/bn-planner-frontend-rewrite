@@ -46,7 +46,7 @@ function BeatmapCard({ beatmap, setShowBeatmapDetails }: BeatmapCardProps) {
         <div className={"beatmap-nominators"}>
           {beatmap.gamemodes.map(gamemodeBeatmap =>
             gamemodeBeatmap.nominators.map(beatmapNominator =>
-              <BeatmapCardNominator user={beatmapNominator.nominator} nominated={beatmapNominator.hasNominated}/>
+              <BeatmapCardNominator key={beatmapNominator.nominator.osuId} user={beatmapNominator.nominator} nominated={beatmapNominator.hasNominated}/>
             )
           )}
         </div>

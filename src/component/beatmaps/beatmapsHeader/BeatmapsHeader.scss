@@ -1,16 +1,14 @@
 @import "../../../styles/Variables";
 $icon-size: 1.2em;
 
-.beatmap-page .beatmaps-header {
+.beatmaps-header {
+  flex: 0 1 auto;
   display: flex;
   margin: 0.2em 0;
   justify-content: space-between;
   background-color: $color-table-background;
   border-radius: 3px;
 
-  .beatmaps-header-left {
-
-  }
   .beatmaps-header-right {
     justify-content: flex-end;
   }

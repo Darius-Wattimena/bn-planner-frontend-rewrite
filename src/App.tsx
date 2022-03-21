@@ -7,6 +7,7 @@ import Axios from 'axios'
 import {CONFIG} from "./Settings";
 import {UserContext, ViewMode} from "./models/Types";
 import useLocalStorage from "./hooks/useLocalStorage";
+import ReactModal from "react-modal";
 
 const axios = Axios.create({
   baseURL: CONFIG.api_url
@@ -19,6 +20,10 @@ function App() {
   const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
 
   useEffect(() => {
+    ReactModal.setAppElement('#main');
+  }, [])
+
+  useEffect(() => {
     if (userContext) {
       let now = Date.now()
 
@@ -27,10 +32,10 @@ function App() {
         setUserContext(undefined)
       }
     }
-  }, [setUserContext, userContext])
+  }, [userContext])
 
   return (
-    <div className="App">
+    <div id="main" className="App">
       <AppRoutes viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} />
     </div>
   );

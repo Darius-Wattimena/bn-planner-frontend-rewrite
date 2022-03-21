@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import './UserSearcher.scss'
-import {BeatmapGamemode, Gamemode, SelectFilterItem, UserRole, UserSearchFilter} from "../../models/Types";
+import {Beatmap, BeatmapGamemode, Gamemode, SelectFilterItem, UserRole, UserSearchFilter} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
 import {debouncingFilter, instantFilter} from "../../utils/FilterUtils";
 import UserSearcherListContainer from "./UserSearcherListContainer";
 import {ImSearch} from "react-icons/im";
+import useAxios from "axios-hooks";
+import Api from "../../resources/Api";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
@@ -16,10 +18,23 @@ const filterDefaultState: UserSearchFilter = {
 interface UserSearcherProps {
   openUserSearcher: boolean
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
+  setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   beatmapGamemodes: BeatmapGamemode[]
+  changingGamemode: Gamemode | undefined
+  changingUserId: string | undefined
+  beatmapId: number
 }
 
-function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}: UserSearcherProps) {
+function UserSearcher(
+  {
+    openUserSearcher,
+    setOpenUserSearcher,
+    setBeatmap,
+    beatmapGamemodes,
+    changingGamemode,
+    changingUserId,
+    beatmapId
+  }: UserSearcherProps) {
   const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [timeout, setTimeout] = useState<number>(0)
@@ -27,6 +42,7 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
   const [filterRoles, setFilterRoles] = useState<SelectFilterItem[]>([])
   const [selectedGamemodes, setSelectedGamemodes] = useState<Gamemode[]>(userSearchFilter.gamemodes)
   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>(userSearchFilter.roles)
+  const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
 
   useEffect(() => {
     let osuGamemode = selectedGamemodes.find(item => item === "osu")
@@ -40,28 +56,28 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
         label: "Osu",
         value: "osu",
         selected: osuGamemode != null || osuGamemode !== undefined,
-        disabled: !beatmapGamemodes.find(it => it.gamemode === "osu")
+        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "osu")
       },
       {
         index: 1,
         label: "Taiko",
         value: "taiko",
         selected: taikoGamemode != null || taikoGamemode !== undefined,
-        disabled: !beatmapGamemodes.find(it => it.gamemode === "taiko")
+        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "taiko")
       },
       {
         index: 2,
         label: "Catch",
         value: "fruits",
         selected: catchGamemode != null || catchGamemode !== undefined,
-        disabled: !beatmapGamemodes.find(it => it.gamemode === "fruits")
+        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "fruits")
       },
       {
         index: 3,
         label: "Mania",
         value: "mania",
         selected: maniaGamemode != null || maniaGamemode !== undefined,
-        disabled: !beatmapGamemodes.find(it => it.gamemode === "mania")
+        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "mania")
       }
     ])
 
@@ -70,16 +86,44 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
     let natRole = selectedRoles.find(item => item === "NominationAssessment")
 
     setFilterRoles([
-      {index: 0, label: USER_ROLES.Nominator.short, value: "Nominator", selected: nominatorRole != null || nominatorRole !== undefined},
-      {index: 1, label: USER_ROLES.Probation.short, value: "Probation", selected: probationRole != null || probationRole !== undefined},
-      {index: 2, label: USER_ROLES.NAT.short, value: "NominationAssessment", selected: natRole != null || natRole !== undefined}
+      {
+        index: 0,
+        label: USER_ROLES.Nominator.short,
+        value: "Nominator",
+        selected: nominatorRole != null || nominatorRole !== undefined
+      },
+      {
+        index: 1,
+        label: USER_ROLES.Probation.short,
+        value: "Probation",
+        selected: probationRole != null || probationRole !== undefined
+      },
+      {
+        index: 2,
+        label: USER_ROLES.NAT.short,
+        value: "NominationAssessment",
+        selected: natRole != null || natRole !== undefined
+      }
     ])
   }, [userSearchFilter, selectedGamemodes, selectedRoles])
 
-  function remove<T>(value: T, array: T[]){
-    array.forEach( (item, index) => {
-      if(item === value) {
-        array.splice(index,1);
+  function onSelectNominator(replacingUserId: string, newNominatorId: string) {
+    if (changingGamemode) {
+      execute(Api.updateNominator(beatmapId, changingGamemode, replacingUserId, newNominatorId))
+      setOpenUserSearcher(false)
+    }
+  }
+
+  useEffect(() => {
+    if (data) {
+      setBeatmap(data)
+    }
+  }, [data])
+
+  function remove<T>(value: T, array: T[]) {
+    array.forEach((item, index) => {
+      if (item === value) {
+        array.splice(index, 1);
         return
       }
     });
@@ -162,7 +206,8 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
           <h4 className={"user-searcher-header"}>Gamemodes</h4>
           {filterGamemodes.map((selectItem, index) => {
             return (
-              <div className={`user-searcher-select-item ${selectItem.disabled ? "disabled": ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`} key={index}>
+              <div key={index}
+                   className={`user-searcher-select-item ${selectItem.disabled ? "disabled" : ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
                 <input
                   type="checkbox"
                   id={`${selectItem.index}-gamemode`}
@@ -181,7 +226,8 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
           <h4 className={"user-searcher-header"}>Roles</h4>
           {filterRoles.map((selectItem, index) => {
             return (
-              <div className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`} key={index}>
+              <div key={index}
+                   className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
                 <input
                   type="checkbox"
                   id={`${selectItem.index}-roles`}
@@ -203,7 +249,7 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
           </div>
           <div className={`user-searcher-textbox`}>
             <div className={"user-searcher-textbox-icon"}>
-              <ImSearch />
+              <ImSearch/>
             </div>
             <input
               placeholder={"osu! Username"}
@@ -213,7 +259,13 @@ function UserSearcher({openUserSearcher, setOpenUserSearcher, beatmapGamemodes}:
               }}
             />
           </div>
-          <UserSearcherListContainer queryFilter={queryFilter} beatmapGamemodes={beatmapGamemodes} />
+          <UserSearcherListContainer
+            queryFilter={queryFilter}
+            beatmapGamemodes={beatmapGamemodes}
+            changingGamemode={changingGamemode}
+            changingUserId={changingUserId}
+            onSelectNominator={onSelectNominator}
+          />
         </div>
       </div>
     </Modal>

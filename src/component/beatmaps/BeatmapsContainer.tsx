@@ -34,16 +34,16 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
   const [showBeatmapFilter, setShowBeatmapFilter] = useState(false)
 
   let { beatmapId } = useParams<string>();
-  const [showBeatmapDetails, setShowBeatmapDetails] = useState<number>()
+  const [openBeatmapId, setOpenBeatmapId] = useState<number>()
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", { manual: true })
 
   useEffect(() => {
-    if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== showBeatmapDetails) {
-      setShowBeatmapDetails(Number(beatmapId))
+    if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
+      setOpenBeatmapId(Number(beatmapId))
     }
-  }, [beatmapId, showBeatmapDetails])
+  }, [beatmapId, openBeatmapId])
 
   useEffect(() => {
     setTotal(0)
@@ -82,9 +82,16 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
 
   function fetchNewData({ startIndex, stopIndex }: IndexRange) {
     const config = Api.fetchBeatmapsByFilter(queryFilter, startIndex, stopIndex)
-    console.log({ url: config.url })
     execute(config)
   }
+
+  function resetPage() {
+    setTotal(0)
+    setLastSet(0)
+    setLoadedBeatmapData([])
+    executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
+  }
+
   return (
     <>
       {
@@ -95,8 +102,9 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
                 setShowBeatmapFilter={setShowBeatmapFilter}
                 loadedBeatmapData={loadedBeatmapData}
                 fetchNewData={fetchNewData}
-                openBeatmapId={showBeatmapDetails}
-                setOpenBeatmapId={setShowBeatmapDetails}
+                openBeatmapId={openBeatmapId}
+                setOpenBeatmapId={setOpenBeatmapId}
+                resetPage={resetPage}
                 viewMode={viewMode}
               />
             </>

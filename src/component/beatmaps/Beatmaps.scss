@@ -4,8 +4,26 @@
   @return 0px 0px 0px 2px $color;
 }
 
+a.beatmap-button {
+  color: $color-text;
+  padding: $padding-smallest;
+  background-color: $color-primary-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 1px 1px 3px $color-background;
+  transition: background-color 300ms;
+
+  &:hover {
+    background-color: $color-highlight-background;
+  }
+}
+
 .beatmap-page {
-  height: 93vh;
+  display: flex;
+  flex-flow: column;
+  margin-left: unset;
+  margin-right: unset;
 
   /* width */
   ::-webkit-scrollbar {
@@ -13,21 +31,6 @@
   }
 
   scrollbar-width: none;
-
-  a.beatmap-button {
-    color: $color-text;
-    padding: $padding-smallest;
-    background-color: $color-primary-light;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 3px $color-background;
-    transition: background-color 300ms;
-
-    &:hover {
-      background-color: $color-highlight-background;
-    }
-  }
 
   .beatmap-filter {
     background-color: $color-primary-light;
@@ -129,7 +132,8 @@
   }
 
   .beatmap-listing-container {
-    height: 100%;
+    flex: 1 1 auto;
+    //height: 100%;
 
     .beatmap-scroll-container {
       background-color: $color-primary;
