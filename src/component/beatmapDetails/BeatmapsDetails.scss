@@ -19,6 +19,8 @@ body .ReactModal__Overlay {
       .beatmap-banner {
         width: 1200px;
         height: 236px;
+        background-size: cover !important;
+        background-position: center !important;
       }
 
       .beatmap-details-sub-container {

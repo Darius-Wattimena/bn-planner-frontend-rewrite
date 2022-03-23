@@ -53,10 +53,9 @@ function BeatmapCard({ beatmap, setShowBeatmapDetails }: BeatmapCardProps) {
       </div>
 
       <div className={"beatmap-card-footer"}>
+        <a className='beatmap-button' onClick={() => setShowBeatmapDetails(beatmap.osuId)}><FiInfo /></a>
         <a className='beatmap-button' href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`}><AiOutlinePaperClip /></a>
         <a className='beatmap-button' href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`}><GoCommentDiscussion /></a>
-        <a className='beatmap-button' onClick={() => setShowBeatmapDetails(beatmap.osuId)}><FiInfo /></a>
-        {/* <NavLink to={`/beatmaps/${beatmap.osuId}`}><FiInfo /></NavLink> */}
       </div>
     </div>
   )

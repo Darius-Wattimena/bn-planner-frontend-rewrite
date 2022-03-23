@@ -1,4 +1,4 @@
-import {BeatmapFilter, Gamemode, UserContext, UserSearchFilter} from "../models/Types";
+import {BeatmapFilter, Gamemode, PageLimit, UserContext, UserSearchFilter} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
 function getAuthHeader() {
@@ -72,6 +72,22 @@ const Api = {
       method: 'GET',
       headers: getAuthHeader(),
       url: '/v2/beatmap/find' + preparedUrlParams
+    }
+  },
+  fetchBeatmapsTableByFilter: (filter: BeatmapFilter, pageNumber: number, pageLimit: PageLimit): AxiosRequestConfig => {
+    const urlParams = filterToUrlParams(filter)
+    let preparedUrlParams
+
+    if (urlParams === '') {
+      preparedUrlParams = `?pageNumber=${pageNumber}&pageLimit=${pageLimit}`
+    } else {
+      preparedUrlParams = urlParams + `&pageNumber=${pageNumber}&pageLimit=${pageLimit}`
+    }
+
+    return {
+      method: 'GET',
+      headers: getAuthHeader(),
+      url: '/v2/beatmap/find/table' + preparedUrlParams
     }
   },
   fetchUserSearchByFilter: (filter: UserSearchFilter): AxiosRequestConfig => {

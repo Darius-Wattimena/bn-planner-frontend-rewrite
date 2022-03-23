@@ -3,28 +3,37 @@ $icon-size: 1.2em;
 
 .beatmaps-header {
   flex: 0 1 auto;
-  display: flex;
-  margin: 0.2em 0;
-  justify-content: space-between;
+  margin: $padding-small auto;
   background-color: $color-table-background;
   border-radius: 3px;
+  width: 70%;
 
-  .beatmaps-header-right {
-    justify-content: flex-end;
-  }
+  .beatmaps-header-container {
+    padding: $padding-small;
+    display: flex;
+    justify-content: space-between;
 
-  .beatmap-button {
-    padding: 0.5em;
+    .beatmaps-header-right {
+      justify-content: flex-end;
+      display: flex;
 
-    gap: 0.5em;
-    box-shadow: 1px 1px 3px $color-background;
+      .beatmap-button {
+        margin-left: $padding;
+      }
+    }
 
-    &.icon-only {
-      height: 1.5em;
-      width: 1.5em;
+    .beatmap-button {
+      padding: $padding-small;
+
+      gap: 0.5em;
+      box-shadow: 1px 1px 3px $color-background;
+
+      &.icon-only {
+        height: 1.5em;
+        width: 1.5em;
+      }
     }
   }
-
 
   .react-icons {
     fill: $color-text;

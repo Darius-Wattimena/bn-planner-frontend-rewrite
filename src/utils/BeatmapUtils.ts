@@ -20,4 +20,6 @@ export function getBeatmapStatus(status: NewBeatmapStatus) {
     case "Unfinished":
       return BEATMAP_STATUS.Unfinished
   }
+
+  return BEATMAP_STATUS.Pending
 }

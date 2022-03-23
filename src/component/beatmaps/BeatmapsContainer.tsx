@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -46,39 +46,58 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
   }, [beatmapId, openBeatmapId])
 
   useEffect(() => {
-    setTotal(0)
-    setLastSet(0)
-    setLoadedBeatmapData([])
-    executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
+    resetPage()
   }, [executeTotal, queryFilter])
 
   useEffect(() => {
     if (!loadingTotal) {
       if (foundTotal && foundTotal !== total) {
-        let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
         setTotal(foundTotal)
+        if (viewMode == "CARDS") {
+          let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
-        // initialize all beatmaps so they can be auto loaded later on
-        for (let i = 0; i < foundTotal; i++) {
-          newLoadedBeatmapData[i] = undefined
+          // initialize all beatmaps so they can be auto loaded later on
+          for (let i = 0; i < foundTotal; i++) {
+            newLoadedBeatmapData[i] = undefined
+          }
+
+          setLoadedBeatmapData(newLoadedBeatmapData)
+        } else {
+          console.log("Table view, not defining all loaded maps")
         }
-
-        setLoadedBeatmapData(newLoadedBeatmapData)
       }
     }
   }, [loadingTotal, foundTotal])
 
   useEffect(() => {
     if (!loading && data) {
-      let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
+      if (viewMode == "CARDS") {
+        let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
-      for (let i = lastSet; i < lastSet + data.length; i++) {
-        newLoadedBeatmapData[i] = data[i - lastSet]
+        for (let i = lastSet; i < lastSet + data.length; i++) {
+          newLoadedBeatmapData[i] = data[i - lastSet]
+        }
+        setLastSet(lastSet + data.length)
+        setLoadedBeatmapData(newLoadedBeatmapData)
+      } else {
+        setLoadedBeatmapData(data)
       }
-      setLastSet(lastSet + data.length)
-      setLoadedBeatmapData(newLoadedBeatmapData)
     }
   }, [loading, data])
+
+  useEffect(() => {
+    console.log({loadedBeatmapData})
+  }, [loadedBeatmapData])
+
+  useEffect(() => {
+    if (viewMode == "TABLE") {
+      fetchNewPage(2, "TEN")
+    }
+  }, [viewMode])
+
+  function fetchNewPage(pageNumber: number, pageLimit: PageLimit) {
+    execute(Api.fetchBeatmapsTableByFilter(queryFilter, pageNumber, pageLimit))
+  }
 
   function fetchNewData({ startIndex, stopIndex }: IndexRange) {
     const config = Api.fetchBeatmapsByFilter(queryFilter, startIndex, stopIndex)
@@ -102,10 +121,13 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
                 setShowBeatmapFilter={setShowBeatmapFilter}
                 loadedBeatmapData={loadedBeatmapData}
                 fetchNewData={fetchNewData}
+                fetchNewPage={fetchNewPage}
                 openBeatmapId={openBeatmapId}
                 setOpenBeatmapId={setOpenBeatmapId}
                 resetPage={resetPage}
                 viewMode={viewMode}
+                setViewMode={setViewMode}
+                total={total}
               />
             </>
           )

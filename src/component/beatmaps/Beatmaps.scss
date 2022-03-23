@@ -1,10 +1,6 @@
 @import "../../styles/Variables";
 
-@function boxShadowWithColor($color) {
-  @return 0px 0px 0px 2px $color;
-}
-
-a.beatmap-button {
+.beatmap-button {
   color: $color-text;
   padding: $padding-smallest;
   background-color: $color-primary-light;
@@ -22,8 +18,6 @@ a.beatmap-button {
 .beatmap-page {
   display: flex;
   flex-flow: column;
-  margin-left: unset;
-  margin-right: unset;
 
   /* width */
   ::-webkit-scrollbar {
@@ -91,7 +85,7 @@ a.beatmap-button {
     margin-right: auto;
   }
 
-  .beatmap-filter-status {
+  .beatmap-filter-status, .beatmap-status {
     label {
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;
@@ -134,235 +128,5 @@ a.beatmap-button {
   .beatmap-listing-container {
     flex: 1 1 auto;
     //height: 100%;
-
-    .beatmap-scroll-container {
-      background-color: $color-primary;
-      border-radius: 3px;
-    }
-
-    .beatmap-listing {
-      height: 100%;
-      overflow:hidden;
-    }
-
-    .beatmap-grid-card {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-    }
-
-    .beatmap-card {
-      flex-direction: row;
-
-      margin: $padding-small;
-      background-color: $color-table-background;
-      text-align: center;
-
-      // Setting height to not have rendering issues
-      height: 370px;
-
-      &.beatmap-status-unfinished {
-        box-shadow: boxShadowWithColor($status-unfinished-colour);
-      }
-
-      &.beatmap-status-pending {
-        box-shadow: boxShadowWithColor($status-pending-colour);
-      }
-
-      &.beatmap-status-bubbled {
-        box-shadow: boxShadowWithColor($status-bubbled-colour);
-      }
-
-      &.beatmap-status-qualified {
-        box-shadow: boxShadowWithColor($status-qualified-colour);
-      }
-
-      &.beatmap-status-ranked {
-        box-shadow: boxShadowWithColor($status-ranked-colour);
-      }
-
-      &.beatmap-status-popped {
-        box-shadow: boxShadowWithColor($status-popped-colour);
-      }
-
-      &.beatmap-status-disqualified {
-        box-shadow: boxShadowWithColor($status-disqualified-colour);
-      }
-
-      &.beatmap-status-graved {
-        box-shadow: boxShadowWithColor($status-graved-colour);
-      }
-
-      .beatmap-status-stripe {
-        border-radius: 2px 2px 0 0;
-
-        height: 10px;
-        &.beatmap-status-unfinished {
-          background-color: $status-unfinished-colour;
-        }
-
-        &.beatmap-status-pending {
-          background-color: $status-pending-colour;
-        }
-
-        &.beatmap-status-bubbled {
-          background-color: $status-bubbled-colour;
-        }
-
-        &.beatmap-status-qualified {
-          background-color: $status-qualified-colour;
-        }
-
-        &.beatmap-status-ranked {
-          background-color: $status-ranked-colour;
-        }
-
-        &.beatmap-status-popped {
-          background-color: $status-popped-colour;
-        }
-
-        &.beatmap-status-disqualified {
-          background-color: $status-disqualified-colour;
-        }
-
-        &.beatmap-status-graved {
-          background-color: $status-graved-colour;
-        }
-      }
-
-      .beatmap-banner-container {
-        .beatmap-banner {
-          background-size: cover;
-          width: 100%;
-          height: 100px;
-
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          .beatmap-mapper-container {
-            .beatmap-mapper-spacer {
-              height: 50px;
-            }
-            .beatmap-mapper-picture-container {
-              background-color: $color-background;
-              border-radius: 25px;
-              width: 75px;
-              height: 75px;
-              margin-left: auto;
-              margin-right: auto;
-
-              .beatmap-mapper-picture {
-                border-radius: 25px;
-                width: 75px;
-                height: 75px;
-                background-size: cover;
-              }
-            }
-          }
-        }
-      }
-
-      .beatmap-details {
-        margin-top: 60px;
-        .beatmap-details-artist, .beatmap-details-title {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          width: 90%;
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        .beatmap-details-title {
-          font-size: 1.3em;
-        }
-
-        .beatmap-details-artist {
-          font-size: 1.1em;
-        }
-
-        .beatmap-nominators {
-          display: flex;
-          flex-wrap: wrap;
-          margin-top: $padding-small;
-
-          .beatmap-nominator {
-            display: flex;
-            padding: $padding-small;
-            background-color: $color-secondary;
-            box-shadow: 1px 1px 3px $color-background;
-            width: 40%;
-            margin-left: auto;
-            margin-right: auto;
-
-            &.nominated {
-              background-color: $color-confirmed;
-            }
-
-            .beatmap-nominator-picture-container {
-              .beatmap-nominator-picture {
-                background-size: cover;
-                width: 50px;
-                height: 50px;
-                border-radius: 10px;
-              }
-            }
-
-            .beatmap-nominator-text {
-              text-align: left;
-              margin-left: $padding-smallest;
-
-              .beatmap-nominator-name {
-                font-size: 1.2em;
-                text-align: left;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                width: 80%;
-                margin-top: 0;
-                margin-left: auto;
-                margin-right: auto;
-
-                .beatmap-nominator-role {
-                  font-size: 0.8em;
-                  border-radius: 5px;
-                  width: fit-content;
-                  padding: 0 $padding-small;
-                }
-              }
-
-              .nominated {
-                color: $status-ranked-colour;
-
-                .react-icons {
-                  fill: $status-ranked-colour;
-                  font-size: 1.2em;
-                }
-              }
-
-              .not-nominated {
-                color: $status-disqualified-colour;
-
-                .react-icons {
-                  fill: $status-disqualified-colour;
-                  font-size: 1.2em;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .beatmap-card-footer {
-        font-size: 1.5em;
-        padding: $padding-small 0;
-        display: flex;
-        justify-content: space-evenly;
-
-        a.beatmap-button {
-          width: 25%;
-        }
-      }
-    }
   }
 }

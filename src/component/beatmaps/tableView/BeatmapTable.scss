@@ -1,9 +1,60 @@
 @import 'src/styles/Variables';
 
+$row-height: 3em;
+$font-size: 0.8em;
+
+.table-container {
+  border-radius: 3px;
+  background-color: $color-primary;
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $padding-small $padding;
+  background-color: $color-primary;
+
+  .table-footer-end {
+    display: flex;
+    align-items: center;
+  }
+
+  .table-footer-limit-selector {
+    display: flex;
+    align-items: center;
+    select {
+      margin-left: $padding-small;
+    }
+
+    select, select option {
+      font-size: 1em;
+      color: $color-text-dark;
+      border-radius: unset;
+    }
+  }
+
+  .table-footer-pagination {
+    display: flex;
+    margin-left: $padding;
+
+    .table-pagination {
+      display: flex;
+
+      button {
+        padding: $padding-small;
+        height: 44px;
+        width: 44px;
+        border: 2px solid $color-primary;
+      }
+    }
+  }
+}
+
 table {
-  width: 100%;
-  border-spacing: unset;
-  margin-top: $padding;
+  border-spacing: 0 2px;
+  border-color: $color-secondary;
+  background-color: $color-primary;
 
   thead {
     background-color: $color-primary;
@@ -12,6 +63,7 @@ table {
   tbody {
     tr {
       background-color: $color-table-background;
+      height: $row-height;
 
       &:hover {
         background-color: $color-table-hover;
@@ -19,35 +71,100 @@ table {
     }
   }
 
-  th, td {
-    padding: $padding;
-    text-align: center;
-  }
-
   th {
-    color: $color-text-light;
+    padding: $padding-small;
   }
 
-  td {
-    border-top: 1px solid $color-table-border;
+  th, td {
+    text-align: center;
+    min-width: 30px;
+    max-height: $row-height;
+  }
+}
 
-    &.beatmap-banner-container {
-      height: auto;
-      min-width: 200px;
-      padding: 0;
+.beatmap-table {
+  width: 100%;
+}
 
-      .beatmap-banner {
-        margin: $padding-smallest;
-        background-size: cover;
-        width: 237px;
-        height: 63px;
-      }
+.beatmap-table-row {
+
+  .beatmap-text {
+    font-size: $font-size;
+  }
+
+  .beatmap-table-user {
+    width: 12.5%;
+    &.nominated .beatmap-nominator-container {
+      box-shadow: 0 0 5px 1px $status-qualified-colour;
     }
 
-    p {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .beatmap-nominator-container {
+      display: flex;
+      align-items: center;
+      padding: $padding-smallest;
+      margin: 0 $padding;
+      border-radius: 25px;
+
+      .beatmap-nominator-picture {
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        border-radius: 25px;
+      }
+
+      .beatmap-nominator-text {
+        text-align: left;
+        margin-left: $padding-smallest;
+        font-size: $font-size;
+      }
+    }
+  }
+
+
+  .beatmap-status {
+    width: 8%;
+
+    .beatmap-status-label {
+      border-radius: 3px;
+      //padding: $padding-smallest;
+      //width: 100%;
+    }
+  }
+
+
+  .beatmap-banner-container {
+    padding: 0;
+    width: 15%;
+    height: $row-height;
+
+    .beatmap-banner {
+      margin: $padding-smallest;
+      background-size: cover;
+      background-position: center;
+      height: $row-height;
+    }
+  }
+
+  .beatmap-table-note {
+    width: fit-content;
+    font-size: 1.2em;
+    .beatmap-button {
+      padding: $padding-small;
+      width: fit-content;
+      margin: 0 auto;
+    }
+  }
+
+  .beatmap-table-actions {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+    .beatmap-button {
+      padding: $padding-small;
+      width: fit-content;
+      margin: 0 $padding-smallest;
+      //width: 75%;
     }
   }
 }

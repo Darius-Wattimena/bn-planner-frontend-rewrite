@@ -1,6 +1,7 @@
 export type Gamemode = 'osu' | 'taiko' | 'fruits' | 'mania'
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
 export type ViewMode = 'CARDS' | 'TABLE'
+export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
 
 export interface UserContext {
   user: NewUser,
