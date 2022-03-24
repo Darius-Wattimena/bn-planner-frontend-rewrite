@@ -8,7 +8,7 @@ export const groupBy = <T, K extends keyof any>(list: T[], getKey: (item: T) => 
     return previous;
   }, {} as Record<K, T[]>);
 
-export function setArrayValue<T> (
+export function setArrayValue<T>(
   values: T,
   key: keyof T,
   value: any,
@@ -31,7 +31,7 @@ function debounce<T extends Function>(cb: T, wait = 20) {
   return <T>(<any>callable);
 }
 
-export function debouncingFilter<T> (
+export function debouncingFilter<T>(
   formValues: T,
   timeoutValue: number,
   group: keyof T,
@@ -57,7 +57,7 @@ export function debouncingFilter<T> (
   }, 500))
 }
 
-export function instantFilter<T> (
+export function instantFilter<T>(
   formValues: T,
   group: keyof T,
   value: any,

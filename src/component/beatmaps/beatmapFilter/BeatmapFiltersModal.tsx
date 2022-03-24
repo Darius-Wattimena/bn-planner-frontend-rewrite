@@ -11,7 +11,13 @@ interface BeatmapFiltersModalProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-export function BeatmapFiltersModal({showBeatmapFilter, setShowBeatmapFilter, beatmapFilter, setBeatmapFilter, setQueryFilter}: BeatmapFiltersModalProps) {
+export function BeatmapFiltersModal({
+                                      showBeatmapFilter,
+                                      setShowBeatmapFilter,
+                                      beatmapFilter,
+                                      setBeatmapFilter,
+                                      setQueryFilter
+                                    }: BeatmapFiltersModalProps) {
   return (
     <Modal
       closeTimeoutMS={200}
@@ -23,7 +29,8 @@ export function BeatmapFiltersModal({showBeatmapFilter, setShowBeatmapFilter, be
       shouldCloseOnOverlayClick
     >
       <div className={"beatmap-details-container"}>
-        <BeatmapFilters beatmapFilter={beatmapFilter} setBeatmapFilter={setBeatmapFilter} setQueryFilter={setQueryFilter} />
+        <BeatmapFilters beatmapFilter={beatmapFilter} setBeatmapFilter={setBeatmapFilter}
+                        setQueryFilter={setQueryFilter}/>
       </div>
     </Modal>
   )

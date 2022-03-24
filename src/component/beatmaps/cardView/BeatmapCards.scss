@@ -11,7 +11,7 @@
 
 .beatmap-listing {
   height: 100%;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .beatmap-grid-card {
@@ -112,6 +112,7 @@
         .beatmap-mapper-spacer {
           height: 50px;
         }
+
         .beatmap-mapper-picture-container {
           background-color: $color-background;
           border-radius: 25px;
@@ -133,6 +134,7 @@
 
   .beatmap-details {
     margin-top: 60px;
+
     .beatmap-details-artist, .beatmap-details-title {
       overflow: hidden;
       white-space: nowrap;

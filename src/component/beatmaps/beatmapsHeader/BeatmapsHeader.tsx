@@ -1,5 +1,5 @@
 import React from "react";
-import {ImCart, ImFilter, ImMap, ImPlus, ImTable} from "react-icons/im";
+import {ImFilter, ImMap, ImPlus, ImTable} from "react-icons/im";
 import "./BeatmapsHeader.scss"
 import {ViewMode} from "../../../models/Types";
 
@@ -22,24 +22,24 @@ function BeatmapsHeader({setShowBeatmapFilter, viewMode, setViewMode}: BeatmapsH
           </button>
         </div>
         <div className='beatmaps-header-right'>
-          <a href='#' className='beatmap-button' onClick={() => {
+          <button className='beatmap-button' onClick={() => {
             if (viewMode === "CARDS") {
               setViewMode("TABLE")
             } else {
               setViewMode("CARDS")
             }
           }}>
-            {viewMode === "CARDS" ? <ImTable /> : <ImMap />}
+            {viewMode === "CARDS" ? <ImTable/> : <ImMap/>}
             <div className='beatmap-button-text'>
               {viewMode === "CARDS" ? "Table" : "Card"} view
             </div>
-          </a>
-          <a href='#' className='beatmap-button'>
-            <ImPlus />
+          </button>
+          <button className='beatmap-button'>
+            <ImPlus/>
             <div className='beatmap-button-text'>
               Add beatmap
             </div>
-          </a>
+          </button>
         </div>
       </div>
     </div>

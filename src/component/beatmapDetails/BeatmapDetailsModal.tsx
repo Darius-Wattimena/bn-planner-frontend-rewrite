@@ -40,13 +40,13 @@ export function BeatmapDetailsModal(
         shouldCloseOnOverlayClick
       >
         {beatmap &&
-          <BeatmapDetails
-            key={key}
-            beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}
-            setOpenUserSearcher={setOpenUserSearcher}
-            setChangingGamemode={setChangingGamemode}
-            setChangingUser={setChangingUser}
-          />
+        <BeatmapDetails
+          key={key}
+          beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}
+          setOpenUserSearcher={setOpenUserSearcher}
+          setChangingGamemode={setChangingGamemode}
+          setChangingUser={setChangingUser}
+        />
         }
       </Modal>
 

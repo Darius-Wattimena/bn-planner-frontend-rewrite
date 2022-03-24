@@ -7,7 +7,7 @@ interface BeatmapTableUserProps {
   nominated: boolean
 }
 
-function BeatmapTableUser({ user, nominated }: BeatmapTableUserProps) {
+function BeatmapTableUser({user, nominated}: BeatmapTableUserProps) {
   let name = user.username
   let profilePictureUri = getProfilePictureUri(user.osuId)
 

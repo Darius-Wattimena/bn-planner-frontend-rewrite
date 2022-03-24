@@ -17,7 +17,16 @@ interface BeatmapDetailsUserProps {
 }
 
 function BeatmapDetailsUser(
-  {user, hasNominated, editable, nominator, setOpenUserSearcher, setChangingGamemode, setChangingUser, gamemode}: BeatmapDetailsUserProps
+  {
+    user,
+    hasNominated,
+    editable,
+    nominator,
+    setOpenUserSearcher,
+    setChangingGamemode,
+    setChangingUser,
+    gamemode
+  }: BeatmapDetailsUserProps
 ) {
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
@@ -30,30 +39,30 @@ function BeatmapDetailsUser(
       <div className={"beatmap-user-picture-container"}>
         <div className={"beatmap-user-picture"} style={{backgroundImage: `url(${profilePictureUri})`}}>
           {roleDetails.id !== USER_ROLES.Mapper.id &&
-            <div className={`beatmap-user-ribbon`}>
-              <div className={`beatmap-user-role ${roleDetails.className}`}>
-                {roleDetails.short}
-              </div>
+          <div className={`beatmap-user-ribbon`}>
+            <div className={`beatmap-user-role ${roleDetails.className}`}>
+              {roleDetails.short}
             </div>
+          </div>
           }
         </div>
       </div>
       <div className={"beatmap-user-details"}>
         {nominator &&
-          <div className={`beatmap-user-text`}>
-            {`Nominator #${nominator}`}
-          </div>
+        <div className={`beatmap-user-text`}>
+          {`Nominator #${nominator}`}
+        </div>
         }
         <div className={`beatmap-user-text`}>
           {user.username} {nominator && setOpenUserSearcher && setChangingGamemode && setChangingUser &&
-            <a href="#">
-              <ImPencil onClick={() => {
-                setOpenUserSearcher(true)
-                setChangingGamemode(gamemode)
-                setChangingUser(user.osuId)
-              }} />
-            </a>
-          }
+        <a href="#">
+          <ImPencil onClick={() => {
+            setOpenUserSearcher(true)
+            setChangingGamemode(gamemode)
+            setChangingUser(user.osuId)
+          }}/>
+        </a>
+        }
         </div>
         <div className="beatmap-user-nomination-status">
           {hasNominated === true &&

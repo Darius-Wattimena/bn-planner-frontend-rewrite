@@ -2,7 +2,7 @@ import {AutoSizer, Grid, Index, IndexRange, InfiniteLoader} from "react-virtuali
 import {GridCellProps} from "react-virtualized/dist/es/Grid";
 import BeatmapCard from "./BeatmapCard";
 import React from "react";
-import {Beatmap, PageLimit, ViewMode} from "../../../models/Types";
+import {Beatmap} from "../../../models/Types";
 import "./BeatmapCards.scss"
 
 interface BeatmapCardsProps {

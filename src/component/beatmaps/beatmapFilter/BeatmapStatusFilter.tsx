@@ -12,7 +12,13 @@ interface BeatmapStatusFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, timeout, setQueryFilter }: BeatmapStatusFilterProps) {
+function BeatmapStatusFilter({
+                               statuses,
+                               beatmapFilter,
+                               setBeatmapFormFilter,
+                               timeout,
+                               setQueryFilter
+                             }: BeatmapStatusFilterProps) {
   const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>(beatmapFilter.status)
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
@@ -32,9 +38,9 @@ function BeatmapStatusFilter({ statuses, beatmapFilter, setBeatmapFormFilter, ti
     setFilterItems(preparedStatuses)
   }, [selectedStatuses, statuses])
 
-  function removeNumber(value: NewBeatmapStatus, numbers: NewBeatmapStatus[]){
-    numbers.forEach( (item, index) => {
-      if(item === value) numbers.splice(index,1);
+  function removeNumber(value: NewBeatmapStatus, numbers: NewBeatmapStatus[]) {
+    numbers.forEach((item, index) => {
+      if (item === value) numbers.splice(index, 1);
     });
   }
 

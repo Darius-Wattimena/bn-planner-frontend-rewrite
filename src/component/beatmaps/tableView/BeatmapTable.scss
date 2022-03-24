@@ -23,6 +23,7 @@ $font-size: 0.8em;
   .table-footer-limit-selector {
     display: flex;
     align-items: center;
+
     select {
       margin-left: $padding-small;
     }
@@ -94,6 +95,7 @@ table {
 
   .beatmap-table-user {
     width: 12.5%;
+
     &.nominated .beatmap-nominator-container {
       box-shadow: 0 0 5px 1px $status-qualified-colour;
     }
@@ -148,6 +150,7 @@ table {
   .beatmap-table-note {
     width: fit-content;
     font-size: 1.2em;
+
     .beatmap-button {
       padding: $padding-small;
       width: fit-content;
@@ -160,6 +163,7 @@ table {
     display: flex;
     justify-content: center;
     font-size: 1.2em;
+
     .beatmap-button {
       padding: $padding-small;
       width: fit-content;

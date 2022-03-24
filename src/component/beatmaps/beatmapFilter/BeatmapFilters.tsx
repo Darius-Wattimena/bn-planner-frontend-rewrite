@@ -10,7 +10,7 @@ interface BeatmapFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter }: BeatmapFilterProps) {
+function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: BeatmapFilterProps) {
   const [timeout, setTimeout] = useState<number>(0)
 
   return (
@@ -81,7 +81,15 @@ interface BeatmapTextFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapTextFilter({ target, label, beatmapFilter, setBeatmapFormFilter, timeout, setTimeout, setQueryFilter }: BeatmapTextFilterProps) {
+function BeatmapTextFilter({
+                             target,
+                             label,
+                             beatmapFilter,
+                             setBeatmapFormFilter,
+                             timeout,
+                             setTimeout,
+                             setQueryFilter
+                           }: BeatmapTextFilterProps) {
   const value = beatmapFilter[target]
 
   function updateBeatmapFilter(newValue: string) {

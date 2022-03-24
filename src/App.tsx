@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import AppRoutes from "./AppRoutes"
 import './styles/simple-grid.scss'
 import './App.scss'
-import { configure } from 'axios-hooks'
+import {configure} from 'axios-hooks'
 import Axios from 'axios'
 import {CONFIG} from "./Settings";
 import {UserContext, ViewMode} from "./models/Types";
@@ -13,7 +13,7 @@ const axios = Axios.create({
   baseURL: CONFIG.api_url
 })
 
-configure({ axios })
+configure({axios})
 
 function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('CARDS')
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div id="main" className="App">
-      <AppRoutes viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} />
+      <AppRoutes viewMode={viewMode} setViewMode={setViewMode} userContext={userContext}/>
     </div>
   );
 }

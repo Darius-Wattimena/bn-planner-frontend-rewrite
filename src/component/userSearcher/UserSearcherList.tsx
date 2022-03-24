@@ -12,7 +12,14 @@ interface UserSearcherListProps {
   onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
 }
 
-function UserSearcherList({data, loading, beatmapGamemodes, changingGamemode, changingUserId, onSelectNominator}: UserSearcherListProps) {
+function UserSearcherList({
+                            data,
+                            loading,
+                            beatmapGamemodes,
+                            changingGamemode,
+                            changingUserId,
+                            onSelectNominator
+                          }: UserSearcherListProps) {
   return (
     <div className={"user-searcher-list"}>
       {data && data.map(item => {
@@ -41,7 +48,13 @@ interface UserSearcherUserProps {
   onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
 }
 
-function UserSearcherUser({user, alreadyNominator, changingGamemode, changingUserId, onSelectNominator}: UserSearcherUserProps) {
+function UserSearcherUser({
+                            user,
+                            alreadyNominator,
+                            changingGamemode,
+                            changingUserId,
+                            onSelectNominator
+                          }: UserSearcherUserProps) {
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
   const canNominateGamemode = user.gamemodes.find(it => it.gamemode === changingGamemode)
@@ -62,7 +75,7 @@ function UserSearcherUser({user, alreadyNominator, changingGamemode, changingUse
       <div className={"user-searcher-user-actions"}>
         {(alreadyNominator) ? (
           <div className={"already-nominator"}>
-            <ImCheckmark /> Already Nominator
+            <ImCheckmark/> Already Nominator
           </div>
         ) : (canNominateGamemode) ? (
           <button className='user-select-button' onClick={() => {
@@ -70,7 +83,7 @@ function UserSearcherUser({user, alreadyNominator, changingGamemode, changingUse
               onSelectNominator(changingUserId, user.osuId)
             }
           }}>
-            <ImPlus />
+            <ImPlus/>
             <div className={`user-select-button-text ${alreadyNominator ? "already-nominator" : ""}`}>
               Select Nominator
             </div>

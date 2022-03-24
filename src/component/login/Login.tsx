@@ -6,7 +6,7 @@ import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 
 function Login() {
-  const [{data, loading, error}, execute] = useAxios<UserContext>("", { manual: true })
+  const [{data, loading, error}, execute] = useAxios<UserContext>("", {manual: true})
   const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
   const location = useLocation()
 
@@ -33,7 +33,7 @@ function Login() {
   }, [data, loading, error, setUserContext])
 
   if (userContext?.accessToken && userContext?.accessToken !== "") {
-    return <Navigate to={"/"} />
+    return <Navigate to={"/"}/>
   } else {
     return (
       <div>

@@ -40,6 +40,7 @@
           input {
             background-color: $color-text-disabled;
           }
+
           label {
             color: $color-text-disabled;
           }
@@ -122,6 +123,7 @@
               align-items: center;
               padding-left: $padding-smallest;
               color: $status-qualified-colour;
+
               svg {
                 fill: $status-qualified-colour;
                 align-items: center;

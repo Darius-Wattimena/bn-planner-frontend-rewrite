@@ -35,7 +35,7 @@ export const BEATMAP_STATUS = {
     className: 'beatmap-status-graved'
   },
   Unfinished: {
-  id: 8,
+    id: 8,
     name: 'Unfinished',
     className: 'beatmap-status-unfinished'
   }

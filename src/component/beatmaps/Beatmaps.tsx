@@ -42,8 +42,9 @@ function Beatmaps(
       <div className={"page-container beatmap-page"}>
         <div className={"page-container-content beatmap-listing-container"}>
           <div className={"beatmap-listing"}>
-            { (viewMode === "CARDS") ? (
-              <BeatmapCards loadedBeatmapData={loadedBeatmapData} fetchNewData={fetchNewData} setOpenBeatmapId={setOpenBeatmapId} />
+            {(viewMode === "CARDS") ? (
+              <BeatmapCards loadedBeatmapData={loadedBeatmapData} fetchNewData={fetchNewData}
+                            setOpenBeatmapId={setOpenBeatmapId}/>
             ) : (
               <BeatmapTable
                 beatmaps={loadedBeatmapData}

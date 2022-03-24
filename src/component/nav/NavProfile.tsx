@@ -7,14 +7,14 @@ interface NavProfileProps {
   role: UserRole
 }
 
-function NavProfile({ user, role }: NavProfileProps) {
+function NavProfile({user, role}: NavProfileProps) {
   if (user) {
     let profilePictureUri = getProfilePictureUri(user.osuId)
     let frontendRole = getFrontendRole(role)
 
     return (
       <div className={"navbar-profile"}>
-        <img src={profilePictureUri} alt={""} />
+        <img src={profilePictureUri} alt={""}/>
         <div className={"navbar-profile-details"}>
           <div className={"username"}>{user.username}</div>
           <div className={"role"}>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, NewUser, NominatorSelectFilterItem, User} from "../../../models/Types";
+import {BeatmapFilter, NewUser, NominatorSelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import * as _ from 'lodash'
 import Collapsible from "react-collapsible";
@@ -13,7 +13,13 @@ interface BeatmapNominatorFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilter, timeout, setQueryFilter }: BeatmapNominatorFilterProps) {
+function BeatmapNominatorFilter({
+                                  nominators,
+                                  beatmapFilter,
+                                  setBeatmapFormFilter,
+                                  timeout,
+                                  setQueryFilter
+                                }: BeatmapNominatorFilterProps) {
   const [selectedNominators, setSelectedNominators] = useState<string[]>([])
   const [filterItems, setFilterItems] = useState<NominatorSelectFilterItem[]>([])
 
@@ -37,9 +43,9 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
     setFilterItems(preparedNominators)
   }, [nominators, selectedNominators])
 
-  function remove(value: string, array: string[]){
-    array.forEach( (item, index) => {
-      if(item === value) array.splice(index,1);
+  function remove(value: string, array: string[]) {
+    array.forEach((item, index) => {
+      if (item === value) array.splice(index, 1);
     });
   }
 
@@ -89,7 +95,7 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
                 triggerOpenedClassName={nominatorRoleClass}
                 openedClassName={`collapsible-child-group`}>
                 <div className={`beatmap-filter-nominators-group`}>
-                  { groupedFilterItems[key].map((selectItem, groupIndex) => {
+                  {groupedFilterItems[key].map((selectItem, groupIndex) => {
 
                     return (
                       <div className={`beatmap-filter-user`} key={groupIndex}>
@@ -105,7 +111,8 @@ function BeatmapNominatorFilter({ nominators, beatmapFilter, setBeatmapFormFilte
                           {selectItem.label}
                         </label>
                       </div>
-                    )})}
+                    )
+                  })}
                 </div>
               </Collapsible>
 

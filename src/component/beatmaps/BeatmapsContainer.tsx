@@ -7,7 +7,6 @@ import Beatmaps from "./Beatmaps";
 import _ from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
-import BeatmapFilters from "./beatmapFilter/BeatmapFilters";
 import BeatmapFiltersModal from "./beatmapFilter/BeatmapFiltersModal";
 
 const filterDefaultState: BeatmapFilter = {
@@ -25,7 +24,7 @@ interface BeatmapsContainerProps {
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
 }
 
-function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
+function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
@@ -33,11 +32,14 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
   const [lastSet, setLastSet] = useState<number>(0)
   const [showBeatmapFilter, setShowBeatmapFilter] = useState(false)
 
-  let { beatmapId } = useParams<string>();
+  let {beatmapId} = useParams<string>();
   const [openBeatmapId, setOpenBeatmapId] = useState<number>()
 
-  const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
-  const [{data, loading}, execute] = useAxios<Beatmap[]>("", { manual: true })
+  const [{
+    data: foundTotal,
+    loading: loadingTotal
+  }, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
+  const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
@@ -53,7 +55,7 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
     if (!loadingTotal) {
       if (foundTotal && foundTotal !== total) {
         setTotal(foundTotal)
-        if (viewMode == "CARDS") {
+        if (viewMode === "CARDS") {
           let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
           // initialize all beatmaps so they can be auto loaded later on
@@ -71,7 +73,7 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
 
   useEffect(() => {
     if (!loading && data) {
-      if (viewMode == "CARDS") {
+      if (viewMode === "CARDS") {
         let newLoadedBeatmapData = _.cloneDeep(loadedBeatmapData)
 
         for (let i = lastSet; i < lastSet + data.length; i++) {
@@ -90,7 +92,7 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
   }, [loadedBeatmapData])
 
   useEffect(() => {
-    if (viewMode == "TABLE") {
+    if (viewMode === "TABLE") {
       fetchNewPage(2, "TEN")
     }
   }, [viewMode])
@@ -99,7 +101,7 @@ function BeatmapsContainer({ viewMode, setViewMode }: BeatmapsContainerProps) {
     execute(Api.fetchBeatmapsTableByFilter(queryFilter, pageNumber, pageLimit))
   }
 
-  function fetchNewData({ startIndex, stopIndex }: IndexRange) {
+  function fetchNewData({startIndex, stopIndex}: IndexRange) {
     const config = Api.fetchBeatmapsByFilter(queryFilter, startIndex, stopIndex)
     execute(config)
   }

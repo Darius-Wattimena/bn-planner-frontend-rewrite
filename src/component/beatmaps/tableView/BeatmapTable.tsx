@@ -11,7 +11,7 @@ interface BeatmapTableProps {
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-function BeatmapTable({ total, beatmaps, fetchNewPage, setOpenBeatmapId }: BeatmapTableProps) {
+function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: BeatmapTableProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const [limit, setLimit] = useState<PageLimit>('TEN')
 
@@ -47,10 +47,10 @@ function BeatmapTable({ total, beatmaps, fetchNewPage, setOpenBeatmapId }: Beatm
         </tr>
         </thead>
         <tbody>
-        { beatmaps.map(beatmap => {
+        {beatmaps.map(beatmap => {
           if (beatmap) {
             return (
-              <BeatmapTableRow key={beatmap.osuId} beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId} />
+              <BeatmapTableRow key={beatmap.osuId} beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}/>
             )
           }
         })}
@@ -70,7 +70,7 @@ function BeatmapTable({ total, beatmaps, fetchNewPage, setOpenBeatmapId }: Beatm
             </select>
           </div>
           <div className={"table-footer-pagination"}>
-            <BasicPagination currentPage={currentPage} lastPage={possibleLastPage} setPage={setCurrentPage} />
+            <BasicPagination currentPage={currentPage} lastPage={possibleLastPage} setPage={setCurrentPage}/>
           </div>
         </div>
       </div>
@@ -84,21 +84,22 @@ interface BasicPaginationProps {
   setPage: React.Dispatch<React.SetStateAction<number>>
 }
 
-const BasicPagination = ({ currentPage, lastPage, setPage }: BasicPaginationProps) => {
+const BasicPagination = ({currentPage, lastPage, setPage}: BasicPaginationProps) => {
   return (
-    <div className={"table-pagination"} >
+    <div className={"table-pagination"}>
       <button className={"beatmap-button"} disabled={currentPage === 1} onClick={() => setPage(1)}>
-        <FaAngleDoubleLeft />
+        <FaAngleDoubleLeft/>
       </button>
       <button className={"beatmap-button"} disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>
-        <FaAngleLeft />
+        <FaAngleLeft/>
       </button>
       <button className={"beatmap-button"}>{currentPage}</button>
-      <button className={"beatmap-button"} disabled={!(lastPage > currentPage)} onClick={() => setPage(currentPage + 1)}>
-        <FaAngleRight />
+      <button className={"beatmap-button"} disabled={!(lastPage > currentPage)}
+              onClick={() => setPage(currentPage + 1)}>
+        <FaAngleRight/>
       </button>
       <button className={"beatmap-button"} disabled={lastPage <= currentPage} onClick={() => setPage(lastPage)}>
-        <FaAngleDoubleRight />
+        <FaAngleDoubleRight/>
       </button>
     </div>
   )

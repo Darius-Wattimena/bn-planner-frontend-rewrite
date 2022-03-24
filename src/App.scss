@@ -37,11 +37,11 @@ body {
   transition: opacity 200ms ease-in-out;
 }
 
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
   opacity: 0;
 }
 
@@ -150,7 +150,7 @@ input[type="checkbox"] {
   background: $color-text-light;
   border-radius: 5px;
   position: relative;
-  box-sizing: content-box ;
+  box-sizing: content-box;
   width: 1.3em;
   height: 1.3em;
   border-width: 0;
@@ -174,7 +174,7 @@ input[type="checkbox"]:focus {
     font-size: 1.3em;
   }
 
-  .collapsible-child-group .Collapsible__trigger  {
+  .collapsible-child-group .Collapsible__trigger {
     font-size: unset;
   }
 }

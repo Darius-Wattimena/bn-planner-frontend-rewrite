@@ -6,7 +6,7 @@ function getAuthHeader() {
 
   if (localStorageContext) {
     const userContext = JSON.parse(localStorageContext) as UserContext
-    return { 'Authorization': 'Bearer ' + userContext.accessToken }
+    return {'Authorization': 'Bearer ' + userContext.accessToken}
   } else {
     console.error("something went wrong when reading the UserContext from local storage")
   }
