@@ -28,7 +28,8 @@ function BeatmapCards({loadedBeatmapData, fetchNewData, setOpenBeatmapId}: Beatm
     <InfiniteLoader
       isRowLoaded={isRowLoaded}
       loadMoreRows={loadMoreRows}
-      minimumBatchSize={25}
+      threshold={25}
+      minimumBatchSize={1}
       rowCount={loadedBeatmapData.length}>
       {({onRowsRendered, registerChild}) => (
         <AutoSizer className={"beatmap-scroll-autosizer"}>

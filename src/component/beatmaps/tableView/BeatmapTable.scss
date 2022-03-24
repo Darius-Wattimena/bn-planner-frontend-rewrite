@@ -122,17 +122,14 @@ table {
     }
   }
 
-
   .beatmap-status {
     width: 8%;
 
     .beatmap-status-label {
       border-radius: 3px;
-      //padding: $padding-smallest;
-      //width: 100%;
+      margin: 0 $padding-small;
     }
   }
-
 
   .beatmap-banner-container {
     padding: 0;
