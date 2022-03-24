@@ -34,7 +34,7 @@ function AppRoutes({viewMode, setViewMode, userContext}: RoutesProps) {
         <Route path="/login" element={<Login/>}/>
         <Route path="/beatmaps" element={
           <RequireAuth>
-            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode}/>
+            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext}/>
           </RequireAuth>
         }/>
         <Route path="*" element={<div>TODO : NOT FOUND</div>}/>

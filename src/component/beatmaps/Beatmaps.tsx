@@ -1,5 +1,5 @@
 import React from "react";
-import {Beatmap, PageLimit, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import {IndexRange} from "react-virtualized";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
 import './Beatmaps.scss';
@@ -18,6 +18,9 @@ interface BeatmapsProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   total: number
+  filterMyIcons: () => void
+  beatmapFilter: BeatmapFilter
+  userContext: UserContext | undefined
 }
 
 function Beatmaps(
@@ -31,13 +34,18 @@ function Beatmaps(
     resetPage,
     viewMode,
     setViewMode,
-    total
+    total,
+    beatmapFilter,
+    filterMyIcons,
+    userContext
   }: BeatmapsProps
 ) {
 
   return (
     <>
-      <BeatmapsHeader setShowBeatmapFilter={setShowBeatmapFilter} viewMode={viewMode} setViewMode={setViewMode}/>
+      <BeatmapsHeader
+        userContext={userContext} setShowBeatmapFilter={setShowBeatmapFilter} viewMode={viewMode}
+        setViewMode={setViewMode} filterMyIcons={filterMyIcons} beatmapFilter={beatmapFilter}/>
       <div className={"page-container beatmap-page"}>
         <div className={"page-container-content beatmap-listing-container"}>
           <div className={"beatmap-listing"}>

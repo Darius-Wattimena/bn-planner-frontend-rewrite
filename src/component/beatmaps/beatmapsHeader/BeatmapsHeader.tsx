@@ -1,15 +1,20 @@
 import React from "react";
-import {ImFilter, ImMap, ImPlus, ImTable} from "react-icons/im";
+import {ImFilter, ImMap, ImPlus, ImTable, ImUser} from "react-icons/im";
 import "./BeatmapsHeader.scss"
-import {ViewMode} from "../../../models/Types";
+import {BeatmapFilter, UserContext, ViewMode} from "../../../models/Types";
 
 interface BeatmapsHeaderProps {
   setShowBeatmapFilter: React.Dispatch<React.SetStateAction<boolean>>
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
+  filterMyIcons: () => void
+  beatmapFilter: BeatmapFilter
+  userContext: UserContext | undefined
 }
 
-function BeatmapsHeader({setShowBeatmapFilter, viewMode, setViewMode}: BeatmapsHeaderProps) {
+function BeatmapsHeader({setShowBeatmapFilter, viewMode, setViewMode, filterMyIcons, beatmapFilter, userContext}: BeatmapsHeaderProps) {
+  const filteringOnOwnUser = beatmapFilter.nominators.find(it => it == userContext?.user.osuId) !== undefined
+
   return (
     <div className={"beatmaps-header"}>
       <div className={"beatmaps-header-container"}>
@@ -18,6 +23,12 @@ function BeatmapsHeader({setShowBeatmapFilter, viewMode, setViewMode}: BeatmapsH
             <ImFilter/>
             <div className='beatmap-button-text'>
               Filters
+            </div>
+          </button>
+          <button onClick={() => filterMyIcons()} className={`beatmap-button ${filteringOnOwnUser ? "quick-filter-active" : ""}`}>
+            <ImUser/>
+            <div className='beatmap-button-text'>
+              My Icons
             </div>
           </button>
         </div>

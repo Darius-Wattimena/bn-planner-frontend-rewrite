@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -22,9 +22,10 @@ const filterDefaultState: BeatmapFilter = {
 interface BeatmapsContainerProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
+  userContext: UserContext | undefined
 }
 
-function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
+function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
@@ -35,10 +36,7 @@ function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
   let {beatmapId} = useParams<string>();
   const [openBeatmapId, setOpenBeatmapId] = useState<number>()
 
-  const [{
-    data: foundTotal,
-    loading: loadingTotal
-  }, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
+  const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
 
   useEffect(() => {
@@ -113,6 +111,21 @@ function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
   }
 
+  function filterMyIcons() {
+    let currentUserId = userContext?.user.osuId
+    if (currentUserId) {
+      let newQueryFilter = _.cloneDeep(queryFilter)
+      if (queryFilter.nominators.find(it => it === currentUserId) !== undefined) {
+        newQueryFilter.nominators = newQueryFilter.nominators.filter(it => it !== currentUserId)
+      } else {
+        newQueryFilter.nominators.push(currentUserId)
+      }
+
+      setBeatmapFilter(newQueryFilter)
+      setQueryFilter(newQueryFilter)
+    }
+  }
+
   return (
     <>
       {
@@ -120,6 +133,7 @@ function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
           : (
             <>
               <Beatmaps
+                userContext={userContext}
                 setShowBeatmapFilter={setShowBeatmapFilter}
                 loadedBeatmapData={loadedBeatmapData}
                 fetchNewData={fetchNewData}
@@ -130,6 +144,8 @@ function BeatmapsContainer({viewMode, setViewMode}: BeatmapsContainerProps) {
                 viewMode={viewMode}
                 setViewMode={setViewMode}
                 total={total}
+                filterMyIcons={filterMyIcons}
+                beatmapFilter={beatmapFilter}
               />
             </>
           )
