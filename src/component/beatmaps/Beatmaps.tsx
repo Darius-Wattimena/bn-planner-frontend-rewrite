@@ -20,7 +20,6 @@ interface BeatmapsProps {
   total: number
 }
 
-// TODO add support for infinite scrolling
 function Beatmaps(
   {
     setShowBeatmapFilter,
