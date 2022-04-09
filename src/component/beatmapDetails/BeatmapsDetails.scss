@@ -1,20 +1,14 @@
 @import "../../styles/Variables";
 
 body .ReactModal__Overlay {
-  background-color: rgba(0, 0, 0, 0.7) !important;
-
   .ReactModal__Content.beatmap-details-modal {
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
     width: 1200px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
 
     .beatmap-details-container {
       width: 100%;
+      background-color: $color-table-background;
 
       .beatmap-banner {
         width: 1200px;
@@ -36,6 +30,7 @@ body .ReactModal__Overlay {
       }
 
       .beatmap-details {
+        background-color: $color-table-background;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
         grid-gap: 10px;
@@ -84,10 +79,29 @@ body .ReactModal__Overlay {
               margin-top: $padding-small;
               margin-right: $padding-small;
 
+              .beatmap-user-username {
+                display: flex;
+                align-items: center;
+                height: 1.5em;
+
+                .beatmap-user-username-text {
+                  padding-right: $padding-small;
+                }
+
+                .beatmap-nominator-edit-button {
+                  //background-color: $color-background;
+
+                  .react-icons {
+                    height: 100%;
+                    fill: $color-text;
+                    font-size: 1em;
+                  }
+                }
+              }
+
               .beatmap-user-text {
                 font-size: 1.3em;
                 width: fit-content;
-                padding-bottom: $padding-smallest;
               }
 
               .beatmap-user-role {

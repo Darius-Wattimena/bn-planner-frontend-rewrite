@@ -53,15 +53,18 @@ function BeatmapDetailsUser(
           {`Nominator #${nominator}`}
         </div>
         }
-        <div className={`beatmap-user-text`}>
-          {user.username} {nominator && setOpenUserSearcher && setChangingGamemode && setChangingUser &&
-        <a href="#">
-          <ImPencil onClick={() => {
+        <div className={`beatmap-user-text beatmap-user-username`}>
+          <div className={"beatmap-user-username-text"}>
+            {user.username}
+          </div>
+          {editable && nominator && setOpenUserSearcher && setChangingGamemode && setChangingUser &&
+          <button className={"beatmap-button"} onClick={() => {
             setOpenUserSearcher(true)
             setChangingGamemode(gamemode)
             setChangingUser(user.osuId)
-          }}/>
-        </a>
+          }}>
+            <ImPencil className={"beatmap-nominator-edit-button"} />
+          </button>
         }
         </div>
         <div className="beatmap-user-nomination-status">

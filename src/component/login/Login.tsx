@@ -1,13 +1,16 @@
 import React, {useEffect} from "react";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 
-function Login() {
+interface LoginProps {
+  userContext: UserContext
+  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
+}
+
+function Login({userContext, setUserContext}: LoginProps) {
   const [{data, loading, error}, execute] = useAxios<UserContext>("", {manual: true})
-  const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
   const location = useLocation()
 
   let urlParams = new URLSearchParams(location.search)

@@ -15,6 +15,21 @@
   }
 }
 
+.beatmap-page-spacer {
+  flex: 0 1 auto;
+  padding-top: $padding-small;
+  background-color: $color-background;
+}
+
+.beatmap-filter-tooltip {
+  background-color: $color-footer-background;
+  padding: $padding-smallest;
+
+  &.show {
+    opacity: 1;
+  }
+}
+
 .beatmap-page {
   display: flex;
   flex-flow: column;
@@ -26,57 +41,6 @@
 
   scrollbar-width: none;
 
-  .beatmap-filter {
-    background-color: $color-primary-light;
-    width: 15%;
-    align-self: stretch;
-    height: 100%;
-    overflow-y: scroll;
-
-    .beatmap-filter-main-title {
-      padding: $padding-small;
-    }
-
-    .beatmap-filter-textbox {
-      display: flex;
-      flex-direction: column;
-      padding: $padding-small;
-      background-color: $color-primary;
-      margin-top: 0.5em;
-
-      label {
-        font-size: 1.3em;
-        margin-bottom: $padding-smallest;
-      }
-
-      input {
-        color: $color-text-dark;
-      }
-    }
-
-    .beatmap-filter-nominators {
-      .beatmap-filter-title {
-        padding: $padding-small;
-      }
-
-      .beatmap-filter-nominators-groups {
-        .Collapsible:not(:first-child) {
-          margin-top: $padding-smallest;
-          margin-bottom: $padding-smallest;
-        }
-      }
-
-      .beatmap-filter-user, .beatmap-filter-status {
-        display: flex;
-        align-items: center;
-
-        &:not(:last-child) {
-          border-bottom: 1px solid $color-table-border;
-        }
-      }
-    }
-  }
-
   .beatmap-user-username {
     margin-top: 5px;
     border-radius: 5px;
@@ -86,7 +50,7 @@
     margin-right: auto;
   }
 
-  .beatmap-filter-status, .beatmap-status {
+  .beatmap-status {
     label {
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;

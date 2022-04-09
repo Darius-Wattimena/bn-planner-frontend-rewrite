@@ -1,0 +1,104 @@
+@import "../../../styles/Variables";
+
+$font-size: 1.1em;
+
+.beatmap-filter {
+  background-color: $color-primary-light;
+  align-self: stretch;
+  min-width: 500px;
+  height: 100%;
+  font-size: $font-size;
+
+  .beatmap-filter-groups {
+    display: flex;
+
+    .beatmap-filter-group {
+      width: 50%;
+      padding: $padding-small;
+    }
+  }
+
+  .beatmap-filter-textbox {
+    display: flex;
+    flex-direction: column;
+    padding: $padding-small;
+    background-color: $color-primary;
+
+    &:not(:first-child) {
+      margin-top: $padding-small;
+    }
+
+    label {
+      font-size: 1.3em;
+      margin-bottom: $padding-smallest;
+    }
+
+    input {
+      color: $color-text-dark;
+    }
+  }
+
+  .beatmap-filter-nominators {
+    .beatmap-filter-title {
+      padding: $padding-small;
+    }
+
+    .beatmap-filter-nominators-groups {
+      .Collapsible:not(:first-child) {
+        margin-top: $padding-smallest;
+        margin-bottom: $padding-smallest;
+      }
+    }
+
+    .beatmap-filter-user, .beatmap-filter-status {
+      display: flex;
+      align-items: center;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $color-table-border;
+      }
+    }
+  }
+
+  .beatmap-filter-status {
+    margin-top: $padding-small;
+
+    label {
+      padding-left: $padding-smallest;
+      padding-right: $padding-smallest;
+      border-radius: 4px;
+    }
+
+    .beatmap-status-unfinished {
+      background-color: $status-unfinished-colour;
+    }
+
+    .beatmap-status-pending {
+      background-color: $status-pending-colour;
+    }
+
+    .beatmap-status-bubbled {
+      background-color: $status-bubbled-colour;
+    }
+
+    .beatmap-status-qualified {
+      background-color: $status-qualified-colour;
+    }
+
+    .beatmap-status-ranked {
+      background-color: $status-ranked-colour;
+    }
+
+    .beatmap-status-popped {
+      background-color: $status-popped-colour;
+    }
+
+    .beatmap-status-disqualified {
+      background-color: $status-disqualified-colour;
+    }
+
+    .beatmap-status-graved {
+      background-color: $status-graved-colour;
+    }
+  }
+}

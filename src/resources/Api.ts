@@ -44,6 +44,13 @@ const Api = {
       data: token
     }
   },
+  refresh: (refreshToken: string): AxiosRequestConfig<string> => {
+    return {
+      method: 'POST',
+      url: '/v2/auth/refresh',
+      data: refreshToken
+    }
+  },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {
     return {
       method: 'GET',

@@ -35,15 +35,15 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
       <table className={"beatmap-table"}>
         <thead>
         <tr>
-          <th>#</th>
-          <th>Status</th>
-          <th>Artist</th>
-          <th>Title</th>
-          <th>Mapper</th>
-          <th>Nominator #1</th>
-          <th>Nominator #2</th>
-          <th>Note</th>
-          <th>Actions</th>
+          <th className={"beatmap-banner-header"}>#</th>
+          <th className={"beatmap-status-header"}>Status</th>
+          <th className={"beatmap-text-header"}>Artist</th>
+          <th className={"beatmap-text-header"}>Title</th>
+          <th className={"beatmap-table-user-header"}>Mapper</th>
+          <th className={"beatmap-table-user-header"}>Nominator #1</th>
+          <th className={"beatmap-table-user-header"}>Nominator #2</th>
+          <th className={"beatmap-table-note-header"}>Note</th>
+          <th className={"beatmap-table-actions-header"}>Actions</th>
         </tr>
         </thead>
         <tbody>

@@ -26,8 +26,16 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       <td className={`beatmap-status`}>
         <div className={`beatmap-status-label ${beatmapStatus.className}`}>{beatmapStatus.name}</div>
       </td>
-      <td className={"beatmap-text"}>{beatmap.artist}</td>
-      <td className={"beatmap-text"}>{beatmap.title}</td>
+      <td className={"beatmap-text-cell"}>
+        <div className={"beatmap-text"}>
+          {beatmap.artist}
+        </div>
+      </td>
+      <td className={"beatmap-text-cell"}>
+        <div className={"beatmap-text"}>
+          {beatmap.title}
+        </div>
+      </td>
       <BeatmapTableUser user={beatmap.mapper} nominated={false}/>
       {beatmap.gamemodes.map(gamemodeBeatmap => {
         let bnOne = gamemodeBeatmap.nominators[0]
@@ -43,14 +51,14 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       <td className={"beatmap-table-note"}>
         {beatmap.note &&
         <>
-          <a className={"beatmap-button"} data-for={`nominator-note`}><FaStickyNote/></a>
-          <ReactTooltip id={`nominator-note`} place="bottom" type="dark" effect="solid">
+          <a className={"beatmap-button"} data-tip data-for={`${beatmap.osuId}-nominator-note`}><FaStickyNote/></a>
+          <ReactTooltip id={`${beatmap.osuId}-nominator-note`} type="dark" effect="solid">
             {beatmap.note}
           </ReactTooltip>
         </>
         }
       </td>
-      <td>
+      <td className={"beatmap-table-actions-cell"}>
         <div className={"beatmap-table-actions"}>
           <button className='beatmap-button' onClick={() => setOpenBeatmapId(beatmap.osuId)}><FiInfo/></button>
           <a className='beatmap-button'

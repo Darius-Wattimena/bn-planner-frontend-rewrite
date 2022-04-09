@@ -12,10 +12,11 @@ export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&cli
 interface RoutesProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
-  userContext?: UserContext
+  userContext: UserContext
+  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
-function AppRoutes({viewMode, setViewMode, userContext}: RoutesProps) {
+function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesProps) {
   function RequireAuth({children}: { children: JSX.Element }) {
     useEffect(() => {
       if (!userContext || !userContext.user) {
@@ -31,7 +32,7 @@ function AppRoutes({viewMode, setViewMode, userContext}: RoutesProps) {
       <Nav userContext={userContext}/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
+        <Route path="/login" element={<Login userContext={userContext} setUserContext={setUserContext}/>}/>
         <Route path="/beatmaps" element={
           <RequireAuth>
             <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext}/>

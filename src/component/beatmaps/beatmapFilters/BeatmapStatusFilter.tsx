@@ -12,13 +12,14 @@ interface BeatmapStatusFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapStatusFilter({
-                               statuses,
-                               beatmapFilter,
-                               setBeatmapFormFilter,
-                               timeout,
-                               setQueryFilter
-                             }: BeatmapStatusFilterProps) {
+function BeatmapStatusFilter(
+  {
+    statuses,
+    beatmapFilter,
+    setBeatmapFormFilter,
+    timeout,
+    setQueryFilter
+  }: BeatmapStatusFilterProps) {
   const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>(beatmapFilter.status)
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
@@ -72,7 +73,7 @@ function BeatmapStatusFilter({
     <div className={"beatmap-filter-nominators"}>
       <Collapsible
         trigger={"Status"}
-        open={true}
+        open={false}
         className={"collapsible-parent-group"}
         openedClassName={"collapsible-parent-group"}
       >

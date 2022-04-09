@@ -30,12 +30,16 @@ $color-text-dark: #0a0a0a;
 $color-text-disabled: #323232;
 $color-link: #527ad0;
 $color-background: #1d1d1d;
+$color-background-light: lighten($color-background, 5%);
 $color-table-background: #404040;
 $color-table-hover: lighten($color-table-background, 5%);
 $color-table-border: lighten($color-table-background, 20%);
 $color-highlight-background: #EE4266;
-$color-confirmed: #2b922b;
-$color-footer-background: #0A0F0D;
+$color-beta: #cc9c33;
+$color-highlight-beta: lighten($color-beta, 5%);
+$color-confirmed: #006402;
+$color-highlight-confirmed: lighten($color-confirmed, 5%);
+$color-footer-background: darken(#1d1d1d, 2%);
 
 // Possible dark theme
 /*$color-primary: darken($bn-colour, 10%);

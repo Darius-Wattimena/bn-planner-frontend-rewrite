@@ -7,7 +7,10 @@ import Beatmaps from "./Beatmaps";
 import _ from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
-import BeatmapFiltersModal from "./beatmapFilter/BeatmapFiltersModal";
+import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
+import ReactTooltip from "react-tooltip";
+import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
+import './Beatmaps.scss';
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -31,13 +34,17 @@ function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContain
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
-  const [showBeatmapFilter, setShowBeatmapFilter] = useState(false)
+  const [filteringOnOwnUser, setFilteringOnOwnUser] = useState(false)
 
   let {beatmapId} = useParams<string>();
   const [openBeatmapId, setOpenBeatmapId] = useState<number>()
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
+
+  useEffect(() => {
+    setFilteringOnOwnUser(beatmapFilter.nominators.find(it => it === userContext?.user.osuId) !== undefined)
+  }, [beatmapFilter])
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
@@ -128,13 +135,17 @@ function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContain
 
   return (
     <>
+      <BeatmapsHeader
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        filterMyIcons={filterMyIcons}
+        filteringOnOwnUser={filteringOnOwnUser}
+      />
       {
         total === 0 ? <></>
           : (
             <>
               <Beatmaps
-                userContext={userContext}
-                setShowBeatmapFilter={setShowBeatmapFilter}
                 loadedBeatmapData={loadedBeatmapData}
                 fetchNewData={fetchNewData}
                 fetchNewPage={fetchNewPage}
@@ -142,21 +153,17 @@ function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContain
                 setOpenBeatmapId={setOpenBeatmapId}
                 resetPage={resetPage}
                 viewMode={viewMode}
-                setViewMode={setViewMode}
                 total={total}
-                filterMyIcons={filterMyIcons}
-                beatmapFilter={beatmapFilter}
               />
             </>
           )
       }
-      <BeatmapFiltersModal
-        showBeatmapFilter={showBeatmapFilter}
-        setShowBeatmapFilter={setShowBeatmapFilter}
-        beatmapFilter={beatmapFilter}
-        setBeatmapFilter={setBeatmapFilter}
-        setQueryFilter={setQueryFilter}
-      />
+      <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
+        <BeatmapFilters
+          beatmapFilter={beatmapFilter}
+          setBeatmapFilter={setBeatmapFilter}
+          setQueryFilter={setQueryFilter}/>
+      </ReactTooltip>
     </>
   )
 }

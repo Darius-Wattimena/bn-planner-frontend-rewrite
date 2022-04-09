@@ -23,8 +23,10 @@ function BeatmapDetails(
   return (
     <>
       <div className={"beatmap-details-container"}>
-        <div className={"beatmap-banner"}
-             style={{background: `linear-gradient(to top, rgba(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap?.osuId}/covers/cover.jpg)`}}/>
+        <div
+          className={"beatmap-banner"}
+          style={{background: `linear-gradient(to top, rgb(64, 64, 64), rgba(64, 64, 64, 0.8), rgba(64, 64, 64, 0.6), rgba(64, 64, 64, 0.4), rgba(0,0,0,0)), url(https://assets.ppy.sh/beatmaps/${beatmap?.osuId}/covers/cover.jpg)`}}
+        />
         <div className={"beatmap-details"}>
           <div className={"beatmap-details-sub-container beatmap-nominators-container"}>
             <div className={"beatmap-details-sub-container-title"}>
@@ -113,7 +115,7 @@ function BeatmapDetailsNominators(
             key={`${gamemodeIndex}-${index}`}
             user={gamemodeNominator.nominator}
             hasNominated={gamemodeNominator.hasNominated}
-            editable={false}
+            editable={!gamemodeNominator.hasNominated}
             nominator={index + 1}
             setOpenUserSearcher={setOpenUserSearcher}
             gamemode={gamemode.gamemode}
