@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {BeatmapGamemode, Gamemode, NewUser} from "../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {ImCheckmark, ImPlus} from "react-icons/im";
@@ -12,14 +12,17 @@ interface UserSearcherListProps {
   onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
 }
 
-function UserSearcherList({
-                            data,
-                            loading,
-                            beatmapGamemodes,
-                            changingGamemode,
-                            changingUserId,
-                            onSelectNominator
-                          }: UserSearcherListProps) {
+function UserSearcherList(
+  {
+    data,
+    loading,
+    beatmapGamemodes,
+    changingGamemode,
+    changingUserId,
+    onSelectNominator
+  }: UserSearcherListProps) {
+  const [userSelected, setUserSelected] = useState(false)
+
   return (
     <div className={"user-searcher-list"}>
       {data && data.map(item => {
@@ -33,6 +36,8 @@ function UserSearcherList({
             changingGamemode={changingGamemode}
             changingUserId={changingUserId}
             onSelectNominator={onSelectNominator}
+            userSelected={userSelected}
+            setUserSelected={setUserSelected}
           />
         )
       })}
@@ -46,15 +51,21 @@ interface UserSearcherUserProps {
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
   onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
+  userSelected: boolean
+  setUserSelected: (value: boolean) => void
 }
 
-function UserSearcherUser({
-                            user,
-                            alreadyNominator,
-                            changingGamemode,
-                            changingUserId,
-                            onSelectNominator
-                          }: UserSearcherUserProps) {
+function UserSearcherUser(
+  {
+    user,
+    alreadyNominator,
+    changingGamemode,
+    changingUserId,
+    onSelectNominator,
+    userSelected,
+    setUserSelected
+  }: UserSearcherUserProps) {
+
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
   const canNominateGamemode = user.gamemodes.find(it => it.gamemode === changingGamemode)
@@ -78,8 +89,9 @@ function UserSearcherUser({
             <ImCheckmark/> Already Nominator
           </div>
         ) : (canNominateGamemode) ? (
-          <button className='user-select-button' onClick={() => {
+          <button className='user-select-button' disabled={userSelected} onClick={() => {
             if (changingUserId) {
+              setUserSelected(true)
               onSelectNominator(changingUserId, user.osuId)
             }
           }}>

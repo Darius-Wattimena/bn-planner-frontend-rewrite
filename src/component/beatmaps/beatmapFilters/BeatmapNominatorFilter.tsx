@@ -13,13 +13,14 @@ interface BeatmapNominatorFilterProps {
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapNominatorFilter({
-                                  nominators,
-                                  beatmapFilter,
-                                  setBeatmapFormFilter,
-                                  timeout,
-                                  setQueryFilter
-                                }: BeatmapNominatorFilterProps) {
+function BeatmapNominatorFilter(
+  {
+    nominators,
+    beatmapFilter,
+    setBeatmapFormFilter,
+    timeout,
+    setQueryFilter
+  }: BeatmapNominatorFilterProps) {
   const [selectedNominators, setSelectedNominators] = useState<string[]>([])
   const [filterItems, setFilterItems] = useState<NominatorSelectFilterItem[]>([])
 

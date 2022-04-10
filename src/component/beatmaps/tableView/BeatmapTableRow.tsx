@@ -43,8 +43,8 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
 
         return (
           <>
-            {(bnOne) ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`} user={bnOne.nominator} nominated={bnOne.hasNominated}/> : <td/>}
-            {(bnTwo) ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`} user={bnTwo.nominator} nominated={bnTwo.hasNominated}/> : <td/>}
+            {(bnOne && bnOne.nominator.osuId !== "0") ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`} user={bnOne.nominator} nominated={bnOne.hasNominated}/> : <td/>}
+            {(bnTwo && bnTwo.nominator.osuId !== "0") ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`} user={bnTwo.nominator} nominated={bnTwo.hasNominated}/> : <td/>}
           </>
         )
       })}

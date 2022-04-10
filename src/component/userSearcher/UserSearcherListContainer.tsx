@@ -12,13 +12,14 @@ interface UserSearcherListContainerProps {
   onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
 }
 
-function UserSearcherListContainer({
-                                     queryFilter,
-                                     beatmapGamemodes,
-                                     changingGamemode,
-                                     changingUserId,
-                                     onSelectNominator
-                                   }: UserSearcherListContainerProps) {
+function UserSearcherListContainer(
+  {
+    queryFilter,
+    beatmapGamemodes,
+    changingGamemode,
+    changingUserId,
+    onSelectNominator
+  }: UserSearcherListContainerProps) {
   const [{data, loading}, execute] = useAxios<NewUser[]>("", {manual: true})
 
   useEffect(() => {

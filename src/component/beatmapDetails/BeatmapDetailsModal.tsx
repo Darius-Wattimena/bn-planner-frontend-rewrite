@@ -1,8 +1,10 @@
 import {Beatmap, Gamemode} from "../../models/Types";
 import Modal from "react-modal";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import BeatmapDetails from "./BeatmapDetails";
 import UserSearcher from "../userSearcher/UserSearcher";
+import useAxios from "axios-hooks";
+import Api from "../../resources/Api";
 
 interface BeatmapDetailsModalProps {
   beatmap: Beatmap | undefined
@@ -23,10 +25,22 @@ export function BeatmapDetailsModal(
   const [openUserSearcher, setOpenUserSearcher] = useState(false)
   const [changingGamemode, setChangingGamemode] = useState<Gamemode>()
   const [changingUser, setChangingUser] = useState<string>()
+  const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
+
   let key = undefined;
   if (beatmap) {
     key = beatmap.osuId.toString() + beatmap.gamemodes.map(gamemode => gamemode.nominators.map(nominator => nominator.nominator.osuId).join("-")).join("-")
   }
+
+  function onDeleteNominator(gamemode: Gamemode, osuId: string) {
+    if (beatmap) {
+      execute(Api.updateNominator(beatmap.osuId, gamemode, osuId, "0"))
+    }
+  }
+
+  useEffect(() => {
+    setBeatmap(data)
+  }, [data])
 
   return (
     <>
@@ -46,6 +60,7 @@ export function BeatmapDetailsModal(
           setOpenUserSearcher={setOpenUserSearcher}
           setChangingGamemode={setChangingGamemode}
           setChangingUser={setChangingUser}
+          onDeleteNominator={onDeleteNominator}
         />
         }
       </Modal>

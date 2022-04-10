@@ -1,19 +1,23 @@
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
-import {ImCheckmark, ImCross, ImPencil} from "react-icons/im";
+import {ImBin, ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
-import {Gamemode, NewUser} from "../../models/Types";
+import {Beatmap, Gamemode, NewUser} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
+import Api from "../../resources/Api";
+import useAxios from "axios-hooks";
 
 interface BeatmapDetailsUserProps {
   user: NewUser
   editable: boolean
+  deletable: boolean
   hasNominated?: boolean
   nominator?: number
   setOpenUserSearcher?: React.Dispatch<React.SetStateAction<boolean>>
   gamemode?: Gamemode
   setChangingGamemode?: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser?: React.Dispatch<React.SetStateAction<string | undefined>>
+  onDeleteNominator?: (gamemode: Gamemode, osuId: string) => void
 }
 
 function BeatmapDetailsUser(
@@ -21,11 +25,13 @@ function BeatmapDetailsUser(
     user,
     hasNominated,
     editable,
+    deletable,
     nominator,
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
-    gamemode
+    gamemode,
+    onDeleteNominator
   }: BeatmapDetailsUserProps
 ) {
   const profilePictureUri = getProfilePictureUri(user.osuId)
@@ -58,14 +64,21 @@ function BeatmapDetailsUser(
             {user.username}
           </div>
           {editable && nominator && setOpenUserSearcher && setChangingGamemode && setChangingUser &&
-          <button className={"beatmap-button"} onClick={() => {
-            setOpenUserSearcher(true)
-            setChangingGamemode(gamemode)
-            setChangingUser(user.osuId)
-          }}>
-            <ImPencil className={"beatmap-nominator-edit-button"} />
-          </button>
-        }
+            <button className={"beatmap-button"} onClick={() => {
+              setOpenUserSearcher(true)
+              setChangingGamemode(gamemode)
+              setChangingUser(user.osuId)
+            }}>
+              <ImPencil className={"beatmap-nominator-edit-button"} />
+            </button>
+          }
+          {deletable && gamemode && onDeleteNominator && user.osuId != "0" &&
+            <button className={"beatmap-button"} onClick={() => {
+              onDeleteNominator(gamemode, user.osuId)
+            }}>
+              <ImBin className={"beatmap-nominator-edit-button"} />
+            </button>
+          }
         </div>
         <div className="beatmap-user-nomination-status">
           {hasNominated === true &&

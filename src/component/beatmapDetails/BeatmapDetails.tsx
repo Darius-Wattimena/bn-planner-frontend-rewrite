@@ -3,6 +3,7 @@ import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
 import React from "react";
 import {Beatmap, Gamemode} from "../../models/Types";
+import useAxios from "axios-hooks";
 
 interface BeatmapDetailsProps {
   beatmap: Beatmap
@@ -10,6 +11,7 @@ interface BeatmapDetailsProps {
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
+  onDeleteNominator: (gamemode: Gamemode, osuId: string) => void
 }
 
 function BeatmapDetails(
@@ -19,6 +21,7 @@ function BeatmapDetails(
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
+    onDeleteNominator
   }: BeatmapDetailsProps) {
   return (
     <>
@@ -37,6 +40,7 @@ function BeatmapDetails(
               setOpenUserSearcher={setOpenUserSearcher}
               setChangingGamemode={setChangingGamemode}
               setChangingUser={setChangingUser}
+              onDeleteNominator={onDeleteNominator}
             />
           </div>
           <div className={"beatmap-details-sub-container beatmap-metadata-container"}>
@@ -61,6 +65,7 @@ function BeatmapDetails(
             <BeatmapDetailsUser
               user={beatmap.mapper}
               editable={false}
+              deletable={false}
             />
           </div>
         </div>
@@ -98,6 +103,7 @@ interface BeatmapDetailsNominatorsProps {
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
+  onDeleteNominator: (gamemode: Gamemode, osuId: string) => void
 }
 
 function BeatmapDetailsNominators(
@@ -105,7 +111,8 @@ function BeatmapDetailsNominators(
     beatmap,
     setOpenUserSearcher,
     setChangingGamemode,
-    setChangingUser
+    setChangingUser,
+    onDeleteNominator
   }: BeatmapDetailsNominatorsProps) {
   return (
     <div>
@@ -116,11 +123,13 @@ function BeatmapDetailsNominators(
             user={gamemodeNominator.nominator}
             hasNominated={gamemodeNominator.hasNominated}
             editable={!gamemodeNominator.hasNominated}
+            deletable={!gamemodeNominator.hasNominated}
             nominator={index + 1}
             setOpenUserSearcher={setOpenUserSearcher}
             gamemode={gamemode.gamemode}
             setChangingGamemode={setChangingGamemode}
             setChangingUser={setChangingUser}
+            onDeleteNominator={onDeleteNominator}
           />
         )
       )}
