@@ -10,6 +10,7 @@ import {useParams} from "react-router-dom";
 import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
+import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -35,6 +36,7 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
   const [filteringOnOwnUser, setFilteringOnOwnUser] = useState(false)
+  const [openAddBeatmap, setOpenAddBeatmap] = useState(false)
 
   let {beatmapId} = useParams<string>();
   const [openBeatmapId, setOpenBeatmapId] = useState<number>()
@@ -148,6 +150,8 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
         setViewMode={setViewMode}
         filterMyIcons={filterMyIcons}
         filteringOnOwnUser={filteringOnOwnUser}
+        openAddBeatmap={openAddBeatmap}
+        setOpenAddBeatmap={setOpenAddBeatmap}
       />
       {
         total === 0 ? <></>
@@ -172,6 +176,7 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}/>
       </ReactTooltip>
+      <AddBeatmapModal openAddBeatmap={openAddBeatmap} setOpenAddBeatmap={setOpenAddBeatmap} />
     </>
   )
 }

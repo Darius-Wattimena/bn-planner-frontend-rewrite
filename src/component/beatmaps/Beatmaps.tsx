@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Beatmap, PageLimit, ViewMode} from "../../models/Types";
 import {IndexRange} from "react-virtualized";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
 import BeatmapTable from "./tableView/BeatmapTable";
 import BeatmapCards from "./cardView/BeatmapCards";
+import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
 
 interface BeatmapsProps {
   loadedBeatmapData: Array<Beatmap | undefined>

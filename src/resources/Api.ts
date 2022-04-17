@@ -1,4 +1,4 @@
-import {BeatmapFilter, Gamemode, PageLimit, UserContext, UserSearchFilter} from "../models/Types";
+import {BeatmapFilter, Gamemode, NewBeatmap, PageLimit, UserContext, UserSearchFilter} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
 function getAuthHeader() {
@@ -49,6 +49,17 @@ const Api = {
       method: 'POST',
       url: '/v2/auth/refresh',
       data: refreshToken
+    }
+  },
+  addBeatmap: (beatmapId: string): AxiosRequestConfig<NewBeatmap> => {
+    return {
+      method: 'POST',
+      headers: getAuthHeader(),
+      url: `/v2/beatmap/add`,
+      data: {
+        osuId: beatmapId,
+        gamemodes: ["fruits"]
+      }
     }
   },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {

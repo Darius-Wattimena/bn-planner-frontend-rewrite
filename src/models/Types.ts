@@ -48,6 +48,11 @@ export interface Beatmap {
   gamemodes: BeatmapGamemode[]
 }
 
+export interface NewBeatmap {
+  osuId: string
+  gamemodes: Gamemode[]
+}
+
 export interface BeatmapGamemode {
   gamemode: Gamemode,
   nominators: BeatmapNominator[],

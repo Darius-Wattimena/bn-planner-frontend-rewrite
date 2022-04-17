@@ -18,37 +18,49 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
-    <tr className={"beatmap-table-row"}>
-      <td className={"beatmap-banner-container"}>
+    <tr key={`beatmap-table-row-${beatmap.osuId}`}  className={"beatmap-table-row"}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-banner`} className={"beatmap-banner-container"}>
         <div className={"beatmap-banner"}
              style={{backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}}/>
       </td>
-      <td className={`beatmap-status`}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-status`} className={`beatmap-status`}>
         <div className={`beatmap-status-label ${beatmapStatus.className}`}>{beatmapStatus.name}</div>
       </td>
-      <td className={"beatmap-text-cell"}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-artist`} className={"beatmap-text-cell"}>
         <div className={"beatmap-text"}>
           {beatmap.artist}
         </div>
       </td>
-      <td className={"beatmap-text-cell"}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-title`} className={"beatmap-text-cell"}>
         <div className={"beatmap-text"}>
           {beatmap.title}
         </div>
       </td>
-      <BeatmapTableUser user={beatmap.mapper} nominated={false}/>
+      <BeatmapTableUser key={`beatmap-table-row-${beatmap.osuId}-mapper`} user={beatmap.mapper} nominated={false}/>
       {beatmap.gamemodes.map(gamemodeBeatmap => {
         let bnOne = gamemodeBeatmap.nominators[0]
         let bnTwo = gamemodeBeatmap.nominators[1]
 
         return (
           <>
-            {(bnOne && bnOne.nominator.osuId !== "0") ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`} user={bnOne.nominator} nominated={bnOne.hasNominated}/> : <td/>}
-            {(bnTwo && bnTwo.nominator.osuId !== "0") ? <BeatmapTableUser key={`${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`} user={bnTwo.nominator} nominated={bnTwo.hasNominated}/> : <td/>}
+            {(bnOne && bnOne.nominator.osuId !== "0") ? (
+              <BeatmapTableUser
+                key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`}
+                user={bnOne.nominator}
+                nominated={bnOne.hasNominated}
+              />
+            ) : <td/>}
+            {(bnTwo && bnTwo.nominator.osuId !== "0") ? (
+              <BeatmapTableUser
+                key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`}
+                user={bnTwo.nominator}
+                nominated={bnTwo.hasNominated}
+              />
+            ) : <td/>}
           </>
         )
       })}
-      <td className={"beatmap-table-note"}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-note`} className={"beatmap-table-note"}>
         {beatmap.note &&
         <>
           <a className={"beatmap-button"} data-tip data-for={`${beatmap.osuId}-nominator-note`}><FaStickyNote/></a>
@@ -58,7 +70,7 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
         </>
         }
       </td>
-      <td className={"beatmap-table-actions-cell"}>
+      <td key={`beatmap-table-row-${beatmap.osuId}-actions`} className={"beatmap-table-actions-cell"}>
         <div className={"beatmap-table-actions"}>
           <button className='beatmap-button' onClick={() => setOpenBeatmapId(beatmap.osuId)}><FiInfo/></button>
           <a className='beatmap-button'

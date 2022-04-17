@@ -54,6 +54,10 @@ button {
   font-size: 1em;
 }
 
+.button-submit {
+  background-color: $color-confirmed;
+}
+
 .button-cancel {
   background-color: $status-disqualified-colour;
 }
@@ -65,6 +69,27 @@ button {
 .button-text, .button-icon {
   color: $color-text;
   fill: $color-text;
+}
+
+.message-container {
+  padding: $padding-small;
+}
+
+.message {
+  padding: $padding;
+
+  &.error-message {
+    background-color: #fff6f6;
+    box-shadow: inset 0 0 0 1px #e0b4b4, 0 0 0 0 transparent;
+
+    .header {
+      font-weight: 700;
+    }
+
+    * {
+      color: $color-error;
+    }
+  }
 }
 
 button, a.button {
@@ -146,6 +171,25 @@ button, a.button {
     &:last-child {
       margin-bottom: 0;
     }
+  }
+}
+
+.textbox {
+  display: flex;
+  padding: $padding-small;
+  flex-direction: column;
+
+  &:not(:first-child) {
+    margin-top: $padding-small;
+  }
+
+  label {
+    font-size: 1em;
+    margin-bottom: $padding-smallest;
+  }
+
+  input {
+    color: $color-text-dark;
   }
 }
 

@@ -10,6 +10,8 @@ interface BeatmapsHeaderProps {
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   filterMyIcons: () => void
   filteringOnOwnUser: boolean
+  openAddBeatmap: boolean
+  setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function BeatmapsHeader(
@@ -17,7 +19,9 @@ function BeatmapsHeader(
     viewMode,
     setViewMode,
     filterMyIcons,
-    filteringOnOwnUser
+    filteringOnOwnUser,
+    openAddBeatmap,
+    setOpenAddBeatmap
   }: BeatmapsHeaderProps
 ) {
   const cardsButtonClassname = viewMode === "TABLE" ? "beatmap-button-cards-beta" : ""
@@ -63,7 +67,7 @@ function BeatmapsHeader(
               </div>
             </button>
           </div>
-          <button className='beatmap-button add-beatmap-button'>
+          <button disabled={openAddBeatmap} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
             <ImPlus/>
             <div className='beatmap-button-text'>
               Add beatmap

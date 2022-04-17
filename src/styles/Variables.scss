@@ -37,8 +37,9 @@ $color-table-border: lighten($color-table-background, 20%);
 $color-highlight-background: #EE4266;
 $color-beta: #cc9c33;
 $color-highlight-beta: lighten($color-beta, 5%);
-$color-confirmed: #006402;
+$color-confirmed: $status-qualified-colour;
 $color-highlight-confirmed: lighten($color-confirmed, 5%);
+$color-error: $status-disqualified-colour;
 $color-footer-background: darken(#1d1d1d, 2%);
 
 // Possible dark theme
