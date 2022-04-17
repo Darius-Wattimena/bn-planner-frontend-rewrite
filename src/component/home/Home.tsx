@@ -2,8 +2,14 @@ import React from "react";
 import {ReactComponent as Logo} from '../../assets/catch.svg';
 import "./Home.scss"
 import {osuUrl} from "../../AppRoutes";
+import {UserContext} from "../../models/Types";
+import {NavLink} from "react-router-dom";
 
-function Home() {
+interface HomeProps {
+  userContext: UserContext
+}
+
+function Home({userContext}: HomeProps) {
   return (
     <div className={"landing-page"}>
       <div className={"welcome-screen"}>
@@ -12,12 +18,15 @@ function Home() {
         <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for osu!catch beatmap nominators</p>
 
         <div className={"actions"}>
-          <a href={osuUrl} className={"button osu-button main-action"}>
-            Authenticate with osu!
-          </a>
-          <a href={osuUrl} className={"button secondary sub-action"}>
-            Continue to beatmaps
-          </a>
+          {!userContext ? (
+            <a href={osuUrl} className={"button osu-button main-action"}>
+              Authenticate with osu!
+            </a>
+          ) : (
+            <NavLink to="/beatmaps" className={"button secondary sub-action"}>
+              Beatmaps
+            </NavLink>
+          )}
         </div>
       </div>
     </div>

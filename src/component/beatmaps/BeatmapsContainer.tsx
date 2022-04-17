@@ -10,7 +10,6 @@ import {useParams} from "react-router-dom";
 import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
-import './Beatmaps.scss';
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -18,7 +17,7 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
-  page: BeatmapPage.PENDING,
+  page: "PENDING",
   hideWithTwoNominators: false
 }
 
@@ -26,9 +25,10 @@ interface BeatmapsContainerProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   userContext: UserContext | undefined
+  page: BeatmapPage
 }
 
-function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContainerProps) {
+function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
@@ -41,6 +41,14 @@ function BeatmapsContainer({viewMode, setViewMode, userContext}: BeatmapsContain
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
+
+  useEffect(() => {
+    let newFilter = queryFilter
+    newFilter.page = page
+    setBeatmapFilter(newFilter)
+    setQueryFilter(newFilter)
+    resetPage()
+  }, [page])
 
   useEffect(() => {
     setFilteringOnOwnUser(beatmapFilter.nominators.find(it => it === userContext?.user.osuId) !== undefined)

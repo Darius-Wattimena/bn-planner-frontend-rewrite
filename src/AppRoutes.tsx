@@ -3,7 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import Nav from "./component/nav/Nav";
 import Home from "./component/home/Home";
 import BeatmapsContainer from "./component/beatmaps/BeatmapsContainer";
-import {UserContext, ViewMode} from "./models/Types";
+import {BeatmapPage, UserContext, ViewMode} from "./models/Types";
 import Login from "./component/login/Login";
 import {CONFIG} from "./Settings";
 
@@ -31,11 +31,21 @@ function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesP
     <div className={"container"}>
       <Nav userContext={userContext}/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home userContext={userContext}/>}/>
         <Route path="/login" element={<Login userContext={userContext} setUserContext={setUserContext}/>}/>
         <Route path="/beatmaps" element={
           <RequireAuth>
-            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext}/>
+            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"PENDING"} />
+          </RequireAuth>
+        }/>
+        <Route path="/graveyard" element={
+          <RequireAuth>
+            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"GRAVEYARD"} />
+          </RequireAuth>
+        }/>
+        <Route path="/ranked" element={
+          <RequireAuth>
+            <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"RANKED"} />
           </RequireAuth>
         }/>
         <Route path="*" element={<div>TODO : NOT FOUND</div>}/>

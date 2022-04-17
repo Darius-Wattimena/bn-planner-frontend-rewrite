@@ -2,6 +2,7 @@ export type Gamemode = 'osu' | 'taiko' | 'fruits' | 'mania'
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
 export type ViewMode = 'CARDS' | 'TABLE'
 export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
+export type BeatmapPage = 'PENDING' | 'RANKED' | 'GRAVEYARD'
 
 export interface UserContext {
   user: NewUser,
@@ -25,12 +26,6 @@ export interface NewUser {
 export interface UserGamemode {
   gamemode: Gamemode,
   role: UserRole
-}
-
-export enum BeatmapPage {
-  PENDING = "PENDING",
-  RANKED = "RANKED",
-  GRAVEYARD = "GRAVEYARD"
 }
 
 export interface User {

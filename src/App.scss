@@ -72,6 +72,7 @@ button, a.button {
   padding: $padding;
   border-radius: unset;
   border: unset;
+  transition: background-color 300ms;
 
   &.primary {
     color: $color-text-light;
@@ -91,6 +92,10 @@ button, a.button {
   &.secondary {
     color: $color-text-light;
     background-color: $color-secondary;
+
+    &:hover {
+      background-color: darken($color-highlight-background, 5%);
+    }
   }
 }
 

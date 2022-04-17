@@ -48,6 +48,7 @@ header.site-header {
       background-color: $color-primary-light;
       border-radius: 5px;
       padding: $padding-smallest;
+      margin-left: $padding;
       height: 75%;
 
       img {
@@ -82,7 +83,6 @@ header.site-header {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: $padding;
     }
 
     .navbar-active {
@@ -109,9 +109,15 @@ header.site-header {
         transition: background-color, box-shadow 300ms;
 
         &:hover {
-          background-color: $color-primary-light;
           box-shadow: inset 0 -5px 0 $color-highlight-background;
           transition: background-color, box-shadow 300ms;
+          background-color: $color-primary-light;
+        }
+
+        .react-icons {
+          height: 100%;
+          fill: $color-text-light;
+          font-size: 1.5em;
         }
       }
     }
