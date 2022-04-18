@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {ImCross, ImPlus} from "react-icons/im";
-import "./AddBeatmap.scss"
 import useAxios from "axios-hooks";
 import {Beatmap} from "../../../models/Types";
 import Api from "../../../resources/Api";
@@ -19,9 +18,10 @@ function AddBeatmap({setOpenAddBeatmap}: AddBeatmapProps) {
   function onAddBeatmap() {
     let result = validateUrl()
     if (result) {
-      execute(Api.addBeatmap(result))
-      setIncorrectUrl(false)
-      setOpenAddBeatmap(false)
+      execute(Api.addBeatmap(result)).then(() => {
+        setIncorrectUrl(false)
+        setOpenAddBeatmap(false)
+      })
     } else {
       setIncorrectUrl(true)
     }
@@ -44,7 +44,7 @@ function AddBeatmap({setOpenAddBeatmap}: AddBeatmapProps) {
   }
 
   return (
-    <div className="add-beatmap-container">
+    <div className="modal-container">
       <div className={"sub-container"}>
         <div className={"sub-container-title"}>
           Add beatmap

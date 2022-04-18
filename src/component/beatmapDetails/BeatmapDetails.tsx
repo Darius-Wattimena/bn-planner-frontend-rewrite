@@ -12,6 +12,7 @@ interface BeatmapDetailsProps {
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
   onDeleteNominator: (gamemode: Gamemode, osuId: string) => void
+  setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function BeatmapDetails(
@@ -21,7 +22,8 @@ function BeatmapDetails(
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
-    onDeleteNominator
+    onDeleteNominator,
+    setOpenDeleteBeatmap
   }: BeatmapDetailsProps) {
   return (
     <>
@@ -73,7 +75,7 @@ function BeatmapDetails(
           <div className={"actions-row"}>
             <div className={"actions-button-group actions-button-group-left"}>
               <button onClick={() => {
-                setOpenBeatmapId(undefined)
+                setOpenDeleteBeatmap(true)
               }} className={"button button-cancel button-text"}>
                 <ImBin2/> Delete
               </button>

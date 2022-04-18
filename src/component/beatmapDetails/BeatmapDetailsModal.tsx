@@ -5,6 +5,7 @@ import BeatmapDetails from "./BeatmapDetails";
 import UserSearcher from "../userSearcher/UserSearcher";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
+import DeleteBeatmapModal from "./deleteBeatmap/DeleteBeatmapModal";
 
 interface BeatmapDetailsModalProps {
   beatmap: Beatmap | undefined
@@ -23,6 +24,7 @@ export function BeatmapDetailsModal(
     setOpenBeatmapId
   }: BeatmapDetailsModalProps) {
   const [openUserSearcher, setOpenUserSearcher] = useState(false)
+  const [openDeleteBeatmap, setOpenDeleteBeatmap] = useState(false)
   const [changingGamemode, setChangingGamemode] = useState<Gamemode>()
   const [changingUser, setChangingUser] = useState<string>()
   const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
@@ -61,20 +63,29 @@ export function BeatmapDetailsModal(
           setChangingGamemode={setChangingGamemode}
           setChangingUser={setChangingUser}
           onDeleteNominator={onDeleteNominator}
+          setOpenDeleteBeatmap={setOpenDeleteBeatmap}
         />
         }
       </Modal>
 
       {beatmap &&
-      <UserSearcher
-        openUserSearcher={openUserSearcher}
-        setOpenUserSearcher={setOpenUserSearcher}
-        setBeatmap={setBeatmap}
-        beatmapGamemodes={beatmap.gamemodes}
-        changingGamemode={changingGamemode}
-        changingUserId={changingUser}
-        beatmapId={beatmap.osuId}
-      />
+        <>
+          <UserSearcher
+            openUserSearcher={openUserSearcher}
+            setOpenUserSearcher={setOpenUserSearcher}
+            setBeatmap={setBeatmap}
+            beatmapGamemodes={beatmap.gamemodes}
+            changingGamemode={changingGamemode}
+            changingUserId={changingUser}
+            beatmapId={beatmap.osuId}
+          />
+          <DeleteBeatmapModal
+            beatmapId={beatmap.osuId}
+            openDeleteBeatmap={openDeleteBeatmap}
+            setOpenDeleteBeatmap={setOpenDeleteBeatmap}
+            setOpenBeatmapId={setOpenBeatmapId}
+          />
+        </>
       }
     </>
   )

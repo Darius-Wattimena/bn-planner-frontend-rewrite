@@ -2,47 +2,6 @@
 
 body .ReactModal__Overlay {
   .ReactModal__Content.add-beatmap-modal {
-    box-shadow: $color-table-background 0 0 0 4px;
-    background-color: $color-table-background;
     width: 900px;
-
-    .add-beatmap-container {
-      width: 100%;
-      background-color: $color-table-background;
-
-      .sub-container {
-        background-color: $color-background;
-        justify-self: stretch;
-
-        &.actions {
-          margin-top: $padding-small;
-          display: flex;
-          justify-content: flex-end;
-          padding: $padding;
-
-          .button:not(:last-child) {
-            margin: 0 $padding-smallest;
-          }
-
-          .button {
-            display: flex;
-            align-items: center;
-
-            .react-icons {
-              margin-right: $padding-smallest;
-            }
-          }
-        }
-
-        .sub-container-content, .sub-container-title {
-          padding: $padding;
-        }
-
-        .sub-container-title {
-          font-size: 1.3em;
-          background-color: $color-primary;
-        }
-      }
-    }
   }
 }

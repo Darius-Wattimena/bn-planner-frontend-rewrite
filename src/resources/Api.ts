@@ -62,6 +62,13 @@ const Api = {
       }
     }
   },
+  deleteBeatmap: (beatmapId: number): AxiosRequestConfig<NewBeatmap> => {
+    return {
+      method: 'DELETE',
+      headers: getAuthHeader(),
+      url: `/v2/beatmap/delete/${beatmapId}`,
+    }
+  },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {
     return {
       method: 'GET',
