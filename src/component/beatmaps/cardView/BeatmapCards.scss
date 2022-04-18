@@ -14,13 +14,7 @@
   overflow: hidden;
 }
 
-.beatmap-grid-card {
-  //display: flex;
-  //flex-direction: column;
-  //flex-wrap: wrap;
-}
-
-.beatmap-card {
+.beatmap-grid-card .beatmap-card {
   flex-direction: row;
 
   margin: 5px;
