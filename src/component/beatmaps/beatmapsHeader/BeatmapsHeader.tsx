@@ -69,14 +69,12 @@ function BeatmapsHeader(
               </div>
             </button>
           </div>
-          {page === "PENDING" &&
-            <button disabled={openAddBeatmap} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
-              <ImPlus/>
-              <div className='beatmap-button-text'>
-                Add beatmap
-              </div>
-            </button>
-          }
+          <button disabled={openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
+            <ImPlus/>
+            <div className='beatmap-button-text'>
+              Add beatmap
+            </div>
+          </button>
         </div>
       </div>
     </div>
