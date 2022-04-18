@@ -1,13 +1,15 @@
 import Modal from "react-modal";
 import React from "react";
 import AddBeatmap from "./AddBeatmap";
+import './AddBeatmap.scss';
 
 interface AddBeatmapModalProps {
   openAddBeatmap: boolean
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap}: AddBeatmapModalProps) {
+export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapModalProps) {
   return (
     <>
       <Modal
@@ -19,7 +21,7 @@ export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap}: AddBeatmapM
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
-        <AddBeatmap setOpenAddBeatmap={setOpenAddBeatmap} />
+        <AddBeatmap setOpenAddBeatmap={setOpenAddBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
       </Modal>
     </>
   )

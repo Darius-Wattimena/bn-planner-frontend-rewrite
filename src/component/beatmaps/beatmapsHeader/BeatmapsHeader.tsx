@@ -1,7 +1,7 @@
 import React from "react";
 import {ImFilter, ImMap, ImPlus, ImTable, ImUser} from "react-icons/im";
 import "./BeatmapsHeader.scss"
-import {BeatmapFilter, UserContext, ViewMode} from "../../../models/Types";
+import {BeatmapFilter, BeatmapPage, UserContext, ViewMode} from "../../../models/Types";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "../beatmapFilters/BeatmapFilters";
 
@@ -12,6 +12,7 @@ interface BeatmapsHeaderProps {
   filteringOnOwnUser: boolean
   openAddBeatmap: boolean
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
+  page: BeatmapPage
 }
 
 function BeatmapsHeader(
@@ -21,7 +22,8 @@ function BeatmapsHeader(
     filterMyIcons,
     filteringOnOwnUser,
     openAddBeatmap,
-    setOpenAddBeatmap
+    setOpenAddBeatmap,
+    page
   }: BeatmapsHeaderProps
 ) {
   const cardsButtonClassname = viewMode === "TABLE" ? "beatmap-button-cards-beta" : ""
@@ -67,12 +69,14 @@ function BeatmapsHeader(
               </div>
             </button>
           </div>
-          <button disabled={openAddBeatmap} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
-            <ImPlus/>
-            <div className='beatmap-button-text'>
-              Add beatmap
-            </div>
-          </button>
+          {page === "PENDING" &&
+            <button disabled={openAddBeatmap} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
+              <ImPlus/>
+              <div className='beatmap-button-text'>
+                Add beatmap
+              </div>
+            </button>
+          }
         </div>
       </div>
     </div>

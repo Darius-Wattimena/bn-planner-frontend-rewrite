@@ -8,9 +8,10 @@ const beatmapUrlRegex = /https:\/\/(?:old|osu)(?:\.ppy\.sh\/s|\.ppy\.sh\/beatmap
 
 interface AddBeatmapProps {
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-function AddBeatmap({setOpenAddBeatmap}: AddBeatmapProps) {
+function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
   const [incorrectUrl, setIncorrectUrl] = useState(false)
   const [value, setValue] = useState("")
   const [{}, execute] = useAxios<Beatmap>("", {manual: true})
@@ -21,6 +22,7 @@ function AddBeatmap({setOpenAddBeatmap}: AddBeatmapProps) {
       execute(Api.addBeatmap(result)).then(() => {
         setIncorrectUrl(false)
         setOpenAddBeatmap(false)
+        setOpenBeatmapId(Number(result))
       })
     } else {
       setIncorrectUrl(true)

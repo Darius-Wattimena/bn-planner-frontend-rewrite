@@ -152,6 +152,7 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
         filteringOnOwnUser={filteringOnOwnUser}
         openAddBeatmap={openAddBeatmap}
         setOpenAddBeatmap={setOpenAddBeatmap}
+        page={page}
       />
       {
         total === 0 ? <></>
@@ -176,7 +177,7 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}/>
       </ReactTooltip>
-      <AddBeatmapModal openAddBeatmap={openAddBeatmap} setOpenAddBeatmap={setOpenAddBeatmap} />
+      <AddBeatmapModal openAddBeatmap={openAddBeatmap} setOpenAddBeatmap={setOpenAddBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
     </>
   )
 }
