@@ -16,8 +16,8 @@ function DeleteBeatmap({beatmapId, setOpenDeleteBeatmap, setOpenBeatmapId}: Dele
 
   function onDeleteBeatmap() {
     execute(Api.deleteBeatmap(beatmapId)).then(() => {
-        setOpenDeleteBeatmap(false)
-        setOpenBeatmapId(undefined)
+      setOpenDeleteBeatmap(false)
+      setOpenBeatmapId(undefined)
     })
   }
 

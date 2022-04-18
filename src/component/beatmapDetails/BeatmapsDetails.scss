@@ -84,13 +84,15 @@ body .ReactModal__Overlay {
                 align-items: center;
                 height: 1.5em;
 
+                .beatmap-button:not(:last-child) {
+                  margin-right: $padding-smallest;
+                }
+
                 .beatmap-user-username-text {
                   padding-right: $padding-small;
                 }
 
                 .beatmap-nominator-edit-button {
-                  //background-color: $color-background;
-
                   .react-icons {
                     height: 100%;
                     fill: $color-text;

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Beatmap, PageLimit} from "../../../models/Types";
 import './BeatmapTable.scss'
 import BeatmapTableRow from "./BeatmapTableRow";
-import {FaAngleDoubleLeft, FaAngleDoubleRight, FaAngleLeft, FaAngleRight} from "react-icons/fa";
+import {BasicPagination} from "../../generic/BasicPagination";
 
 interface BeatmapTableProps {
   total: number,
@@ -74,33 +74,6 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
           </div>
         </div>
       </div>
-    </div>
-  )
-}
-
-interface BasicPaginationProps {
-  currentPage: number
-  lastPage: number
-  setPage: React.Dispatch<React.SetStateAction<number>>
-}
-
-const BasicPagination = ({currentPage, lastPage, setPage}: BasicPaginationProps) => {
-  return (
-    <div className={"table-pagination"}>
-      <button className={"beatmap-button"} disabled={currentPage === 1} onClick={() => setPage(1)}>
-        <FaAngleDoubleLeft/>
-      </button>
-      <button className={"beatmap-button"} disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>
-        <FaAngleLeft/>
-      </button>
-      <button className={"beatmap-button"}>{currentPage}</button>
-      <button className={"beatmap-button"} disabled={!(lastPage > currentPage)}
-              onClick={() => setPage(currentPage + 1)}>
-        <FaAngleRight/>
-      </button>
-      <button className={"beatmap-button"} disabled={lastPage <= currentPage} onClick={() => setPage(lastPage)}>
-        <FaAngleDoubleRight/>
-      </button>
     </div>
   )
 }
