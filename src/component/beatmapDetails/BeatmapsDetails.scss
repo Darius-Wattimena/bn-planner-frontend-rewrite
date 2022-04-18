@@ -151,12 +151,27 @@ body .ReactModal__Overlay {
             margin: $padding;
 
             .beatmap-metadata-item {
+              display: flex;
+              align-items: center;
+
+              &.beatmap-note {
+                flex-wrap: wrap;
+              }
+
+              &.beatmap-status {
+                .beatmap-status-label {
+                  border-radius: 3px;
+                  padding: 0 $padding-small;
+                }
+              }
+
               .beatmap-metadata-label {
+                width: 25%;
                 font-size: 1.1em;
                 font-weight: 400;
               }
 
-              p {
+              .beatmap-metadata-value {
                 font-size: 1em;
                 font-weight: unset;
               }

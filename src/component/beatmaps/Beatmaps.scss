@@ -23,7 +23,7 @@
 
 .beatmap-filter-tooltip {
   background-color: $color-footer-background;
-  padding: $padding-smallest;
+  padding: $padding-small !important;
 
   &.show {
     opacity: 1 !important;
@@ -55,38 +55,6 @@
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;
       border-radius: 4px;
-    }
-
-    .beatmap-status-unfinished {
-      background-color: $status-unfinished-colour;
-    }
-
-    .beatmap-status-pending {
-      background-color: $status-pending-colour;
-    }
-
-    .beatmap-status-bubbled {
-      background-color: $status-bubbled-colour;
-    }
-
-    .beatmap-status-qualified {
-      background-color: $status-qualified-colour;
-    }
-
-    .beatmap-status-ranked {
-      background-color: $status-ranked-colour;
-    }
-
-    .beatmap-status-popped {
-      background-color: $status-popped-colour;
-    }
-
-    .beatmap-status-disqualified {
-      background-color: $status-disqualified-colour;
-    }
-
-    .beatmap-status-graved {
-      background-color: $status-graved-colour;
     }
   }
 

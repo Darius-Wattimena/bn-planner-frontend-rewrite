@@ -1,7 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import './UserSearcher.scss'
-import {Beatmap, BeatmapGamemode, Gamemode, SelectFilterItem, UserRole, UserSearchFilter} from "../../models/Types";
+import {
+  Beatmap,
+  BeatmapFilter,
+  BeatmapGamemode,
+  Gamemode,
+  SelectFilterItem,
+  UserRole,
+  UserSearchFilter
+} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
 import {debouncingFilter, instantFilter} from "../../utils/FilterUtils";
 import UserSearcherListContainer from "./UserSearcherListContainer";
@@ -11,18 +19,21 @@ import Api from "../../resources/Api";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
-  gamemodes: [],
+  gamemodes: ["fruits"],
   roles: []
 }
 
 interface UserSearcherProps {
   openUserSearcher: boolean
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
-  setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
-  beatmapGamemodes: BeatmapGamemode[]
-  changingGamemode: Gamemode | undefined
-  changingUserId: string | undefined
-  beatmapId: number
+  setBeatmap?: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
+  beatmapGamemodes?: BeatmapGamemode[]
+  changingGamemode?: Gamemode | undefined
+  changingUserId?: string | undefined
+  beatmapId?: number
+  beatmapFilter?: BeatmapFilter,
+  setBeatmapFilter?: React.Dispatch<React.SetStateAction<BeatmapFilter>>
+  setBeatmapQueryFilter?: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
 function UserSearcher(
@@ -33,7 +44,10 @@ function UserSearcher(
     beatmapGamemodes,
     changingGamemode,
     changingUserId,
-    beatmapId
+    beatmapId,
+    beatmapFilter,
+    setBeatmapFilter,
+    setBeatmapQueryFilter
   }: UserSearcherProps) {
   const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(filterDefaultState)
@@ -56,14 +70,14 @@ function UserSearcher(
         label: "Osu",
         value: "osu",
         selected: osuGamemode != null || osuGamemode !== undefined,
-        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "osu")
+        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "osu")
       },
       {
         index: 1,
         label: "Taiko",
         value: "taiko",
         selected: taikoGamemode != null || taikoGamemode !== undefined,
-        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "taiko")
+        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "taiko")
       },
       {
         index: 2,
@@ -77,7 +91,7 @@ function UserSearcher(
         label: "Mania",
         value: "mania",
         selected: maniaGamemode != null || maniaGamemode !== undefined,
-        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "mania")
+        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "mania")
       }
     ])
 
@@ -107,15 +121,31 @@ function UserSearcher(
     ])
   }, [userSearchFilter, selectedGamemodes, selectedRoles])
 
-  function onSelectNominator(replacingUserId: string, newNominatorId: string) {
-    if (changingGamemode) {
+  function onSelectNominator(replacingUserId: string | undefined, newNominatorId: string) {
+    if (changingGamemode && beatmapId && replacingUserId) {
       execute(Api.updateNominator(beatmapId, changingGamemode, replacingUserId, newNominatorId))
+      setOpenUserSearcher(false)
+    } else if (changingGamemode && beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
+      const selectedNominators = beatmapFilter["nominators"]
+      const newSelectedNominators: string[] = [];
+
+      selectedNominators.forEach(val => newSelectedNominators.push(val))
+      newSelectedNominators.push(newNominatorId)
+
+      instantFilter(
+        beatmapFilter,
+        "nominators",
+        newSelectedNominators,
+        setBeatmapFilter,
+        timeout,
+        setBeatmapQueryFilter
+      )
       setOpenUserSearcher(false)
     }
   }
 
   useEffect(() => {
-    if (data) {
+    if (data && setBeatmap) {
       setBeatmap(data)
     }
   }, [data])
@@ -265,6 +295,7 @@ function UserSearcher(
             changingGamemode={changingGamemode}
             changingUserId={changingUserId}
             onSelectNominator={onSelectNominator}
+            beatmapFilter={beatmapFilter}
           />
         </div>
       </div>

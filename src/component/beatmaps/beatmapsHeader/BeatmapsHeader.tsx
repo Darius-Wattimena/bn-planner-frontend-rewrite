@@ -13,10 +13,12 @@ interface BeatmapsHeaderProps {
   openAddBeatmap: boolean
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   page: BeatmapPage
+  userContext: UserContext | undefined
 }
 
 function BeatmapsHeader(
   {
+    userContext,
     viewMode,
     setViewMode,
     filterMyIcons,
@@ -39,6 +41,7 @@ function BeatmapsHeader(
             </div>
           </button>
           <button
+            disabled={userContext?.permission.osuRole === "Mapper"}
             onClick={() => filterMyIcons()}
             className={`beatmap-button ${filteringOnOwnUser ? "quick-filter-active" : ""}`}
           >
@@ -49,7 +52,6 @@ function BeatmapsHeader(
           </button>
         </div>
         <div className='beatmaps-header-right'>
-
           <div className={"viewmode-button"}>
             <button className={`beatmap-button ${cardsButtonClassname}`} onClick={() => {
               if (viewMode === "CARDS") {
@@ -69,7 +71,7 @@ function BeatmapsHeader(
               </div>
             </button>
           </div>
-          <button disabled={openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
+          <button disabled={userContext?.permission.osuRole === "Mapper" || openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
             <ImPlus/>
             <div className='beatmap-button-text'>
               Add beatmap

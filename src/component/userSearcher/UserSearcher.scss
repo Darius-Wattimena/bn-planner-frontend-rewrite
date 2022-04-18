@@ -1,6 +1,6 @@
 @import "../../styles/Variables";
 
-.ReactModal__Content.user-searcher-modal {
+body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
   position: absolute;
   width: 800px;
   height: 300px;
@@ -8,6 +8,8 @@
   top: 30%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  box-shadow: unset;
+  background-color: unset;
 
   .user-searcher-content {
     display: flex;
@@ -37,10 +39,6 @@
         background-color: $color-background;
 
         &.disabled {
-          input {
-            background-color: $color-text-disabled;
-          }
-
           label {
             color: $color-text-disabled;
           }
@@ -140,7 +138,7 @@
 
             .user-select-button {
               color: $color-text;
-              padding: $padding-smallest;
+              padding: $padding-smallest $padding-small;
               background-color: $color-primary-light;
               display: flex;
               justify-content: center;

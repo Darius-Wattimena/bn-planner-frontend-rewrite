@@ -39,11 +39,24 @@ $font-size: 1.1em;
   }
 
   .beatmap-filter-nominators {
+    display: flex;
+    gap: $padding;
+    margin-top: $padding;
+    .beatmap-button {
+      padding: $padding-small;
+    }
+  }
+
+  .beatmap-filter-status-container {
+
     .beatmap-filter-title {
       padding: $padding-small;
     }
 
     .beatmap-filter-nominators-groups {
+      padding-left: $padding-smallest;
+      padding-right: $padding-smallest;
+
       .Collapsible:not(:first-child) {
         margin-top: $padding-smallest;
         margin-bottom: $padding-smallest;
@@ -61,8 +74,6 @@ $font-size: 1.1em;
   }
 
   .beatmap-filter-status {
-    margin-top: $padding-small;
-
     label {
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;

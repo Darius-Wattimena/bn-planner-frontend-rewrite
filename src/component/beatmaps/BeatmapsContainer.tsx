@@ -133,9 +133,9 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
     if (currentUserId) {
       let newQueryFilter = _.cloneDeep(queryFilter)
       if (queryFilter.nominators.find(it => it === currentUserId) !== undefined) {
-        newQueryFilter.nominators = newQueryFilter.nominators.filter(it => it !== currentUserId)
+        newQueryFilter.nominators = []
       } else {
-        newQueryFilter.nominators.push(currentUserId)
+        newQueryFilter.nominators = [currentUserId]
       }
 
       setBeatmapFilter(newQueryFilter)
@@ -146,6 +146,7 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
   return (
     <>
       <BeatmapsHeader
+        userContext={userContext}
         viewMode={viewMode}
         setViewMode={setViewMode}
         filterMyIcons={filterMyIcons}
@@ -155,20 +156,21 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
         page={page}
       />
       {
-        total === 0 ? <></>
-          : (
-            <>
-              <Beatmaps
-                loadedBeatmapData={loadedBeatmapData}
-                fetchNewData={fetchNewData}
-                fetchNewPage={fetchNewPage}
-                openBeatmapId={openBeatmapId}
-                setOpenBeatmapId={setOpenBeatmapId}
-                resetPage={resetPage}
-                viewMode={viewMode}
-                total={total}
-              />
-            </>
+        total === 0 ? (
+            <div className={`page-container beatmap-page`}>
+              <div>No beatmaps found with given search criteria</div>
+            </div>
+          ) : (
+            <Beatmaps
+              loadedBeatmapData={loadedBeatmapData}
+              fetchNewData={fetchNewData}
+              fetchNewPage={fetchNewPage}
+              openBeatmapId={openBeatmapId}
+              setOpenBeatmapId={setOpenBeatmapId}
+              resetPage={resetPage}
+              viewMode={viewMode}
+              total={total}
+            />
           )
       }
       <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>

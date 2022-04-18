@@ -60,6 +60,12 @@ button {
   }
 }
 
+:disabled {
+  cursor: default;
+  opacity: .45;
+  pointer-events: none;
+}
+
 .button-submit {
   background-color: $color-confirmed;
 
@@ -174,6 +180,38 @@ button, a.button {
 .role-user {
   background-color: unset;
   color: $color-text;
+}
+
+.beatmap-status-unfinished {
+  background-color: $status-unfinished-colour;
+}
+
+.beatmap-status-pending {
+  background-color: $status-pending-colour;
+}
+
+.beatmap-status-bubbled {
+  background-color: $status-bubbled-colour;
+}
+
+.beatmap-status-qualified {
+  background-color: $status-qualified-colour;
+}
+
+.beatmap-status-ranked {
+  background-color: $status-ranked-colour;
+}
+
+.beatmap-status-popped {
+  background-color: $status-popped-colour;
+}
+
+.beatmap-status-disqualified {
+  background-color: $status-disqualified-colour;
+}
+
+.beatmap-status-graved {
+  background-color: $status-graved-colour;
 }
 
 .Collapsible {
@@ -315,6 +353,8 @@ body .ReactModal__Overlay {
 }
 
 body .ReactModal__Overlay {
+  z-index: 1000;
+
   .ReactModal__Content {
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;

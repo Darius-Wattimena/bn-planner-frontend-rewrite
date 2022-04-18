@@ -4,6 +4,7 @@ import {FaStickyNote} from "react-icons/fa";
 import React from "react";
 import {Beatmap, Gamemode} from "../../models/Types";
 import useAxios from "axios-hooks";
+import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 
 interface BeatmapDetailsProps {
   beatmap: Beatmap
@@ -25,6 +26,8 @@ function BeatmapDetails(
     onDeleteNominator,
     setOpenDeleteBeatmap
   }: BeatmapDetailsProps) {
+  let beatmapStatus = getBeatmapStatus(beatmap.status)
+
   return (
     <>
       <div className={"beatmap-details-container"}>
@@ -47,17 +50,25 @@ function BeatmapDetails(
           </div>
           <div className={"beatmap-details-sub-container beatmap-metadata-container"}>
             <div className={"beatmap-details-sub-container-title"}>
-              Metadata
+              Beatmap
             </div>
             <div className={"beatmap-metadata"}>
               <BeatmapDetailsMetadataField
-                value={beatmap?.artist}
+                value={beatmap.artist}
                 label={"Artist"}
               />
               <BeatmapDetailsMetadataField
-                value={beatmap?.title}
+                value={beatmap.title}
                 label={"Title"}
               />
+              <div className={"beatmap-metadata-item beatmap-status"}>
+                <div className={"beatmap-metadata-label"}>Status</div>
+                <div className={`beatmap-status-label ${beatmapStatus.className}`}>{beatmapStatus.name}</div>
+              </div>
+              <div className={"beatmap-metadata-item beatmap-note"}>
+                <div className={"beatmap-metadata-label"}>Note</div>
+                <div className={"beatmap-metadata-value"}>{beatmap.note !== "" ? beatmap.note : "-"}</div>
+              </div>
             </div>
           </div>
           <div className={"beatmap-details-sub-container beatmap-mapper-container"}>
@@ -81,10 +92,10 @@ function BeatmapDetails(
               </button>
             </div>
             <div className={"actions-button-group actions-button-group-right"}>
-              <button onClick={() => {
+              <button disabled onClick={() => {
                 setOpenBeatmapId(undefined)
               }} className={"button button-edit button-text"}>
-                <FaStickyNote/> Edit Nominator Note
+                <FaStickyNote/> Edit Note
               </button>
 
               <button onClick={() => {
@@ -141,14 +152,14 @@ function BeatmapDetailsNominators(
 
 interface BeatmapDetailsMetadataFieldProps {
   label: string
-  value: string | undefined
+  value: string
 }
 
 function BeatmapDetailsMetadataField({label, value}: BeatmapDetailsMetadataFieldProps) {
   return (
     <div className={"beatmap-metadata-item"}>
       <div className={"beatmap-metadata-label"}>{label}</div>
-      <p className={"beatmap-metadata-value"}>{value}</p>
+      <div className={"beatmap-metadata-value"}>{value !== "" ? value : "-"}</div>
     </div>
   )
 }

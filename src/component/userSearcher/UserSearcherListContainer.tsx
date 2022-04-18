@@ -1,15 +1,16 @@
 import UserSearcherList from "./UserSearcherList";
-import {BeatmapGamemode, Gamemode, NewUser, UserSearchFilter} from "../../models/Types";
+import {BeatmapFilter, BeatmapGamemode, Gamemode, NewUser, UserSearchFilter} from "../../models/Types";
 import useAxios from "axios-hooks";
 import {useEffect} from "react";
 import Api from "../../resources/Api";
 
 interface UserSearcherListContainerProps {
   queryFilter: UserSearchFilter
-  beatmapGamemodes: BeatmapGamemode[]
+  beatmapGamemodes?: BeatmapGamemode[]
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
-  onSelectNominator: (replacingUserId: string, newNominatorId: string) => void
+  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string) => void
+  beatmapFilter?: BeatmapFilter
 }
 
 function UserSearcherListContainer(
@@ -18,7 +19,8 @@ function UserSearcherListContainer(
     beatmapGamemodes,
     changingGamemode,
     changingUserId,
-    onSelectNominator
+    onSelectNominator,
+    beatmapFilter
   }: UserSearcherListContainerProps) {
   const [{data, loading}, execute] = useAxios<NewUser[]>("", {manual: true})
 
@@ -34,6 +36,7 @@ function UserSearcherListContainer(
       changingGamemode={changingGamemode}
       changingUserId={changingUserId}
       onSelectNominator={onSelectNominator}
+      beatmapFilter={beatmapFilter}
     />
   )
 }
