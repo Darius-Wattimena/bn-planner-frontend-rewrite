@@ -8,9 +8,10 @@ import {MdLogout, MdPersonOutline} from "react-icons/md";
 
 interface NavProps {
   userContext: UserContext | undefined
+  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
-function Nav({userContext}: NavProps) {
+function Nav({userContext, setUserContext}: NavProps) {
   return (
     <>
       <header className="site-header">
@@ -59,7 +60,7 @@ function Nav({userContext}: NavProps) {
                   <MdPersonOutline />
                 </div>
               </NavLink>
-              <NavLink to="/logout" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+              <NavLink to={"/"} onClick={() => setUserContext(undefined)} className={(navData) => navData.isActive ? "navbar-active" : ""}>
                 <div className={"navbar-item"}>
                   <MdLogout />
                 </div>

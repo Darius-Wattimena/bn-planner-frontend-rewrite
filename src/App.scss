@@ -62,14 +62,26 @@ button {
 
 .button-submit {
   background-color: $color-confirmed;
+
+  &:hover {
+    background-color: $color-highlight-confirmed;
+  }
 }
 
 .button-cancel {
   background-color: $status-disqualified-colour;
+
+  &:hover {
+    background-color: darken($status-disqualified-colour, 7%);
+  }
 }
 
 .button-edit {
   background-color: $status-popped-colour;
+
+  &:hover {
+    background-color: darken($status-popped-colour, 7%);
+  }
 }
 
 .button-text, .button-icon {
@@ -99,6 +111,7 @@ button {
 }
 
 button, a.button {
+  color: $color-text-light;
   cursor:pointer;
   padding: $padding;
   border-radius: unset;
@@ -108,6 +121,10 @@ button, a.button {
   &.primary {
     color: $color-text-light;
     background-color: $color-primary;
+
+    &:hover {
+      background-color: darken($color-highlight-background, 5%);
+    }
   }
 
   &.osu-button {

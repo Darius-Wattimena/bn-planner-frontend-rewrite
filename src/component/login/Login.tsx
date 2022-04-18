@@ -1,11 +1,13 @@
 import React, {useEffect} from "react";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import {Navigate, useLocation} from 'react-router-dom';
+import {Navigate, NavLink, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
+import {ReactComponent as Logo} from "../../assets/catch.svg";
+import {osuUrl} from "../../AppRoutes";
 
 interface LoginProps {
-  userContext: UserContext
+  userContext: UserContext | undefined
   setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
@@ -39,8 +41,10 @@ function Login({userContext, setUserContext}: LoginProps) {
     return <Navigate to={"/"}/>
   } else {
     return (
-      <div>
-        TODO : LOGIN OVERLAY/PAGE?
+      <div className={"landing-page"}>
+        <div className={"welcome-screen"}>
+          Logging in
+        </div>
       </div>
     )
   }

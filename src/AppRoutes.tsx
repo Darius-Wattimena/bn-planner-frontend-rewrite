@@ -12,7 +12,7 @@ export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&cli
 interface RoutesProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
-  userContext: UserContext
+  userContext: UserContext | undefined
   setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
@@ -29,7 +29,7 @@ function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesP
 
   return (
     <div className={"container"}>
-      <Nav userContext={userContext}/>
+      <Nav userContext={userContext} setUserContext={setUserContext} />
       <Routes>
         <Route path="/" element={<Home userContext={userContext}/>}/>
         <Route path="/login" element={<Login userContext={userContext} setUserContext={setUserContext}/>}/>

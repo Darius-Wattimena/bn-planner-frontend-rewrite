@@ -6,7 +6,7 @@ import {UserContext} from "../../models/Types";
 import {NavLink} from "react-router-dom";
 
 interface HomeProps {
-  userContext: UserContext
+  userContext: UserContext | undefined
 }
 
 function Home({userContext}: HomeProps) {
@@ -23,7 +23,7 @@ function Home({userContext}: HomeProps) {
               Authenticate with osu!
             </a>
           ) : (
-            <NavLink to="/beatmaps" className={"button secondary sub-action"}>
+            <NavLink to="/beatmaps" className={"button button-submit sub-action"}>
               Beatmaps
             </NavLink>
           )}
