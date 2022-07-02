@@ -6,16 +6,16 @@ import {Beatmap} from "../../../models/Types";
 import Api from "../../../resources/Api";
 
 interface DeleteBeatmapProps {
-  beatmapId: number
+  beatmap: Beatmap
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-function DeleteBeatmap({beatmapId, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapProps) {
+function DeleteBeatmap({beatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapProps) {
   const [{}, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onDeleteBeatmap() {
-    execute(Api.deleteBeatmap(beatmapId)).then(() => {
+    execute(Api.deleteBeatmap(beatmap.osuId)).then(() => {
       setOpenDeleteBeatmap(false)
       setOpenBeatmapId(undefined)
     })
@@ -28,7 +28,10 @@ function DeleteBeatmap({beatmapId, setOpenDeleteBeatmap, setOpenBeatmapId}: Dele
           Delete beatmap
         </div>
         <div className={"sub-container-content"}>
-          Are you sure that you want to delete the following beatmap from the planner?
+          <p>
+            You are about to delete the following from the planner:
+          </p>
+          {`${beatmap.artist} - ${beatmap.title} made by ${beatmap.mapper.username}`}
         </div>
       </div>
       <div className={"sub-container actions"}>

@@ -1,15 +1,16 @@
 import Modal from "react-modal";
 import React from "react";
 import DeleteBeatmap from "./DeleteBeatmap";
+import {Beatmap} from "../../../models/Types";
 
 interface DeleteBeatmapModalProps {
-  beatmapId: number
+  beatmap: Beatmap
   openDeleteBeatmap: boolean
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-export function DeleteBeatmapModal({beatmapId, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapModalProps) {
+export function DeleteBeatmapModal({beatmap, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapModalProps) {
   return (
     <>
       <Modal
@@ -21,7 +22,7 @@ export function DeleteBeatmapModal({beatmapId, openDeleteBeatmap, setOpenDeleteB
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
-        <DeleteBeatmap beatmapId={beatmapId} setOpenDeleteBeatmap={setOpenDeleteBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
+        <DeleteBeatmap beatmap={beatmap} setOpenDeleteBeatmap={setOpenDeleteBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
       </Modal>
     </>
   )

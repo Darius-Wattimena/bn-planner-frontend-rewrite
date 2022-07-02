@@ -80,7 +80,7 @@ export function BeatmapDetailsModal(
             beatmapId={beatmap.osuId}
           />
           <DeleteBeatmapModal
-            beatmapId={beatmap.osuId}
+            beatmap={beatmap}
             openDeleteBeatmap={openDeleteBeatmap}
             setOpenDeleteBeatmap={setOpenDeleteBeatmap}
             setOpenBeatmapId={setOpenBeatmapId}
