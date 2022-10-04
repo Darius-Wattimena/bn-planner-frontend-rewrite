@@ -1,21 +1,16 @@
-import React, {useEffect, useState} from "react";
-import {NavLink, Outlet, useNavigate} from "react-router-dom";
+import React from "react";
+import {NavLink} from "react-router-dom";
 import greaperLogo from '../../assets/greaper.png'
 import NavProfile from "./NavProfile";
 import './Nav.scss'
 import {UserContext} from "../../models/Types";
-import {MdLogout, MdPersonOutline} from "react-icons/md";
+import {openInNewTab} from "../../utils/LinkUtils";
 
 interface NavProps {
   userContext: UserContext | undefined
-  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
-function Nav({userContext, setUserContext}: NavProps) {
-  let navigation = useNavigate()
-
-  console.log({userContext})
-
+function Nav({userContext}: NavProps) {
   return (
     <>
       <header className="site-header">
@@ -52,9 +47,9 @@ function Nav({userContext, setUserContext}: NavProps) {
             }
           </div>
           <div className={"navbar-logo"}>
-            <a className={"navbar-logo-wrapper"} href={"https://osu.ppy.sh/users/2369776"}>
+            <div className={"navbar-logo-wrapper"} onClick={() => openInNewTab("https://osu.ppy.sh/users/2369776")}>
               <img src={greaperLogo} alt={"Greaper"}/>
-            </a>
+            </div>
           </div>
           <div className={"navbar-end"}>
             {userContext &&

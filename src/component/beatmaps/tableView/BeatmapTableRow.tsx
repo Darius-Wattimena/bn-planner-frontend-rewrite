@@ -8,6 +8,7 @@ import {AiOutlinePaperClip} from "react-icons/ai";
 import ReactTooltip from "react-tooltip";
 import {FaStickyNote} from "react-icons/fa";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
+import {openInNewTab} from "../../../utils/LinkUtils";
 
 interface BeatmapTableRowProps {
   beatmap: Beatmap
@@ -73,10 +74,12 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       <td key={`beatmap-table-row-${beatmap.osuId}-actions`} className={"beatmap-table-actions-cell"}>
         <div className={"beatmap-table-actions"}>
           <button className='beatmap-button' onClick={() => setOpenBeatmapId(beatmap.osuId)}><FiInfo/></button>
-          <a className='beatmap-button'
-             href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`}><AiOutlinePaperClip/></a>
-          <a className='beatmap-button'
-             href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`}><GoCommentDiscussion/></a>
+          <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`)}>
+            <AiOutlinePaperClip/>
+          </button>
+          <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`)}>
+            <GoCommentDiscussion/>
+          </button>
         </div>
       </td>
     </tr>
