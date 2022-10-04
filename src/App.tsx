@@ -43,7 +43,11 @@ function App() {
 
   return (
     <div id="main" className="App">
-      <AppRoutes viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} setUserContext={setUserContext} />
+      <AppRoutes
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        userContext={userContext}
+        setUserContext={setUserContext}/>
     </div>
   );
 }

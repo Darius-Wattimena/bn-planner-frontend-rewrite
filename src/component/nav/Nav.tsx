@@ -1,5 +1,5 @@
-import React from "react";
-import {NavLink, Outlet} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import greaperLogo from '../../assets/greaper.png'
 import NavProfile from "./NavProfile";
 import './Nav.scss'
@@ -12,6 +12,10 @@ interface NavProps {
 }
 
 function Nav({userContext, setUserContext}: NavProps) {
+  let navigation = useNavigate()
+
+  console.log({userContext})
+
   return (
     <>
       <header className="site-header">
@@ -55,23 +59,17 @@ function Nav({userContext, setUserContext}: NavProps) {
           <div className={"navbar-end"}>
             {userContext &&
             <>
-              <NavLink to="/profile" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+              {/*<NavLink to="/profile" className={(navData) => navData.isActive ? "navbar-active" : ""}>
                 <div className={"navbar-item"}>
                   <MdPersonOutline />
                 </div>
-              </NavLink>
-              <NavLink to={"/"} onClick={() => setUserContext(undefined)} className={(navData) => navData.isActive ? "navbar-active" : ""}>
-                <div className={"navbar-item"}>
-                  <MdLogout />
-                </div>
-              </NavLink>
+              </NavLink>*/}
               <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>
             </>
             }
           </div>
         </nav>
       </header>
-      <Outlet/>
     </>
   )
 }
