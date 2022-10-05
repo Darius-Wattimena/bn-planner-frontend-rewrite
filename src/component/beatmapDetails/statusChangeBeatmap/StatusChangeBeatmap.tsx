@@ -17,8 +17,7 @@ export default function StatusChangeBeatmap({beatmap, newStatus, setIsChangeModa
   const [{}, execute] = useAxios<boolean>("", {manual: true})
 
   function onChangeBeatmapStatus() {
-    execute(Api.updateBeatmapStatus(beatmap.osuId, newStatus)).then(result => {
-      console.log({result})
+    execute(Api.updateBeatmapStatus(beatmap.osuId, newStatus)).then(() => {
       setIsChangeModalOpen(false)
       setRefreshOnClose(true)
       setOpenBeatmapId(undefined)

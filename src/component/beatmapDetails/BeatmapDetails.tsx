@@ -5,9 +5,11 @@ import React, {useState} from "react";
 import {Beatmap, Gamemode, NewBeatmapStatus} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
+import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
 
 interface BeatmapDetailsProps {
   beatmap: Beatmap
+  setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
@@ -20,6 +22,7 @@ interface BeatmapDetailsProps {
 function BeatmapDetails(
   {
     beatmap,
+    setBeatmap,
     setOpenBeatmapId,
     setOpenUserSearcher,
     setChangingGamemode,
@@ -29,6 +32,8 @@ function BeatmapDetails(
     setRefreshOnClose
   }: BeatmapDetailsProps) {
   let beatmapStatus = getBeatmapStatus(beatmap.status)
+
+  const [isNoteChangeModelOpen, setIsNoteChangeModelOpen] = useState(false)
 
   return (
     <>
@@ -116,11 +121,20 @@ function BeatmapDetails(
 
             </div>
             <div className={"actions-button-group actions-button-group-right"}>
-              <button disabled onClick={() => {
-                setOpenBeatmapId(undefined)
-              }} className={"button button-edit button-text"}>
-                <FaStickyNote/> Edit Note
-              </button>
+              <>
+                <button onClick={() => {
+                  setIsNoteChangeModelOpen(true)
+                }} className={"button button-edit button-text"}>
+                  <FaStickyNote/> Edit Note
+                </button>
+                <NoteChangeBeatmapModal
+                  beatmap={beatmap}
+                  setBeatmap={setBeatmap}
+                  isModalOpen={isNoteChangeModelOpen}
+                  setIsModalOpen={setIsNoteChangeModelOpen}
+                  setRefreshOnClose={setRefreshOnClose} />
+              </>
+
 
               <button onClick={() => {
                 setOpenBeatmapId(undefined)

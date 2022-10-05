@@ -61,6 +61,7 @@ function BeatmapDetailsModal(
         <BeatmapDetails
           key={key}
           beatmap={beatmap}
+          setBeatmap={setBeatmap}
           setOpenBeatmapId={setOpenBeatmapId}
           setOpenUserSearcher={setOpenUserSearcher}
           setChangingGamemode={setChangingGamemode}
