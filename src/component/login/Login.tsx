@@ -3,12 +3,10 @@ import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {Navigate, NavLink, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
-import {ReactComponent as Logo} from "../../assets/catch.svg";
-import {osuUrl} from "../../AppRoutes";
 
 interface LoginProps {
   userContext: UserContext | undefined
-  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
+  setUserContext: React.Dispatch<React.SetStateAction<UserContext | undefined>>
 }
 
 function Login({userContext, setUserContext}: LoginProps) {

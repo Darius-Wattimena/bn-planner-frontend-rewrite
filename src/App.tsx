@@ -18,7 +18,8 @@ configure({axios})
 
 function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('TABLE')
-  const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
+  const [localStorageUserContext, setLocalStorageUserContext] = useLocalStorage<UserContext>("userContext");
+  const [userContext, setUserContext] = useState<UserContext | undefined>(localStorageUserContext);
   const [{data, loading}, execute] = useAxios<UserContext>("", {manual: true})
 
   useEffect(() => {
@@ -36,8 +37,9 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (data && !loading) {
+    if (!loading) {
       setUserContext(data)
+      setLocalStorageUserContext(data)
     }
   }, [data])
 

@@ -13,7 +13,7 @@ interface RoutesProps {
   viewMode: ViewMode
   setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   userContext: UserContext | undefined
-  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
+  setUserContext: React.Dispatch<React.SetStateAction<UserContext | undefined>>
 }
 
 function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesProps) {
