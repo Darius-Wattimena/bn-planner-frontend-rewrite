@@ -1,4 +1,4 @@
-import {BeatmapFilter, Gamemode, NewBeatmap, PageLimit, UserContext, UserSearchFilter} from "../models/Types";
+import {BeatmapFilter, Gamemode, NewBeatmap, PageLimit, UserContext, UserSearchFilter, NewBeatmapStatus} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
 function getAuthHeader() {
@@ -66,7 +66,14 @@ const Api = {
     return {
       method: 'DELETE',
       headers: getAuthHeader(),
-      url: `/v2/beatmap/delete/${beatmapId}`,
+      url: `/v2/beatmap/${beatmapId}/delete`,
+    }
+  },
+  updateBeatmapStatus: (beatmapId: number, newStatus: NewBeatmapStatus): AxiosRequestConfig<NewBeatmap> => {
+    return {
+      method: 'PATCH',
+      headers: getAuthHeader(),
+      url: `/v2/beatmap/${beatmapId}/status?new=${newStatus}`,
     }
   },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {

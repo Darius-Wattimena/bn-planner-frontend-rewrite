@@ -31,17 +31,24 @@ function App() {
 
       if (now >= userContext.validUntilEpochMilli) {
         console.log("Token not valid anymore, refreshing")
-        execute(Api.refresh(userContext.refreshToken))
+        execute(Api.refresh(userContext.refreshToken)).then(result => {
+          if (result.status == 400) {
+            setUserContext(undefined)
+          }
+        })
       }
     }
   }, [])
 
   useEffect(() => {
-    if (!loading) {
+    if (data && !loading) {
       setUserContext(data)
-      setLocalStorageUserContext(data)
     }
   }, [data])
+
+  useEffect(() => {
+    setLocalStorageUserContext(userContext)
+  }, [userContext])
 
   return (
     <div id="main" className="App">

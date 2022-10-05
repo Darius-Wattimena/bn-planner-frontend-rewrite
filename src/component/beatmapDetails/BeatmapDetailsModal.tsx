@@ -13,15 +13,17 @@ interface BeatmapDetailsModalProps {
   loading: boolean
   openBeatmapId: number | undefined
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function BeatmapDetailsModal(
+function BeatmapDetailsModal(
   {
     beatmap,
     loading,
     setBeatmap,
     openBeatmapId,
-    setOpenBeatmapId
+    setOpenBeatmapId,
+    setRefreshOnClose
   }: BeatmapDetailsModalProps) {
   const [openUserSearcher, setOpenUserSearcher] = useState(false)
   const [openDeleteBeatmap, setOpenDeleteBeatmap] = useState(false)
@@ -58,12 +60,14 @@ export function BeatmapDetailsModal(
         {beatmap &&
         <BeatmapDetails
           key={key}
-          beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}
+          beatmap={beatmap}
+          setOpenBeatmapId={setOpenBeatmapId}
           setOpenUserSearcher={setOpenUserSearcher}
           setChangingGamemode={setChangingGamemode}
           setChangingUser={setChangingUser}
           onDeleteNominator={onDeleteNominator}
           setOpenDeleteBeatmap={setOpenDeleteBeatmap}
+          setRefreshOnClose={setRefreshOnClose}
         />
         }
       </Modal>

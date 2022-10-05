@@ -9,7 +9,7 @@ interface DeleteBeatmapModalProps {
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-export function DeleteBeatmapModal({beatmapId, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapModalProps) {
+function DeleteBeatmapModal({beatmapId, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapModalProps) {
   return (
     <>
       <Modal

@@ -90,6 +90,13 @@ button {
   }
 }
 
+.button-grave {
+  background-color: $status-graved-colour;
+  &:hover {
+    background-color: darken($status-graved-colour, 7%);
+  }
+}
+
 .button-text, .button-icon {
   color: $color-text;
   fill: $color-text;

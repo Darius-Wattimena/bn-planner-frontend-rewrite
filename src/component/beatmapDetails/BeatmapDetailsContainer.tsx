@@ -3,7 +3,7 @@ import {Beatmap} from "../../models/Types";
 import './BeatmapsDetails.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import {BeatmapDetailsModal} from "./BeatmapDetailsModal";
+import BeatmapDetailsModal from "./BeatmapDetailsModal";
 
 interface BeatmapDetailsContainerParams {
   resetPage: () => void
@@ -47,6 +47,7 @@ function BeatmapDetailsContainer({resetPage, openBeatmapId, setOpenBeatmapId}: B
     setBeatmap={setBeatmap}
     openBeatmapId={openBeatmapId}
     setOpenBeatmapId={setOpenBeatmapId}
+    setRefreshOnClose={setRefreshOnClose}
   />
 }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Beatmap, PageLimit, ViewMode} from "../../models/Types";
 import {IndexRange} from "react-virtualized";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";

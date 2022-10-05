@@ -3,7 +3,7 @@ import {Outlet, Route, Routes} from 'react-router-dom';
 import Nav from "./component/nav/Nav";
 import Home from "./component/home/Home";
 import BeatmapsContainer from "./component/beatmaps/BeatmapsContainer";
-import {BeatmapPage, UserContext, ViewMode} from "./models/Types";
+import {UserContext, ViewMode} from "./models/Types";
 import Login from "./component/login/Login";
 import {CONFIG} from "./Settings";
 

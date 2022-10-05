@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import {Navigate, NavLink, useLocation} from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 
 interface LoginProps {
