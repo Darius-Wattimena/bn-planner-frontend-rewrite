@@ -133,9 +133,9 @@ const Api = {
   },
   updateNominator: (beatmapId: number, gamemode: Gamemode, replacingUserId: string, newNominatorId: string): AxiosRequestConfig => {
     return {
-      method: 'GET',
+      method: 'PATCH',
       headers: getAuthHeader(),
-      url: `/v2/beatmap/${beatmapId}/${gamemode}/update?old=${replacingUserId}&new=${newNominatorId}`
+      url: `/v2/beatmap/${beatmapId}/${gamemode}/nominator?old=${replacingUserId}&new=${newNominatorId}`
     }
   }
 }
