@@ -146,8 +146,28 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
               box-shadow: 1px 1px 3px $color-background;
               transition: background-color 300ms;
 
+              &.deselect {
+                .already-nominator {
+                  color: $status-disqualified-colour;
+                }
+
+                svg {
+                  fill: $status-disqualified-colour;
+                }
+              }
+
               &:hover {
                 background-color: $color-highlight-background;
+
+                &.deselect {
+                  .already-nominator {
+                    color: $color-text;
+                  }
+
+                  svg {
+                    fill: $color-text;
+                  }
+                }
               }
             }
           }
