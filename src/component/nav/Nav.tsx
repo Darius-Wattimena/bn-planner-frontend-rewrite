@@ -1,17 +1,16 @@
 import React from "react";
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import greaperLogo from '../../assets/greaper.png'
 import NavProfile from "./NavProfile";
 import './Nav.scss'
 import {UserContext} from "../../models/Types";
-import {MdLogout, MdPersonOutline} from "react-icons/md";
+import {openInNewTab} from "../../utils/LinkUtils";
 
 interface NavProps {
   userContext: UserContext | undefined
-  setUserContext: (value: (UserContext | ((val: UserContext) => UserContext) | undefined)) => void
 }
 
-function Nav({userContext, setUserContext}: NavProps) {
+function Nav({userContext}: NavProps) {
   return (
     <>
       <header className="site-header">
@@ -48,30 +47,24 @@ function Nav({userContext, setUserContext}: NavProps) {
             }
           </div>
           <div className={"navbar-logo"}>
-            <a className={"navbar-logo-wrapper"} href={"https://osu.ppy.sh/users/2369776"}>
+            <div className={"navbar-logo-wrapper"} onClick={() => openInNewTab("https://osu.ppy.sh/users/2369776")}>
               <img src={greaperLogo} alt={"Greaper"}/>
-            </a>
+            </div>
           </div>
           <div className={"navbar-end"}>
             {userContext &&
             <>
-              <NavLink to="/profile" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+              {/*<NavLink to="/profile" className={(navData) => navData.isActive ? "navbar-active" : ""}>
                 <div className={"navbar-item"}>
                   <MdPersonOutline />
                 </div>
-              </NavLink>
-              <NavLink to={"/"} onClick={() => setUserContext(undefined)} className={(navData) => navData.isActive ? "navbar-active" : ""}>
-                <div className={"navbar-item"}>
-                  <MdLogout />
-                </div>
-              </NavLink>
+              </NavLink>*/}
               <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>
             </>
             }
           </div>
         </nav>
       </header>
-      <Outlet/>
     </>
   )
 }

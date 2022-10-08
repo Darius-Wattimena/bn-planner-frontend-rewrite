@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {ImCheckmark, ImCross, ImPlus} from "react-icons/im";
+import React from "react";
+import {ImCheckmark, ImCross} from "react-icons/im";
 import "./DeleteBeatmap.scss"
 import useAxios from "axios-hooks";
 import {Beatmap} from "../../../models/Types";

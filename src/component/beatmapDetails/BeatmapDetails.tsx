@@ -1,32 +1,39 @@
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
-import React from "react";
-import {Beatmap, Gamemode} from "../../models/Types";
-import useAxios from "axios-hooks";
+import React, {useState} from "react";
+import {Beatmap, Gamemode, NewBeatmapStatus} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
+import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
+import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
 
 interface BeatmapDetailsProps {
   beatmap: Beatmap
+  setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
   onDeleteNominator: (gamemode: Gamemode, osuId: string) => void
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
+  setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function BeatmapDetails(
   {
     beatmap,
+    setBeatmap,
     setOpenBeatmapId,
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
     onDeleteNominator,
-    setOpenDeleteBeatmap
+    setOpenDeleteBeatmap,
+    setRefreshOnClose
   }: BeatmapDetailsProps) {
   let beatmapStatus = getBeatmapStatus(beatmap.status)
+
+  const [isNoteChangeModelOpen, setIsNoteChangeModelOpen] = useState(false)
 
   return (
     <>
@@ -90,13 +97,44 @@ function BeatmapDetails(
               }} className={"button button-cancel button-text"}>
                 <ImBin2/> Delete
               </button>
+              {beatmap.status !== NewBeatmapStatus.Graved &&
+                <ChangeBeatmapStatusButton
+                  beatmap={beatmap}
+                  newStatus={NewBeatmapStatus.Graved}
+                  setOpenBeatmapId={setOpenBeatmapId}
+                  setRefreshOnClose={setRefreshOnClose}
+                  buttonClassName={"button button-grave button-text"}>
+                  <ImBin2/> Grave
+                </ChangeBeatmapStatusButton>
+              }
+
+              {beatmap.status === NewBeatmapStatus.Graved &&
+                <ChangeBeatmapStatusButton
+                  beatmap={beatmap}
+                  newStatus={NewBeatmapStatus.Pending}
+                  setOpenBeatmapId={setOpenBeatmapId}
+                  setRefreshOnClose={setRefreshOnClose}
+                  buttonClassName={"button button-grave button-text"}>
+                  <ImBin2/> Ungrave
+                </ChangeBeatmapStatusButton>
+              }
+
             </div>
             <div className={"actions-button-group actions-button-group-right"}>
-              <button disabled onClick={() => {
-                setOpenBeatmapId(undefined)
-              }} className={"button button-edit button-text"}>
-                <FaStickyNote/> Edit Note
-              </button>
+              <>
+                <button onClick={() => {
+                  setIsNoteChangeModelOpen(true)
+                }} className={"button button-edit button-text"}>
+                  <FaStickyNote/> Edit Note
+                </button>
+                <NoteChangeBeatmapModal
+                  beatmap={beatmap}
+                  setBeatmap={setBeatmap}
+                  isModalOpen={isNoteChangeModelOpen}
+                  setIsModalOpen={setIsNoteChangeModelOpen}
+                  setRefreshOnClose={setRefreshOnClose} />
+              </>
+
 
               <button onClick={() => {
                 setOpenBeatmapId(undefined)
@@ -107,6 +145,48 @@ function BeatmapDetails(
           </div>
         </div>
       </div>
+    </>
+  )
+}
+
+interface ChangeBeatmapStatusButtonProps {
+  beatmap: Beatmap,
+  newStatus: NewBeatmapStatus
+  setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  buttonClassName: string
+  setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
+  children?:
+    | React.ReactChild
+    | React.ReactChild[]
+}
+
+function ChangeBeatmapStatusButton(
+  {
+    beatmap,
+    newStatus,
+    setOpenBeatmapId,
+    buttonClassName,
+    setRefreshOnClose,
+    children
+  }: ChangeBeatmapStatusButtonProps) {
+  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false)
+
+  return (
+    <>
+      <button onClick={() => {
+        setIsChangeModalOpen(true)
+      }} className={buttonClassName}>
+        {children}
+      </button>
+      <StatusChangeBeatmapModal
+        key={`beatmap-${beatmap.osuId}status-change-${newStatus}`}
+        beatmap={beatmap}
+        newStatus={newStatus}
+        isChangeModalOpen={isChangeModalOpen}
+        setIsChangeModalOpen={setIsChangeModalOpen}
+        setOpenBeatmapId={setOpenBeatmapId}
+        setRefreshOnClose={setRefreshOnClose}
+       />
     </>
   )
 }

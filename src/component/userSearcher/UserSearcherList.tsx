@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {BeatmapFilter, BeatmapGamemode, Gamemode, NewUser} from "../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
-import {ImCheckmark, ImPlus} from "react-icons/im";
+import {ImCheckmark, ImMinus, ImPlus} from "react-icons/im";
 
 interface UserSearcherListProps {
   data: NewUser[] | undefined
@@ -9,7 +9,7 @@ interface UserSearcherListProps {
   beatmapGamemodes?: BeatmapGamemode[]
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
-  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string) => void
+  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string | undefined) => void
   beatmapFilter?: BeatmapFilter
 }
 
@@ -52,6 +52,7 @@ function UserSearcherList(
             onSelectNominator={onSelectNominator}
             userSelected={userSelected}
             setUserSelected={setUserSelected}
+            beatmapFilter={beatmapFilter}
           />
         )
       })}
@@ -64,9 +65,10 @@ interface UserSearcherUserProps {
   alreadySelected: boolean
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
-  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string) => void
+  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string | undefined) => void
   userSelected: boolean
   setUserSelected: (value: boolean) => void
+  beatmapFilter: BeatmapFilter | undefined
 }
 
 function UserSearcherUser(
@@ -77,7 +79,8 @@ function UserSearcherUser(
     changingUserId,
     onSelectNominator,
     userSelected,
-    setUserSelected
+    setUserSelected,
+    beatmapFilter
   }: UserSearcherUserProps) {
 
   const profilePictureUri = getProfilePictureUri(user.osuId)
@@ -102,7 +105,7 @@ function UserSearcherUser(
           alreadySelected={alreadySelected} canNominateGamemode={canNominateGamemode}
           changingGamemode={changingGamemode} changingUserId={changingUserId}
           onSelectNominator={onSelectNominator} setUserSelected={setUserSelected}
-          userId={user.osuId} userSelected={userSelected}/>
+          userId={user.osuId} userSelected={userSelected} beatmapFilter={beatmapFilter} />
       </div>
     </div>
   )
@@ -113,10 +116,11 @@ interface UserSearcherUserButtonProps {
   alreadySelected: boolean
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
-  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string) => void
+  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string | undefined) => void
   userSelected: boolean
   setUserSelected: (value: boolean) => void
   canNominateGamemode: boolean
+  beatmapFilter: BeatmapFilter | undefined
 }
 
 function UserSearcherUserButton(
@@ -127,9 +131,25 @@ function UserSearcherUserButton(
     userSelected,
     changingUserId,
     setUserSelected,
-    onSelectNominator
+    onSelectNominator,
+    beatmapFilter
   }: UserSearcherUserButtonProps) {
   if (alreadySelected) {
+    // When we have a beatmap filter it means we are filtering on the beatmaps page
+    if (beatmapFilter) {
+      return (
+        <button className='user-select-button deselect' disabled={userSelected} onClick={() => {
+          setUserSelected(true)
+          onSelectNominator(userId, undefined)
+        }}>
+          <ImMinus/>
+          <div className={`user-select-button-text ${alreadySelected ? "already-nominator" : ""}`}>
+            Deselect
+          </div>
+        </button>
+      )
+    }
+
     return (
       <div className={"already-nominator"}>
         <ImCheckmark/> Already Selected

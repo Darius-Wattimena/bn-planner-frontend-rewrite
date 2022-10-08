@@ -1,15 +1,19 @@
-import {BeatmapFilter, Gamemode, NewBeatmap, PageLimit, UserContext, UserSearchFilter} from "../models/Types";
+import {BeatmapFilter, Gamemode, NewBeatmap, PageLimit, UserContext, UserSearchFilter, NewBeatmapStatus} from "../models/Types";
 import {AxiosRequestConfig} from "axios";
 
-function getAuthHeader() {
+function getAuthToken() {
   const localStorageContext = localStorage.getItem('userContext')
-
   if (localStorageContext) {
     const userContext = JSON.parse(localStorageContext) as UserContext
-    return {'Authorization': 'Bearer ' + userContext.accessToken}
+
+    return userContext.accessToken
   } else {
     console.error("something went wrong when reading the UserContext from local storage")
   }
+}
+
+function getAuthHeader() {
+  return {'Authorization': 'Bearer ' + getAuthToken()}
 }
 
 function filterToUrlParams<T>(filter: T) {
@@ -66,7 +70,25 @@ const Api = {
     return {
       method: 'DELETE',
       headers: getAuthHeader(),
-      url: `/v2/beatmap/delete/${beatmapId}`,
+      url: `/v2/beatmap/${beatmapId}/delete`,
+    }
+  },
+  updateBeatmapStatus: (beatmapId: number, newStatus: NewBeatmapStatus): AxiosRequestConfig => {
+    return {
+      method: 'PATCH',
+      headers: getAuthHeader(),
+      url: `/v2/beatmap/${beatmapId}/status?new=${newStatus}`,
+    }
+  },
+  updateBeatmapNote: (beatmapId: number, newNote: string): AxiosRequestConfig<string> => {
+    return {
+      method: 'PATCH',
+      headers: {
+        'Authorization': 'Bearer ' + getAuthToken(),
+        'Content-Type': 'text/plain'
+      },
+      url: `/v2/beatmap/${beatmapId}/note`,
+      data: newNote
     }
   },
   fetchBeatmapById: (beatmapId: number): AxiosRequestConfig => {
@@ -126,9 +148,9 @@ const Api = {
   },
   updateNominator: (beatmapId: number, gamemode: Gamemode, replacingUserId: string, newNominatorId: string): AxiosRequestConfig => {
     return {
-      method: 'GET',
+      method: 'PATCH',
       headers: getAuthHeader(),
-      url: `/v2/beatmap/${beatmapId}/${gamemode}/update?old=${replacingUserId}&new=${newNominatorId}`
+      url: `/v2/beatmap/${beatmapId}/${gamemode}/nominator?old=${replacingUserId}&new=${newNominatorId}`
     }
   }
 }

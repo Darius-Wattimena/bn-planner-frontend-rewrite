@@ -9,7 +9,7 @@ interface UserSearcherListContainerProps {
   beatmapGamemodes?: BeatmapGamemode[]
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined
-  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string) => void
+  onSelectNominator: (replacingUserId: string | undefined, newNominatorId: string | undefined) => void
   beatmapFilter?: BeatmapFilter
 }
 

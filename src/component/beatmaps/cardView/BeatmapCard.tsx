@@ -6,6 +6,7 @@ import {FiInfo} from 'react-icons/fi';
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import {getUserRole} from "../../../utils/UserUtils";
 import {BeatmapCardNominator} from "./BeatmapCardNominator";
+import {openInNewTab} from "../../../utils/LinkUtils";
 
 interface BeatmapCardProps {
   beatmap: Beatmap | undefined
@@ -57,9 +58,12 @@ function BeatmapCard({beatmap, setShowBeatmapDetails}: BeatmapCardProps) {
 
       <div className={"beatmap-card-footer"}>
         <button className='beatmap-button' onClick={() => setShowBeatmapDetails(beatmap.osuId)}><FiInfo/></button>
-        <a className='beatmap-button' href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`}><AiOutlinePaperClip/></a>
-        <a className='beatmap-button'
-           href={`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`}><GoCommentDiscussion/></a>
+        <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`)}>
+          <AiOutlinePaperClip/>
+        </button>
+        <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`)}>
+          <GoCommentDiscussion/>
+        </button>
       </div>
     </div>
   )

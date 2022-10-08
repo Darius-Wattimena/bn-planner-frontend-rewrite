@@ -2,10 +2,8 @@ import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
 import {ImBin, ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
-import {Beatmap, Gamemode, NewUser} from "../../models/Types";
+import {Gamemode, NewUser} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
-import Api from "../../resources/Api";
-import useAxios from "axios-hooks";
 
 interface BeatmapDetailsUserProps {
   user: NewUser

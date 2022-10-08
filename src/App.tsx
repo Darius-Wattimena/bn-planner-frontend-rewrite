@@ -18,7 +18,8 @@ configure({axios})
 
 function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('TABLE')
-  const [userContext, setUserContext] = useLocalStorage<UserContext>("userContext");
+  const [localStorageUserContext, setLocalStorageUserContext] = useLocalStorage<UserContext>("userContext");
+  const [userContext, setUserContext] = useState<UserContext | undefined>(localStorageUserContext);
   const [{data, loading}, execute] = useAxios<UserContext>("", {manual: true})
 
   useEffect(() => {
@@ -30,7 +31,11 @@ function App() {
 
       if (now >= userContext.validUntilEpochMilli) {
         console.log("Token not valid anymore, refreshing")
-        execute(Api.refresh(userContext.refreshToken))
+        execute(Api.refresh(userContext.refreshToken)).then(result => {
+          if (result.status == 400) {
+            setUserContext(undefined)
+          }
+        })
       }
     }
   }, [])
@@ -41,9 +46,17 @@ function App() {
     }
   }, [data])
 
+  useEffect(() => {
+    setLocalStorageUserContext(userContext)
+  }, [userContext])
+
   return (
     <div id="main" className="App">
-      <AppRoutes viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} setUserContext={setUserContext} />
+      <AppRoutes
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        userContext={userContext}
+        setUserContext={setUserContext}/>
     </div>
   );
 }

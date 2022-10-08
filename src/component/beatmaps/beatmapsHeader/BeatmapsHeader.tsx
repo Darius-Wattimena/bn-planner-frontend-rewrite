@@ -1,9 +1,7 @@
 import React from "react";
 import {ImFilter, ImMap, ImPlus, ImTable, ImUser} from "react-icons/im";
 import "./BeatmapsHeader.scss"
-import {BeatmapFilter, BeatmapPage, UserContext, ViewMode} from "../../../models/Types";
-import ReactTooltip from "react-tooltip";
-import BeatmapFilters from "../beatmapFilters/BeatmapFilters";
+import {BeatmapPage, UserContext, ViewMode} from "../../../models/Types";
 
 interface BeatmapsHeaderProps {
   viewMode: ViewMode

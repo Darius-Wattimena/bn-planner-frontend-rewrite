@@ -121,16 +121,22 @@ function UserSearcher(
     ])
   }, [userSearchFilter, selectedGamemodes, selectedRoles])
 
-  function onSelectNominator(replacingUserId: string | undefined, newNominatorId: string) {
-    if (changingGamemode && beatmapId && replacingUserId) {
+  function onSelectNominator(replacingUserId: string | undefined, newNominatorId: string | undefined) {
+    if (changingGamemode && beatmapId && replacingUserId && newNominatorId) {
       execute(Api.updateNominator(beatmapId, changingGamemode, replacingUserId, newNominatorId))
       setOpenUserSearcher(false)
     } else if (changingGamemode && beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
       const selectedNominators = beatmapFilter["nominators"]
-      const newSelectedNominators: string[] = [];
+      let newSelectedNominators: (string | undefined)[] = [];
 
-      selectedNominators.forEach(val => newSelectedNominators.push(val))
-      newSelectedNominators.push(newNominatorId)
+      if (newNominatorId === undefined) {
+        newSelectedNominators = selectedNominators.filter(it => it !== replacingUserId)
+      } else {
+        newSelectedNominators = selectedNominators
+        newSelectedNominators.push(newNominatorId)
+      }
+
+      console.log({newSelectedNominators, selectedNominators, replacingUserId, beatmapId})
 
       instantFilter(
         beatmapFilter,
