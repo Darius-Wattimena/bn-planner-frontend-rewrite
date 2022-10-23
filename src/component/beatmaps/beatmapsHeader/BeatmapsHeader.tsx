@@ -50,25 +50,6 @@ function BeatmapsHeader(
           </button>
         </div>
         <div className='beatmaps-header-right'>
-          <div className={"viewmode-button"}>
-            <button className={`beatmap-button ${cardsButtonClassname}`} onClick={() => {
-              if (viewMode === "CARDS") {
-                setViewMode("TABLE")
-              } else {
-                setViewMode("CARDS")
-              }
-            }}>
-              {viewMode === "TABLE" &&
-              <div className={"beta-label"}>
-                BETA
-              </div>
-              }
-              {viewMode === "CARDS" ? <ImTable/> : <ImMap/>}
-              <div className={`beatmap-button-text`}>
-                {viewMode === "CARDS" ? "Table" : "Card"} view
-              </div>
-            </button>
-          </div>
           <button disabled={userContext?.permission.osuRole === "Mapper" || openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
             <ImPlus/>
             <div className='beatmap-button-text'>
