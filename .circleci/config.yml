@@ -1,0 +1,50 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/node:16.13.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+      - run: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/aws:2022.06
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to AWS S3 bucket
+          command: aws s3 sync build s3://newbnplanner.greaper.net --delete --exact-timestamps
+      - run:
+          name: Invalidate CloudFront
+          command: aws cloudfront create-invalidation --distribution-id E3K3IZK5AN3BAK --paths "/*"
+workflows:
+  build-approve-deploy:
+    jobs:
+      - build:
+          context: build-context
+      - deploy:
+          requires:
+            - build
+          context: build-context
+          filters:
+            branches:
+              only:
+                - master
