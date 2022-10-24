@@ -106,7 +106,8 @@ export interface BeatmapFilter {
   status: NewBeatmapStatus[],
   page: BeatmapPage,
   hideWithTwoNominators: boolean,
-  nominators: string[]
+  nominators: string[],
+  gamemodes: Gamemode[]
 }
 
 export enum NewBeatmapStatus {

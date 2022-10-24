@@ -18,6 +18,7 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
+  gamemodes: ["fruits"],
   page: "PENDING",
   hideWithTwoNominators: false
 }
