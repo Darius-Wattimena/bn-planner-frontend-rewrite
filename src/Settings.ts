@@ -19,4 +19,9 @@ interface Settings {
   osu_redirect: string
 }
 
-export const CONFIG = DEV_ENV;
+export const BACKEND_ENVIRONMENT =
+  typeof window !== 'undefined' && window.location.host !== 'bnplanner.greaper.net'
+          ? 'dev'
+          : 'prod'
+
+export const CONFIG = BACKEND_ENVIRONMENT === "prod" ? PROD_ENV : DEV_ENV;
