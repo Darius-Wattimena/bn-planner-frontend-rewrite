@@ -14,7 +14,7 @@ interface StatusChangeBeatmapProps {
 }
 
 export default function StatusChangeBeatmap({beatmap, newStatus, setIsChangeModalOpen, setOpenBeatmapId, setRefreshOnClose}: StatusChangeBeatmapProps) {
-  const [{}, execute] = useAxios<boolean>("", {manual: true})
+  const [, execute] = useAxios<boolean>("", {manual: true})
 
   function onChangeBeatmapStatus() {
     execute(Api.updateBeatmapStatus(beatmap.osuId, newStatus)).then(() => {

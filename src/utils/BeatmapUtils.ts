@@ -5,12 +5,12 @@ export function getBeatmapStatus(status: NewBeatmapStatus) {
   switch (status) {
     case "Qualified":
       return BEATMAP_STATUS.Qualified
-    case "Bubbled":
-      return BEATMAP_STATUS.Bubbled
+    case "Nominated":
+      return BEATMAP_STATUS.Nominated
     case "Disqualified":
       return BEATMAP_STATUS.Disqualified
-    case "Popped":
-      return BEATMAP_STATUS.Popped
+    case "Reset":
+      return BEATMAP_STATUS.Reset
     case "Pending":
       return BEATMAP_STATUS.Pending
     case "Ranked":

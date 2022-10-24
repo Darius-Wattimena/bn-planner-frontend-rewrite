@@ -4,9 +4,9 @@ export const BEATMAP_STATUS = {
     name: 'Qualified',
     className: 'beatmap-status-qualified'
   },
-  Bubbled: {
+  Nominated: {
     id: 2,
-    name: 'Bubbled',
+    name: 'Nominated',
     className: 'beatmap-status-bubbled'
   },
   Disqualified: {
@@ -14,9 +14,9 @@ export const BEATMAP_STATUS = {
     name: 'Disqualified',
     className: 'beatmap-status-disqualified'
   },
-  Popped: {
+  Reset: {
     id: 4,
-    name: 'Popped',
+    name: 'Reset',
     className: 'beatmap-status-popped'
   },
   Pending: {

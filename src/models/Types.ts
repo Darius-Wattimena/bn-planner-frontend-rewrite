@@ -111,9 +111,9 @@ export interface BeatmapFilter {
 
 export enum NewBeatmapStatus {
   Qualified = "Qualified",
-  Bubbled = "Bubbled",
+  Nominated = "Nominated",
   Disqualified = "Disqualified",
-  Popped = "Popped",
+  Reset = "Reset",
   Pending = "Pending",
   Ranked = "Ranked",
   Graved = "Graved",

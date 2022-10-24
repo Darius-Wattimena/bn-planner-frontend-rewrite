@@ -17,7 +17,7 @@ const axios = Axios.create({
 configure({axios})
 
 function App() {
-  const [viewMode, setViewMode] = useState<ViewMode>('TABLE')
+  const [viewMode] = useState<ViewMode>('TABLE')
   const [localStorageUserContext, setLocalStorageUserContext] = useLocalStorage<UserContext>("userContext");
   const [userContext, setUserContext] = useState<UserContext | undefined>(localStorageUserContext);
   const [{data, loading}, execute] = useAxios<UserContext>("", {manual: true})
@@ -32,7 +32,7 @@ function App() {
       if (now >= userContext.validUntilEpochMilli) {
         console.log("Token not valid anymore, refreshing")
         execute(Api.refresh(userContext.refreshToken)).then(result => {
-          if (result.status == 400) {
+          if (result.status === 400) {
             setUserContext(undefined)
           }
         })
@@ -54,7 +54,6 @@ function App() {
     <div id="main" className="App">
       <AppRoutes
         viewMode={viewMode}
-        setViewMode={setViewMode}
         userContext={userContext}
         setUserContext={setUserContext}/>
     </div>

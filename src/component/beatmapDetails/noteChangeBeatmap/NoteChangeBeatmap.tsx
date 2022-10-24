@@ -13,7 +13,7 @@ interface NoteChangeBeatmapProps {
 
 export default function NoteChangeBeatmap({beatmap, setBeatmap, setIsModalOpen, setRefreshOnClose}: NoteChangeBeatmapProps) {
   const [newNote, setNewNote] = useState<string>(beatmap.note)
-  const [{}, execute] = useAxios<boolean>("", {manual: true})
+  const [, execute] = useAxios<boolean>("", {manual: true})
 
   function onChangeBeatmapStatus() {
     execute(Api.updateBeatmapNote(beatmap.osuId, newNote)).then(() => {

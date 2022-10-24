@@ -11,12 +11,11 @@ export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&cli
 
 interface RoutesProps {
   viewMode: ViewMode
-  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   userContext: UserContext | undefined
   setUserContext: React.Dispatch<React.SetStateAction<UserContext | undefined>>
 }
 
-function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesProps) {
+function AppRoutes({viewMode, userContext, setUserContext}: RoutesProps) {
   const Layout = () => {
     return (
       <>
@@ -45,17 +44,17 @@ function AppRoutes({viewMode, setViewMode, userContext, setUserContext}: RoutesP
           <Route path="/login" element={<Login userContext={userContext} setUserContext={setUserContext}/>}/>
           <Route path="/beatmaps" element={
             <RequireAuth>
-              <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"PENDING"} />
+              <BeatmapsContainer viewMode={viewMode} userContext={userContext} page={"PENDING"} />
             </RequireAuth>
           }/>
           <Route path="/graveyard" element={
             <RequireAuth>
-              <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"GRAVEYARD"} />
+              <BeatmapsContainer viewMode={viewMode} userContext={userContext} page={"GRAVEYARD"} />
             </RequireAuth>
           }/>
           <Route path="/ranked" element={
             <RequireAuth>
-              <BeatmapsContainer viewMode={viewMode} setViewMode={setViewMode} userContext={userContext} page={"RANKED"} />
+              <BeatmapsContainer viewMode={viewMode} userContext={userContext} page={"RANKED"} />
             </RequireAuth>
           }/>
           <Route path="*" element={<div>TODO : NOT FOUND</div>}/>

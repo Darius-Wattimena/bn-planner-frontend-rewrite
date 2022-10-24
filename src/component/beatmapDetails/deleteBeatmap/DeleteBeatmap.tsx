@@ -12,7 +12,7 @@ interface DeleteBeatmapProps {
 }
 
 function DeleteBeatmap({beatmapId, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapProps) {
-  const [{}, execute] = useAxios<Beatmap>("", {manual: true})
+  const [, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onDeleteBeatmap() {
     execute(Api.deleteBeatmap(beatmapId)).then(() => {

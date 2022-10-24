@@ -27,7 +27,6 @@ function debounce<T extends Function>(cb: T, wait = 20) {
     clearTimeout(h);
     h = window.setTimeout(() => cb(...args), wait);
   };
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return <T>(<any>callable);
 }
 

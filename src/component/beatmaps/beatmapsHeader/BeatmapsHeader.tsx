@@ -1,11 +1,10 @@
 import React from "react";
-import {ImFilter, ImMap, ImPlus, ImTable, ImUser} from "react-icons/im";
+import {ImFilter, ImPlus, ImUser} from "react-icons/im";
 import "./BeatmapsHeader.scss"
 import {BeatmapPage, UserContext, ViewMode} from "../../../models/Types";
 
 interface BeatmapsHeaderProps {
   viewMode: ViewMode
-  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   filterMyIcons: () => void
   filteringOnOwnUser: boolean
   openAddBeatmap: boolean
@@ -18,7 +17,6 @@ function BeatmapsHeader(
   {
     userContext,
     viewMode,
-    setViewMode,
     filterMyIcons,
     filteringOnOwnUser,
     openAddBeatmap,
@@ -26,8 +24,6 @@ function BeatmapsHeader(
     page
   }: BeatmapsHeaderProps
 ) {
-  const cardsButtonClassname = viewMode === "TABLE" ? "beatmap-button-cards-beta" : ""
-
   return (
     <div className={"beatmaps-header"}>
       <div className={"beatmaps-header-container"}>

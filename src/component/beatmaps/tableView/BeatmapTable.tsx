@@ -52,6 +52,8 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
             return (
               <BeatmapTableRow key={`beatmap-table-row-${beatmap.osuId}`}  beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}/>
             )
+          } else {
+            return <></>
           }
         })}
         </tbody>

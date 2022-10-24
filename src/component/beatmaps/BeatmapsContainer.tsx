@@ -24,12 +24,11 @@ const filterDefaultState: BeatmapFilter = {
 
 interface BeatmapsContainerProps {
   viewMode: ViewMode
-  setViewMode: React.Dispatch<React.SetStateAction<ViewMode>>
   userContext: UserContext | undefined
   page: BeatmapPage
 }
 
-function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsContainerProps) {
+function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
   const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
@@ -148,7 +147,6 @@ function BeatmapsContainer({viewMode, setViewMode, userContext, page}: BeatmapsC
       <BeatmapsHeader
         userContext={userContext}
         viewMode={viewMode}
-        setViewMode={setViewMode}
         filterMyIcons={filterMyIcons}
         filteringOnOwnUser={filteringOnOwnUser}
         openAddBeatmap={openAddBeatmap}
