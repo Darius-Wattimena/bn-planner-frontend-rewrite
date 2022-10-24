@@ -73,11 +73,11 @@ function BeatmapStatusFilter(
     <div className={"beatmap-filter-status-container"}>
       <Collapsible
         trigger={"Status"}
-        open={true}
+        open={false}
         className={"collapsible-parent-group"}
         openedClassName={"collapsible-parent-group"}
       >
-        <div className={"beatmap-filter-nominators-groups"}>
+        <div className={"beatmap-filter-select-groups"}>
           {filterItems.map((selectItem, index) => {
             let statusClass = getBeatmapStatus(selectItem.value)?.className
 

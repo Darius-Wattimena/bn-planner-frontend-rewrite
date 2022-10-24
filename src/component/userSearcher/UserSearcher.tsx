@@ -19,7 +19,7 @@ import Api from "../../resources/Api";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
-  gamemodes: ["fruits"],
+  gamemodes: [],
   roles: []
 }
 
@@ -59,73 +59,21 @@ function UserSearcher(
   const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
 
   useEffect(() => {
-    let osuGamemode = selectedGamemodes.find(item => item === "osu")
-    let taikoGamemode = selectedGamemodes.find(item => item === "taiko")
-    let catchGamemode = selectedGamemodes.find(item => item === "fruits")
-    let maniaGamemode = selectedGamemodes.find(item => item === "mania")
+    if (openUserSearcher) {
+      onOpen()
+    }
 
-    setFilterGamemodes([
-      {
-        index: 0,
-        label: "Osu",
-        value: "osu",
-        selected: osuGamemode != null || osuGamemode !== undefined,
-        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "osu")
-      },
-      {
-        index: 1,
-        label: "Taiko",
-        value: "taiko",
-        selected: taikoGamemode != null || taikoGamemode !== undefined,
-        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "taiko")
-      },
-      {
-        index: 2,
-        label: "Catch",
-        value: "fruits",
-        selected: catchGamemode != null || catchGamemode !== undefined,
-        disabled: false //!beatmapGamemodes.find(it => it.gamemode === "fruits")
-      },
-      {
-        index: 3,
-        label: "Mania",
-        value: "mania",
-        selected: maniaGamemode != null || maniaGamemode !== undefined,
-        disabled: true //!beatmapGamemodes.find(it => it.gamemode === "mania")
-      }
-    ])
+  }, [openUserSearcher])
 
-    let nominatorRole = selectedRoles.find(item => item === "Nominator")
-    let probationRole = selectedRoles.find(item => item === "Probation")
-    let natRole = selectedRoles.find(item => item === "NominationAssessment")
-
-    setFilterRoles([
-      {
-        index: 0,
-        label: USER_ROLES.Nominator.short,
-        value: "Nominator",
-        selected: nominatorRole != null || nominatorRole !== undefined
-      },
-      {
-        index: 1,
-        label: USER_ROLES.Probation.short,
-        value: "Probation",
-        selected: probationRole != null || probationRole !== undefined
-      },
-      {
-        index: 2,
-        label: USER_ROLES.NAT.short,
-        value: "NominationAssessment",
-        selected: natRole != null || natRole !== undefined
-      }
-    ])
+  useEffect(() => {
+    onUpdateFilters()
   }, [userSearchFilter, selectedGamemodes, selectedRoles])
 
   function onSelectNominator(replacingUserId: string | undefined, newNominatorId: string | undefined) {
     if (changingGamemode && beatmapId && replacingUserId && newNominatorId) {
       execute(Api.updateNominator(beatmapId, changingGamemode, replacingUserId, newNominatorId))
       setOpenUserSearcher(false)
-    } else if (changingGamemode && beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
+    } else if (beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
       const selectedNominators = beatmapFilter["nominators"]
       let newSelectedNominators: (string | undefined)[] = [];
 
@@ -213,8 +161,6 @@ function UserSearcher(
     )
   }
 
-  const usernameValue = userSearchFilter["username"]
-
   function updateUsernameFilter(newValue: string) {
     debouncingFilter(
       userSearchFilter,
@@ -227,11 +173,98 @@ function UserSearcher(
     )
   }
 
+  function onUpdateFilters() {
+    let osuGamemode = selectedGamemodes.find(item => item === Gamemode.Osu)
+    let taikoGamemode = selectedGamemodes.find(item => item === Gamemode.Taiko)
+    let catchGamemode = selectedGamemodes.find(item => item === Gamemode.Catch)
+    let maniaGamemode = selectedGamemodes.find(item => item === Gamemode.Mania)
+
+    setFilterGamemodes([
+      {
+        index: 0,
+        label: "Osu",
+        value: "osu",
+        selected: osuGamemode != null || osuGamemode !== undefined,
+        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Osu) : false
+      },
+      {
+        index: 1,
+        label: "Taiko",
+        value: "taiko",
+        selected: taikoGamemode != null || taikoGamemode !== undefined,
+        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Taiko) : false
+      },
+      {
+        index: 2,
+        label: "Catch",
+        value: "fruits",
+        selected: catchGamemode != null || catchGamemode !== undefined,
+        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Catch) : false
+      },
+      {
+        index: 3,
+        label: "Mania",
+        value: "mania",
+        selected: maniaGamemode != null || maniaGamemode !== undefined,
+        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Mania) : false
+      }
+    ])
+
+    let nominatorRole = selectedRoles.find(item => item === "Nominator")
+    let probationRole = selectedRoles.find(item => item === "Probation")
+    let natRole = selectedRoles.find(item => item === "NominationAssessment")
+
+    setFilterRoles([
+      {
+        index: 0,
+        label: USER_ROLES.Nominator.short,
+        value: "Nominator",
+        selected: nominatorRole != null || nominatorRole !== undefined
+      },
+      {
+        index: 1,
+        label: USER_ROLES.Probation.short,
+        value: "Probation",
+        selected: probationRole != null || probationRole !== undefined
+      },
+      {
+        index: 2,
+        label: USER_ROLES.NAT.short,
+        value: "NominationAssessment",
+        selected: natRole != null || natRole !== undefined
+      }
+    ])
+  }
+
+  function onOpen() {
+    if (changingGamemode !== undefined) {
+      setUserSearchFilter({
+        username: null,
+        gamemodes: [changingGamemode],
+        roles: []
+      })
+    } else if (beatmapFilter !== undefined) {
+      setUserSearchFilter({
+        username: null,
+        gamemodes: beatmapFilter.gamemodes,
+        roles: []
+      })
+    }
+
+    onUpdateFilters()
+    setOpenUserSearcher(true)
+  }
+
+  function onClose() {
+    setUserSearchFilter(filterDefaultState)
+    setOpenUserSearcher(false)
+  }
+
   return (
     <Modal
       closeTimeoutMS={200}
       isOpen={openUserSearcher}
-      onRequestClose={() => setOpenUserSearcher(false)}
+      onRequestClose={() => onClose()}
       contentLabel="User Searcher"
       className={"user-searcher-modal"}
       shouldCloseOnEsc
@@ -246,14 +279,14 @@ function UserSearcher(
                    className={`user-searcher-select-item ${selectItem.disabled ? "disabled" : ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
                 <input
                   type="checkbox"
-                  id={`${selectItem.index}-gamemode`}
+                  id={`${selectItem.index}-usersearcher-gamemode`}
                   checked={selectItem.selected}
                   disabled={selectItem.disabled}
                   onChange={event => {
                     updateSelectedGamemodes(selectItem.value, event.target.checked)
                   }}
                 />
-                <label className={"todo"} htmlFor={`${selectItem.index}-gamemode`}>
+                <label className={"todo"} htmlFor={`${selectItem.index}-usersearcher-gamemode`}>
                   {selectItem.label}
                 </label>
               </div>
@@ -289,7 +322,7 @@ function UserSearcher(
             </div>
             <input
               placeholder={"osu! Username"}
-              value={usernameValue?.toString()}
+              value={userSearchFilter["username"]?.toString()}
               onChange={event => {
                 updateUsernameFilter(event.target.value)
               }}

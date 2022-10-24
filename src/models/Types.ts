@@ -1,5 +1,4 @@
-export type Gamemode = 'osu' | 'taiko' | 'fruits' | 'mania'
-export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
+export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment'
 export type ViewMode = 'CARDS' | 'TABLE'
 export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
 export type BeatmapPage = 'PENDING' | 'RANKED' | 'GRAVEYARD'
@@ -71,26 +70,12 @@ export interface FrontendUserRole {
   className: string
 }
 
-export interface FrontendBeatmapStatus {
-  id: number
-  name: string
-  className: string
-}
-
 export interface SelectFilterItem {
   index: number
   label: string
   value: any
   selected: boolean
   disabled?: boolean
-}
-
-export interface NominatorSelectFilterItem {
-  index: number
-  label: string
-  value: string
-  role: string
-  selected: boolean
 }
 
 export interface UserSearchFilter {
@@ -108,6 +93,13 @@ export interface BeatmapFilter {
   hideWithTwoNominators: boolean,
   nominators: string[],
   gamemodes: Gamemode[]
+}
+
+export enum Gamemode {
+  Osu = "osu",
+  Taiko = "taiko",
+  Catch = "fruits",
+  Mania = "mania"
 }
 
 export enum NewBeatmapStatus {

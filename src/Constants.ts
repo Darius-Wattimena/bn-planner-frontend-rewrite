@@ -1,3 +1,26 @@
+export const BEATMAP_GAMEMODE = {
+  OSU: {
+    id: 1,
+    name: 'osu',
+    className: 'beatmap-gamemode-osu'
+  },
+  TAIKO: {
+    id: 2,
+    name: 'taiko',
+    className: 'beatmap-gamemode-taiko'
+  },
+  CATCH: {
+    id: 3,
+    name: 'catch',
+    className: 'beatmap-gamemode-catch'
+  },
+  MANIA: {
+    id: 4,
+    name: 'mania',
+    className: 'beatmap-gamemode-mania'
+  }
+}
+
 export const BEATMAP_STATUS = {
   Qualified: {
     id: 1,

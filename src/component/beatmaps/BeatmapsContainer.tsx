@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, UserContext, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, Gamemode, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -18,7 +18,7 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
-  gamemodes: ["fruits"],
+  gamemodes: [Gamemode.Catch],
   page: "PENDING",
   hideWithTwoNominators: false
 }
@@ -80,7 +80,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
           setLoadedBeatmapData(newLoadedBeatmapData)
         } else {
-          console.log("Table view, not defining all loaded maps")
+          // Table view, not defining all loaded maps
         }
       }
     }
@@ -101,10 +101,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
       }
     }
   }, [loading, data])
-
-  useEffect(() => {
-    console.log({loadedBeatmapData})
-  }, [loadedBeatmapData])
 
   useEffect(() => {
     if (viewMode === "TABLE") {

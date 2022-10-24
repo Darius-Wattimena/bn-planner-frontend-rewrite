@@ -1,5 +1,5 @@
-import {BEATMAP_STATUS} from "../Constants";
-import {NewBeatmapStatus} from "../models/Types";
+import {BEATMAP_GAMEMODE, BEATMAP_STATUS} from "../Constants";
+import {Gamemode, NewBeatmapStatus} from "../models/Types";
 
 export function getBeatmapStatus(status: NewBeatmapStatus) {
   switch (status) {
@@ -19,6 +19,21 @@ export function getBeatmapStatus(status: NewBeatmapStatus) {
       return BEATMAP_STATUS.Graved
     case "Unfinished":
       return BEATMAP_STATUS.Unfinished
+  }
+
+  return BEATMAP_STATUS.Pending
+}
+
+export function getBeatmapGamemode(gamemode: Gamemode) {
+  switch (gamemode) {
+    case Gamemode.Osu:
+      return BEATMAP_GAMEMODE.OSU
+    case Gamemode.Taiko:
+      return BEATMAP_GAMEMODE.TAIKO
+    case Gamemode.Catch:
+      return BEATMAP_GAMEMODE.CATCH
+    case Gamemode.Mania:
+      return BEATMAP_GAMEMODE.MANIA
   }
 
   return BEATMAP_STATUS.Pending

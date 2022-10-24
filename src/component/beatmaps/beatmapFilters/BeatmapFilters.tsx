@@ -1,6 +1,7 @@
 import React, {useState} from "react";
-import {BeatmapFilter, NewBeatmapStatus} from "../../../models/Types";
+import {BeatmapFilter, Gamemode, NewBeatmapStatus} from "../../../models/Types";
 import BeatmapStatusFilter from "./BeatmapStatusFilter";
+import BeatmapGamemodeFilter from "./BeatmapGamemodeFilter";
 import BeatmapTextFilter from "./BeatmapTextFilter";
 import "./BeatmapFilters.scss";
 import UserSearcher from "../../userSearcher/UserSearcher";
@@ -40,7 +41,18 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
                 timeout={timeout}
                 setQueryFilter={setQueryFilter}
               />
+
+              <BeatmapGamemodeFilter
+                gamemodes={Object.values(Gamemode)}
+                beatmapFilter={beatmapFilter}
+                setBeatmapFormFilter={setBeatmapFilter}
+                timeout={timeout}
+                setQueryFilter={setQueryFilter}
+              />
             </div>
+          </div>
+          <div className={"beatmap-filter-group"}>
+            <hr />
           </div>
           <div className={"beatmap-filter-group beatmap-filter-group-right"}>
             <BeatmapTextFilter
@@ -88,7 +100,6 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
       <UserSearcher
         openUserSearcher={openUserSearcher}
         setOpenUserSearcher={setOpenUserSearcher}
-        changingGamemode={"fruits"}
         beatmapFilter={beatmapFilter}
         setBeatmapFilter={setBeatmapFilter}
         setBeatmapQueryFilter={setQueryFilter}
