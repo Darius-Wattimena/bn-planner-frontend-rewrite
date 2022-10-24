@@ -19,4 +19,4 @@ interface Settings {
   osu_redirect: string
 }
 
-export const CONFIG = DEV_ENV;
+export const CONFIG = PROD_ENV;
