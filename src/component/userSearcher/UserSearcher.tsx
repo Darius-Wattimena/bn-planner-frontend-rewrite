@@ -75,7 +75,7 @@ function UserSearcher(
       setOpenUserSearcher(false)
     } else if (beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
       const selectedNominators = beatmapFilter["nominators"]
-      let newSelectedNominators: (string | undefined)[] = [];
+      let newSelectedNominators: (string | undefined)[];
 
       if (newNominatorId === undefined) {
         newSelectedNominators = selectedNominators.filter(it => it !== replacingUserId)

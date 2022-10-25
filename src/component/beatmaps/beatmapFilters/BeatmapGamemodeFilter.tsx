@@ -70,36 +70,37 @@ function BeatmapGamemodeFilter(
   }
 
   return (
-    <div className={"beatmap-filter-status-container"}>
-      <Collapsible
-        trigger={"Gamemode"}
-        open={false}
-        className={"collapsible-parent-group"}
-        openedClassName={"collapsible-parent-group"}
-      >
-        <div className={"beatmap-filter-select-groups"}>
-          {filterItems.map((selectItem, index) => {
-            let gamemodeClass = getBeatmapGamemode(selectItem.value)?.className
+    <div className={"beatmap-filter-item"}>
+      <div className={"beatmap-filter-status-container"}>
+        <Collapsible
+          trigger={"Gamemode"}
+          open={false}
+          className={"collapsible-parent-group"}
+          openedClassName={"collapsible-parent-group"}
+        >
+          <div className={"beatmap-filter-select-groups"}>
+            {filterItems.map((selectItem, index) => {
+              let gamemodeClass = getBeatmapGamemode(selectItem.value)?.className
 
-            return (
-              <div className={`beatmap-filter-gamemode`} key={index}>
-                <input
-                  type="checkbox"
-                  id={`${selectItem.index}-gamemode`}
-                  checked={selectItem.selected}
-                  onChange={event => {
-                    updateSelectedItems(selectItem.value, event.target.checked)
-                  }}
-                />
-                <label className={gamemodeClass} htmlFor={`${selectItem.index}-gamemode`}>
-                  {selectItem.label}
-                </label>
-              </div>
-            )
-          })}
-        </div>
-      </Collapsible>
-
+              return (
+                <div className={`beatmap-filter-gamemode`} key={index}>
+                  <input
+                    type="checkbox"
+                    id={`${selectItem.index}-gamemode`}
+                    checked={selectItem.selected}
+                    onChange={event => {
+                      updateSelectedItems(selectItem.value, event.target.checked)
+                    }}
+                  />
+                  <label className={gamemodeClass} htmlFor={`${selectItem.index}-gamemode`}>
+                    {selectItem.label}
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+        </Collapsible>
+      </div>
     </div>
   )
 }

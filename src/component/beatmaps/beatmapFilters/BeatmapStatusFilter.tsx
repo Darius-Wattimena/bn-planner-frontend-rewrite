@@ -70,36 +70,37 @@ function BeatmapStatusFilter(
   }
 
   return (
-    <div className={"beatmap-filter-status-container"}>
-      <Collapsible
-        trigger={"Status"}
-        open={false}
-        className={"collapsible-parent-group"}
-        openedClassName={"collapsible-parent-group"}
-      >
-        <div className={"beatmap-filter-select-groups"}>
-          {filterItems.map((selectItem, index) => {
-            let statusClass = getBeatmapStatus(selectItem.value)?.className
+    <div className={"beatmap-filter-item"}>
+      <div className={"beatmap-filter-status-container"}>
+        <Collapsible
+          trigger={"Status"}
+          open={false}
+          className={"collapsible-parent-group"}
+          openedClassName={"collapsible-parent-group"}
+        >
+          <div className={"beatmap-filter-select-groups"}>
+            {filterItems.map((selectItem, index) => {
+              let statusClass = getBeatmapStatus(selectItem.value)?.className
 
-            return (
-              <div className={`beatmap-filter-status`} key={index}>
-                <input
-                  type="checkbox"
-                  id={`${selectItem.index}-status`}
-                  checked={selectItem.selected}
-                  onChange={event => {
-                    updateSelectedItems(selectItem.value, event.target.checked)
-                  }}
-                />
-                <label className={statusClass} htmlFor={`${selectItem.index}-status`}>
-                  {selectItem.label}
-                </label>
-              </div>
-            )
-          })}
-        </div>
-      </Collapsible>
-
+              return (
+                <div className={`beatmap-filter-status`} key={index}>
+                  <input
+                    type="checkbox"
+                    id={`${selectItem.index}-status`}
+                    checked={selectItem.selected}
+                    onChange={event => {
+                      updateSelectedItems(selectItem.value, event.target.checked)
+                    }}
+                  />
+                  <label className={statusClass} htmlFor={`${selectItem.index}-status`}>
+                    {selectItem.label}
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+        </Collapsible>
+      </div>
     </div>
   )
 }
