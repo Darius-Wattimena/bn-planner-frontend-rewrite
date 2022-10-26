@@ -2,7 +2,7 @@ import {
   BeatmapFilter,
   Gamemode,
   NewBeatmap,
-  NewBeatmapStatus,
+  BeatmapStatus,
   PageLimit,
   UserContext,
   UserSearchFilter
@@ -81,7 +81,7 @@ const Api = {
       url: `/v2/beatmap/${beatmapId}/delete`,
     }
   },
-  updateBeatmapStatus: (beatmapId: number, newStatus: NewBeatmapStatus): AxiosRequestConfig => {
+  updateBeatmapStatus: (beatmapId: number, newStatus: BeatmapStatus): AxiosRequestConfig => {
     return {
       method: 'PATCH',
       headers: getAuthHeader(),

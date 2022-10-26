@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {BeatmapFilter, Gamemode, NewBeatmapStatus} from "../../../models/Types";
+import {BeatmapFilter, Gamemode, BeatmapStatus} from "../../../models/Types";
 import BeatmapStatusFilter from "./BeatmapStatusFilter";
 import BeatmapGamemodeFilter from "./BeatmapGamemodeFilter";
 import BeatmapTextFilter from "./BeatmapTextFilter";
@@ -32,9 +32,9 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
     <>
       <div className={"beatmap-filter"}>
         <div className={"beatmap-filter-groups"}>
-          <div className={"beatmap-filter-group beatmap-filter-group-dropdowns"}>
+          {/*<div className={"beatmap-filter-group beatmap-filter-group-dropdowns"}>
             <BeatmapStatusFilter
-              statuses={Object.values(NewBeatmapStatus)}
+              statuses={Object.values(BeatmapStatus)}
               beatmapFilter={beatmapFilter}
               setBeatmapFormFilter={setBeatmapFilter}
               timeout={timeout}
@@ -50,8 +50,8 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
           </div>
           <div className={"beatmap-filter-group"}>
             <hr />
-          </div>
-          <div className={"beatmap-filter-group beatmap-filter-group-right"}>
+          </div>*/}
+          <div className={"beatmap-filter-group-old"}>
             <BeatmapTextFilter
               target={"artist"}
               label={"Artist"}

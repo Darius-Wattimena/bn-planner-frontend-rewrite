@@ -1,7 +1,7 @@
 import {BEATMAP_GAMEMODE, BEATMAP_STATUS} from "../Constants";
-import {Gamemode, NewBeatmapStatus} from "../models/Types";
+import {Gamemode, BeatmapStatus} from "../models/Types";
 
-export function getBeatmapStatus(status: NewBeatmapStatus) {
+export function getBeatmapStatus(status: BeatmapStatus) {
   switch (status) {
     case "Qualified":
       return BEATMAP_STATUS.Qualified

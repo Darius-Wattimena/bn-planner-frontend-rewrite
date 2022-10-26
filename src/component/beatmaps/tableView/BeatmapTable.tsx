@@ -50,10 +50,8 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
         {beatmaps.map(beatmap => {
           if (beatmap) {
             return (
-              <BeatmapTableRow key={`beatmap-table-row-${beatmap.osuId}`}  beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}/>
+              <BeatmapTableRow key={`beatmap-table-row-${beatmap.osuId}`} beatmap={beatmap} setOpenBeatmapId={setOpenBeatmapId}/>
             )
-          } else {
-            return <></>
           }
         })}
         </tbody>

@@ -1,11 +1,11 @@
 import Modal from "react-modal";
 import React from "react";
 import StatusChangeBeatmap from "./StatusChangeBeatmap";
-import {Beatmap, NewBeatmapStatus} from "../../../models/Types";
+import {Beatmap, BeatmapStatus} from "../../../models/Types";
 
 interface StatusChangeBeatmapModalProps {
   beatmap: Beatmap
-  newStatus: NewBeatmapStatus
+  newStatus: BeatmapStatus
   isChangeModalOpen: boolean
   setIsChangeModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>

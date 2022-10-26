@@ -20,7 +20,14 @@ function Login({userContext, setUserContext}: LoginProps) {
 
   useEffect(() => {
     if (code !== null && code !== "") {
-      execute(Api.login(code))
+      execute(Api.login(code)).then(onResult => {
+        setUserContext(onResult.data)
+
+        // Logging in went wrong, redirect to home
+        if (onResult.data !== null && onResult.data !== undefined) {
+          return <Navigate to={"/"} />
+        }
+      })
     }
   }, [execute, code])
 

@@ -2,7 +2,7 @@ import BeatmapDetailsUser from "./BeatmapDetailsUser";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
 import React, {useState} from "react";
-import {Beatmap, Gamemode, NewBeatmapStatus} from "../../models/Types";
+import {Beatmap, Gamemode, BeatmapStatus} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
 import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
@@ -97,10 +97,10 @@ function BeatmapDetails(
               }} className={"button button-cancel button-text"}>
                 <ImBin2/> Delete
               </button>
-              {beatmap.status !== NewBeatmapStatus.Graved &&
+              {beatmap.status !== BeatmapStatus.Graved &&
                 <ChangeBeatmapStatusButton
                   beatmap={beatmap}
-                  newStatus={NewBeatmapStatus.Graved}
+                  newStatus={BeatmapStatus.Graved}
                   setOpenBeatmapId={setOpenBeatmapId}
                   setRefreshOnClose={setRefreshOnClose}
                   buttonClassName={"button button-grave button-text"}>
@@ -108,10 +108,10 @@ function BeatmapDetails(
                 </ChangeBeatmapStatusButton>
               }
 
-              {beatmap.status === NewBeatmapStatus.Graved &&
+              {beatmap.status === BeatmapStatus.Graved &&
                 <ChangeBeatmapStatusButton
                   beatmap={beatmap}
-                  newStatus={NewBeatmapStatus.Pending}
+                  newStatus={BeatmapStatus.Pending}
                   setOpenBeatmapId={setOpenBeatmapId}
                   setRefreshOnClose={setRefreshOnClose}
                   buttonClassName={"button button-grave button-text"}>
@@ -151,7 +151,7 @@ function BeatmapDetails(
 
 interface ChangeBeatmapStatusButtonProps {
   beatmap: Beatmap,
-  newStatus: NewBeatmapStatus
+  newStatus: BeatmapStatus
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   buttonClassName: string
   setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>

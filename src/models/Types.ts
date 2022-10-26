@@ -1,3 +1,7 @@
+import {IconType} from "react-icons/lib";
+import {IconBaseProps} from "react-icons/lib/cjs/iconBase";
+import React from "react";
+
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment'
 export type ViewMode = 'CARDS' | 'TABLE'
 export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
@@ -43,7 +47,7 @@ export interface Beatmap {
   title: string
   note: string,
   mapper: NewUser,
-  status: NewBeatmapStatus
+  status: BeatmapStatus
   gamemodes: BeatmapGamemode[]
 }
 
@@ -78,6 +82,19 @@ export interface SelectFilterItem {
   disabled?: boolean
 }
 
+export interface AvailableQuickFilter<T> extends JSX.Element {
+  icon?: JSX.Element
+  value?: T
+  label: string
+  description: string
+  disabled: boolean
+  selected: boolean
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>
+  onSelect: (value: T, beatmapFilter: BeatmapFilter) => BeatmapFilter
+  onRemove: (value: T, beatmapFilter: BeatmapFilter) => BeatmapFilter
+  shouldBeSelected: (value: T, beatmapFilter: BeatmapFilter) => boolean
+}
+
 export interface UserSearchFilter {
   username: string | null,
   gamemodes: Gamemode[],
@@ -88,11 +105,12 @@ export interface BeatmapFilter {
   artist: string | null,
   title: string | null,
   mapper: string | null,
-  status: NewBeatmapStatus[],
+  status: BeatmapStatus[],
   page: BeatmapPage,
   hideWithTwoNominators: boolean,
   nominators: string[],
   gamemodes: Gamemode[]
+  missingNominator: Gamemode[]
 }
 
 export enum Gamemode {
@@ -102,7 +120,7 @@ export enum Gamemode {
   Mania = "mania"
 }
 
-export enum NewBeatmapStatus {
+export enum BeatmapStatus {
   Qualified = "Qualified",
   Nominated = "Nominated",
   Disqualified = "Disqualified",
