@@ -40,7 +40,7 @@ const StatusQuickFilter = ({status, initialBeatmapFilter, page}: StatusQuickFilt
   }
 
   return  {
-    key: `gamemode-filter-${status}`,
+    key: `status-filter-${status}`,
     onSelect: onSelect,
     onRemove: onRemove,
     shouldBeSelected: shouldBeSelected,
