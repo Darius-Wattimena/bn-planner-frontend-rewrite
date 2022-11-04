@@ -20,8 +20,7 @@ const filterDefaultState: BeatmapFilter = {
   nominators: [],
   gamemodes: [Gamemode.Catch],
   missingNominator: [],
-  page: "PENDING",
-  hideWithTwoNominators: false
+  page: "PENDING"
 }
 
 interface BeatmapsContainerProps {

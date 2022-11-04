@@ -1,8 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
+import "./Login.scss"
+import {ImSpinner3} from "react-icons/im";
 
 interface LoginProps {
   userContext: UserContext | undefined
@@ -11,6 +13,7 @@ interface LoginProps {
 
 function Login({userContext, setUserContext}: LoginProps) {
   const [{data, loading, error}, execute] = useAxios<UserContext>("", {manual: true})
+  const [redirectToHome, setRedirectToHome] = useState(false)
   const location = useLocation()
 
   let urlParams = new URLSearchParams(location.search)
@@ -20,14 +23,12 @@ function Login({userContext, setUserContext}: LoginProps) {
 
   useEffect(() => {
     if (code !== null && code !== "") {
-      execute(Api.login(code)).then(onResult => {
-        setUserContext(onResult.data)
-
-        // Logging in went wrong, redirect to home
-        if (onResult.data !== null && onResult.data !== undefined) {
-          return <Navigate to={"/"} />
-        }
-      })
+      execute(Api.login(code))
+        .then(onResult => setUserContext(onResult.data))
+        .catch(reason => {
+          console.log({reason})
+          setRedirectToHome(true)
+        })
     }
   }, [execute, code])
 
@@ -42,15 +43,20 @@ function Login({userContext, setUserContext}: LoginProps) {
     }
   }, [data, loading, error, setUserContext])
 
-  if (userContext?.accessToken && userContext?.accessToken !== "") {
-    return <Navigate to={"/"}/>
+  if (redirectToHome || (userContext?.accessToken && userContext?.accessToken !== "")) {
+    return <Navigate to={"/"} state={true} />
   } else {
     return (
-      <div className={"landing-page"}>
-        <div className={"welcome-screen"}>
-          Logging in
+      <>
+        <div className={"page-container"}>
+          <div className={"login-screen"}>
+            <ImSpinner3 className={"login-icon icon-spin"} />
+            <h3>Logging in</h3>
+            <p>Please wait while we validate your osu! token.</p>
+          </div>
         </div>
-      </div>
+        <div className={"footer"} />
+      </>
     )
   }
 }

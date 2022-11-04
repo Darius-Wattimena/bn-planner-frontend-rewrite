@@ -27,6 +27,12 @@ $catch-logo: url("src/assets/catch.svg");
         font-size: 1.5em;
         margin: .2em;
       }
+
+      .login-message-container {
+        display: flex;
+        padding-top: 2em;
+        justify-content: center;
+      }
     }
   }
 }

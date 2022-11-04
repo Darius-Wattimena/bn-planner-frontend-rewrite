@@ -57,10 +57,28 @@ $icon-size: 1.2em;
       box-shadow: 1px 1px 3px $color-background;
 
       &.quick-filter-active {
-        background-color: $color-confirmed;
+        color: $color-text-dark;
+        background-color: $color-text-secondary;
+        border-radius: 10px;
+
+        svg {
+          fill: $color-text-dark;
+        }
+
+        div {
+          color: $color-text-dark;
+        }
 
         &:hover {
-          background-color: $color-highlight-confirmed;
+          background-color: $color-secondary;
+
+          svg {
+            fill: $color-text;
+          }
+
+          div {
+            color: $color-text;
+          }
         }
       }
 

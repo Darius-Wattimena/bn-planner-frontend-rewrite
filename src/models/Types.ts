@@ -107,7 +107,6 @@ export interface BeatmapFilter {
   mapper: string | null,
   status: BeatmapStatus[],
   page: BeatmapPage,
-  hideWithTwoNominators: boolean,
   nominators: string[],
   gamemodes: Gamemode[]
   missingNominator: Gamemode[]

@@ -1,7 +1,7 @@
 import {AvailableQuickFilter, BeatmapFilter, Gamemode} from "../../../../../models/Types";
 import React, {useState} from "react";
 import {ImUserMinus} from "react-icons/im";
-import {remove, values} from "lodash";
+import {remove} from "lodash";
 
 interface MissingNominatorFilterProps {
   gamemode: Gamemode
