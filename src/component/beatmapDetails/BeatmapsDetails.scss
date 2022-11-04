@@ -67,7 +67,7 @@ body .ReactModal__Overlay {
                   left: -10px;
 
                   .beatmap-user-role {
-                    padding: 0 10px;
+                    padding: 1px 10px;
                     border-top-right-radius: 5px;
                     border-bottom-right-radius: 5px;
                   }
@@ -161,7 +161,7 @@ body .ReactModal__Overlay {
               &.beatmap-status {
                 .beatmap-status-label {
                   border-radius: 3px;
-                  padding: 0 $padding-small;
+                  padding: 1px $padding-small;
                 }
               }
 

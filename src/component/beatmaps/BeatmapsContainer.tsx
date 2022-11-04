@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, UserContext, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, Gamemode, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -18,9 +18,9 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
-  gamemodes: ["fruits"],
-  page: "PENDING",
-  hideWithTwoNominators: false
+  gamemodes: [Gamemode.Catch],
+  missingNominator: [],
+  page: "PENDING"
 }
 
 interface BeatmapsContainerProps {
@@ -35,7 +35,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
   const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
-  const [filteringOnOwnUser, setFilteringOnOwnUser] = useState(false)
   const [openAddBeatmap, setOpenAddBeatmap] = useState(false)
 
   let {beatmapId} = useParams<string>();
@@ -51,10 +50,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     setQueryFilter(newFilter)
     resetPage()
   }, [page])
-
-  useEffect(() => {
-    setFilteringOnOwnUser(beatmapFilter.nominators.find(it => it === userContext?.user.osuId) !== undefined)
-  }, [beatmapFilter])
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
@@ -80,7 +75,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
           setLoadedBeatmapData(newLoadedBeatmapData)
         } else {
-          console.log("Table view, not defining all loaded maps")
+          // Table view, not defining all loaded maps
         }
       }
     }
@@ -101,10 +96,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
       }
     }
   }, [loading, data])
-
-  useEffect(() => {
-    console.log({loadedBeatmapData})
-  }, [loadedBeatmapData])
 
   useEffect(() => {
     if (viewMode === "TABLE") {
@@ -128,31 +119,16 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
   }
 
-  function filterMyIcons() {
-    let currentUserId = userContext?.user.osuId
-    if (currentUserId) {
-      let newQueryFilter = _.cloneDeep(queryFilter)
-      if (queryFilter.nominators.find(it => it === currentUserId) !== undefined) {
-        newQueryFilter.nominators = []
-      } else {
-        newQueryFilter.nominators = [currentUserId]
-      }
-
-      setBeatmapFilter(newQueryFilter)
-      setQueryFilter(newQueryFilter)
-    }
-  }
-
   return (
     <>
       <BeatmapsHeader
         userContext={userContext}
-        viewMode={viewMode}
-        filterMyIcons={filterMyIcons}
-        filteringOnOwnUser={filteringOnOwnUser}
         openAddBeatmap={openAddBeatmap}
         setOpenAddBeatmap={setOpenAddBeatmap}
         page={page}
+        beatmapFilter={beatmapFilter}
+        setBeatmapFilter={setBeatmapFilter}
+        setBeatmapQueryFilter={setQueryFilter}
       />
       {
         total === 0 ? (

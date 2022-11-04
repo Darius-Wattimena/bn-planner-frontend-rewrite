@@ -1,68 +1,68 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, BeatmapStatus, SelectFilterItem} from "../../../models/Types";
+import {BeatmapFilter, Gamemode, SelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
-import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
+import {getBeatmapGamemode} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";
 
-interface BeatmapStatusFilterProps {
-  statuses: BeatmapStatus[]
+interface BeatmapGamemodeFilterProps {
+  gamemodes: Gamemode[]
   beatmapFilter: BeatmapFilter
   setBeatmapFormFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   timeout: number
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapStatusFilter(
+function BeatmapGamemodeFilter(
   {
-    statuses,
+    gamemodes,
     beatmapFilter,
     setBeatmapFormFilter,
     timeout,
     setQueryFilter
-  }: BeatmapStatusFilterProps) {
-  const [selectedStatuses, setSelectedStatuses] = useState<BeatmapStatus[]>(beatmapFilter.status)
+  }: BeatmapGamemodeFilterProps) {
+  const [selectedGamemodes, setSelectedGamemodes] = useState<Gamemode[]>(beatmapFilter.gamemodes)
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
   useEffect(() => {
-    const preparedStatuses = statuses.map((status, index) => {
-      const selectedStatus = selectedStatuses.find(item => item === status)
+    const preparedStatuses = gamemodes.map((gamemode, index) => {
+      const selectedGamemode = selectedGamemodes.find(item => item === gamemode)
       const item: SelectFilterItem = {
         index: index,
-        label: status,
-        value: status,
-        selected: selectedStatus != null || selectedStatus !== undefined
+        label: Object.keys(Gamemode)[index],
+        value: gamemode,
+        selected: selectedGamemode != null || selectedGamemode !== undefined
       };
 
       return item
     })
 
     setFilterItems(preparedStatuses)
-  }, [selectedStatuses, statuses])
+  }, [selectedGamemodes, gamemodes])
 
-  function removeNumber(value: BeatmapStatus, numbers: BeatmapStatus[]) {
-    numbers.forEach((item, index) => {
-      if (item === value) numbers.splice(index, 1);
+  function removeGamemode(value: Gamemode, gamemodes: Gamemode[]) {
+    gamemodes.forEach((item, index) => {
+      if (item === value) gamemodes.splice(index, 1);
     });
   }
 
-  function updateSelectedItems(value: BeatmapStatus, checked: boolean) {
-    const selectedStatuses = beatmapFilter["status"]
-    const newStatuses: BeatmapStatus[] = [];
+  function updateSelectedItems(value: Gamemode, checked: boolean) {
+    const selectedStatuses = beatmapFilter["gamemodes"]
+    const newGamemode: Gamemode[] = [];
 
-    selectedStatuses.forEach(val => newStatuses.push(val))
+    selectedStatuses.forEach(val => newGamemode.push(val))
 
     if (checked) {
-      newStatuses.push(value)
+      newGamemode.push(value)
     } else {
-      removeNumber(value, newStatuses)
+      removeGamemode(value, newGamemode)
     }
 
-    setSelectedStatuses(newStatuses)
+    setSelectedGamemodes(newGamemode)
 
     instantFilter(
       beatmapFilter,
-      "status",
-      newStatuses,
+      "gamemodes",
+      newGamemode,
       setBeatmapFormFilter,
       timeout,
       setQueryFilter
@@ -73,26 +73,26 @@ function BeatmapStatusFilter(
     <div className={"beatmap-filter-item"}>
       <div className={"beatmap-filter-status-container"}>
         <Collapsible
-          trigger={"Status"}
+          trigger={"Gamemode"}
           open={false}
           className={"collapsible-parent-group"}
           openedClassName={"collapsible-parent-group"}
         >
           <div className={"beatmap-filter-select-groups"}>
             {filterItems.map((selectItem, index) => {
-              let statusClass = getBeatmapStatus(selectItem.value)?.className
+              let gamemodeClass = getBeatmapGamemode(selectItem.value)?.className
 
               return (
-                <div className={`beatmap-filter-status`} key={index}>
+                <div className={`beatmap-filter-gamemode`} key={index}>
                   <input
                     type="checkbox"
-                    id={`${selectItem.index}-status`}
+                    id={`${selectItem.index}-gamemode`}
                     checked={selectItem.selected}
                     onChange={event => {
                       updateSelectedItems(selectItem.value, event.target.checked)
                     }}
                   />
-                  <label className={statusClass} htmlFor={`${selectItem.index}-status`}>
+                  <label className={gamemodeClass} htmlFor={`${selectItem.index}-gamemode`}>
                     {selectItem.label}
                   </label>
                 </div>
@@ -105,4 +105,4 @@ function BeatmapStatusFilter(
   )
 }
 
-export default BeatmapStatusFilter
+export default BeatmapGamemodeFilter

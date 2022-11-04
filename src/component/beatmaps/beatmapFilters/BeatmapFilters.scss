@@ -5,16 +5,23 @@ $font-size: 1.1em;
 .beatmap-filter {
   background-color: $color-primary-light;
   align-self: stretch;
-  min-width: 500px;
+  min-width: 250px;
   height: 100%;
   font-size: $font-size;
+  border-radius: 5px;
 
   .beatmap-filter-groups {
     display: flex;
+    flex-direction: column;
 
-    .beatmap-filter-group {
-      width: 50%;
+    .beatmap-filter-group-old {
       padding: $padding-small;
+
+      &.beatmap-filter-group-dropdowns {
+        .beatmap-filter-item:not(:last-child) {
+          padding-bottom: $padding-small;
+        }
+      }
     }
   }
 
@@ -53,7 +60,7 @@ $font-size: 1.1em;
       padding: $padding-small;
     }
 
-    .beatmap-filter-nominators-groups {
+    .beatmap-filter-select-groups {
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;
 
@@ -63,7 +70,7 @@ $font-size: 1.1em;
       }
     }
 
-    .beatmap-filter-user, .beatmap-filter-status {
+    .beatmap-filter-item, .beatmap-filter-user, .beatmap-filter-status, .beatmap-filter-gamemode {
       display: flex;
       align-items: center;
 
@@ -73,7 +80,7 @@ $font-size: 1.1em;
     }
   }
 
-  .beatmap-filter-status {
+  .beatmap-filter-status, .beatmap-filter-gamemode {
     label {
       padding-left: $padding-smallest;
       padding-right: $padding-smallest;

@@ -5,15 +5,13 @@ export function getUserRole(user: NewUser): FrontendUserRole {
   for (let gamemode of user.gamemodes) {
     switch (gamemode.role) {
       case "Nominator":
-        return USER_ROLES.Nominator;
+        return USER_ROLES.Nominator
       case "Probation":
-        return USER_ROLES.Probation;
+        return USER_ROLES.Probation
       case "NominationAssessment":
-        return USER_ROLES.NAT;
-      case "Loved":
-        return USER_ROLES.Mapper;
+        return USER_ROLES.NAT
       case "Mapper":
-        return USER_ROLES.Mapper;
+        return USER_ROLES.Mapper
     }
   }
 
@@ -23,15 +21,13 @@ export function getUserRole(user: NewUser): FrontendUserRole {
 export function getFrontendRole(role: UserRole): FrontendUserRole {
   switch (role) {
     case "Nominator":
-      return USER_ROLES.Nominator;
+      return USER_ROLES.Nominator
     case "Probation":
-      return USER_ROLES.Probation;
+      return USER_ROLES.Probation
     case "NominationAssessment":
-      return USER_ROLES.NAT;
-    case "Loved":
-      return USER_ROLES.Mapper;
+      return USER_ROLES.NAT
     case "Mapper":
-      return USER_ROLES.Mapper;
+      return USER_ROLES.Mapper
   }
 }
 
@@ -41,16 +37,13 @@ export function getUsersHighestRole(user: NewUser): UserRole {
     switch (gamemode.role) {
       case "Nominator":
         if (highestRole < 3) highestRole = 3;
-        break;
+        break
       case "Probation":
         if (highestRole < 2) highestRole = 2;
-        break;
+        break
       case "NominationAssessment":
         highestRole = 4;
-        break;
-      case "Loved":
-        if (highestRole < 1) highestRole = 1;
-        break;
+        break
     }
   }
 
@@ -60,8 +53,6 @@ export function getUsersHighestRole(user: NewUser): UserRole {
     return "Nominator"
   } else if (highestRole === 2) {
     return "Probation"
-  } else if (highestRole === 1) {
-    return "Loved"
   } else {
     return "Mapper"
   }
