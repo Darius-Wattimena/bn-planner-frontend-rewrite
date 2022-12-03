@@ -85,7 +85,7 @@ function UserSearcherUser(
 
   const profilePictureUri = getProfilePictureUri(user.osuId)
   const roleDetails = getUserRole(user)
-  const canNominateGamemode = user.gamemodes.find(it => it.gamemode === changingGamemode) !== undefined
+  const canNominateGamemode = changingGamemode ? user.gamemodes.find(it => it.gamemode === changingGamemode) !== undefined : true
 
   return (
     <div className={`user-searcher-user ${alreadySelected ? "already-nominator" : ""}`}>
@@ -102,10 +102,15 @@ function UserSearcherUser(
       </div>
       <div className={"user-searcher-user-actions"}>
         <UserSearcherUserButton
-          alreadySelected={alreadySelected} canNominateGamemode={canNominateGamemode}
-          changingGamemode={changingGamemode} changingUserId={changingUserId}
-          onSelectNominator={onSelectNominator} setUserSelected={setUserSelected}
-          userId={user.osuId} userSelected={userSelected} beatmapFilter={beatmapFilter} />
+          alreadySelected={alreadySelected}
+          canNominateGamemode={canNominateGamemode}
+          changingGamemode={changingGamemode}
+          changingUserId={changingUserId}
+          onSelectNominator={onSelectNominator}
+          setUserSelected={setUserSelected}
+          userId={user.osuId}
+          userSelected={userSelected}
+          beatmapFilter={beatmapFilter} />
       </div>
     </div>
   )

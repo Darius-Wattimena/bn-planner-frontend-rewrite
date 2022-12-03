@@ -70,7 +70,7 @@ function BeatmapDetailsUser(
               <ImPencil className={"beatmap-nominator-edit-button"} />
             </button>
           }
-          {deletable && gamemode && onDeleteNominator && user.osuId != "0" &&
+          {deletable && gamemode && onDeleteNominator && user.osuId !== "0" &&
             <button className={"beatmap-button"} onClick={() => {
               onDeleteNominator(gamemode, user.osuId)
             }}>

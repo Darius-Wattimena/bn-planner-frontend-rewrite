@@ -38,7 +38,6 @@ function BeatmapDetailsContainer({resetPage, openBeatmapId, setOpenBeatmapId}: B
     if (beatmap && beatmap !== data) {
       setRefreshOnClose(true)
     }
-
   }, [beatmap])
 
   return <BeatmapDetailsModal

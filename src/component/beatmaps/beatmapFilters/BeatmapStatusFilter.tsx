@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {BeatmapFilter, NewBeatmapStatus, SelectFilterItem} from "../../../models/Types";
+import {BeatmapFilter, BeatmapStatus, SelectFilterItem} from "../../../models/Types";
 import {instantFilter} from "../../../utils/FilterUtils";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import Collapsible from "react-collapsible";
 
 interface BeatmapStatusFilterProps {
-  statuses: NewBeatmapStatus[]
+  statuses: BeatmapStatus[]
   beatmapFilter: BeatmapFilter
   setBeatmapFormFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   timeout: number
@@ -20,7 +20,7 @@ function BeatmapStatusFilter(
     timeout,
     setQueryFilter
   }: BeatmapStatusFilterProps) {
-  const [selectedStatuses, setSelectedStatuses] = useState<NewBeatmapStatus[]>(beatmapFilter.status)
+  const [selectedStatuses, setSelectedStatuses] = useState<BeatmapStatus[]>(beatmapFilter.status)
   const [filterItems, setFilterItems] = useState<SelectFilterItem[]>([])
 
   useEffect(() => {
@@ -39,15 +39,15 @@ function BeatmapStatusFilter(
     setFilterItems(preparedStatuses)
   }, [selectedStatuses, statuses])
 
-  function removeNumber(value: NewBeatmapStatus, numbers: NewBeatmapStatus[]) {
+  function removeNumber(value: BeatmapStatus, numbers: BeatmapStatus[]) {
     numbers.forEach((item, index) => {
       if (item === value) numbers.splice(index, 1);
     });
   }
 
-  function updateSelectedItems(value: NewBeatmapStatus, checked: boolean) {
+  function updateSelectedItems(value: BeatmapStatus, checked: boolean) {
     const selectedStatuses = beatmapFilter["status"]
-    const newStatuses: NewBeatmapStatus[] = [];
+    const newStatuses: BeatmapStatus[] = [];
 
     selectedStatuses.forEach(val => newStatuses.push(val))
 
@@ -70,36 +70,37 @@ function BeatmapStatusFilter(
   }
 
   return (
-    <div className={"beatmap-filter-status-container"}>
-      <Collapsible
-        trigger={"Status"}
-        open={true}
-        className={"collapsible-parent-group"}
-        openedClassName={"collapsible-parent-group"}
-      >
-        <div className={"beatmap-filter-nominators-groups"}>
-          {filterItems.map((selectItem, index) => {
-            let statusClass = getBeatmapStatus(selectItem.value)?.className
+    <div className={"beatmap-filter-item"}>
+      <div className={"beatmap-filter-status-container"}>
+        <Collapsible
+          trigger={"Status"}
+          open={false}
+          className={"collapsible-parent-group"}
+          openedClassName={"collapsible-parent-group"}
+        >
+          <div className={"beatmap-filter-select-groups"}>
+            {filterItems.map((selectItem, index) => {
+              let statusClass = getBeatmapStatus(selectItem.value)?.className
 
-            return (
-              <div className={`beatmap-filter-status`} key={index}>
-                <input
-                  type="checkbox"
-                  id={`${selectItem.index}-status`}
-                  checked={selectItem.selected}
-                  onChange={event => {
-                    updateSelectedItems(selectItem.value, event.target.checked)
-                  }}
-                />
-                <label className={statusClass} htmlFor={`${selectItem.index}-status`}>
-                  {selectItem.label}
-                </label>
-              </div>
-            )
-          })}
-        </div>
-      </Collapsible>
-
+              return (
+                <div className={`beatmap-filter-status`} key={index}>
+                  <input
+                    type="checkbox"
+                    id={`${selectItem.index}-status`}
+                    checked={selectItem.selected}
+                    onChange={event => {
+                      updateSelectedItems(selectItem.value, event.target.checked)
+                    }}
+                  />
+                  <label className={statusClass} htmlFor={`${selectItem.index}-status`}>
+                    {selectItem.label}
+                  </label>
+                </div>
+              )
+            })}
+          </div>
+        </Collapsible>
+      </div>
     </div>
   )
 }

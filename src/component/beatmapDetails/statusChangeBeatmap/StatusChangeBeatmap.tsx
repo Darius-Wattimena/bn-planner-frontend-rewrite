@@ -3,18 +3,18 @@ import {ImCheckmark, ImCross} from "react-icons/im";
 import "./StatusChangeBeatmap.scss"
 import useAxios from "axios-hooks";
 import Api from "../../../resources/Api";
-import {Beatmap, NewBeatmapStatus} from "../../../models/Types";
+import {Beatmap, BeatmapStatus} from "../../../models/Types";
 
 interface StatusChangeBeatmapProps {
   beatmap: Beatmap
-  newStatus: NewBeatmapStatus
+  newStatus: BeatmapStatus
   setIsChangeModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function StatusChangeBeatmap({beatmap, newStatus, setIsChangeModalOpen, setOpenBeatmapId, setRefreshOnClose}: StatusChangeBeatmapProps) {
-  const [{}, execute] = useAxios<boolean>("", {manual: true})
+  const [, execute] = useAxios<boolean>("", {manual: true})
 
   function onChangeBeatmapStatus() {
     execute(Api.updateBeatmapStatus(beatmap.osuId, newStatus)).then(() => {

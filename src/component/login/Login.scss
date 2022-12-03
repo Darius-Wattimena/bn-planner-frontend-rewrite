@@ -1,0 +1,14 @@
+@import "../../styles/Variables.scss";
+
+.login-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  .login-icon {
+    padding: $padding-smallest;
+    font-size: 2em;
+  }
+}

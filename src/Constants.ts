@@ -1,12 +1,35 @@
+export const BEATMAP_GAMEMODE = {
+  OSU: {
+    id: 1,
+    name: 'osu',
+    className: 'beatmap-gamemode-osu'
+  },
+  TAIKO: {
+    id: 2,
+    name: 'taiko',
+    className: 'beatmap-gamemode-taiko'
+  },
+  CATCH: {
+    id: 3,
+    name: 'catch',
+    className: 'beatmap-gamemode-catch'
+  },
+  MANIA: {
+    id: 4,
+    name: 'mania',
+    className: 'beatmap-gamemode-mania'
+  }
+}
+
 export const BEATMAP_STATUS = {
   Qualified: {
     id: 1,
     name: 'Qualified',
     className: 'beatmap-status-qualified'
   },
-  Bubbled: {
+  Nominated: {
     id: 2,
-    name: 'Bubbled',
+    name: 'Nominated',
     className: 'beatmap-status-bubbled'
   },
   Disqualified: {
@@ -14,9 +37,9 @@ export const BEATMAP_STATUS = {
     name: 'Disqualified',
     className: 'beatmap-status-disqualified'
   },
-  Popped: {
+  Reset: {
     id: 4,
-    name: 'Popped',
+    name: 'Reset',
     className: 'beatmap-status-popped'
   },
   Pending: {

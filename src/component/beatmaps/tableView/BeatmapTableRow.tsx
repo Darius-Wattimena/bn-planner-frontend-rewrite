@@ -19,7 +19,7 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
-    <tr key={`beatmap-table-row-${beatmap.osuId}`}  className={"beatmap-table-row"}>
+    <tr className={"beatmap-table-row"}>
       <td key={`beatmap-table-row-${beatmap.osuId}-banner`} className={"beatmap-banner-container"}>
         <div className={"beatmap-banner"}
              style={{backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}}/>
@@ -43,22 +43,22 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
         let bnTwo = gamemodeBeatmap.nominators[1]
 
         return (
-          <>
+          <React.Fragment key={`beatmap-table-row-${beatmap.osuId}-nominators-${gamemodeBeatmap.gamemode}`}>
             {(bnOne && bnOne.nominator.osuId !== "0") ? (
               <BeatmapTableUser
                 key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`}
                 user={bnOne.nominator}
                 nominated={bnOne.hasNominated}
               />
-            ) : <td/>}
+            ) : <td key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-one`} />}
             {(bnTwo && bnTwo.nominator.osuId !== "0") ? (
               <BeatmapTableUser
                 key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`}
                 user={bnTwo.nominator}
                 nominated={bnTwo.hasNominated}
               />
-            ) : <td/>}
-          </>
+            ) : <td key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-two`} />}
+          </React.Fragment>
         )
       })}
       <td key={`beatmap-table-row-${beatmap.osuId}-note`} className={"beatmap-table-note"}>
@@ -73,11 +73,11 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       </td>
       <td key={`beatmap-table-row-${beatmap.osuId}-actions`} className={"beatmap-table-actions-cell"}>
         <div className={"beatmap-table-actions"}>
-          <button className='beatmap-button' onClick={() => setOpenBeatmapId(beatmap.osuId)}><FiInfo/></button>
-          <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`)}>
+          <button key={`beatmap-table-row-beatmap-${beatmap.osuId}-button`} className='beatmap-button' onClick={() => setOpenBeatmapId(beatmap.osuId)}><FiInfo/></button>
+          <button key={`beatmap-table-row-beatmap-${beatmap.osuId}-link-button`} className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}`)}>
             <AiOutlinePaperClip/>
           </button>
-          <button className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`)}>
+          <button key={`beatmap-table-row-beatmap-${beatmap.osuId}-discussion-button`} className='beatmap-button' onClick={() => openInNewTab(`https://osu.ppy.sh/beatmapsets/${beatmap.osuId}/discussion`)}>
             <GoCommentDiscussion/>
           </button>
         </div>

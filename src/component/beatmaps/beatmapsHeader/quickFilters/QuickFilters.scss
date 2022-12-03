@@ -1,0 +1,43 @@
+@import "../../../../styles/Variables";
+
+.quick-filters {
+  display: flex;
+}
+
+.available-quick-filters {
+  max-height: 300px;
+  overflow-y: scroll;
+
+  .available-quick-filter-container {
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-table-border;
+    }
+
+    .available-quick-filter {
+      display: flex;
+      padding: $padding-small;
+      margin: $padding-smallest;
+      align-items: center;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $color-background-light;
+      }
+
+      .available-quick-filter-icon {
+        padding: $padding-smallest;
+        display: flex;
+      }
+
+      .available-quick-filter-label {
+        font-weight: bold;
+      }
+
+      .available-quick-filter-description {
+        &:before {
+          content: "·";
+        }
+      }
+    }
+  }
+}

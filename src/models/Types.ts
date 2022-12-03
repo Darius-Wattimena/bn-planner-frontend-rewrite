@@ -1,5 +1,8 @@
-export type Gamemode = 'osu' | 'taiko' | 'fruits' | 'mania'
-export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment' | 'Loved'
+import {IconType} from "react-icons/lib";
+import {IconBaseProps} from "react-icons/lib/cjs/iconBase";
+import React from "react";
+
+export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment'
 export type ViewMode = 'CARDS' | 'TABLE'
 export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
 export type BeatmapPage = 'PENDING' | 'RANKED' | 'GRAVEYARD'
@@ -44,7 +47,7 @@ export interface Beatmap {
   title: string
   note: string,
   mapper: NewUser,
-  status: NewBeatmapStatus
+  status: BeatmapStatus
   gamemodes: BeatmapGamemode[]
 }
 
@@ -71,12 +74,6 @@ export interface FrontendUserRole {
   className: string
 }
 
-export interface FrontendBeatmapStatus {
-  id: number
-  name: string
-  className: string
-}
-
 export interface SelectFilterItem {
   index: number
   label: string
@@ -85,12 +82,17 @@ export interface SelectFilterItem {
   disabled?: boolean
 }
 
-export interface NominatorSelectFilterItem {
-  index: number
+export interface AvailableQuickFilter<T> extends JSX.Element {
+  icon?: JSX.Element
+  value?: T
   label: string
-  value: string
-  role: string
+  description: string
+  disabled: boolean
   selected: boolean
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>
+  onSelect: (value: T, beatmapFilter: BeatmapFilter) => BeatmapFilter
+  onRemove: (value: T, beatmapFilter: BeatmapFilter) => BeatmapFilter
+  shouldBeSelected: (value: T, beatmapFilter: BeatmapFilter) => boolean
 }
 
 export interface UserSearchFilter {
@@ -103,17 +105,25 @@ export interface BeatmapFilter {
   artist: string | null,
   title: string | null,
   mapper: string | null,
-  status: NewBeatmapStatus[],
+  status: BeatmapStatus[],
   page: BeatmapPage,
-  hideWithTwoNominators: boolean,
-  nominators: string[]
+  nominators: string[],
+  gamemodes: Gamemode[]
+  missingNominator: Gamemode[]
 }
 
-export enum NewBeatmapStatus {
+export enum Gamemode {
+  Osu = "osu",
+  Taiko = "taiko",
+  Catch = "fruits",
+  Mania = "mania"
+}
+
+export enum BeatmapStatus {
   Qualified = "Qualified",
-  Bubbled = "Bubbled",
+  Nominated = "Nominated",
   Disqualified = "Disqualified",
-  Popped = "Popped",
+  Reset = "Reset",
   Pending = "Pending",
   Ranked = "Ranked",
   Graved = "Graved",

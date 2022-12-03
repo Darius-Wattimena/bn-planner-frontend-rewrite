@@ -14,7 +14,7 @@ interface AddBeatmapProps {
 function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
   const [incorrectUrl, setIncorrectUrl] = useState(false)
   const [value, setValue] = useState("")
-  const [{}, execute] = useAxios<Beatmap>("", {manual: true})
+  const [, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onAddBeatmap() {
     let result = validateUrl()
