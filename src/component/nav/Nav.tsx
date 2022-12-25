@@ -38,11 +38,13 @@ function Nav({userContext}: NavProps) {
                     Ranked
                   </div>
                 </NavLink>
-                {/*<NavLink to="/statistics" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-                  <div className={"navbar-item"}>
-                    Statistics
-                  </div>
-                </NavLink>*/}
+                {userContext.permission.osuRole == "NominationAssessment" &&
+                  <NavLink to="/admin" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                    <div className={"navbar-item"}>
+                      Admin
+                    </div>
+                  </NavLink>
+                }
               </>
             }
           </div>

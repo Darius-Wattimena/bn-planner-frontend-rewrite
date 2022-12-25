@@ -160,6 +160,14 @@ const Api = {
       headers: getAuthHeader(),
       url: `/v2/beatmap/${beatmapId}/${gamemode}/nominator?old=${replacingUserId}&new=${newNominatorId}`
     }
+  },
+  fixUsers: (userIds: number[]): AxiosRequestConfig => {
+    return {
+      method: 'POST',
+      headers: getAuthHeader(),
+      url: `/v2/user/fix?force=true`,
+      data: userIds
+    }
   }
 }
 

@@ -1,0 +1,24 @@
+@import "src/styles/Variables";
+
+.admin-page {
+  margin: $padding-small;
+
+  .admin-page-header {
+    border-radius: 3px;
+    padding: $padding-small;
+    background-color: $color-table-background;
+  }
+
+  .admin-page-content {
+    background-color: $color-primary;
+  }
+}
+
+.panel {
+  border-radius: 3px;
+  margin: $padding-small;
+
+  .panel-item {
+    padding: $padding-small 0;
+  }
+}

@@ -61,7 +61,7 @@ function Beatmaps(
         openBeatmapId={openBeatmapId}
         setOpenBeatmapId={setOpenBeatmapId}
       />
-      <div className={"beatmap-page-spacer"} />
+      <div className={"page-spacer"} />
     </>
   )
 }

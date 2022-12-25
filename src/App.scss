@@ -192,6 +192,12 @@ button, a.button {
   }
 }
 
+.page-spacer {
+  flex: 0 1 auto;
+  padding-top: $padding-small;
+  background-color: $color-background;
+}
+
 .footer {
   background-color: $color-footer-background;
 }

@@ -6,6 +6,7 @@ import BeatmapsContainer from "./component/beatmaps/BeatmapsContainer";
 import {UserContext, ViewMode} from "./models/Types";
 import Login from "./component/login/Login";
 import {CONFIG} from "./Settings";
+import Admin from "./component/admin/Admin";
 
 export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&client_id=${CONFIG.osu_id}&redirect_uri=${CONFIG.osu_redirect}&scope=identify public`
 
@@ -55,6 +56,11 @@ function AppRoutes({viewMode, userContext, setUserContext}: RoutesProps) {
           <Route path="/ranked" element={
             <RequireAuth>
               <BeatmapsContainer viewMode={viewMode} userContext={userContext} page={"RANKED"} />
+            </RequireAuth>
+          }/>
+          <Route path="/admin" element={
+            <RequireAuth>
+              <Admin userContext={userContext} />
             </RequireAuth>
           }/>
           <Route path="*" element={<div>TODO : NOT FOUND</div>}/>
