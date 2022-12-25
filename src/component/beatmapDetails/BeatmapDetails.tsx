@@ -2,12 +2,13 @@ import BeatmapDetailsUser from "./BeatmapDetailsUser";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
 import React, {useState} from "react";
-import {Beatmap, Gamemode, BeatmapStatus} from "../../models/Types";
+import {Beatmap, Gamemode, BeatmapStatus, UserContext} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
 import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
 
 interface BeatmapDetailsProps {
+  userContext: UserContext | undefined
   beatmap: Beatmap
   setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
@@ -21,6 +22,7 @@ interface BeatmapDetailsProps {
 
 function BeatmapDetails(
   {
+    userContext,
     beatmap,
     setBeatmap,
     setOpenBeatmapId,
@@ -97,7 +99,7 @@ function BeatmapDetails(
               }} className={"button button-cancel button-text"}>
                 <ImBin2/> Delete
               </button>
-              {beatmap.status !== BeatmapStatus.Graved &&
+              {beatmap.status !== BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
                 <ChangeBeatmapStatusButton
                   beatmap={beatmap}
                   newStatus={BeatmapStatus.Graved}
@@ -108,7 +110,7 @@ function BeatmapDetails(
                 </ChangeBeatmapStatusButton>
               }
 
-              {beatmap.status === BeatmapStatus.Graved &&
+              {beatmap.status === BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
                 <ChangeBeatmapStatusButton
                   beatmap={beatmap}
                   newStatus={BeatmapStatus.Pending}

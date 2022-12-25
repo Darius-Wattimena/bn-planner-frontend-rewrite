@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap} from "../../models/Types";
+import {Beatmap, UserContext} from "../../models/Types";
 import './BeatmapsDetails.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import BeatmapDetailsModal from "./BeatmapDetailsModal";
 
 interface BeatmapDetailsContainerParams {
+  userContext: UserContext | undefined
   resetPage: () => void
   openBeatmapId: number | undefined
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
-function BeatmapDetailsContainer({resetPage, openBeatmapId, setOpenBeatmapId}: BeatmapDetailsContainerParams) {
+function BeatmapDetailsContainer({userContext, resetPage, openBeatmapId, setOpenBeatmapId}: BeatmapDetailsContainerParams) {
   const [beatmap, setBeatmap] = useState<Beatmap>()
   const [refreshOnClose, setRefreshOnClose] = useState<boolean>(false)
 
@@ -41,6 +42,7 @@ function BeatmapDetailsContainer({resetPage, openBeatmapId, setOpenBeatmapId}: B
   }, [beatmap])
 
   return <BeatmapDetailsModal
+    userContext={userContext}
     beatmap={beatmap}
     loading={loading}
     setBeatmap={setBeatmap}

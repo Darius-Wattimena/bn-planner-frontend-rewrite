@@ -137,6 +137,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
             </div>
           ) : (
             <Beatmaps
+              userContext={userContext}
               loadedBeatmapData={loadedBeatmapData}
               fetchNewData={fetchNewData}
               fetchNewPage={fetchNewPage}

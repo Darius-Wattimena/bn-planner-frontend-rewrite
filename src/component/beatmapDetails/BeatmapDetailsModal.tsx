@@ -1,4 +1,4 @@
-import {Beatmap, Gamemode} from "../../models/Types";
+import {Beatmap, Gamemode, UserContext} from "../../models/Types";
 import Modal from "react-modal";
 import React, {useEffect, useState} from "react";
 import BeatmapDetails from "./BeatmapDetails";
@@ -8,6 +8,7 @@ import Api from "../../resources/Api";
 import DeleteBeatmapModal from "./deleteBeatmap/DeleteBeatmapModal";
 
 interface BeatmapDetailsModalProps {
+  userContext: UserContext | undefined
   beatmap: Beatmap | undefined
   setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   loading: boolean
@@ -18,6 +19,7 @@ interface BeatmapDetailsModalProps {
 
 function BeatmapDetailsModal(
   {
+    userContext,
     beatmap,
     loading,
     setBeatmap,
@@ -60,6 +62,7 @@ function BeatmapDetailsModal(
         {beatmap &&
         <BeatmapDetails
           key={key}
+          userContext={userContext}
           beatmap={beatmap}
           setBeatmap={setBeatmap}
           setOpenBeatmapId={setOpenBeatmapId}

@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
-import {Beatmap, PageLimit, ViewMode} from "../../models/Types";
+import {Beatmap, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import {IndexRange} from "react-virtualized";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
 import BeatmapTable from "./tableView/BeatmapTable";
 import BeatmapCards from "./cardView/BeatmapCards";
 
 interface BeatmapsProps {
+  userContext: UserContext | undefined
   loadedBeatmapData: Array<Beatmap | undefined>
   fetchNewData: (range: IndexRange) => void
   fetchNewPage: (pageNumber: number, pageLimit: PageLimit) => void
@@ -18,6 +19,7 @@ interface BeatmapsProps {
 
 function Beatmaps(
   {
+    userContext,
     loadedBeatmapData,
     fetchNewData,
     fetchNewPage,
@@ -57,6 +59,7 @@ function Beatmaps(
         </div>
       </div>
       <BeatmapDetailsContainer
+        userContext={userContext}
         resetPage={resetPage}
         openBeatmapId={openBeatmapId}
         setOpenBeatmapId={setOpenBeatmapId}
