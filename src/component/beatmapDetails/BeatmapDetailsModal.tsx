@@ -92,6 +92,7 @@ function BeatmapDetailsModal(
             openDeleteBeatmap={openDeleteBeatmap}
             setOpenDeleteBeatmap={setOpenDeleteBeatmap}
             setOpenBeatmapId={setOpenBeatmapId}
+            setRefreshOnClose={setRefreshOnClose}
           />
         </>
       }

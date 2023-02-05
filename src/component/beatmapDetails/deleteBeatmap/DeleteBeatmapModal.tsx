@@ -8,9 +8,10 @@ interface DeleteBeatmapModalProps {
   openDeleteBeatmap: boolean
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function DeleteBeatmapModal({beatmap, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapModalProps) {
+function DeleteBeatmapModal({beatmap, openDeleteBeatmap, setOpenDeleteBeatmap, setOpenBeatmapId, setRefreshOnClose}: DeleteBeatmapModalProps) {
   return (
     <>
       <Modal
@@ -22,7 +23,7 @@ function DeleteBeatmapModal({beatmap, openDeleteBeatmap, setOpenDeleteBeatmap, s
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
-        <DeleteBeatmap beatmap={beatmap} setOpenDeleteBeatmap={setOpenDeleteBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
+        <DeleteBeatmap beatmap={beatmap} setOpenDeleteBeatmap={setOpenDeleteBeatmap} setOpenBeatmapId={setOpenBeatmapId} setRefreshOnClose={setRefreshOnClose} />
       </Modal>
     </>
   )

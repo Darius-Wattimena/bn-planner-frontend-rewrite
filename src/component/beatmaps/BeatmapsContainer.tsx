@@ -11,6 +11,7 @@ import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
+import {useLocalStorage} from "usehooks-ts";
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -31,8 +32,12 @@ interface BeatmapsContainerProps {
 
 function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
-  const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(filterDefaultState)
-  const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(filterDefaultState)
+  const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(() => {
+    let actualFilter = filterDefaultState
+    actualFilter.page = page
+    return actualFilter
+  })
+  const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(queryFilter)
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
   const [openAddBeatmap, setOpenAddBeatmap] = useState(false)
@@ -44,14 +49,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
 
   useEffect(() => {
-    let newFilter = queryFilter
-    newFilter.page = page
-    setBeatmapFilter(newFilter)
-    setQueryFilter(newFilter)
-    resetPage()
-  }, [page])
-
-  useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
       setOpenBeatmapId(Number(beatmapId))
     }
@@ -59,7 +56,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
   useEffect(() => {
     resetPage()
-  }, [executeTotal, queryFilter])
+  }, [queryFilter])
 
   useEffect(() => {
     if (!loadingTotal) {
@@ -97,12 +94,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     }
   }, [loading, data])
 
-  useEffect(() => {
-    if (viewMode === "TABLE") {
-      fetchNewPage(2, "TEN")
-    }
-  }, [viewMode])
-
   function fetchNewPage(pageNumber: number, pageLimit: PageLimit) {
     execute(Api.fetchBeatmapsTableByFilter(queryFilter, pageNumber, pageLimit))
   }
@@ -117,6 +108,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     setLastSet(0)
     setLoadedBeatmapData([])
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
+      .catch(reason => console.log(reason))
   }
 
   return (

@@ -9,14 +9,16 @@ interface DeleteBeatmapProps {
   beatmap: Beatmap
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function DeleteBeatmap({beatmap, setOpenDeleteBeatmap, setOpenBeatmapId}: DeleteBeatmapProps) {
+function DeleteBeatmap({beatmap, setOpenDeleteBeatmap, setOpenBeatmapId, setRefreshOnClose}: DeleteBeatmapProps) {
   const [{}, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onDeleteBeatmap() {
     execute(Api.deleteBeatmap(beatmap.osuId)).then(() => {
       setOpenDeleteBeatmap(false)
+      setRefreshOnClose(true)
       setOpenBeatmapId(undefined)
     })
   }
