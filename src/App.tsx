@@ -6,9 +6,9 @@ import useAxios, {configure} from 'axios-hooks'
 import Axios from 'axios'
 import {CONFIG} from "./Settings";
 import {UserContext, ViewMode} from "./models/Types";
-import useLocalStorage from "./hooks/useLocalStorage";
 import ReactModal from "react-modal";
 import Api from "./resources/Api";
+import {useLocalStorage} from "usehooks-ts";
 
 const axios = Axios.create({
   baseURL: CONFIG.api_url
@@ -18,7 +18,7 @@ configure({axios})
 
 function App() {
   const [viewMode] = useState<ViewMode>('TABLE')
-  const [localStorageUserContext, setLocalStorageUserContext] = useLocalStorage<UserContext>("userContext");
+  const [localStorageUserContext, setLocalStorageUserContext] = useLocalStorage<UserContext | undefined>("userContext", undefined);
   const [userContext, setUserContext] = useState<UserContext | undefined>(localStorageUserContext);
   const [,execute] = useAxios<UserContext>("", {manual: true})
 
