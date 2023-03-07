@@ -36,7 +36,7 @@ jobs:
           name: Invalidate CloudFront
           command: aws cloudfront create-invalidation --distribution-id E5XATFDRCHYNT --paths "/*"
 workflows:
-  build-approve-deploy:
+  build-deploy:
     jobs:
       - build:
           context: build-context
