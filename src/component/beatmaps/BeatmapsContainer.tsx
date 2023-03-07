@@ -56,6 +56,14 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
   }
 
   useEffect(() => {
+    let newFilter = cloneDeep(queryFilter)
+    newFilter.page = page
+
+    setQueryFilter(newFilter)
+    setBeatmapFilter(newFilter)
+  }, [page])
+
+  useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
       setOpenBeatmapId(Number(beatmapId))
     }
