@@ -2,11 +2,11 @@ import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
 import {ImBin, ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
-import {Gamemode, NewUser} from "../../models/Types";
+import {Gamemode, User} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
 
 interface BeatmapDetailsUserProps {
-  user: NewUser
+  user: User
   editable: boolean
   deletable: boolean
   hasNominated?: boolean

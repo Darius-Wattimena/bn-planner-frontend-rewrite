@@ -1,5 +1,3 @@
-import {IconType} from "react-icons/lib";
-import {IconBaseProps} from "react-icons/lib/cjs/iconBase";
 import React from "react";
 
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment'
@@ -8,7 +6,7 @@ export type PageLimit = 'TEN' | 'TWENTY' | 'FIFTY'
 export type BeatmapPage = 'PENDING' | 'RANKED' | 'GRAVEYARD'
 
 export interface UserContext {
-  user: NewUser,
+  user: User,
   accessToken: string,
   refreshToken: string,
   validUntilEpochMilli: number
@@ -20,7 +18,7 @@ export interface RolePermission {
   roles: string[]
 }
 
-export interface NewUser {
+export interface User {
   osuId: string,
   username: string,
   gamemodes: UserGamemode[]
@@ -31,22 +29,12 @@ export interface UserGamemode {
   role: UserRole
 }
 
-export interface User {
-  aliases: string[];
-  hasAdminPermissions: boolean;
-  hasEditPermissions: boolean;
-  osuId: number;
-  osuName: string;
-  profilePictureUri: string;
-  role: string;
-}
-
 export interface Beatmap {
   osuId: number
   artist: string
   title: string
   note: string,
-  mapper: NewUser,
+  mapper: User,
   status: BeatmapStatus
   gamemodes: BeatmapGamemode[]
 }
@@ -63,7 +51,7 @@ export interface BeatmapGamemode {
 }
 
 export interface BeatmapNominator {
-  nominator: NewUser,
+  nominator: User,
   hasNominated: boolean
 }
 

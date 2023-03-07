@@ -1,9 +1,9 @@
 import React from "react";
-import {NewUser} from "../../../models/Types";
+import {User} from "../../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
 
 interface BeatmapTableUserProps {
-  user: NewUser
+  user: User
   nominated: boolean
 }
 

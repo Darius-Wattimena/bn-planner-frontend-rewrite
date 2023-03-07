@@ -1,9 +1,9 @@
 import React from "react";
 import {getFrontendRole, getProfilePictureUri} from "../../utils/UserUtils";
-import {NewUser, UserRole} from "../../models/Types";
+import {User, UserRole} from "../../models/Types";
 
 interface NavProfileProps {
-  user: NewUser
+  user: User
   role: UserRole
 }
 

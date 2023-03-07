@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {BeatmapFilter, BeatmapGamemode, Gamemode, NewUser} from "../../models/Types";
+import {BeatmapFilter, BeatmapGamemode, Gamemode, User} from "../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {ImCheckmark, ImMinus, ImPlus} from "react-icons/im";
 
 interface UserSearcherListProps {
-  data: NewUser[] | undefined
+  data: User[] | undefined
   loading: boolean
   beatmapGamemodes?: BeatmapGamemode[]
   changingGamemode: Gamemode | undefined
@@ -25,7 +25,7 @@ function UserSearcherList(
   }: UserSearcherListProps) {
   const [userSelected, setUserSelected] = useState(false)
 
-  function isAlreadySelected(user: NewUser) {
+  function isAlreadySelected(user: User) {
     if (beatmapGamemodes !== undefined) {
       return !beatmapGamemodes.find(gamemode =>
         !gamemode.nominators.find(nominator => nominator.nominator.osuId === user.osuId)
@@ -61,7 +61,7 @@ function UserSearcherList(
 }
 
 interface UserSearcherUserProps {
-  user: NewUser
+  user: User
   alreadySelected: boolean
   changingGamemode: Gamemode | undefined
   changingUserId: string | undefined

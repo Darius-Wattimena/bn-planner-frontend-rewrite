@@ -1,5 +1,5 @@
 import UserSearcherList from "./UserSearcherList";
-import {BeatmapFilter, BeatmapGamemode, Gamemode, NewUser, UserSearchFilter} from "../../models/Types";
+import {BeatmapFilter, BeatmapGamemode, Gamemode, User, UserSearchFilter} from "../../models/Types";
 import useAxios from "axios-hooks";
 import {useEffect} from "react";
 import Api from "../../resources/Api";
@@ -22,7 +22,7 @@ function UserSearcherListContainer(
     onSelectNominator,
     beatmapFilter
   }: UserSearcherListContainerProps) {
-  const [{data, loading}, execute] = useAxios<NewUser[]>("", {manual: true})
+  const [{data, loading}, execute] = useAxios<User[]>("", {manual: true})
 
   useEffect(() => {
     execute(Api.fetchUserSearchByFilter(queryFilter))

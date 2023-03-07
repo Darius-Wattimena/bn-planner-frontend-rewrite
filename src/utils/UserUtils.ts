@@ -1,7 +1,7 @@
-import {FrontendUserRole, NewUser, UserRole} from "../models/Types";
+import {FrontendUserRole, User, UserRole} from "../models/Types";
 import {USER_ROLES} from "../Constants";
 
-export function getUserRole(user: NewUser): FrontendUserRole {
+export function getUserRole(user: User): FrontendUserRole {
   for (let gamemode of user.gamemodes) {
     switch (gamemode.role) {
       case "Nominator":
@@ -31,7 +31,7 @@ export function getFrontendRole(role: UserRole): FrontendUserRole {
   }
 }
 
-export function getUsersHighestRole(user: NewUser): UserRole {
+export function getUsersHighestRole(user: User): UserRole {
   let highestRole = 0
   for (let gamemode of user.gamemodes) {
     switch (gamemode.role) {
