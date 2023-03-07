@@ -7,6 +7,7 @@ import {
   BeatmapGamemode,
   Gamemode,
   SelectFilterItem,
+  User,
   UserRole,
   UserSearchFilter
 } from "../../models/Types";
@@ -16,6 +17,7 @@ import UserSearcherListContainer from "./UserSearcherListContainer";
 import {ImSearch} from "react-icons/im";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
+import {cloneDeep} from "lodash";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
@@ -24,6 +26,7 @@ const filterDefaultState: UserSearchFilter = {
 }
 
 interface UserSearcherProps {
+  currentUser?: User
   openUserSearcher: boolean
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setBeatmap?: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
@@ -38,6 +41,7 @@ interface UserSearcherProps {
 
 function UserSearcher(
   {
+    currentUser,
     openUserSearcher,
     setOpenUserSearcher,
     setBeatmap,
@@ -49,14 +53,25 @@ function UserSearcher(
     setBeatmapFilter,
     setBeatmapQueryFilter
   }: UserSearcherProps) {
-  const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(filterDefaultState)
-  const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(filterDefaultState)
+  const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(setupQueryFilterWithBeatmap())
+  const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(setupQueryFilterWithBeatmap())
   const [timeout, setTimeout] = useState<number>(0)
   const [filterGamemodes, setFilterGamemodes] = useState<SelectFilterItem[]>([])
   const [filterRoles, setFilterRoles] = useState<SelectFilterItem[]>([])
   const [selectedGamemodes, setSelectedGamemodes] = useState<Gamemode[]>(userSearchFilter.gamemodes)
   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>(userSearchFilter.roles)
   const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
+
+  function setupQueryFilterWithBeatmap() {
+    let filter = cloneDeep(filterDefaultState)
+    if (changingGamemode) {
+      filter.gamemodes = [changingGamemode]
+    } else if (beatmapFilter) {
+      filter.gamemodes = beatmapFilter?.gamemodes
+    }
+
+    return filter
+  }
 
   useEffect(() => {
     if (openUserSearcher) {
@@ -329,6 +344,7 @@ function UserSearcher(
             />
           </div>
           <UserSearcherListContainer
+            currentUser={currentUser}
             queryFilter={queryFilter}
             beatmapGamemodes={beatmapGamemodes}
             changingGamemode={changingGamemode}

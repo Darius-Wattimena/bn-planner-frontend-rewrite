@@ -1,19 +1,18 @@
 import React, {useState} from "react";
-import {BeatmapFilter, Gamemode, BeatmapStatus} from "../../../models/Types";
-import BeatmapStatusFilter from "./BeatmapStatusFilter";
-import BeatmapGamemodeFilter from "./BeatmapGamemodeFilter";
+import {BeatmapFilter, User} from "../../../models/Types";
 import BeatmapTextFilter from "./BeatmapTextFilter";
 import "./BeatmapFilters.scss";
 import UserSearcher from "../../userSearcher/UserSearcher";
 import {instantFilter} from "../../../utils/FilterUtils";
 
 interface BeatmapFilterProps {
+  currentUser?: User
   beatmapFilter: BeatmapFilter
   setBeatmapFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   setQueryFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
 }
 
-function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: BeatmapFilterProps) {
+function BeatmapFilters({currentUser, beatmapFilter, setBeatmapFilter, setQueryFilter}: BeatmapFilterProps) {
   const [timeout, setTimeout] = useState<number>(0)
   const [openUserSearcher, setOpenUserSearcher] = useState(false)
 
@@ -32,25 +31,6 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
     <>
       <div className={"beatmap-filter"}>
         <div className={"beatmap-filter-groups"}>
-          {/*<div className={"beatmap-filter-group beatmap-filter-group-dropdowns"}>
-            <BeatmapStatusFilter
-              statuses={Object.values(BeatmapStatus)}
-              beatmapFilter={beatmapFilter}
-              setBeatmapFormFilter={setBeatmapFilter}
-              timeout={timeout}
-              setQueryFilter={setQueryFilter}
-            />
-            <BeatmapGamemodeFilter
-              gamemodes={Object.values(Gamemode)}
-              beatmapFilter={beatmapFilter}
-              setBeatmapFormFilter={setBeatmapFilter}
-              timeout={timeout}
-              setQueryFilter={setQueryFilter}
-            />
-          </div>
-          <div className={"beatmap-filter-group"}>
-            <hr />
-          </div>*/}
           <div className={"beatmap-filter-group-old"}>
             <BeatmapTextFilter
               target={"artist"}
@@ -95,6 +75,7 @@ function BeatmapFilters({beatmapFilter, setBeatmapFilter, setQueryFilter}: Beatm
         </div>
       </div>
       <UserSearcher
+        currentUser={currentUser}
         openUserSearcher={openUserSearcher}
         setOpenUserSearcher={setOpenUserSearcher}
         beatmapFilter={beatmapFilter}

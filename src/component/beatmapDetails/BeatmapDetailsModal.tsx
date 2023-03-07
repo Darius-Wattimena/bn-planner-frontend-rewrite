@@ -79,6 +79,7 @@ function BeatmapDetailsModal(
       {beatmap &&
         <>
           <UserSearcher
+            currentUser={userContext?.user}
             openUserSearcher={openUserSearcher}
             setOpenUserSearcher={setOpenUserSearcher}
             setBeatmap={setBeatmap}

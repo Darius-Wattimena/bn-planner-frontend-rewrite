@@ -4,14 +4,13 @@ import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import Beatmaps from "./Beatmaps";
-import _ from "lodash";
+import _, {cloneDeep} from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
 import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
-import {useLocalStorage} from "usehooks-ts";
 
 const filterDefaultState: BeatmapFilter = {
   artist: null,
@@ -19,7 +18,7 @@ const filterDefaultState: BeatmapFilter = {
   mapper: null,
   status: [],
   nominators: [],
-  gamemodes: [Gamemode.Catch],
+  gamemodes: [],
   missingNominator: [],
   page: "PENDING"
 }
@@ -32,12 +31,8 @@ interface BeatmapsContainerProps {
 
 function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps) {
   const [loadedBeatmapData, setLoadedBeatmapData] = useState<Array<Beatmap | undefined>>([])
-  const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(() => {
-    let actualFilter = filterDefaultState
-    actualFilter.page = page
-    return actualFilter
-  })
-  const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(queryFilter)
+  const [queryFilter, setQueryFilter] = useState<BeatmapFilter>(setupFilterWithUserContext())
+  const [beatmapFilter, setBeatmapFilter] = useState<BeatmapFilter>(setupFilterWithUserContext())
   const [total, setTotal] = useState<number>(0)
   const [lastSet, setLastSet] = useState<number>(0)
   const [openAddBeatmap, setOpenAddBeatmap] = useState(false)
@@ -47,6 +42,18 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
   const [{data: foundTotal, loading: loadingTotal}, executeTotal] = useAxios<number>(Api.fetchCountBeatmapsByFilter(queryFilter))
   const [{data, loading}, execute] = useAxios<Beatmap[]>("", {manual: true})
+
+  function setupFilterWithUserContext() {
+    let filter = cloneDeep(filterDefaultState)
+    filter.page = page
+    let currentUser = userContext?.user
+
+    if (currentUser) {
+      filter.gamemodes = currentUser.gamemodes.map(it => it.gamemode)
+    }
+
+    return filter
+  }
 
   useEffect(() => {
     if (beatmapId && isNaN(+beatmapId) && Number(beatmapId) !== openBeatmapId) {
@@ -143,6 +150,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
       }
       <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
         <BeatmapFilters
+          currentUser={userContext?.user}
           beatmapFilter={beatmapFilter}
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}/>
