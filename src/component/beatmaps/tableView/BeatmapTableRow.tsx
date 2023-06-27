@@ -93,8 +93,9 @@ function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
               key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-${nominatorOne.nominator.osuId}`}
               user={nominatorOne.nominator}
               nominated={nominatorOne.hasNominated}
+              gamemode={gamemode.gamemode}
             />
-          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-one`} />
+          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-one`}>-</td>
         }
         {
           (nominatorTwo && nominatorTwo.nominator.osuId !== "0") ? (
@@ -102,8 +103,9 @@ function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
               key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-${nominatorTwo.nominator.osuId}`}
               user={nominatorTwo.nominator}
               nominated={nominatorTwo.hasNominated}
+              gamemode={gamemode.gamemode}
             />
-          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-two`}/>
+          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-two`}>-</td>
         }
       </>
     )

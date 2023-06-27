@@ -127,7 +127,11 @@ table {
   }
 
   &.beatmap-table-user-multiple {
-    padding: $padding-smallest;
+    padding: $padding-smallest 0;
+
+    .beatmap-nominator-container {
+      justify-content: center;
+    }
   }
 
   .beatmap-nominator-container {

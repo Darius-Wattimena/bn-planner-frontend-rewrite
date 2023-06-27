@@ -1,11 +1,16 @@
 import React from "react";
-import {User} from "../../../models/Types";
+import {Gamemode, User} from "../../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
+import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
 
 interface BeatmapTableUserProps {
   user: User
   nominated: boolean
   rowSpan?: number
+  gamemode?: Gamemode
 }
 
 function BeatmapTableUser(props: BeatmapTableUserProps) {
@@ -19,6 +24,18 @@ function BeatmapTableUser(props: BeatmapTableUserProps) {
     hasNominatedClass = "nominated"
   }
 
+  let gamemodeText = <></>
+
+  if (props.gamemode == Gamemode.Osu) {
+    gamemodeText = <OsuLogo/>
+  } else if (props.gamemode == Gamemode.Taiko) {
+    gamemodeText = <TaikoLogo/>
+  } else if (props.gamemode == Gamemode.Catch) {
+    gamemodeText = <CatchLogo/>
+  } else if (props.gamemode == Gamemode.Mania) {
+    gamemodeText = <ManiaLogo/>
+  }
+
   return (
     <td className={`beatmap-table-user ${hasNominatedClass}`}>
       <div className={`beatmap-nominator-container ${nominatorRole.className}`}>
@@ -28,6 +45,7 @@ function BeatmapTableUser(props: BeatmapTableUserProps) {
         <div className={"beatmap-nominator-text"}>
           {name}
         </div>
+        {gamemodeText}
       </div>
     </td>
   )
