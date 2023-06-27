@@ -111,93 +111,103 @@ table {
   width: 100%;
 }
 
-.beatmap-table-row {
-  .beatmap-text-cell {
-    .beatmap-text {
+.beatmap-text-cell {
+  .beatmap-text {
+    font-size: $font-size;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.beatmap-table-user {
+  &.nominated .beatmap-nominator-container {
+    box-shadow: 0 0 5px 1px $status-qualified-colour;
+  }
+
+  &.beatmap-table-user-multiple {
+    padding: $padding-smallest;
+  }
+
+  .beatmap-nominator-container {
+    height: $padding-large;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    padding: $padding-smallest;
+    margin: 0 auto;
+    border-radius: 25px;
+
+    .beatmap-nominator-picture {
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      border-radius: 25px;
+    }
+
+    .beatmap-nominator-text {
+      text-align: left;
+      margin-left: $padding-smallest;
       font-size: $font-size;
-      width: 100%;
-      overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $color-text;
+      margin-left: auto;
     }
   }
+}
 
-  .beatmap-table-user {
-    &.nominated .beatmap-nominator-container {
-      box-shadow: 0 0 5px 1px $status-qualified-colour;
-    }
-
-    .beatmap-nominator-container {
-      width: 80%;
-      display: flex;
-      align-items: center;
-      padding: $padding-smallest;
-      margin: 0 auto;
-      border-radius: 25px;
-
-      .beatmap-nominator-picture {
-        background-size: cover;
-        width: 30px;
-        height: 30px;
-        border-radius: 25px;
-      }
-
-      .beatmap-nominator-text {
-        text-align: left;
-        margin-left: $padding-smallest;
-        font-size: $font-size;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        width: fit-content;
-      }
-    }
+.beatmap-status {
+  .beatmap-status-label {
+    border-radius: 3px;
+    margin: 1px $padding-small;
   }
+}
 
-  .beatmap-status {
-    .beatmap-status-label {
-      border-radius: 3px;
-      margin: 1px $padding-small;
-    }
-  }
+.beatmap-banner-container {
+  padding: 0;
+  //min-width: 150px;
+  height: $row-height;
 
-  .beatmap-banner-container {
-    padding: 0;
-    //min-width: 150px;
+  .beatmap-banner {
+    width: 100%;
+    margin: $padding-smallest;
+    background-size: cover;
+    background-position: center;
     height: $row-height;
-
-    .beatmap-banner {
-      width: 100%;
-      margin: $padding-smallest;
-      background-size: cover;
-      background-position: center;
-      height: $row-height;
-    }
   }
+}
 
-  .beatmap-table-note {
-    width: 100%;
+.beatmap-table-note {
+  width: 100%;
 
-    .beatmap-button {
-      padding: $padding-smallest;
-      width: fit-content;
-      height: fit-content;
-      margin: auto;
-      font-size: 1.2em;
-    }
-  }
-
-  .beatmap-table-actions {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  .beatmap-button {
+    padding: $padding-smallest;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
     font-size: 1.2em;
+  }
+}
 
-    .beatmap-button {
-      padding: $padding-small;
-      width: fit-content;
-      margin: 0 $padding-smallest;
-      //width: 75%;
-    }
+.beatmap-table-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2em;
+
+  .beatmap-button {
+    padding: $padding-small;
+    width: fit-content;
+    margin: 0 $padding-smallest;
+    //width: 75%;
   }
 }

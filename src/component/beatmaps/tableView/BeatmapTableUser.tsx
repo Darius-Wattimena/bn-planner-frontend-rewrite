@@ -5,16 +5,17 @@ import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
 interface BeatmapTableUserProps {
   user: User
   nominated: boolean
+  rowSpan?: number
 }
 
-function BeatmapTableUser({user, nominated}: BeatmapTableUserProps) {
-  let name = user.username
-  let profilePictureUri = getProfilePictureUri(user.osuId)
+function BeatmapTableUser(props: BeatmapTableUserProps) {
+  let name = props.user.username
+  let profilePictureUri = getProfilePictureUri(props.user.osuId)
 
   let hasNominatedClass = "";
-  let nominatorRole = getUserRole(user)
+  let nominatorRole = getUserRole(props.user)
 
-  if (nominated) {
+  if (props.nominated) {
     hasNominatedClass = "nominated"
   }
 

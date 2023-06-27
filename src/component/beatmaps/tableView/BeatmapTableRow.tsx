@@ -1,6 +1,6 @@
 import BeatmapTableUser from "./BeatmapTableUser";
 import React from "react";
-import {Beatmap} from "../../../models/Types";
+import {Beatmap, BeatmapGamemode, Gamemode} from "../../../models/Types";
 import "./BeatmapTable.scss"
 import {GoCommentDiscussion} from "react-icons/go";
 import {FiInfo} from "react-icons/fi";
@@ -9,6 +9,7 @@ import ReactTooltip from "react-tooltip";
 import {FaStickyNote} from "react-icons/fa";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import {openInNewTab} from "../../../utils/LinkUtils";
+import BeatmapTableMultipleUsers, {UserNominatedGamemode} from "./BeatmapTableMultipleUsers";
 
 interface BeatmapTableRowProps {
   beatmap: Beatmap
@@ -19,6 +20,7 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
   const beatmapStatus = getBeatmapStatus(beatmap.status)
 
   return (
+    <>
     <tr className={"beatmap-table-row"}>
       <td key={`beatmap-table-row-${beatmap.osuId}-banner`} className={"beatmap-banner-container"}>
         <div className={"beatmap-banner"}
@@ -37,30 +39,15 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
           {beatmap.title}
         </div>
       </td>
-      <BeatmapTableUser key={`beatmap-table-row-${beatmap.osuId}-mapper`} user={beatmap.mapper} nominated={false}/>
-      {beatmap.gamemodes.map(gamemodeBeatmap => {
-        let bnOne = gamemodeBeatmap.nominators[0]
-        let bnTwo = gamemodeBeatmap.nominators[1]
-
-        return (
-          <React.Fragment key={`beatmap-table-row-${beatmap.osuId}-nominators-${gamemodeBeatmap.gamemode}`}>
-            {(bnOne && bnOne.nominator.osuId !== "0") ? (
-              <BeatmapTableUser
-                key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnOne.nominator.osuId}`}
-                user={bnOne.nominator}
-                nominated={bnOne.hasNominated}
-              />
-            ) : <td key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-one`} />}
-            {(bnTwo && bnTwo.nominator.osuId !== "0") ? (
-              <BeatmapTableUser
-                key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-${bnTwo.nominator.osuId}`}
-                user={bnTwo.nominator}
-                nominated={bnTwo.hasNominated}
-              />
-            ) : <td key={`beatmap-table-row-${beatmap.osuId}-nominator-${gamemodeBeatmap.gamemode}-two`} />}
-          </React.Fragment>
-        )
-      })}
+      <BeatmapTableUser
+        key={`beatmap-table-row-${beatmap.osuId}-mapper`}
+        user={beatmap.mapper}
+        nominated={false}
+      />
+      <BeatmapTableRowNominators
+        beatmapId={beatmap.osuId}
+        gamemodes={beatmap.gamemodes}
+      />
       <td key={`beatmap-table-row-${beatmap.osuId}-note`} className={"beatmap-table-note"}>
         {beatmap.note &&
         <>
@@ -83,6 +70,87 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
         </div>
       </td>
     </tr>
+    </>
+  )
+}
+
+interface BeatmapTableRowNominatorsProps {
+  beatmapId: number
+  gamemodes: BeatmapGamemode[]
+}
+
+function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
+  if (props.gamemodes.length == 1) {
+    let gamemode = props.gamemodes[0]
+    let nominatorOne = gamemode.nominators[0]
+    let nominatorTwo = gamemode.nominators[1]
+
+    return (
+      <>
+        {
+          (nominatorOne && nominatorOne.nominator.osuId !== "0") ? (
+            <BeatmapTableUser
+              key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-${nominatorOne.nominator.osuId}`}
+              user={nominatorOne.nominator}
+              nominated={nominatorOne.hasNominated}
+            />
+          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-one`} />
+        }
+        {
+          (nominatorTwo && nominatorTwo.nominator.osuId !== "0") ? (
+            <BeatmapTableUser
+              key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-${nominatorTwo.nominator.osuId}`}
+              user={nominatorTwo.nominator}
+              nominated={nominatorTwo.hasNominated}
+            />
+          ) : <td key={`beatmap-table-row-${props.beatmapId}-nominator-${gamemode}-two`}/>
+        }
+      </>
+    )
+  }
+
+  let sortedGamemodes = props.gamemodes.sort((a, b) => {
+    function getGamemodeNumber(gamemode: Gamemode) {
+      switch (gamemode) {
+        case Gamemode.Osu:
+          return 1;
+        case Gamemode.Taiko:
+          return 2;
+        case Gamemode.Catch:
+          return 3;
+        case Gamemode.Mania:
+          return 4;
+      }
+    }
+
+    return getGamemodeNumber(a.gamemode) - getGamemodeNumber(b.gamemode)
+  })
+
+  let preparedFirstUsers: UserNominatedGamemode[] = sortedGamemodes.map(gamemode => {
+    let nominatorOne = gamemode.nominators[0]
+
+    return {
+      user: nominatorOne.nominator,
+      nominated: nominatorOne.hasNominated,
+      gamemode: gamemode.gamemode
+    } as UserNominatedGamemode
+  })
+
+  let preparedSecondUsers: UserNominatedGamemode[] = sortedGamemodes.map(gamemode => {
+    let nominatorTwo = gamemode.nominators[1]
+
+    return {
+      user: nominatorTwo.nominator,
+      nominated: nominatorTwo.hasNominated,
+      gamemode: gamemode.gamemode
+    } as UserNominatedGamemode
+  })
+
+  return (
+    <>
+      <BeatmapTableMultipleUsers users={preparedFirstUsers} />
+      <BeatmapTableMultipleUsers users={preparedSecondUsers} />
+    </>
   )
 }
 
