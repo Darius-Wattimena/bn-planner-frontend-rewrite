@@ -10,6 +10,10 @@ import {FaStickyNote} from "react-icons/fa";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import {openInNewTab} from "../../../utils/LinkUtils";
 import BeatmapTableMultipleUsers, {UserNominatedGamemode} from "./BeatmapTableMultipleUsers";
+import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
 
 interface BeatmapTableRowProps {
   beatmap: Beatmap
@@ -39,6 +43,7 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
           {beatmap.title}
         </div>
       </td>
+      <BeatmapTableRowGamemodeIcon gamemodes={beatmap.gamemodes.map(it => it.gamemode)} beatmapId={beatmap.osuId} />
       <BeatmapTableUser
         key={`beatmap-table-row-${beatmap.osuId}-mapper`}
         user={beatmap.mapper}
@@ -71,6 +76,38 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       </td>
     </tr>
     </>
+  )
+}
+
+interface BeatmapTableRowGamemodeIconProps {
+  gamemodes: Gamemode[]
+  beatmapId: number
+}
+
+function BeatmapTableRowGamemodeIcon({beatmapId, gamemodes}: BeatmapTableRowGamemodeIconProps) {
+  return (
+    <td key={`beatmap-table-row-${beatmapId}-gamemode`} className={"beatmap-mode-icon"}>
+      <div className={"beatmap-mode-icon-wrapper"}>
+        {gamemodes.sort(sortByGamemode).map(gamemode => {
+          let gamemodeText = <></>
+
+          if (gamemode == Gamemode.Osu) {
+            gamemodeText = <OsuLogo/>
+          } else if (gamemode == Gamemode.Taiko) {
+            gamemodeText = <TaikoLogo/>
+          } else if (gamemode == Gamemode.Catch) {
+            gamemodeText = <CatchLogo/>
+          } else if (gamemode == Gamemode.Mania) {
+            gamemodeText = <ManiaLogo/>
+          }
+          return (
+            <div className={"beatmap-mode-icon-item-wrapper"}>
+              {gamemodeText}
+            </div>
+          )
+        })}
+      </div>
+    </td>
   )
 }
 
@@ -111,22 +148,7 @@ function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
     )
   }
 
-  let sortedGamemodes = props.gamemodes.sort((a, b) => {
-    function getGamemodeNumber(gamemode: Gamemode) {
-      switch (gamemode) {
-        case Gamemode.Osu:
-          return 1;
-        case Gamemode.Taiko:
-          return 2;
-        case Gamemode.Catch:
-          return 3;
-        case Gamemode.Mania:
-          return 4;
-      }
-    }
-
-    return getGamemodeNumber(a.gamemode) - getGamemodeNumber(b.gamemode)
-  })
+  let sortedGamemodes = props.gamemodes.sort(sortByBeatmapGamemode)
 
   let preparedFirstUsers: UserNominatedGamemode[] = sortedGamemodes.map(gamemode => {
     let nominatorOne = gamemode.nominators[0]
@@ -154,6 +176,27 @@ function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
       <BeatmapTableMultipleUsers users={preparedSecondUsers} />
     </>
   )
+}
+
+function sortByBeatmapGamemode(a: BeatmapGamemode, b: BeatmapGamemode) {
+  return sortByGamemode(a.gamemode, b.gamemode)
+}
+
+function sortByGamemode(a: Gamemode, b: Gamemode) {
+  return getGamemodeNumber(a) - getGamemodeNumber(b)
+}
+
+function getGamemodeNumber(gamemode: Gamemode) {
+  switch (gamemode) {
+    case Gamemode.Osu:
+      return 1;
+    case Gamemode.Taiko:
+      return 2;
+    case Gamemode.Catch:
+      return 3;
+    case Gamemode.Mania:
+      return 4;
+  }
 }
 
 export default BeatmapTableRow

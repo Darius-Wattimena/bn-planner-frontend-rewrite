@@ -96,6 +96,10 @@ table {
       width: 2.5%;
     }
 
+    &.beatmap-table-mode-header {
+      width: 5%;
+    }
+
     &.beatmap-table-actions-header {
       width: 11%;
     }
@@ -103,7 +107,6 @@ table {
 
   th, td {
     text-align: center;
-    max-height: $row-height;
   }
 }
 
@@ -118,6 +121,25 @@ table {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+
+.beatmap-mode-icon .beatmap-mode-icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .beatmap-mode-icon-item-wrapper {
+    margin: $padding-smallest 0;
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $color-text;
+      margin-left: auto;
+    }
   }
 }
 
