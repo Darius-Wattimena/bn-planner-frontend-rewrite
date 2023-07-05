@@ -82,11 +82,11 @@ function BeatmapDetailsModal(
             currentUser={userContext?.user}
             openUserSearcher={openUserSearcher}
             setOpenUserSearcher={setOpenUserSearcher}
-            setBeatmap={setBeatmap}
             beatmapGamemodes={beatmap.gamemodes}
             changingGamemode={changingGamemode}
             changingUserId={changingUser}
             beatmapId={beatmap.osuId}
+            execute={execute}
           />
           <DeleteBeatmapModal
             beatmap={beatmap}

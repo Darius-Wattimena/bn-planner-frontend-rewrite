@@ -101,7 +101,10 @@ function BeatmapTableRowGamemodeIcon({beatmapId, gamemodes}: BeatmapTableRowGame
             gamemodeText = <ManiaLogo/>
           }
           return (
-            <div className={"beatmap-mode-icon-item-wrapper"}>
+            <div
+              key={`beatmap-table-row-${beatmapId}-${gamemode}-icon`}
+              className={"beatmap-mode-icon-item-wrapper"}
+            >
               {gamemodeText}
             </div>
           )
@@ -172,17 +175,17 @@ function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
 
   return (
     <>
-      <BeatmapTableMultipleUsers users={preparedFirstUsers} />
-      <BeatmapTableMultipleUsers users={preparedSecondUsers} />
+      <BeatmapTableMultipleUsers beatmapId={props.beatmapId} users={preparedFirstUsers} />
+      <BeatmapTableMultipleUsers beatmapId={props.beatmapId} users={preparedSecondUsers} />
     </>
   )
 }
 
-function sortByBeatmapGamemode(a: BeatmapGamemode, b: BeatmapGamemode) {
+export function sortByBeatmapGamemode(a: BeatmapGamemode, b: BeatmapGamemode) {
   return sortByGamemode(a.gamemode, b.gamemode)
 }
 
-function sortByGamemode(a: Gamemode, b: Gamemode) {
+export function sortByGamemode(a: Gamemode, b: Gamemode) {
   return getGamemodeNumber(a) - getGamemodeNumber(b)
 }
 

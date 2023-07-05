@@ -15,9 +15,10 @@ import {USER_ROLES} from "../../Constants";
 import {debouncingFilter, instantFilter} from "../../utils/FilterUtils";
 import UserSearcherListContainer from "./UserSearcherListContainer";
 import {ImSearch} from "react-icons/im";
-import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {cloneDeep} from "lodash";
+import {AxiosPromise, AxiosRequestConfig} from "axios";
+import {RefetchOptions} from "axios-hooks";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
@@ -29,7 +30,6 @@ interface UserSearcherProps {
   currentUser?: User
   openUserSearcher: boolean
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
-  setBeatmap?: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   beatmapGamemodes?: BeatmapGamemode[]
   changingGamemode?: Gamemode | undefined
   changingUserId?: string | undefined
@@ -37,6 +37,7 @@ interface UserSearcherProps {
   beatmapFilter?: BeatmapFilter,
   setBeatmapFilter?: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   setBeatmapQueryFilter?: React.Dispatch<React.SetStateAction<BeatmapFilter>>
+  execute?: (config?: (AxiosRequestConfig | undefined), options?: (RefetchOptions | undefined)) => AxiosPromise<Beatmap>
 }
 
 function UserSearcher(
@@ -44,23 +45,23 @@ function UserSearcher(
     currentUser,
     openUserSearcher,
     setOpenUserSearcher,
-    setBeatmap,
     beatmapGamemodes,
     changingGamemode,
     changingUserId,
     beatmapId,
     beatmapFilter,
     setBeatmapFilter,
-    setBeatmapQueryFilter
+    setBeatmapQueryFilter,
+    execute
   }: UserSearcherProps) {
-  const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(setupQueryFilterWithBeatmap())
-  const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(setupQueryFilterWithBeatmap())
+  const defaultFilter = setupQueryFilterWithBeatmap()
+  const [userSearchFilter, setUserSearchFilter] = useState<UserSearchFilter>(defaultFilter)
+  const [queryFilter, setQueryFilter] = useState<UserSearchFilter>(defaultFilter)
   const [timeout, setTimeout] = useState<number>(0)
   const [filterGamemodes, setFilterGamemodes] = useState<SelectFilterItem[]>([])
   const [filterRoles, setFilterRoles] = useState<SelectFilterItem[]>([])
   const [selectedGamemodes, setSelectedGamemodes] = useState<Gamemode[]>(userSearchFilter.gamemodes)
   const [selectedRoles, setSelectedRoles] = useState<UserRole[]>(userSearchFilter.roles)
-  const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
 
   function setupQueryFilterWithBeatmap() {
     let filter = cloneDeep(filterDefaultState)
@@ -69,6 +70,8 @@ function UserSearcher(
     } else if (beatmapFilter) {
       filter.gamemodes = beatmapFilter?.gamemodes
     }
+
+    console.log({filter})
 
     return filter
   }
@@ -85,7 +88,7 @@ function UserSearcher(
   }, [userSearchFilter, selectedGamemodes, selectedRoles])
 
   function onSelectNominator(replacingUserId: string | undefined, newNominatorId: string | undefined) {
-    if (changingGamemode && beatmapId && replacingUserId && newNominatorId) {
+    if (changingGamemode && beatmapId && replacingUserId && newNominatorId && execute) {
       execute(Api.updateNominator(beatmapId, changingGamemode, replacingUserId, newNominatorId))
       setOpenUserSearcher(false)
     } else if (beatmapFilter && setBeatmapFilter && setBeatmapQueryFilter) {
@@ -112,12 +115,6 @@ function UserSearcher(
       setOpenUserSearcher(false)
     }
   }
-
-  useEffect(() => {
-    if (data && setBeatmap) {
-      setBeatmap(data)
-    }
-  }, [data])
 
   function remove<T>(value: T, array: T[]) {
     array.forEach((item, index) => {
@@ -200,28 +197,28 @@ function UserSearcher(
         label: "Osu",
         value: "osu",
         selected: osuGamemode != null || osuGamemode !== undefined,
-        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Osu) : false
+        disabled: changingGamemode != null && changingGamemode !== Gamemode.Osu
       },
       {
         index: 1,
         label: "Taiko",
         value: "taiko",
         selected: taikoGamemode != null || taikoGamemode !== undefined,
-        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Taiko) : false
+        disabled: changingGamemode != null && changingGamemode !== Gamemode.Taiko
       },
       {
         index: 2,
         label: "Catch",
         value: "fruits",
         selected: catchGamemode != null || catchGamemode !== undefined,
-        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Catch) : false
+        disabled: changingGamemode != null && changingGamemode !== Gamemode.Catch
       },
       {
         index: 3,
         label: "Mania",
         value: "mania",
         selected: maniaGamemode != null || maniaGamemode !== undefined,
-        disabled: beatmapGamemodes ? !beatmapGamemodes.find(it => it.gamemode === Gamemode.Mania) : false
+        disabled: changingGamemode != null && changingGamemode !== Gamemode.Mania
       }
     ])
 
@@ -267,7 +264,6 @@ function UserSearcher(
     }
 
     onUpdateFilters()
-    setOpenUserSearcher(true)
   }
 
   function onClose() {

@@ -26,10 +26,13 @@ function UserSearcherList(
   const [userSelected, setUserSelected] = useState(false)
 
   function isAlreadySelected(user: User) {
-    if (beatmapGamemodes !== undefined) {
-      return !beatmapGamemodes.find(gamemode =>
-        !gamemode.nominators.find(nominator => nominator.nominator.osuId === user.osuId)
-      )
+    if (beatmapGamemodes && changingGamemode) {
+      let changingBeatmapGamemode = beatmapGamemodes.find(it => it.gamemode === changingGamemode)
+      let gamemodeUser = changingBeatmapGamemode?.nominators.find(nominator => nominator.nominator.osuId === user.osuId)
+
+      if (gamemodeUser) {
+        return true
+      }
     } else if (beatmapFilter !== undefined) {
       const nominators = beatmapFilter["nominators"]
 

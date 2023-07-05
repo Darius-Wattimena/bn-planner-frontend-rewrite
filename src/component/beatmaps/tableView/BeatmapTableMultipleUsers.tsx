@@ -13,6 +13,7 @@ export interface UserNominatedGamemode {
 }
 
 interface BeatmapTableMultipleUsersProps {
+  beatmapId: number
   users: UserNominatedGamemode[]
 }
 
@@ -20,10 +21,10 @@ function BeatmapTableMultipleUsers(props: BeatmapTableMultipleUsersProps) {
 
   return (
       <td>
-        {props.users.map(user => {
+        {props.users.map((user, index) => {
           if (user.user.osuId == "0") {
             return (
-              <div className={`beatmap-table-user beatmap-table-user-multiple`}>
+              <div key={`beatmap-${props.beatmapId}-user-${user.gamemode}-${index}`} className={`beatmap-table-user beatmap-table-user-multiple`}>
                 <div className={`beatmap-nominator-container`}>
                   -
                 </div>
@@ -54,7 +55,7 @@ function BeatmapTableMultipleUsers(props: BeatmapTableMultipleUsersProps) {
           }
 
           return (
-            <div className={`beatmap-table-user beatmap-table-user-multiple ${hasNominatedClass}`}>
+            <div key={`beatmap-${props.beatmapId}-user-${user.gamemode}-${index}`} className={`beatmap-table-user beatmap-table-user-multiple ${hasNominatedClass}`}>
               <div className={`beatmap-nominator-container ${nominatorRole.className}`}>
                 <div
                   className={`beatmap-nominator-picture`}
