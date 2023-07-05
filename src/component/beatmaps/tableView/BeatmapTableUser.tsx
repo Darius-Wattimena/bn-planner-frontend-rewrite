@@ -26,13 +26,13 @@ function BeatmapTableUser(props: BeatmapTableUserProps) {
 
   let gamemodeText = <></>
 
-  if (props.gamemode == Gamemode.Osu) {
+  if (props.gamemode === Gamemode.Osu) {
     gamemodeText = <OsuLogo/>
-  } else if (props.gamemode == Gamemode.Taiko) {
+  } else if (props.gamemode === Gamemode.Taiko) {
     gamemodeText = <TaikoLogo/>
-  } else if (props.gamemode == Gamemode.Catch) {
+  } else if (props.gamemode === Gamemode.Catch) {
     gamemodeText = <CatchLogo/>
-  } else if (props.gamemode == Gamemode.Mania) {
+  } else if (props.gamemode === Gamemode.Mania) {
     gamemodeText = <ManiaLogo/>
   }
 

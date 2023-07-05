@@ -22,7 +22,7 @@ function BeatmapTableMultipleUsers(props: BeatmapTableMultipleUsersProps) {
   return (
       <td>
         {props.users.map((user, index) => {
-          if (user.user.osuId == "0") {
+          if (user.user.osuId === "0") {
             return (
               <div key={`beatmap-${props.beatmapId}-user-${user.gamemode}-${index}`} className={`beatmap-table-user beatmap-table-user-multiple`}>
                 <div className={`beatmap-nominator-container`}>
@@ -44,13 +44,13 @@ function BeatmapTableMultipleUsers(props: BeatmapTableMultipleUsersProps) {
 
           let gamemodeText = <></>
 
-          if (user.gamemode == Gamemode.Osu) {
+          if (user.gamemode === Gamemode.Osu) {
             gamemodeText = <OsuLogo/>
-          } else if (user.gamemode == Gamemode.Taiko) {
+          } else if (user.gamemode === Gamemode.Taiko) {
             gamemodeText = <TaikoLogo/>
-          } else if (user.gamemode == Gamemode.Catch) {
+          } else if (user.gamemode === Gamemode.Catch) {
             gamemodeText = <CatchLogo/>
-          } else if (user.gamemode == Gamemode.Mania) {
+          } else if (user.gamemode === Gamemode.Mania) {
             gamemodeText = <ManiaLogo/>
           }
 

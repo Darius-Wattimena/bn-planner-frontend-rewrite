@@ -91,13 +91,13 @@ function BeatmapTableRowGamemodeIcon({beatmapId, gamemodes}: BeatmapTableRowGame
         {gamemodes.sort(sortByGamemode).map(gamemode => {
           let gamemodeText = <></>
 
-          if (gamemode == Gamemode.Osu) {
+          if (gamemode === Gamemode.Osu) {
             gamemodeText = <OsuLogo/>
-          } else if (gamemode == Gamemode.Taiko) {
+          } else if (gamemode === Gamemode.Taiko) {
             gamemodeText = <TaikoLogo/>
-          } else if (gamemode == Gamemode.Catch) {
+          } else if (gamemode === Gamemode.Catch) {
             gamemodeText = <CatchLogo/>
-          } else if (gamemode == Gamemode.Mania) {
+          } else if (gamemode === Gamemode.Mania) {
             gamemodeText = <ManiaLogo/>
           }
           return (
@@ -120,7 +120,7 @@ interface BeatmapTableRowNominatorsProps {
 }
 
 function BeatmapTableRowNominators(props: BeatmapTableRowNominatorsProps) {
-  if (props.gamemodes.length == 1) {
+  if (props.gamemodes.length === 1) {
     let gamemode = props.gamemodes[0]
     let nominatorOne = gamemode.nominators[0]
     let nominatorTwo = gamemode.nominators[1]

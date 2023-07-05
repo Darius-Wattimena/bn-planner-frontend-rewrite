@@ -261,15 +261,15 @@ function BeatmapDetailsNominators(
       <div className={"beatmap-modes"}>
         {beatmapGamemodes.concat(missingGamemodes).sort(sortByBeatmapGamemode).map(beatmapGamemode => {
           let gamemodeText = <></>
-          let isSelectedMode = showingGamemode.gamemode == beatmapGamemode.gamemode
+          let isSelectedMode = showingGamemode?.gamemode === beatmapGamemode.gamemode
 
-          if (beatmapGamemode.gamemode == Gamemode.Osu) {
+          if (beatmapGamemode.gamemode === Gamemode.Osu) {
             gamemodeText = <OsuLogo/>
-          } else if (beatmapGamemode.gamemode == Gamemode.Taiko) {
+          } else if (beatmapGamemode.gamemode === Gamemode.Taiko) {
             gamemodeText = <TaikoLogo/>
-          } else if (beatmapGamemode.gamemode == Gamemode.Catch) {
+          } else if (beatmapGamemode.gamemode === Gamemode.Catch) {
             gamemodeText = <CatchLogo/>
-          } else if (beatmapGamemode.gamemode == Gamemode.Mania) {
+          } else if (beatmapGamemode.gamemode === Gamemode.Mania) {
             gamemodeText = <ManiaLogo/>
           }
 
