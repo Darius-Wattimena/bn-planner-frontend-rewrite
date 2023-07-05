@@ -3,5 +3,34 @@
 body .ReactModal__Overlay {
   .ReactModal__Content.add-beatmap-modal {
     width: 400px;
+
+    .beatmap-gamemodes {
+      padding: $padding-small;
+
+      .gamemodes {
+        display: flex;
+
+        .gamemode {
+          &:first-child {
+            padding-left: unset;
+          }
+
+          padding: $padding-smallest;
+
+          svg {
+            width: 40px;
+            height: 40px;
+            fill: $color-secondary;
+          }
+
+          &.active {
+            svg {
+              fill: $color-confirmed;
+            }
+          }
+        }
+      }
+    }
+
   }
 }

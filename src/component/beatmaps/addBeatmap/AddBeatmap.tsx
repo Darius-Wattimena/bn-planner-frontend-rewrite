@@ -1,8 +1,13 @@
 import React, {useState} from "react";
 import {ImCross, ImPlus} from "react-icons/im";
 import useAxios from "axios-hooks";
-import {Beatmap} from "../../../models/Types";
+import {Beatmap, Gamemode} from "../../../models/Types";
 import Api from "../../../resources/Api";
+import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
+import {cloneDeep} from "lodash";
 
 const beatmapUrlRegex = /https:\/\/(?:old|osu)(?:\.ppy\.sh\/s|\.ppy\.sh\/beatmapsets)\/(?<id>[0-9]+)/
 
@@ -14,12 +19,13 @@ interface AddBeatmapProps {
 function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
   const [incorrectUrl, setIncorrectUrl] = useState(false)
   const [value, setValue] = useState("")
+  const [gamemodes, setGamemodes] = useState<Gamemode[]>([])
   const [, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onAddBeatmap() {
     let result = validateUrl()
     if (result) {
-      execute(Api.addBeatmap(result)).then(() => {
+      execute(Api.addBeatmap(result, gamemodes)).then(() => {
         setIncorrectUrl(false)
         setOpenAddBeatmap(false)
         setOpenBeatmapId(Number(result))
@@ -45,6 +51,20 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
     return undefined
   }
 
+  function toggleGamemode(gamemode: Gamemode) {
+    let newGamemodes = cloneDeep(gamemodes)
+
+    if (gamemodes.includes(gamemode)) {
+      // Removal
+      newGamemodes.splice(newGamemodes.indexOf(gamemode), 1)
+    } else {
+      // Addition
+      newGamemodes.push(gamemode)
+    }
+
+    setGamemodes(newGamemodes)
+  }
+
   return (
     <div className="modal-container">
       <div className={"sub-container"}>
@@ -63,6 +83,23 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
                 setValue(event.target.value)
               }}
             />
+          </div>
+          <div className={"beatmap-gamemodes"}>
+            Enabled Gamemodes
+            <div className={"gamemodes"}>
+              <div className={"gamemode" + (gamemodes.includes(Gamemode.Osu) ? " active" : "")}>
+                <OsuLogo onClick={() => toggleGamemode(Gamemode.Osu)} />
+              </div>
+              <div className={"gamemode" + (gamemodes.includes(Gamemode.Taiko) ? " active" : "")}>
+                <TaikoLogo onClick={() => toggleGamemode(Gamemode.Taiko)} />
+              </div>
+              <div className={"gamemode" + (gamemodes.includes(Gamemode.Catch) ? " active" : "")}>
+                <CatchLogo onClick={() => toggleGamemode(Gamemode.Catch)} />
+              </div>
+              <div className={"gamemode" + (gamemodes.includes(Gamemode.Mania) ? " active" : "")}>
+                <ManiaLogo onClick={() => toggleGamemode(Gamemode.Mania)} />
+              </div>
+            </div>
           </div>
           {incorrectUrl &&
           <div className={"message-container"}>
