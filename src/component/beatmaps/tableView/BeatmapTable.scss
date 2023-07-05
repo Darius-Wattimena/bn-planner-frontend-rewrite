@@ -196,6 +196,7 @@ table {
     border-radius: 3px;
     padding: 1px $padding-smallest;
     margin: 1px $padding-small;
+    min-width: fit-content;
   }
 }
 
