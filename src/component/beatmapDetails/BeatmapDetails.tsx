@@ -15,6 +15,7 @@ import {sortByBeatmapGamemode} from "../beatmaps/tableView/BeatmapTableRow";
 interface BeatmapDetailsProps {
   userContext: UserContext | undefined
   beatmap: Beatmap
+  changingGamemode: Gamemode | undefined
   setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
@@ -29,6 +30,7 @@ function BeatmapDetails(
   {
     userContext,
     beatmap,
+    changingGamemode,
     setBeatmap,
     setOpenBeatmapId,
     setOpenUserSearcher,
@@ -56,6 +58,7 @@ function BeatmapDetails(
             </div>
             <BeatmapDetailsNominators
               beatmap={beatmap}
+              changingGamemode={changingGamemode}
               setOpenUserSearcher={setOpenUserSearcher}
               setChangingGamemode={setChangingGamemode}
               setChangingUser={setChangingUser}
@@ -200,6 +203,7 @@ function ChangeBeatmapStatusButton(
 
 interface BeatmapDetailsNominatorsProps {
   beatmap: Beatmap
+  changingGamemode: Gamemode | undefined
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -209,13 +213,13 @@ interface BeatmapDetailsNominatorsProps {
 function BeatmapDetailsNominators(
   {
     beatmap,
+    changingGamemode,
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
     onDeleteNominator
   }: BeatmapDetailsNominatorsProps) {
-  const sortedGamemodes = beatmap.gamemodes.sort(sortByBeatmapGamemode)
-  const [showingGamemode, setShowingGamemode] = useState(sortedGamemodes[0])
+  const [showingGamemode, setShowingGamemode] = useState(beatmap.gamemodes.find(it => it.gamemode === changingGamemode))
   let beatmapGamemodes = beatmap.gamemodes
   let missingGamemodes = getMissingGamemodes(beatmapGamemodes)
 
@@ -284,16 +288,16 @@ function BeatmapDetailsNominators(
           )
         })}
       </div>
-      {showingGamemode.nominators.map((gamemodeNominator, index) =>
+      {showingGamemode?.nominators.map((gamemodeNominator, index) =>
         <BeatmapDetailsUser
-          key={`${showingGamemode.gamemode}-${index}`}
+          key={`${showingGamemode?.gamemode}-${index}`}
           user={gamemodeNominator.nominator}
           hasNominated={gamemodeNominator.hasNominated}
           editable={!gamemodeNominator.hasNominated}
           deletable={!gamemodeNominator.hasNominated}
           nominator={index + 1}
           setOpenUserSearcher={setOpenUserSearcher}
-          gamemode={showingGamemode.gamemode}
+          gamemode={showingGamemode?.gamemode}
           setChangingGamemode={setChangingGamemode}
           setChangingUser={setChangingUser}
           onDeleteNominator={onDeleteNominator}
