@@ -299,6 +299,15 @@ button, a.button {
   }
 }
 
+input[type="text"] {
+  padding: $padding-small $padding;
+  margin: $padding-small 0;
+  display: inline-block;
+  border: 1px solid $color-secondary;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 input[type="checkbox"] {
   cursor: pointer;
   -webkit-appearance: none;

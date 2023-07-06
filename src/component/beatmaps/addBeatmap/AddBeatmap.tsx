@@ -18,20 +18,23 @@ interface AddBeatmapProps {
 
 function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
   const [incorrectUrl, setIncorrectUrl] = useState(false)
+  const [missingGamemodes, setMissingGamemodes] = useState(false)
   const [value, setValue] = useState("")
   const [gamemodes, setGamemodes] = useState<Gamemode[]>([])
   const [, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onAddBeatmap() {
     let result = validateUrl()
+    if (gamemodes.length === 0) {
+      setMissingGamemodes(true)
+      return
+    }
+
     if (result) {
       execute(Api.addBeatmap(result, gamemodes)).then(() => {
-        setIncorrectUrl(false)
         setOpenAddBeatmap(false)
         setOpenBeatmapId(Number(result))
       })
-    } else {
-      setIncorrectUrl(true)
     }
   }
 
@@ -43,6 +46,7 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
       let result = match.groups.id
 
       if (result) {
+        setIncorrectUrl(false)
         return result
       }
     }
@@ -77,6 +81,7 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
               Beatmap URL
             </label>
             <input
+              type={"text"}
               id={"add-beatmap"}
               value={value?.toString()}
               onChange={event => {
@@ -84,6 +89,16 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
               }}
             />
           </div>
+          {incorrectUrl &&
+            <div className={"message-container"}>
+              <div className={"message error-message"}>
+                <div className={"header"}>The provided beatmap url is not correct</div>
+                <div className={"content"}>
+                  A beatmap url should either start with: 'https://osu.ppy.sh/beatmapsets/' or 'https://old.ppy.sh/s/' and then followed by the beatmap set id to be counted as a valid url
+                </div>
+              </div>
+            </div>
+          }
           <div className={"beatmap-gamemodes"}>
             Enabled Gamemodes
             <div className={"gamemodes"}>
@@ -101,15 +116,15 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
               </div>
             </div>
           </div>
-          {incorrectUrl &&
-          <div className={"message-container"}>
-            <div className={"message error-message"}>
-              <div className={"header"}>The provided beatmap url is not correct</div>
-              <div className={"content"}>
-                A beatmap url should either start with: 'https://osu.ppy.sh/beatmapsets/' or 'https://old.ppy.sh/s/' and then followed by the beatmap set id to be counted as a valid url
+          {missingGamemodes &&
+            <div className={"message-container"}>
+              <div className={"message error-message"}>
+                <div className={"header"}>Missing gamemode</div>
+                <div className={"content"}>
+                  At least one gamemode must be selected when adding a beatmap
+                </div>
               </div>
             </div>
-          </div>
           }
         </div>
       </div>

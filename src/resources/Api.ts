@@ -1,8 +1,8 @@
 import {
   BeatmapFilter,
+  BeatmapStatus,
   Gamemode,
   NewBeatmap,
-  BeatmapStatus,
   PageLimit,
   UserContext,
   UserSearchFilter
