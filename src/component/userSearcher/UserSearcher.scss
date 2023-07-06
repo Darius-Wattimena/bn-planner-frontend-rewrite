@@ -174,15 +174,35 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
           }
 
           .user-searcher-user-name {
-            display: flex;
-
-
+            margin-bottom: $padding-smallest;
           }
 
-          .user-searcher-user-role {
-            border-radius: 5px;
-            width: fit-content;
-            padding: 0 $padding-smallest;
+          .user-searcher-user-roles {
+            display: flex;
+
+            .user-searcher-user-role {
+              border-radius: 5px;
+              width: fit-content;
+              padding: 2px $padding-smallest;
+              display: flex;
+              align-items: center;
+              margin-right: $padding-smallest;
+
+              .user-searcher-user-role-icons {
+                display: flex;
+                align-items: center;
+                margin-left: $padding-smallest;
+
+                .user-searcher-user-role-icon {
+                  margin: 0 1px;
+                  width: 20px;
+                  height: 20px;
+                  svg {
+                    fill: $color-text;
+                  }
+                }
+              }
+            }
           }
         }
       }
