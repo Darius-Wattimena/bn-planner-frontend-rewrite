@@ -1,7 +1,7 @@
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Beatmap, BeatmapGamemode, BeatmapNominator, BeatmapStatus, Gamemode, UserContext} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
@@ -220,6 +220,15 @@ function BeatmapDetailsNominators(
     onDeleteNominator
   }: BeatmapDetailsNominatorsProps) {
   const [showingGamemode, setShowingGamemode] = useState(beatmap.gamemodes.find(it => it.gamemode === changingGamemode))
+
+  useEffect(() => {
+    if (beatmap.gamemodes.length > 0 && changingGamemode) {
+      let relevantGamemode = beatmap.gamemodes.find(it => it.gamemode === changingGamemode)
+      setShowingGamemode(relevantGamemode)
+    }
+  }, [beatmap, changingGamemode])
+
+
   let beatmapGamemodes = beatmap.gamemodes
   let missingGamemodes = getMissingGamemodes(beatmapGamemodes)
 
