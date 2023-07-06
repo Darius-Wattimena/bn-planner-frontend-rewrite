@@ -219,7 +219,7 @@ function BeatmapDetailsNominators(
     setChangingUser,
     onDeleteNominator
   }: BeatmapDetailsNominatorsProps) {
-  const [showingGamemode, setShowingGamemode] = useState(beatmap.gamemodes.find(it => it.gamemode === changingGamemode))
+  const [showingGamemode, setShowingGamemode] = useState<BeatmapGamemode>()
 
   useEffect(() => {
     if (beatmap.gamemodes.length > 0 && changingGamemode) {
