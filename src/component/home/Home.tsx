@@ -14,7 +14,6 @@ function Home({userContext}: HomeProps) {
   const location = useLocation()
 
   useEffect(() => {
-    console.log({ location })
     if (location.state as boolean) {
       const state = location.state as boolean
 
