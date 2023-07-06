@@ -1,15 +1,21 @@
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
 import {ImBin2, ImCross} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
-import React, {useState} from "react";
-import {Beatmap, Gamemode, BeatmapStatus, UserContext} from "../../models/Types";
+import React, {useEffect, useState} from "react";
+import {Beatmap, BeatmapGamemode, BeatmapNominator, BeatmapStatus, Gamemode, UserContext} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
 import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
+import {ReactComponent as OsuLogo} from "../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../assets/mania.svg";
+import {sortByBeatmapGamemode} from "../beatmaps/tableView/BeatmapTableRow";
 
 interface BeatmapDetailsProps {
   userContext: UserContext | undefined
   beatmap: Beatmap
+  changingGamemode: Gamemode | undefined
   setBeatmap: React.Dispatch<React.SetStateAction<Beatmap | undefined>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
@@ -24,6 +30,7 @@ function BeatmapDetails(
   {
     userContext,
     beatmap,
+    changingGamemode,
     setBeatmap,
     setOpenBeatmapId,
     setOpenUserSearcher,
@@ -51,6 +58,7 @@ function BeatmapDetails(
             </div>
             <BeatmapDetailsNominators
               beatmap={beatmap}
+              changingGamemode={changingGamemode}
               setOpenUserSearcher={setOpenUserSearcher}
               setChangingGamemode={setChangingGamemode}
               setChangingUser={setChangingUser}
@@ -195,6 +203,7 @@ function ChangeBeatmapStatusButton(
 
 interface BeatmapDetailsNominatorsProps {
   beatmap: Beatmap
+  changingGamemode: Gamemode | undefined
   setOpenUserSearcher: React.Dispatch<React.SetStateAction<boolean>>
   setChangingGamemode: React.Dispatch<React.SetStateAction<Gamemode | undefined>>
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
@@ -204,29 +213,104 @@ interface BeatmapDetailsNominatorsProps {
 function BeatmapDetailsNominators(
   {
     beatmap,
+    changingGamemode,
     setOpenUserSearcher,
     setChangingGamemode,
     setChangingUser,
     onDeleteNominator
   }: BeatmapDetailsNominatorsProps) {
+  const [showingGamemode, setShowingGamemode] = useState<BeatmapGamemode>()
+
+  useEffect(() => {
+    if (beatmap.gamemodes.length > 0 && changingGamemode) {
+      let relevantGamemode = beatmap.gamemodes.find(it => it.gamemode === changingGamemode)
+      setShowingGamemode(relevantGamemode)
+    }
+  }, [beatmap, changingGamemode])
+
+
+  let beatmapGamemodes = beatmap.gamemodes
+  let missingGamemodes = getMissingGamemodes(beatmapGamemodes)
+
+  function getMissingGamemodes(beatmapGamemodes: BeatmapGamemode[]) {
+    let gamemodes = beatmapGamemodes.map(it => it.gamemode)
+    let missingGamemodes = []
+
+    if (!gamemodes.includes(Gamemode.Osu)) {
+      missingGamemodes.push(createMissingGamemode(Gamemode.Osu))
+    }
+    if (!gamemodes.includes(Gamemode.Taiko)) {
+      missingGamemodes.push(createMissingGamemode(Gamemode.Taiko))
+    }
+    if (!gamemodes.includes(Gamemode.Catch)) {
+      missingGamemodes.push(createMissingGamemode(Gamemode.Catch))
+    }
+    if (!gamemodes.includes(Gamemode.Mania)) {
+      missingGamemodes.push(createMissingGamemode(Gamemode.Mania))
+    }
+
+    return missingGamemodes
+  }
+
+  function createMissingGamemode(gamemode: Gamemode) {
+    let missingNominator = {
+      nominator: {
+        osuId: "0",
+        username: "None",
+        gamemodes: []
+      },
+      hasNominated: false
+    } as BeatmapNominator
+
+    return {
+      gamemode: gamemode,
+      nominators: [missingNominator, missingNominator],
+      isReady: false
+    } as BeatmapGamemode
+  }
+
   return (
     <div>
-      {beatmap.gamemodes.map((gamemode, gamemodeIndex) =>
-        gamemode.nominators.map((gamemodeNominator, index) =>
-          <BeatmapDetailsUser
-            key={`${gamemodeIndex}-${index}`}
-            user={gamemodeNominator.nominator}
-            hasNominated={gamemodeNominator.hasNominated}
-            editable={!gamemodeNominator.hasNominated}
-            deletable={!gamemodeNominator.hasNominated}
-            nominator={index + 1}
-            setOpenUserSearcher={setOpenUserSearcher}
-            gamemode={gamemode.gamemode}
-            setChangingGamemode={setChangingGamemode}
-            setChangingUser={setChangingUser}
-            onDeleteNominator={onDeleteNominator}
-          />
-        )
+      <div className={"beatmap-modes"}>
+        {beatmapGamemodes.concat(missingGamemodes).sort(sortByBeatmapGamemode).map(beatmapGamemode => {
+          let gamemodeText = <></>
+          let isSelectedMode = showingGamemode?.gamemode === beatmapGamemode.gamemode
+
+          if (beatmapGamemode.gamemode === Gamemode.Osu) {
+            gamemodeText = <OsuLogo/>
+          } else if (beatmapGamemode.gamemode === Gamemode.Taiko) {
+            gamemodeText = <TaikoLogo/>
+          } else if (beatmapGamemode.gamemode === Gamemode.Catch) {
+            gamemodeText = <CatchLogo/>
+          } else if (beatmapGamemode.gamemode === Gamemode.Mania) {
+            gamemodeText = <ManiaLogo/>
+          }
+
+          return (
+            <div
+              key={`beatmap-details-gamemode-${beatmapGamemode.gamemode}`}
+              className={"beatmap-mode-icon" + (isSelectedMode ? " active" : "")}
+              onClick={() => setShowingGamemode(beatmapGamemode)}
+            >
+              {gamemodeText}
+            </div>
+          )
+        })}
+      </div>
+      {showingGamemode?.nominators.map((gamemodeNominator, index) =>
+        <BeatmapDetailsUser
+          key={`${showingGamemode?.gamemode}-${index}`}
+          user={gamemodeNominator.nominator}
+          hasNominated={gamemodeNominator.hasNominated}
+          editable={!gamemodeNominator.hasNominated}
+          deletable={!gamemodeNominator.hasNominated}
+          nominator={index + 1}
+          setOpenUserSearcher={setOpenUserSearcher}
+          gamemode={showingGamemode?.gamemode}
+          setChangingGamemode={setChangingGamemode}
+          setChangingUser={setChangingUser}
+          onDeleteNominator={onDeleteNominator}
+        />
       )}
     </div>
   )

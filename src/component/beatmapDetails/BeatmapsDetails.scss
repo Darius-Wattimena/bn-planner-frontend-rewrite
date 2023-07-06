@@ -36,6 +36,29 @@ body .ReactModal__Overlay {
         grid-gap: 10px;
         width: 100%;
 
+        .beatmap-nominators-container {
+          .beatmap-modes {
+            display: flex;
+            justify-content: space-evenly;
+
+            .beatmap-mode-icon {
+              padding: $padding-small;
+              width: 40px;
+              height: 40px;
+
+              svg {
+                fill: $color-secondary;
+              }
+
+              &.active, &:hover {
+                svg {
+                  fill: $color-text;
+                }
+              }
+            }
+          }
+        }
+
         .beatmap-mapper-container, .beatmap-nominators-container {
           .beatmap-user {
             display: flex;
@@ -160,8 +183,8 @@ body .ReactModal__Overlay {
 
               &.beatmap-status {
                 .beatmap-status-label {
-                  border-radius: 3px;
                   padding: 1px $padding-small;
+                  margin: unset;
                 }
               }
 

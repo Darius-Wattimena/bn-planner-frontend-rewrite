@@ -1,21 +1,39 @@
 import React from "react";
-import {User} from "../../../models/Types";
+import {Gamemode, User} from "../../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
+import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
 
 interface BeatmapTableUserProps {
   user: User
   nominated: boolean
+  rowSpan?: number
+  gamemode?: Gamemode
 }
 
-function BeatmapTableUser({user, nominated}: BeatmapTableUserProps) {
-  let name = user.username
-  let profilePictureUri = getProfilePictureUri(user.osuId)
+function BeatmapTableUser(props: BeatmapTableUserProps) {
+  let name = props.user.username
+  let profilePictureUri = getProfilePictureUri(props.user.osuId)
 
   let hasNominatedClass = "";
-  let nominatorRole = getUserRole(user)
+  let nominatorRole = getUserRole(props.user)
 
-  if (nominated) {
+  if (props.nominated) {
     hasNominatedClass = "nominated"
+  }
+
+  let gamemodeText = <></>
+
+  if (props.gamemode === Gamemode.Osu) {
+    gamemodeText = <OsuLogo/>
+  } else if (props.gamemode === Gamemode.Taiko) {
+    gamemodeText = <TaikoLogo/>
+  } else if (props.gamemode === Gamemode.Catch) {
+    gamemodeText = <CatchLogo/>
+  } else if (props.gamemode === Gamemode.Mania) {
+    gamemodeText = <ManiaLogo/>
   }
 
   return (
@@ -27,6 +45,7 @@ function BeatmapTableUser({user, nominated}: BeatmapTableUserProps) {
         <div className={"beatmap-nominator-text"}>
           {name}
         </div>
+        {gamemodeText}
       </div>
     </td>
   )

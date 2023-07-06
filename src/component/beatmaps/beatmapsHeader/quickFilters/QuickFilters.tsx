@@ -101,7 +101,6 @@ function QuickFilter({ filter, onClick, beatmapFilter, setBeatmapFilter, setBeat
   function onRemove() {
     let beatmapFilterCopy = cloneDeep(beatmapFilter)
     let newBeatmapFilter = filter.onRemove(filter.value, beatmapFilterCopy)
-    console.log({newBeatmapFilter})
     setBeatmapFilter(newBeatmapFilter)
     setBeatmapQueryFilter(newBeatmapFilter)
     onClick()

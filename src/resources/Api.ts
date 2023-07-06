@@ -1,8 +1,8 @@
 import {
   BeatmapFilter,
+  BeatmapStatus,
   Gamemode,
   NewBeatmap,
-  BeatmapStatus,
   PageLimit,
   UserContext,
   UserSearchFilter
@@ -63,14 +63,14 @@ const Api = {
       data: refreshToken
     }
   },
-  addBeatmap: (beatmapId: string): AxiosRequestConfig<NewBeatmap> => {
+  addBeatmap: (beatmapId: string, gamemodes: Gamemode[]): AxiosRequestConfig<NewBeatmap> => {
     return {
       method: 'POST',
       headers: getAuthHeader(),
       url: `/v2/beatmap/add`,
       data: {
         osuId: beatmapId,
-        gamemodes: [Gamemode.Catch]
+        gamemodes: gamemodes
       }
     }
   },

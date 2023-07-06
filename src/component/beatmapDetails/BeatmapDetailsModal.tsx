@@ -45,6 +45,18 @@ function BeatmapDetailsModal(
   }
 
   useEffect(() => {
+    if (beatmap) {
+      let isInitialLoad = data === undefined
+
+      // Set the changingGamemode when can't find it anymore, meaning it has been removed from the mapset
+      // Or on the first load to ensure one is selected
+      if (isInitialLoad || (!isInitialLoad && !beatmap.gamemodes.find(it => it.gamemode === changingGamemode))) {
+        setChangingGamemode(beatmap.gamemodes[0].gamemode)
+      }
+    }
+  }, [beatmap])
+
+  useEffect(() => {
     setBeatmap(data)
   }, [data])
 
@@ -64,6 +76,7 @@ function BeatmapDetailsModal(
           key={key}
           userContext={userContext}
           beatmap={beatmap}
+          changingGamemode={changingGamemode}
           setBeatmap={setBeatmap}
           setOpenBeatmapId={setOpenBeatmapId}
           setOpenUserSearcher={setOpenUserSearcher}
@@ -82,11 +95,11 @@ function BeatmapDetailsModal(
             currentUser={userContext?.user}
             openUserSearcher={openUserSearcher}
             setOpenUserSearcher={setOpenUserSearcher}
-            setBeatmap={setBeatmap}
             beatmapGamemodes={beatmap.gamemodes}
             changingGamemode={changingGamemode}
             changingUserId={changingUser}
             beatmapId={beatmap.osuId}
+            execute={execute}
           />
           <DeleteBeatmapModal
             beatmap={beatmap}

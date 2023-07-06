@@ -1,7 +1,12 @@
 import React, {useState} from "react";
-import {BeatmapFilter, BeatmapGamemode, Gamemode, User} from "../../models/Types";
-import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
+import {BeatmapFilter, BeatmapGamemode, Gamemode, User, UserGamemode} from "../../models/Types";
+import {getFrontendRole, getProfilePictureUri} from "../../utils/UserUtils";
 import {ImCheckmark, ImMinus, ImPlus} from "react-icons/im";
+import {ReactComponent as OsuLogo} from "../../assets/osu.svg";
+import {ReactComponent as TaikoLogo} from "../../assets/taiko.svg";
+import {ReactComponent as CatchLogo} from "../../assets/catch.svg";
+import {ReactComponent as ManiaLogo} from "../../assets/mania.svg";
+import {Dictionary, groupBy} from "lodash";
 
 interface UserSearcherListProps {
   data: User[] | undefined
@@ -26,10 +31,13 @@ function UserSearcherList(
   const [userSelected, setUserSelected] = useState(false)
 
   function isAlreadySelected(user: User) {
-    if (beatmapGamemodes !== undefined) {
-      return !beatmapGamemodes.find(gamemode =>
-        !gamemode.nominators.find(nominator => nominator.nominator.osuId === user.osuId)
-      )
+    if (beatmapGamemodes && changingGamemode) {
+      let changingBeatmapGamemode = beatmapGamemodes.find(it => it.gamemode === changingGamemode)
+      let gamemodeUser = changingBeatmapGamemode?.nominators.find(nominator => nominator.nominator.osuId === user.osuId)
+
+      if (gamemodeUser) {
+        return true
+      }
     } else if (beatmapFilter !== undefined) {
       const nominators = beatmapFilter["nominators"]
 
@@ -84,8 +92,41 @@ function UserSearcherUser(
   }: UserSearcherUserProps) {
 
   const profilePictureUri = getProfilePictureUri(user.osuId)
-  const roleDetails = getUserRole(user)
+  const proficientGamemodes: Dictionary<UserGamemode[]> = groupBy(user.gamemodes, it => it.role)
   const canNominateGamemode = changingGamemode ? user.gamemodes.find(it => it.gamemode === changingGamemode) !== undefined : true
+
+  let preparedGamemodes: JSX.Element[] = []
+  for (const [role, gamemodes] of Object.entries(proficientGamemodes)) {
+    const roleDetails = getFrontendRole(role as "Mapper" | "Nominator" | "Probation" | "NominationAssessment")
+
+    let icons = (
+      <div className={`user-searcher-user-role ${roleDetails.className}`}>
+        <div className={"user-searcher-user-role-name"}>{roleDetails.short}</div>
+        <div className={"user-searcher-user-role-icons"}>
+          {gamemodes.map(beatmapGamemode => {
+            let gamemodeLogo = <></>
+            if (beatmapGamemode.gamemode === Gamemode.Osu) {
+              gamemodeLogo = <OsuLogo/>
+            } else if (beatmapGamemode.gamemode === Gamemode.Taiko) {
+              gamemodeLogo = <TaikoLogo/>
+            } else if (beatmapGamemode.gamemode === Gamemode.Catch) {
+              gamemodeLogo = <CatchLogo/>
+            } else if (beatmapGamemode.gamemode === Gamemode.Mania) {
+              gamemodeLogo = <ManiaLogo/>
+            }
+
+            return (
+              <div className={"user-searcher-user-role-icon"}>
+                {gamemodeLogo}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+
+    preparedGamemodes.push(icons)
+  }
 
   return (
     <div className={`user-searcher-user ${alreadySelected ? "already-nominator" : ""}`}>
@@ -96,8 +137,8 @@ function UserSearcherUser(
         <div className={"user-searcher-user-name"}>
           {user.username}
         </div>
-        <div className={`user-searcher-user-role ${roleDetails.className}`}>
-          {roleDetails.short}
+        <div className={"user-searcher-user-roles"}>
+          {preparedGamemodes}
         </div>
       </div>
       <div className={"user-searcher-user-actions"}>

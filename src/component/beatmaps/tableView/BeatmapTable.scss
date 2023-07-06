@@ -96,6 +96,10 @@ table {
       width: 2.5%;
     }
 
+    &.beatmap-table-mode-header {
+      width: 5%;
+    }
+
     &.beatmap-table-actions-header {
       width: 11%;
     }
@@ -103,7 +107,6 @@ table {
 
   th, td {
     text-align: center;
-    max-height: $row-height;
   }
 }
 
@@ -111,93 +114,128 @@ table {
   width: 100%;
 }
 
-.beatmap-table-row {
-  .beatmap-text-cell {
-    .beatmap-text {
-      font-size: $font-size;
+.beatmap-text-cell {
+  .beatmap-text {
+    font-size: $font-size;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.beatmap-mode-icon .beatmap-mode-icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .beatmap-mode-icon-item-wrapper {
+    margin: $padding-smallest 0;
+    width: 40px;
+    height: 40px;
+
+    svg {
       width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      height: 100%;
+      fill: $color-text;
+      margin-left: auto;
     }
   }
+}
 
-  .beatmap-table-user {
-    &.nominated .beatmap-nominator-container {
-      box-shadow: 0 0 5px 1px $status-qualified-colour;
-    }
+.beatmap-table-user {
+  &.nominated .beatmap-nominator-container {
+    box-shadow: 0 0 5px 1px $status-qualified-colour;
+  }
+
+  &.beatmap-table-user-multiple {
+    padding: $padding-smallest 0;
 
     .beatmap-nominator-container {
-      width: 80%;
-      display: flex;
-      align-items: center;
-      padding: $padding-smallest;
-      margin: 0 auto;
-      border-radius: 25px;
-
-      .beatmap-nominator-picture {
-        background-size: cover;
-        width: 30px;
-        height: 30px;
-        border-radius: 25px;
-      }
-
-      .beatmap-nominator-text {
-        text-align: left;
-        margin-left: $padding-smallest;
-        font-size: $font-size;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        width: fit-content;
-      }
+      justify-content: center;
     }
   }
 
-  .beatmap-status {
-    .beatmap-status-label {
-      border-radius: 3px;
-      margin: 1px $padding-small;
-    }
-  }
-
-  .beatmap-banner-container {
-    padding: 0;
-    //min-width: 150px;
-    height: $row-height;
-
-    .beatmap-banner {
-      width: 100%;
-      margin: $padding-smallest;
-      background-size: cover;
-      background-position: center;
-      height: $row-height;
-    }
-  }
-
-  .beatmap-table-note {
-    width: 100%;
-
-    .beatmap-button {
-      padding: $padding-smallest;
-      width: fit-content;
-      height: fit-content;
-      margin: auto;
-      font-size: 1.2em;
-    }
-  }
-
-  .beatmap-table-actions {
-    width: 100%;
+  .beatmap-nominator-container {
+    height: $padding-large;
+    width: 80%;
     display: flex;
-    justify-content: center;
-    font-size: 1.2em;
+    align-items: center;
+    padding: $padding-smallest;
+    margin: 0 auto;
+    border-radius: 25px;
 
-    .beatmap-button {
-      padding: $padding-small;
-      width: fit-content;
-      margin: 0 $padding-smallest;
-      //width: 75%;
+    .beatmap-nominator-picture {
+      background-size: cover;
+      width: 30px;
+      height: 30px;
+      border-radius: 25px;
     }
+
+    .beatmap-nominator-text {
+      text-align: left;
+      margin-left: $padding-smallest;
+      font-size: $font-size;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $color-text;
+      margin-left: auto;
+    }
+  }
+}
+
+.beatmap-status {
+  .beatmap-status-label {
+    border-radius: 3px;
+    padding: 1px $padding-smallest;
+    margin: 1px $padding-small;
+    min-width: fit-content;
+  }
+}
+
+.beatmap-banner-container {
+  padding: 0;
+  //min-width: 150px;
+  height: $row-height;
+
+  .beatmap-banner {
+    width: 100%;
+    margin: $padding-smallest;
+    background-size: cover;
+    background-position: center;
+    height: $row-height;
+  }
+}
+
+.beatmap-table-note {
+  width: 100%;
+
+  .beatmap-button {
+    padding: $padding-smallest;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    font-size: 1.2em;
+  }
+}
+
+.beatmap-table-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2em;
+
+  .beatmap-button {
+    padding: $padding-small;
+    width: fit-content;
+    margin: 0 $padding-smallest;
+    //width: 75%;
   }
 }

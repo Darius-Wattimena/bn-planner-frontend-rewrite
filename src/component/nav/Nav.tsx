@@ -38,7 +38,7 @@ function Nav({userContext}: NavProps) {
                     Ranked
                   </div>
                 </NavLink>
-                {userContext.permission.osuRole == "NominationAssessment" &&
+                {userContext.permission.osuRole === "NominationAssessment" &&
                   <NavLink to="/admin" className={(navData) => navData.isActive ? "navbar-active" : ""}>
                     <div className={"navbar-item"}>
                       Admin

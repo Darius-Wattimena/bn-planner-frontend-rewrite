@@ -51,7 +51,7 @@ function SyncUsers() {
     const matches = value.matchAll(usersRegex)
     const result = Array.from(matches)
 
-    if (result.length == 0) {
+    if (result.length === 0) {
       setIncorrect(true)
       return undefined
     }
