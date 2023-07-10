@@ -168,6 +168,21 @@ const Api = {
       url: `/v2/user/fix?force=true`,
       data: userIds
     }
+  },
+  syncBeatmaps: (status?: BeatmapStatus): AxiosRequestConfig => {
+    let url
+
+    if (status) {
+      url = `/v2/admin/sync/beatmaps/pending?status=${status}`
+    } else {
+      url = `/v2/admin/sync/beatmaps/pending`
+    }
+
+    return {
+      method: 'POST',
+      headers: getAuthHeader(),
+      url: url,
+    }
   }
 }
 

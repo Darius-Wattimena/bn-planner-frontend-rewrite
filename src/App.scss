@@ -297,6 +297,14 @@ button, a.button {
   input {
     color: $color-text-dark;
   }
+
+  select {
+    color: $color-text-dark;
+
+    option {
+      color: $color-text-dark;
+    }
+  }
 }
 
 input[type="text"] {

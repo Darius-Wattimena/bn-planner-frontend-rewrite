@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Admin.scss"
-import {Beatmap, UserContext} from "../../models/Types";
+import {Beatmap, BeatmapStatus, UserContext} from "../../models/Types";
 import { useNavigate } from "react-router-dom";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
 import useAxios from "axios-hooks";
@@ -36,6 +36,59 @@ function AdminPanel() {
   return (
     <div className="panel">
       <SyncUsers />
+      <hr />
+      <SyncBeatmaps />
+    </div>
+  )
+}
+
+function SyncBeatmaps() {
+  const [syncing, setSyncing] = useState(false)
+  const [status, setStatus] = useState<BeatmapStatus>()
+  const [, execute] = useAxios("", {manual: true})
+
+  function onSyncBeatmaps() {
+    setSyncing(true)
+    execute(Api.syncBeatmaps(status)).then(() => {
+      setSyncing(false)
+    })
+  }
+
+  return (
+    <div className="panel-item">
+      <h4>Sync Beatmaps</h4>
+      <p>Force sync all beatmaps of the pending page, this will search them up via the osuV2 api. <b>When no status is selected it will sync all beatmaps regardless of status (which can take quite long).</b></p>
+
+      {syncing &&
+        <p>Syncing beatmaps, this can take a while depending if a status has been chosen.</p>
+      }
+
+      <div className={"textbox"}>
+        <label htmlFor={"sync-beatmaps"}>
+          Beatmap Status
+        </label>
+        <select
+          id="sync-beatmaps"
+          value={status?.toString()}
+          disabled={syncing}
+          onChange={event => {
+            setStatus(event.target.value as BeatmapStatus)
+          }}
+        >
+          <option value="">All Beatmaps</option>
+          <option value="Qualified">Qualified</option>
+          <option value="Nominated">Nominated</option>
+          <option value="Disqualified">Disqualified</option>
+          <option value="Reset">Reset</option>
+          <option value="Pending">Pending</option>
+          <option value="Unfinished">Unfinished</option>
+        </select>
+      </div>
+      <button disabled={syncing} onClick={() => {
+        onSyncBeatmaps()
+      }} className={"button button-submit button-text"}>
+        <ImPlus/> Sync Beatmaps
+      </button>
     </div>
   )
 }

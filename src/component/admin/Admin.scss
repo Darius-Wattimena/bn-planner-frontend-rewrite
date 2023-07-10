@@ -20,5 +20,16 @@
 
   .panel-item {
     padding: $padding-small 0;
+
+    .textbox {
+      input, select {
+        width: 100%;
+        padding: $padding;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+    }
   }
 }
