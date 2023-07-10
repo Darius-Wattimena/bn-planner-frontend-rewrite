@@ -4,7 +4,7 @@ import {BeatmapStatus, SyncInfo, UserContext} from "../../models/Types";
 import {useNavigate} from "react-router-dom";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import {ImMap, ImMap2, ImPlus, ImPowerCord} from "react-icons/im";
+import {ImMap, ImPlus} from "react-icons/im";
 
 interface HomeProps {
   userContext: UserContext | undefined
@@ -142,7 +142,7 @@ function SyncUsers() {
     let result = validateUsers()
     if (result) {
       setSyncing(true)
-      execute(Api.fixUsers(result)).then(it => {
+      execute(Api.syncUsers(result)).then(it => {
         setResult(it.data)
         setIncorrect(false)
         setSyncing(false)
