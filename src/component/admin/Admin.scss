@@ -14,6 +14,12 @@
   }
 }
 
+.button-group {
+  button {
+    margin-right: $padding-small;
+  }
+}
+
 .admin-page-content {
   margin: $padding-small 0;
   .panel {

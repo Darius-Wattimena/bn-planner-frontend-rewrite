@@ -117,3 +117,8 @@ export enum BeatmapStatus {
   Graved = "Graved",
   Unfinished = "Unfinished"
 }
+
+export interface SyncInfo {
+  duration: number
+  totalSynced: number
+}

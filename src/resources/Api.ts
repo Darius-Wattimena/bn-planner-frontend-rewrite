@@ -169,11 +169,11 @@ const Api = {
       data: userIds
     }
   },
-  syncBeatmaps: (status?: BeatmapStatus): AxiosRequestConfig => {
+  syncBeatmaps: (status?: BeatmapStatus[]): AxiosRequestConfig => {
     let url
 
     if (status) {
-      url = `/v2/admin/sync/beatmaps/pending?status=${status}`
+      url = `/v2/admin/sync/beatmaps/pending?status=${status.join()}`
     } else {
       url = `/v2/admin/sync/beatmaps/pending`
     }
