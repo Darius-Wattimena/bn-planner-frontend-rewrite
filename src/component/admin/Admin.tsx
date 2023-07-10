@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Admin.scss"
-import {Beatmap, BeatmapStatus, UserContext} from "../../models/Types";
-import { useNavigate } from "react-router-dom";
-import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
+import {BeatmapStatus, UserContext} from "../../models/Types";
+import {useNavigate} from "react-router-dom";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {ImPlus} from "react-icons/im";
@@ -44,7 +43,7 @@ function AdminPanel() {
 
 function SyncBeatmaps() {
   const [syncing, setSyncing] = useState(false)
-  const [status, setStatus] = useState<BeatmapStatus>()
+  const [status, setStatus] = useState<BeatmapStatus>(BeatmapStatus.Qualified)
   const [, execute] = useAxios("", {manual: true})
 
   function onSyncBeatmaps() {
@@ -63,32 +62,34 @@ function SyncBeatmaps() {
         <p>Syncing beatmaps, this can take a while depending if a status has been chosen.</p>
       }
 
-      <div className={"textbox"}>
-        <label htmlFor={"sync-beatmaps"}>
-          Beatmap Status
-        </label>
-        <select
-          id="sync-beatmaps"
-          value={status?.toString()}
-          disabled={syncing}
-          onChange={event => {
-            setStatus(event.target.value as BeatmapStatus)
-          }}
-        >
-          <option value="">All Beatmaps</option>
-          <option value="Qualified">Qualified</option>
-          <option value="Nominated">Nominated</option>
-          <option value="Disqualified">Disqualified</option>
-          <option value="Reset">Reset</option>
-          <option value="Pending">Pending</option>
-          <option value="Unfinished">Unfinished</option>
-        </select>
+      <div className={"textboxes"}>
+        <div className={"textbox"}>
+          <label htmlFor={"sync-beatmaps"}>
+            Beatmap Status
+          </label>
+          <select
+            id="sync-beatmaps"
+            value={status?.toString()}
+            disabled={syncing}
+            onChange={event => {
+              setStatus(event.target.value as BeatmapStatus)
+            }}
+          >
+            <option value="">All Pending Beatmaps. This takes a very long time!!!!</option>
+            <option value="Qualified">Qualified</option>
+            <option value="Nominated">Nominated</option>
+            <option value="Disqualified">Disqualified</option>
+            <option value="Reset">Reset</option>
+            <option value="Pending">Pending</option>
+            <option value="Unfinished">Unfinished</option>
+          </select>
+        </div>
+        <button disabled={syncing} onClick={() => {
+          onSyncBeatmaps()
+        }} className={"button button-submit button-text"}>
+          <ImPlus/> Sync Beatmaps
+        </button>
       </div>
-      <button disabled={syncing} onClick={() => {
-        onSyncBeatmaps()
-      }} className={"button button-submit button-text"}>
-        <ImPlus/> Sync Beatmaps
-      </button>
     </div>
   )
 }
@@ -135,25 +136,27 @@ function SyncUsers() {
         <p>Provided user ids were incorrect. Please provide them correctly!</p>
       }
 
-      <div className={"textbox"}>
-        <label htmlFor={"sync-users"}>
-          User Ids
-        </label>
-        <input
-          id={"sync-users"}
-          value={value?.toString()}
-          placeholder={"2369776,318565"}
-          onChange={event => {
-            setValue(event.target.value)
-          }}
-          disabled={syncing}
-        />
+      <div className={"textboxes"}>
+        <div className={"textbox"}>
+          <label htmlFor={"sync-users"}>
+            User Ids
+          </label>
+          <input
+            id={"sync-users"}
+            value={value?.toString()}
+            placeholder={"2369776,318565"}
+            onChange={event => {
+              setValue(event.target.value)
+            }}
+            disabled={syncing}
+          />
+        </div>
+        <button disabled={syncing} onClick={() => {
+          onSyncUsers()
+        }} className={"button button-submit button-text"}>
+          <ImPlus/> Sync Users
+        </button>
       </div>
-      <button disabled={syncing} onClick={() => {
-        onSyncUsers()
-      }} className={"button button-submit button-text"}>
-        <ImPlus/> Sync Users
-      </button>
     </div>
   )
 }

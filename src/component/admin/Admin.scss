@@ -14,21 +14,27 @@
   }
 }
 
-.panel {
-  border-radius: 3px;
-  margin: $padding-small;
+.admin-page-content {
+  margin: $padding-small 0;
+  .panel {
+    border-radius: 3px;
+    padding: $padding;
 
-  .panel-item {
-    padding: $padding-small 0;
+    hr {
+      margin: $padding 0;
+    }
 
-    .textbox {
-      input, select {
-        width: 100%;
-        padding: $padding;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
+    .panel-item {
+      padding: $padding-small 0;
+
+      .textbox {
+        input, select {
+          width: 100%;
+          padding: $padding;
+          border: 1px solid $color-secondary;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
       }
     }
   }
