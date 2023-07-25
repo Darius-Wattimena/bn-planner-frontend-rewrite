@@ -161,12 +161,27 @@ const Api = {
       url: `/v2/beatmap/${beatmapId}/${gamemode}/nominator?old=${replacingUserId}&new=${newNominatorId}`
     }
   },
-  fixUsers: (userIds: number[]): AxiosRequestConfig => {
+  syncUsers: (userIds: number[]): AxiosRequestConfig => {
     return {
       method: 'POST',
       headers: getAuthHeader(),
-      url: `/v2/user/fix?force=true`,
+      url: `/v2/admin/sync/users/ids?force=true`,
       data: userIds
+    }
+  },
+  syncBeatmaps: (status?: BeatmapStatus[]): AxiosRequestConfig => {
+    let url
+
+    if (status) {
+      url = `/v2/admin/sync/beatmaps/pending?status=${status.join()}`
+    } else {
+      url = `/v2/admin/sync/beatmaps/pending`
+    }
+
+    return {
+      method: 'POST',
+      headers: getAuthHeader(),
+      url: url,
     }
   }
 }

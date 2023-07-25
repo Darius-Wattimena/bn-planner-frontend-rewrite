@@ -14,11 +14,34 @@
   }
 }
 
-.panel {
-  border-radius: 3px;
-  margin: $padding-small;
+.button-group {
+  button {
+    margin-right: $padding-small;
+  }
+}
 
-  .panel-item {
-    padding: $padding-small 0;
+.admin-page-content {
+  margin: $padding-small 0;
+  .panel {
+    border-radius: 3px;
+    padding: $padding;
+
+    hr {
+      margin: $padding 0;
+    }
+
+    .panel-item {
+      padding: $padding-small 0;
+
+      .textbox {
+        input, select {
+          width: 100%;
+          padding: $padding;
+          border: 1px solid $color-secondary;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+      }
+    }
   }
 }
