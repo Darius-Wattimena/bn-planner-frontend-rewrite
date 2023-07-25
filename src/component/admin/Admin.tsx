@@ -65,7 +65,6 @@ function SyncBeatmaps() {
         <div className={"header"}>Be careful when using this!</div>
         <div className={"content"}>
           <p>When the user can't be found yet on the planner it will force find it.</p>
-          <p>When no status is selected it will sync all beatmaps regardless of status.</p>
           <p>1 beatmapset = at least 2 seconds</p>
         </div>
       </div>
