@@ -55,17 +55,19 @@ function Nav({userContext, setUserContext}: NavProps) {
                 </div>
               </div>
             </NavLink>
-            <NavLink className={"disabled"} to={"/profile"} onClick={disabledOnClick}>
-              <div className={"navbar-item navbar-item-disabled"}>
-                <IoPerson />
-                <div className={"navbar-item-text"}>
-                  Profile
+            {userContext &&
+              <NavLink className={"disabled"} to={"/profile"} onClick={disabledOnClick}>
+                <div className={"navbar-item navbar-item-disabled"}>
+                  <IoPerson/>
+                  <div className={"navbar-item-text"}>
+                    Profile
+                  </div>
+                  <div className={"navbar-item-badge"}>
+                    WIP
+                  </div>
                 </div>
-                <div className={"navbar-item-badge"}>
-                  WIP
-                </div>
-              </div>
-            </NavLink>
+              </NavLink>
+            }
             <NavLink className={"disabled"} to={"/statistics"} onClick={disabledOnClick}>
               <div className={"navbar-item navbar-item-disabled"}>
                 <IoBarChart />
@@ -98,35 +100,37 @@ function Nav({userContext, setUserContext}: NavProps) {
               )
             }
           </div>
-          <div className={"navbar-section"}>
-            <p className={"navbar-section-header"}>
-              Beatmaps
-            </p>
-            <NavLink to="/beatmaps" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-              <div className={"navbar-item"}>
-                <IoMusicalNotes />
-                <div className={"navbar-item-text"}>
-                  Pending
+          {userContext &&
+            <div className={"navbar-section"}>
+              <p className={"navbar-section-header"}>
+                Beatmaps
+              </p>
+              <NavLink to="/beatmaps" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                <div className={"navbar-item"}>
+                  <IoMusicalNotes/>
+                  <div className={"navbar-item-text"}>
+                    Pending
+                  </div>
                 </div>
-              </div>
-            </NavLink>
-            <NavLink to="/graveyard" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-              <div className={"navbar-item"}>
-                <IoTrashBin />
-                <div className={"navbar-item-text"}>
-                  Graveyard
+              </NavLink>
+              <NavLink to="/graveyard" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                <div className={"navbar-item"}>
+                  <IoTrashBin/>
+                  <div className={"navbar-item-text"}>
+                    Graveyard
+                  </div>
                 </div>
-              </div>
-            </NavLink>
-            <NavLink to="/ranked" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-              <div className={"navbar-item"}>
-                <IoArchive />
-                <div className={"navbar-item-text"}>
-                  Ranked
+              </NavLink>
+              <NavLink to="/ranked" className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                <div className={"navbar-item"}>
+                  <IoArchive/>
+                  <div className={"navbar-item-text"}>
+                    Ranked
+                  </div>
                 </div>
-              </div>
-            </NavLink>
-          </div>
+              </NavLink>
+            </div>
+          }
           {userContext && userContext.permission.osuRole === "NominationAssessment" &&
             <div className={"navbar-section"}>
               <p className={"navbar-section-header"}>
