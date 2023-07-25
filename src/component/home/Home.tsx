@@ -32,7 +32,7 @@ function Home({userContext}: HomeProps) {
       <div className={"welcome-screen"}>
         <Logo className={"logo"}/>
         <h1>Nomination Planner</h1>
-        <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for osu!catch beatmap nominators</p>
+        <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for <a href="https://osu.ppy.sh/wiki/en/People/Beatmap_Nominators">Beatmap Bominators</a></p>
 
         <div className={"actions"}>
           {!userContext ? (
