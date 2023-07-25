@@ -21,7 +21,7 @@ header.site-header {
       background-color: $color-primary;
     }
 
-    .navbar-logo, .navbar-section, .navbar-end, .navbar-leftover {
+    .navbar-logo, .navbar-section, .navbar-user, .navbar-leftover {
       background-color: $color-background-dark;
     }
 
@@ -31,6 +31,14 @@ header.site-header {
 
         &:hover {
           background-color: $color-background-lighter;
+        }
+      }
+
+      &.secondary {
+        background-color: $color-secondary;
+
+        &:hover {
+          background-color: $color-secondary-light;
         }
       }
 
@@ -59,7 +67,7 @@ header.site-header {
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      padding: $padding 0;
+      padding: $padding-small 0;
     }
 
     .navbar-logo {
@@ -121,11 +129,6 @@ header.site-header {
       }
     }
 
-    .navbar-end {
-      // display: flex;
-      justify-content: center;
-    }
-
     .navbar-active {
       .navbar-item {
         background-color: $color-accent;
@@ -146,9 +149,16 @@ header.site-header {
         border-radius: 10px;
         padding: $padding-small $padding-smallest ;
 
+        &.osu-button {
+          background-color: $osu-colour-dark;
+
+          &:hover {
+            background-color: $osu-colour-darker;
+          }
+        }
+
         &:hover {
           background-color: $color-accent;
-          transition: background-color 300ms;
         }
 
         .react-icons {

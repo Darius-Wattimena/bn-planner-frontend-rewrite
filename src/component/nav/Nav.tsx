@@ -1,17 +1,28 @@
-import React, {MouseEventHandler} from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {NavLink} from "react-router-dom";
 import greaperLogo from '../../assets/greaper.png'
 import NavProfile from "./NavProfile";
 import './Nav.scss'
 import {UserContext} from "../../models/Types";
 import {openInNewTab} from "../../utils/LinkUtils";
-import {ImBin, ImDrawer, ImHome, ImMusic, ImStatsBars, ImUsers, ImWrench} from "react-icons/im";
+import {
+  IoArchive,
+  IoBarChart,
+  IoColorWand,
+  IoHome, IoLogInOutline,
+  IoLogOutOutline,
+  IoMusicalNotes,
+  IoPeople, IoPerson,
+  IoTrashBin
+} from "react-icons/io5";
+import {osuUrl} from "../../AppRoutes";
 
 interface NavProps {
   userContext: UserContext | undefined
+  setUserContext: Dispatch<SetStateAction<UserContext | undefined>>
 }
 
-function Nav({userContext}: NavProps) {
+function Nav({userContext, setUserContext}: NavProps) {
   const disabledOnClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
   }
@@ -30,30 +41,34 @@ function Nav({userContext}: NavProps) {
             </div>
           </div>
           <hr />
-          <div className={"navbar-end"}>
+          <div className={"navbar-user"}>
             {userContext &&
-              <>
-                {/*<NavLink to="/profile" className={(navData) => navData.isActive ? "navbar-active" : ""}>
-                <div className={"navbar-item"}>
-                  <MdPersonOutline />
-                </div>
-              </NavLink>*/}
-                <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>
-              </>
+              <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>
             }
           </div>
           <div className={"navbar-section"}>
             <NavLink to="/" className={(navData) => navData.isActive ? "navbar-active" : ""}>
               <div className={"navbar-item"}>
-                <ImHome />
+                <IoHome />
                 <div className={"navbar-item-text"}>
                   Home
                 </div>
               </div>
             </NavLink>
+            <NavLink className={"disabled"} to={"/profile"} onClick={disabledOnClick}>
+              <div className={"navbar-item navbar-item-disabled"}>
+                <IoPerson />
+                <div className={"navbar-item-text"}>
+                  Profile
+                </div>
+                <div className={"navbar-item-badge"}>
+                  WIP
+                </div>
+              </div>
+            </NavLink>
             <NavLink className={"disabled"} to={"/statistics"} onClick={disabledOnClick}>
               <div className={"navbar-item navbar-item-disabled"}>
-                <ImStatsBars />
+                <IoBarChart />
                 <div className={"navbar-item-text"}>
                   Statistics
                 </div>
@@ -62,6 +77,26 @@ function Nav({userContext}: NavProps) {
                 </div>
               </div>
             </NavLink>
+              {userContext ? (
+                <NavLink to={"/"} onClick={() => setUserContext(undefined)}>
+                  <div className={"navbar-item secondary"}>
+                    <IoLogOutOutline />
+                    <div className={"navbar-item-text"}>
+                      Logout
+                    </div>
+                  </div>
+                </NavLink>
+              ) : (
+                <a href={osuUrl}>
+                  <div className={"navbar-item osu-button"}>
+                    <IoLogInOutline />
+                    <div className={"navbar-item-text"}>
+                      Login with osu!
+                    </div>
+                  </div>
+                </a>
+              )
+            }
           </div>
           <div className={"navbar-section"}>
             <p className={"navbar-section-header"}>
@@ -69,7 +104,7 @@ function Nav({userContext}: NavProps) {
             </p>
             <NavLink to="/beatmaps" className={(navData) => navData.isActive ? "navbar-active" : ""}>
               <div className={"navbar-item"}>
-                <ImMusic />
+                <IoMusicalNotes />
                 <div className={"navbar-item-text"}>
                   Pending
                 </div>
@@ -77,7 +112,7 @@ function Nav({userContext}: NavProps) {
             </NavLink>
             <NavLink to="/graveyard" className={(navData) => navData.isActive ? "navbar-active" : ""}>
               <div className={"navbar-item"}>
-                <ImBin />
+                <IoTrashBin />
                 <div className={"navbar-item-text"}>
                   Graveyard
                 </div>
@@ -85,7 +120,7 @@ function Nav({userContext}: NavProps) {
             </NavLink>
             <NavLink to="/ranked" className={(navData) => navData.isActive ? "navbar-active" : ""}>
               <div className={"navbar-item"}>
-                <ImDrawer />
+                <IoArchive />
                 <div className={"navbar-item-text"}>
                   Ranked
                 </div>
@@ -99,7 +134,7 @@ function Nav({userContext}: NavProps) {
               </p>
               <NavLink to="/admin" className={(navData) => navData.isActive ? "navbar-active" : ""}>
                 <div className={"navbar-item"}>
-                  <ImWrench />
+                  <IoColorWand />
                   <div className={"navbar-item-text"}>
                     Syncing
                   </div>
@@ -107,7 +142,7 @@ function Nav({userContext}: NavProps) {
               </NavLink>
               <NavLink className={"disabled"} to={"/users"} onClick={disabledOnClick}>
                 <div className={"navbar-item navbar-item-disabled"}>
-                  <ImUsers />
+                  <IoPeople />
                   <div className={"navbar-item-text"}>
                     Users
                   </div>
