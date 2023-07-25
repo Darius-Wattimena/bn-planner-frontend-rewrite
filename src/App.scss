@@ -14,19 +14,20 @@ body {
       display: flex;
       flex-flow: column;
       height: 100%;
+      flex-direction: row;
 
       .page-container {
         flex-flow: column;
         flex: 1 1 auto;
         overflow-y: auto;
-        width: 70%;
+        width: 99%;
         margin-left: auto;
         margin-right: auto;
       }
 
       .footer {
         flex: 0 1 40px;
-        background-color: $color-primary;
+        background-color: $color-background-dark;
       }
     }
   }
@@ -91,7 +92,7 @@ button {
   }
 }
 
-:disabled {
+:disabled, .disabled {
   cursor: default;
   opacity: .45;
   pointer-events: none;
@@ -168,7 +169,7 @@ button, a.button {
     background-color: $color-primary;
 
     &:hover {
-      background-color: darken($color-highlight-background, 5%);
+      background-color: $color-primary-light;
     }
   }
 
@@ -187,7 +188,7 @@ button, a.button {
     background-color: $color-secondary;
 
     &:hover {
-      background-color: darken($color-highlight-background, 5%);
+      background-color: $color-secondary-dark;
     }
   }
 }
@@ -332,7 +333,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-  background-color: $status-qualified-colour;
+  background-color: $color-accent;
 }
 
 input[type="checkbox"]:focus {

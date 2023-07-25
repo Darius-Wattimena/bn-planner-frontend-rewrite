@@ -5,7 +5,7 @@ $font-size: 0.8em;
 
 .table-container {
   border-radius: 3px;
-  background-color: $color-primary;
+  background-color: $color-background-light;
 }
 
 .table-footer {
@@ -13,7 +13,7 @@ $font-size: 0.8em;
   justify-content: space-between;
   align-items: center;
   padding: $padding-small $padding;
-  background-color: $color-primary;
+  background-color: $color-background-light;
 
   .table-footer-end {
     display: flex;
@@ -46,7 +46,7 @@ $font-size: 0.8em;
         padding: $padding-small;
         height: 44px;
         width: 44px;
-        border: 2px solid $color-primary;
+        border: 2px solid $color-background-light;
       }
     }
   }
@@ -55,7 +55,7 @@ $font-size: 0.8em;
 table {
   border-spacing: 0 2px;
   border-color: $color-secondary;
-  background-color: $color-primary;
+  background-color: $color-background-lighter;
   table-layout: fixed;
 
   thead {
