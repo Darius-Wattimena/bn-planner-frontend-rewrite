@@ -17,7 +17,7 @@
 
 .beatmap-filter-tooltip {
   background-color: $color-footer-background;
-  border-radius: 5px !important;
+  border-radius: $border-radius !important;
   padding: unset !important;
 
   &.show {
@@ -38,7 +38,7 @@
 
   .beatmap-user-username {
     margin-top: 5px;
-    border-radius: 5px;
+    border-radius: $border-radius;
     padding: 0 $padding-smallest;
     width: fit-content;
     margin-left: auto;

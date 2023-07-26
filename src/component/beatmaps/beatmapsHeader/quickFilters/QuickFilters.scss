@@ -2,6 +2,7 @@
 
 .quick-filters {
   display: flex;
+  align-items: center;
 }
 
 .available-quick-filters {
@@ -18,18 +19,22 @@
       padding: $padding-small;
       margin: $padding-smallest;
       align-items: center;
-      border-radius: 5px;
+      border-radius: $border-radius;
 
       &:hover {
         background-color: $color-background-light;
       }
 
       .available-quick-filter-icon {
-        padding: $padding-smallest;
         display: flex;
+
+        svg {
+          font-size: 1.4em;
+        }
       }
 
       .available-quick-filter-label {
+        padding-left: $padding-smallest;
         font-weight: bold;
       }
 

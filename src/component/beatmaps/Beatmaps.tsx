@@ -30,32 +30,16 @@ function Beatmaps(
     total
   }: BeatmapsProps
 ) {
-  let pageViewModeClassName = ""
-
-  useEffect(() => {
-    pageViewModeClassName = (viewMode === "CARDS") ? "beatmap-page-cards" : "beatmap-page-table"
-  }, [viewMode])
-
   return (
     <>
-      <div className={`page-container beatmap-page ${pageViewModeClassName}`}>
-        <div className={"page-container-content beatmap-listing-container"}>
-          <div className={"beatmap-listing"}>
-            {(viewMode === "CARDS") ? (
-              <BeatmapCards
-                loadedBeatmapData={loadedBeatmapData}
-                fetchNewData={fetchNewData}
-                setOpenBeatmapId={setOpenBeatmapId}
-              />
-            ) : (
-              <BeatmapTable
-                beatmaps={loadedBeatmapData}
-                fetchNewPage={fetchNewPage}
-                setOpenBeatmapId={setOpenBeatmapId}
-                total={total}
-              />
-            )}
-          </div>
+      <div className={"page-container-content beatmap-listing-container"}>
+        <div className={"beatmap-listing"}>
+          <BeatmapTable
+            beatmaps={loadedBeatmapData}
+            fetchNewPage={fetchNewPage}
+            setOpenBeatmapId={setOpenBeatmapId}
+            total={total}
+          />
         </div>
       </div>
       <BeatmapDetailsContainer
@@ -64,7 +48,6 @@ function Beatmaps(
         openBeatmapId={openBeatmapId}
         setOpenBeatmapId={setOpenBeatmapId}
       />
-      <div className={"page-spacer"} />
     </>
   )
 }

@@ -40,7 +40,6 @@ function Nav({userContext, setUserContext}: NavProps) {
               </div>
             </div>
           </div>
-          <hr />
           <div className={"navbar-user"}>
             {userContext &&
               <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>

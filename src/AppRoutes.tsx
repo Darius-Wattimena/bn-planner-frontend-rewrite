@@ -21,9 +21,8 @@ function AppRoutes({viewMode, userContext, setUserContext}: RoutesProps) {
     return (
       <>
         <Nav userContext={userContext} setUserContext={setUserContext} />
-        <div>
+        <div className={"content-container"}>
           <Outlet />
-          <div className={"footer"} />
         </div>
       </>
     )

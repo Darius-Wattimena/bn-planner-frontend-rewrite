@@ -181,7 +181,7 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
             display: flex;
 
             .user-searcher-user-role {
-              border-radius: 5px;
+              border-radius: $border-radius;
               width: fit-content;
               padding: 2px $padding-smallest;
               display: flex;

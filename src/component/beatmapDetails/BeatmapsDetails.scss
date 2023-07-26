@@ -133,7 +133,7 @@ body .ReactModal__Overlay {
                 font-size: 1.1em;
                 width: fit-content;
                 padding: $padding-smallest;
-                border-radius: 5px;
+                border-radius: $border-radius;
               }
 
               .beatmap-user-nomination-status {

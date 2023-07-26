@@ -8,7 +8,7 @@ $font-size: 1.1em;
   min-width: 250px;
   height: 100%;
   font-size: $font-size;
-  border-radius: 5px;
+  border-radius: $border-radius;
 
   .beatmap-filter-groups {
     display: flex;

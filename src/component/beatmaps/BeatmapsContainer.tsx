@@ -11,8 +11,12 @@ import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
+import PageHeader from "../generic/PageHeader";
+import {IoMusicalNotes} from "react-icons/io5";
+import BeatmapFilterRow from "./beatmapFilterRow/BeatmapFilterRow";
 
 const filterDefaultState: BeatmapFilter = {
+  search: null,
   artist: null,
   title: null,
   mapper: null,
@@ -126,9 +130,12 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
       .catch(reason => console.log(reason))
   }
 
+  const preparedPageName = page.charAt(0) + page.toLowerCase().slice(1)
+
   return (
     <>
-      <BeatmapsHeader
+      <PageHeader title={`${preparedPageName} Beatmaps`} icon={<IoMusicalNotes />} />
+      {/*<BeatmapsHeader
         userContext={userContext}
         openAddBeatmap={openAddBeatmap}
         setOpenAddBeatmap={setOpenAddBeatmap}
@@ -136,26 +143,37 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
         beatmapFilter={beatmapFilter}
         setBeatmapFilter={setBeatmapFilter}
         setBeatmapQueryFilter={setQueryFilter}
-      />
-      {
-        total === 0 ? (
-            <div className={`page-container beatmap-page`}>
-              <div>No beatmaps found with given search criteria</div>
-            </div>
-          ) : (
-            <Beatmaps
-              userContext={userContext}
-              loadedBeatmapData={loadedBeatmapData}
-              fetchNewData={fetchNewData}
-              fetchNewPage={fetchNewPage}
-              openBeatmapId={openBeatmapId}
-              setOpenBeatmapId={setOpenBeatmapId}
-              resetPage={resetPage}
-              viewMode={viewMode}
-              total={total}
-            />
-          )
-      }
+      />*/}
+      <div className={`page-container beatmap-page beatmap-page-table`}>
+        <BeatmapFilterRow
+          userContext={userContext}
+          page={page}
+          openAddBeatmap={openAddBeatmap}
+          setOpenAddBeatmap={setOpenAddBeatmap}
+          beatmapFilter={beatmapFilter}
+          setBeatmapFilter={setBeatmapFilter}
+          setBeatmapQueryFilter={setQueryFilter}
+        />
+        {
+          total === 0 ? (
+              <div className={`page-container beatmap-page`}>
+                <div>No beatmaps found with given search criteria</div>
+              </div>
+            ) : (
+              <Beatmaps
+                userContext={userContext}
+                loadedBeatmapData={loadedBeatmapData}
+                fetchNewData={fetchNewData}
+                fetchNewPage={fetchNewPage}
+                openBeatmapId={openBeatmapId}
+                setOpenBeatmapId={setOpenBeatmapId}
+                resetPage={resetPage}
+                viewMode={viewMode}
+                total={total}
+              />
+            )
+        }
+      </div>
       <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
         <BeatmapFilters
           currentUser={userContext?.user}

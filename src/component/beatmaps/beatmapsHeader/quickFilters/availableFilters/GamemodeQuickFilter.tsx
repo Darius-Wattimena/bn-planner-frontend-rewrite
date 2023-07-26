@@ -1,7 +1,7 @@
 import {AvailableQuickFilter, BeatmapFilter, Gamemode} from "../../../../../models/Types";
 import {useState} from "react";
 import {remove} from "lodash";
-import {ImMusic} from "react-icons/im";
+import {IoMusicalNotes} from "react-icons/io5";
 
 interface GamemodeQuickFilterProps {
   gamemode: Gamemode
@@ -41,7 +41,7 @@ const GamemodeQuickFilter = ({gamemode, initialBeatmapFilter}: GamemodeQuickFilt
     value: gamemode,
     label: `${Object.keys(Gamemode)[Object.values(Gamemode).indexOf(gamemode)]}`,
     description: `Show ${Object.keys(Gamemode)[Object.values(Gamemode).indexOf(gamemode)]} beatmaps`,
-    icon: ImMusic({})
+    icon: IoMusicalNotes({})
   }
 }
 

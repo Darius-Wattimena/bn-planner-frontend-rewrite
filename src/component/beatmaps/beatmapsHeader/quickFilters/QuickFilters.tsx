@@ -107,12 +107,11 @@ function QuickFilter({ filter, onClick, beatmapFilter, setBeatmapFilter, setBeat
     filter.setSelected(false)
   }
 
-
   return (
     <div className={"quick-filter"}>
       <button
         onClick={onRemove}
-        className={"beatmap-button quick-filter-active"}
+        className={"secondary quick-filter-active"}
       >
         {filter.icon &&
           filter.icon

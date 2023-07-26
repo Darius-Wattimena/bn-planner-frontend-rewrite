@@ -3,6 +3,7 @@
 header.site-header {
   flex: 0 1 auto;
   background-color: $color-background-dark;
+  border-right: 2px solid $color-accent;
 
   nav.navbar {
     display: flex;
@@ -47,14 +48,10 @@ header.site-header {
         margin: 0 $padding-small;
       }
 
-      .navbar-item-text {
-
-      }
-
       .navbar-item-badge {
         margin: 0 $padding-small;
         padding: 2px $padding-smallest;
-        border-radius: 5px;
+        border-radius: $border-radius;
         background-color: $color-accent;
       }
     }
@@ -72,6 +69,8 @@ header.site-header {
 
     .navbar-logo {
       max-height: 15%;
+
+      border-bottom: 2px solid $color-accent;
     }
 
     .navbar-logo-clickable {
@@ -94,7 +93,7 @@ header.site-header {
 
     .navbar-profile {
       display: flex;
-      border-radius: 5px;
+      border-radius: $border-radius;
       padding: $padding-smallest;
       margin: $padding-small;
       height: 7vh;
@@ -122,7 +121,7 @@ header.site-header {
 
         .role .role-text {
           //background-color: $rc-colour;
-          border-radius: 5px;
+          border-radius: $border-radius;
           width: fit-content;
           padding: 2px $padding-smallest;
         }

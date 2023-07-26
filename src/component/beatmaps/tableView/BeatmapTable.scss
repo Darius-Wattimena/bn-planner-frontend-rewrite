@@ -13,7 +13,7 @@ $font-size: 0.8em;
   justify-content: space-between;
   align-items: center;
   padding: $padding-small $padding;
-  background-color: $color-background-light;
+  background-color: $color-background-dark;
 
   .table-footer-end {
     display: flex;
@@ -53,9 +53,7 @@ $font-size: 0.8em;
 }
 
 table {
-  border-spacing: 0 2px;
-  border-color: $color-secondary;
-  background-color: $color-background-lighter;
+  border-spacing: 0;
   table-layout: fixed;
 
   thead {
@@ -64,11 +62,11 @@ table {
 
   tbody {
     tr {
-      background-color: $color-table-background;
+      background-color: $color-background-lighter;
       height: $row-height;
 
-      &:hover {
-        background-color: $color-table-hover;
+      &:nth-child(even) {
+        background-color: $color-background-light;
       }
     }
   }

@@ -4,13 +4,17 @@ $icon-size: 1.2em;
 
 .beatmaps-header {
   flex: 0 1 auto;
-  margin: $padding-small auto;
-  background-color: $color-table-background;
-  border-radius: 3px;
-  width: 99%;
+  background-color: $color-background-dark;
+  border-bottom: 2px solid $color-accent;
+  height: 10vh;
+
+  .beatmaps-header-title {
+    padding: $padding-small 0;
+    font-size: 1.6em;
+  }
 
   .beatmaps-header-container {
-    padding: $padding-small;
+    padding: $padding;
     display: flex;
     justify-content: space-between;
 
@@ -27,10 +31,10 @@ $icon-size: 1.2em;
     }
 
     .add-beatmap-button {
-      background-color: $color-confirmed;
+      background-color: $color-primary;
 
       &:hover {
-        background-color: $color-highlight-confirmed;
+        background-color: $color-primary-light;
       }
     }
 

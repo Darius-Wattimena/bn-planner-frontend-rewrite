@@ -1,7 +1,7 @@
 import {AvailableQuickFilter, BeatmapFilter, Gamemode} from "../../../../../models/Types";
 import React, {useState} from "react";
-import {ImUserMinus} from "react-icons/im";
 import {remove} from "lodash";
+import {IoPersonRemove} from "react-icons/io5";
 
 interface MissingNominatorFilterProps {
   gamemode: Gamemode
@@ -41,7 +41,7 @@ const MissingNominatorFilter = ({gamemode, initialBeatmapFilter}: MissingNominat
     value: gamemode,
     label: `Missing ${Object.keys(Gamemode)[Object.values(Gamemode).indexOf(gamemode)]}`,
     description: "Hide claimed beatmaps",
-    icon: ImUserMinus({})
+    icon: IoPersonRemove({})
   }
 }
 
