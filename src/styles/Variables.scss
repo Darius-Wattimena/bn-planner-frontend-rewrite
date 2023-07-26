@@ -19,14 +19,20 @@ $status-disqualified-colour: #a54e4b;
 $status-graved-colour: #a5a5a5;
 $status-unfinished-colour: #6253a5;
 
+$text: #f7f6f2;
+$background: #212121;
+$primary: #2d3449;
+$secondary: #833232;
+$accent: #4f6ac9;
+
 // New Theme
-$color-text: #f7f6f2;
+$color-text: $text;
 $color-text-placeholder: #818181;
-$color-background: #212121;
-$color-primary: #2d3449;
-$color-secondary: #833232;
+$color-background: $background;
+$color-primary: $primary;
+$color-secondary: $secondary;
 $color-secondary-light: lighten($color-secondary, 10%);
-$color-accent: #4f6ac9;
+$color-accent: $accent;
 $color-accent-dark: darken($color-accent, 10%);
 $color-accent-light: lighten($color-accent, 10%);
 $color-primary-light: lighten($color-primary, 10%);
