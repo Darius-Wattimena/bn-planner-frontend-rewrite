@@ -63,7 +63,6 @@ table {
   tbody {
     tr {
       background-color: $color-background-lighter;
-      height: $row-height;
 
       &:nth-child(even) {
         background-color: $color-background-light;
@@ -78,10 +77,6 @@ table {
       width: 15%;
     }
 
-    &.beatmap-status-header {
-      width: 7.5%;
-    }
-
     &.beatmap-text-header {
       width: 12.5%;
     }
@@ -91,7 +86,7 @@ table {
     }
 
     &.beatmap-table-note-header {
-      width: 2.5%;
+      width: 5%;
     }
 
     &.beatmap-table-mode-header {
@@ -99,7 +94,7 @@ table {
     }
 
     &.beatmap-table-actions-header {
-      width: 11%;
+      width: 10%;
     }
   }
 
@@ -115,7 +110,8 @@ table {
 .beatmap-text-cell {
   .beatmap-text {
     font-size: $font-size;
-    width: 100%;
+    width: 95%;
+    margin: auto;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -156,11 +152,11 @@ table {
 
   .beatmap-nominator-container {
     height: $padding-large;
-    width: 80%;
+    //width: 80%;
     display: flex;
     align-items: center;
     padding: $padding-smallest;
-    margin: 0 auto;
+    margin: 0 $padding-smallest;
     border-radius: 25px;
 
     .beatmap-nominator-picture {
@@ -190,31 +186,29 @@ table {
 }
 
 .beatmap-status {
+  display: flex;
+  align-items: center;
+
   .beatmap-status-label {
-    border-radius: 3px;
-    padding: 1px $padding-smallest;
-    margin: 1px $padding-small;
-    min-width: fit-content;
+    border-radius: 0 $border-radius $border-radius 0;
+    padding: 1px $padding-small;
   }
 }
 
 .beatmap-banner-container {
-  padding: 0;
-  //min-width: 150px;
-  height: $row-height;
+  padding: $padding-small;
+  height: calc(#{$row-height} - #{$padding-smallest});
 
   .beatmap-banner {
     width: 100%;
-    margin: $padding-smallest;
     background-size: cover;
     background-position: center;
-    height: $row-height;
+    height: 100%;
+
   }
 }
 
 .beatmap-table-note {
-  width: 100%;
-
   .beatmap-button {
     padding: $padding-smallest;
     width: fit-content;
@@ -225,15 +219,13 @@ table {
 }
 
 .beatmap-table-actions {
-  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   font-size: 1.2em;
 
   .beatmap-button {
     padding: $padding-small;
     width: fit-content;
-    margin: 0 $padding-smallest;
     //width: 75%;
   }
 }

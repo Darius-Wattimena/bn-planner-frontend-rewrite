@@ -27,11 +27,10 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
     <>
     <tr className={"beatmap-table-row"}>
       <td key={`beatmap-table-row-${beatmap.osuId}-banner`} className={"beatmap-banner-container"}>
-        <div className={"beatmap-banner"}
-             style={{backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}}/>
-      </td>
-      <td key={`beatmap-table-row-${beatmap.osuId}-status`} className={`beatmap-status`}>
-        <div className={`beatmap-status-label ${beatmapStatus.className}`}>{beatmapStatus.name}</div>
+        <div className={"beatmap-banner beatmap-status"}
+             style={{backgroundImage: `url(https://assets.ppy.sh/beatmaps/${beatmap.osuId}/covers/card.jpg)`}}>
+          <div className={`beatmap-status-label ${beatmapStatus.className}`}>{beatmapStatus.name}</div>
+        </div>
       </td>
       <td key={`beatmap-table-row-${beatmap.osuId}-artist`} className={"beatmap-text-cell"}>
         <div className={"beatmap-text"}>

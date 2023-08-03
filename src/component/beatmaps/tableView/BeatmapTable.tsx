@@ -36,7 +36,6 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
         <thead>
         <tr>
           <th className={"beatmap-banner-header"}>#</th>
-          <th className={"beatmap-status-header"}>Status</th>
           <th className={"beatmap-text-header"}>Artist</th>
           <th className={"beatmap-text-header"}>Title</th>
           <th className={"beatmap-table-mode-header"}>Mode</th>

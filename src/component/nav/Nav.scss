@@ -101,7 +101,6 @@ header.site-header {
       img {
         background-color: $color-primary;
         padding: $padding-smallest;
-        max-height: 100%;
         box-shadow: 0 1px 3px rgba(0,0,0,.25);
         border-radius: 20px;
       }
@@ -135,7 +134,7 @@ header.site-header {
     }
 
     a {
-      padding: $padding-small;
+      margin: $padding-small;
       font-size: 1.2em;
 
       text-decoration: none;
