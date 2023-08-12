@@ -5,6 +5,8 @@ import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 import "./Login.scss"
 import {ImSpinner3} from "react-icons/im";
+import PageHeader from "../generic/PageHeader";
+import {IoLogIn} from "react-icons/io5";
 
 interface LoginProps {
   userContext: UserContext | undefined
@@ -48,7 +50,8 @@ function Login({userContext, setUserContext}: LoginProps) {
   } else {
     return (
       <>
-        <div className={"page-container"}>
+        <PageHeader title={"Login"} icon={<IoLogIn />} />
+        <div className={"landing-page"}>
           <div className={"login-screen"}>
             <ImSpinner3 className={"login-icon icon-spin"} />
             <h3>Logging in</h3>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, Gamemode, PageLimit, UserContext, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -7,7 +7,6 @@ import Beatmaps from "./Beatmaps";
 import _, {cloneDeep} from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
-import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
@@ -135,15 +134,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
   return (
     <>
       <PageHeader title={`${preparedPageName} Beatmaps`} icon={<IoMusicalNotes />} />
-      {/*<BeatmapsHeader
-        userContext={userContext}
-        openAddBeatmap={openAddBeatmap}
-        setOpenAddBeatmap={setOpenAddBeatmap}
-        page={page}
-        beatmapFilter={beatmapFilter}
-        setBeatmapFilter={setBeatmapFilter}
-        setBeatmapQueryFilter={setQueryFilter}
-      />*/}
       <div className={`page-container beatmap-page beatmap-page-table`}>
         <BeatmapFilterRow
           userContext={userContext}
