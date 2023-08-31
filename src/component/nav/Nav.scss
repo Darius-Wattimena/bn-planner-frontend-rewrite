@@ -8,9 +8,13 @@ header.site-header {
   nav.navbar {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    background-color: $color-background-light;
-    margin: 0 $padding;
+    max-height: 100vh;
+    padding: 0 $padding;
+
+    .navbar-items {
+      height: 88%;
+      overflow-y: auto;
+    }
 
     hr {
       color: $color-background-lighter;
@@ -56,10 +60,6 @@ header.site-header {
       }
     }
 
-    .navbar-leftover {
-      height: 100%;
-    }
-
     .navbar-section {
       display: flex;
       flex-direction: column;
@@ -68,7 +68,7 @@ header.site-header {
     }
 
     .navbar-logo {
-      max-height: 15%;
+      height: 12%;
 
       border-bottom: 2px solid $color-accent;
     }

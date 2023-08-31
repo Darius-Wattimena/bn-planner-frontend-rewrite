@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: $padding;
+  flex-wrap: wrap;
 
   button {
     margin-left: $padding-small;
@@ -57,6 +58,10 @@
         color: $color-text;
         padding: $padding-small;
         font-size: 1.1em;
+
+        &:focus {
+          outline-width: 0;
+        }
 
         &::placeholder {
           color: $color-text-placeholder;

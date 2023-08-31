@@ -4,7 +4,22 @@
   margin: 0;
 }
 
+@media only screen and (min-width: 801px) and (max-width: 1500px) {
+  .table-container {
+    table {
+      thead th.beatmap-table-mode-header {
+        display: none;
+      }
 
+      tbody {
+        td.beatmap-mode-icon,
+        td.beatmap-table-actions-cell .beatmap-discussion-button{
+          display: none;
+        }
+      }
+    }
+  }
+}
 
 @media only screen and (max-width: 800px) {
   body .App div.container {
@@ -52,11 +67,14 @@
           display: flex;
           flex-direction: column;
           height: 100%;
+
+          .beatmap-banner-container {
+            height: 10vh;
+          }
         }
       }
 
       td {
-        width: 100%;
         height: 100%;
       }
 
@@ -85,7 +103,7 @@ body {
       .content-container {
         background-color: $color-background;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         flex-direction: column;
         display: flex;
       }

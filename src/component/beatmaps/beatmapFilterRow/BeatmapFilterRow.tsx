@@ -2,8 +2,7 @@ import BeatmapTextFilter from "../beatmapFilters/BeatmapTextFilter";
 import React, {Dispatch, SetStateAction, useState} from "react";
 import {BeatmapFilter, BeatmapPage, UserContext} from "../../../models/Types";
 import "./BeatmapFilterRow.scss";
-import {IoAdd, IoFilter, IoPeople, IoSearch} from "react-icons/io5";
-import {instantFilter} from "../../../utils/FilterUtils";
+import {IoAdd, IoSearch} from "react-icons/io5";
 import UserSearcher from "../../userSearcher/UserSearcher";
 import QuickFilters from "../beatmapsHeader/quickFilters/QuickFilters";
 

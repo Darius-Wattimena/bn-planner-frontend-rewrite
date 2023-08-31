@@ -3,8 +3,7 @@
 $catch-logo: url("src/assets/catch.svg");
 
 .landing-page {
-  //height: 100%;
-  margin: auto;
+  height: 100%;
 
   .welcome-screen {
     text-align: center;
@@ -26,7 +25,6 @@ $catch-logo: url("src/assets/catch.svg");
 
       .main-action, .sub-action {
         font-size: 1.5em;
-        margin: .2em;
       }
 
       .login-message-container {
