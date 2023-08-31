@@ -275,6 +275,7 @@ function BeatmapDetailsNominators(
         {beatmapGamemodes.concat(missingGamemodes).sort(sortByBeatmapGamemode).map(beatmapGamemode => {
           let gamemodeText = <></>
           let isSelectedMode = showingGamemode?.gamemode === beatmapGamemode.gamemode
+          let isMissingMode = missingGamemodes.includes(beatmapGamemode)
 
           if (beatmapGamemode.gamemode === Gamemode.Osu) {
             gamemodeText = <OsuLogo/>
@@ -289,7 +290,7 @@ function BeatmapDetailsNominators(
           return (
             <div
               key={`beatmap-details-gamemode-${beatmapGamemode.gamemode}`}
-              className={"beatmap-mode-icon" + (isSelectedMode ? " active" : "")}
+              className={"beatmap-mode-icon" + (isSelectedMode ? " active" : "") + (isMissingMode ? " missing": "")}
               onClick={() => setShowingGamemode(beatmapGamemode)}
             >
               {gamemodeText}

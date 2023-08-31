@@ -47,7 +47,14 @@ body .ReactModal__Overlay {
               height: 40px;
 
               svg {
-                fill: $color-secondary;
+                fill: $status-qualified-colour;
+
+              }
+
+              &.missing {
+                svg {
+                  fill: $color-secondary;
+                }
               }
 
               &.active, &:hover {
