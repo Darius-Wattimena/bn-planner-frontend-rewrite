@@ -1,5 +1,5 @@
 import {AvailableQuickFilter, BeatmapFilter} from "../../../../models/Types";
-import {ImFilter} from "react-icons/im";
+import {IoFilter} from "react-icons/io5";
 import ReactTooltip from "react-tooltip";
 import React from "react";
 import AvailableQuickFiltersList from "./AvailableQuickFiltersList";
@@ -18,10 +18,10 @@ function AddQuickFilter(
 ) {
   return (
     <>
-      <button data-tip data-for='add-quick-filter' data-event='click' className='beatmap-button'>
-        <ImFilter/>
+      <button data-tip data-for='add-quick-filter' data-event='click' className='primary'>
+        <IoFilter/>
         <div className='beatmap-button-text'>
-          Quick Filters
+          Filters
         </div>
       </button>
       <ReactTooltip id='add-quick-filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>

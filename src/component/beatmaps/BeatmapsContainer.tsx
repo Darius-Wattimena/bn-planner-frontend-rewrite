@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Beatmap, BeatmapFilter, BeatmapPage, Gamemode, PageLimit, UserContext, ViewMode} from "../../models/Types";
+import {Beatmap, BeatmapFilter, BeatmapPage, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import './Beatmaps.scss';
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
@@ -7,12 +7,15 @@ import Beatmaps from "./Beatmaps";
 import _, {cloneDeep} from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
-import BeatmapsHeader from "./beatmapsHeader/BeatmapsHeader";
 import ReactTooltip from "react-tooltip";
 import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
+import PageHeader from "../generic/PageHeader";
+import {IoMusicalNotes} from "react-icons/io5";
+import BeatmapFilterRow from "./beatmapFilterRow/BeatmapFilterRow";
 
 const filterDefaultState: BeatmapFilter = {
+  search: null,
   artist: null,
   title: null,
   mapper: null,
@@ -123,39 +126,44 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     setLastSet(0)
     setLoadedBeatmapData([])
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
-      .catch(reason => console.log(reason))
+      .catch(() => {})
   }
+
+  const preparedPageName = page.charAt(0) + page.toLowerCase().slice(1)
 
   return (
     <>
-      <BeatmapsHeader
-        userContext={userContext}
-        openAddBeatmap={openAddBeatmap}
-        setOpenAddBeatmap={setOpenAddBeatmap}
-        page={page}
-        beatmapFilter={beatmapFilter}
-        setBeatmapFilter={setBeatmapFilter}
-        setBeatmapQueryFilter={setQueryFilter}
-      />
-      {
-        total === 0 ? (
-            <div className={`page-container beatmap-page`}>
-              <div>No beatmaps found with given search criteria</div>
-            </div>
-          ) : (
-            <Beatmaps
-              userContext={userContext}
-              loadedBeatmapData={loadedBeatmapData}
-              fetchNewData={fetchNewData}
-              fetchNewPage={fetchNewPage}
-              openBeatmapId={openBeatmapId}
-              setOpenBeatmapId={setOpenBeatmapId}
-              resetPage={resetPage}
-              viewMode={viewMode}
-              total={total}
-            />
-          )
-      }
+      <PageHeader title={`${preparedPageName} Beatmaps`} icon={<IoMusicalNotes />} />
+      <div className={`page-container beatmap-page beatmap-page-table`}>
+        <BeatmapFilterRow
+          userContext={userContext}
+          page={page}
+          openAddBeatmap={openAddBeatmap}
+          setOpenAddBeatmap={setOpenAddBeatmap}
+          beatmapFilter={beatmapFilter}
+          setBeatmapFilter={setBeatmapFilter}
+          setBeatmapQueryFilter={setQueryFilter}
+        />
+        {
+          total === 0 ? (
+              <div className={`page-container beatmap-page`}>
+                <div>No beatmaps found with given search criteria</div>
+              </div>
+            ) : (
+              <Beatmaps
+                userContext={userContext}
+                loadedBeatmapData={loadedBeatmapData}
+                fetchNewData={fetchNewData}
+                fetchNewPage={fetchNewPage}
+                openBeatmapId={openBeatmapId}
+                setOpenBeatmapId={setOpenBeatmapId}
+                resetPage={resetPage}
+                viewMode={viewMode}
+                total={total}
+              />
+            )
+        }
+      </div>
       <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
         <BeatmapFilters
           currentUser={userContext?.user}
@@ -163,7 +171,11 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}/>
       </ReactTooltip>
-      <AddBeatmapModal openAddBeatmap={openAddBeatmap} setOpenAddBeatmap={setOpenAddBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
+      <AddBeatmapModal
+        openAddBeatmap={openAddBeatmap}
+        setOpenAddBeatmap={setOpenAddBeatmap}
+        setOpenBeatmapId={setOpenBeatmapId}
+        userGamemodes={userContext?.user?.gamemodes?.map(it => it.gamemode)} />
     </>
   )
 }

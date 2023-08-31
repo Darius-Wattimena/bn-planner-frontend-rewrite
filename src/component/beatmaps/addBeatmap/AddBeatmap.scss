@@ -25,7 +25,7 @@ body .ReactModal__Overlay {
 
           &.active {
             svg {
-              fill: $color-confirmed;
+              fill: $status-qualified-colour;
             }
           }
         }

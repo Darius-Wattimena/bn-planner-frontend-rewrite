@@ -1,0 +1,30 @@
+@import "./../../styles/Variables";
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  padding: $padding;
+  background-color: $color-background-dark;
+  border-bottom: 2px solid $color-accent;
+  // height: 10vh;
+
+  .page-header-wrapper {
+    display: flex;
+
+    .page-header-title {
+      display: flex;
+      align-items: center;
+
+      .page-header-title-icon {
+        font-size: 2em;
+        padding-right: $padding-small;
+      }
+
+      .page-header-title-text {
+        font-size: 1.4em;
+      }
+
+      padding: $padding 0;
+    }
+  }
+}

@@ -2,14 +2,16 @@ import Modal from "react-modal";
 import React from "react";
 import AddBeatmap from "./AddBeatmap";
 import './AddBeatmap.scss';
+import {Gamemode} from "../../../models/Types";
 
 interface AddBeatmapModalProps {
   openAddBeatmap: boolean
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  userGamemodes?: Gamemode[]
 }
 
-export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapModalProps) {
+export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap, setOpenBeatmapId, userGamemodes}: AddBeatmapModalProps) {
   return (
     <>
       <Modal
@@ -21,7 +23,10 @@ export function AddBeatmapModal({openAddBeatmap, setOpenAddBeatmap, setOpenBeatm
         shouldCloseOnEsc
         shouldCloseOnOverlayClick
       >
-        <AddBeatmap setOpenAddBeatmap={setOpenAddBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
+        <AddBeatmap
+          setOpenAddBeatmap={setOpenAddBeatmap}
+          setOpenBeatmapId={setOpenBeatmapId}
+          userGamemodes={userGamemodes ? userGamemodes : []}/>
       </Modal>
     </>
   )

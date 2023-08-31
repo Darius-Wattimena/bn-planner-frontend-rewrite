@@ -3,7 +3,7 @@
 .beatmap-button {
   color: $color-text;
   padding: $padding-smallest;
-  background-color: $color-primary-light;
+  background-color: $color-primary;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,13 +11,13 @@
   transition: background-color 300ms;
 
   &:hover {
-    background-color: $color-highlight-background;
+    background-color: $color-primary-light;
   }
 }
 
 .beatmap-filter-tooltip {
   background-color: $color-footer-background;
-  border-radius: 5px !important;
+  border-radius: $border-radius !important;
   padding: unset !important;
 
   &.show {
@@ -38,7 +38,7 @@
 
   .beatmap-user-username {
     margin-top: 5px;
-    border-radius: 5px;
+    border-radius: $border-radius;
     padding: 0 $padding-smallest;
     width: fit-content;
     margin-left: auto;

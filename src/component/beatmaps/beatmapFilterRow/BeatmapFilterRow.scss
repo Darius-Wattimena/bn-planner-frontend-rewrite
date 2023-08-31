@@ -1,0 +1,76 @@
+@import "./../../../styles/Variables";
+
+.beatmap-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: $padding;
+  flex-wrap: wrap;
+
+  button {
+    margin-left: $padding-small;
+    display: flex;
+    align-items: center;
+    border-radius: $border-radius;
+    padding: $padding-small;
+    height: fit-content;
+
+    svg {
+      margin-right: $padding-smallest;
+      font-size: 1.4em;
+    }
+
+    &.quick-filter-active {
+      border-radius: 20px;
+    }
+  }
+
+  .beatmap-filter-row-buttons {
+    display: flex;
+  }
+
+  .beatmap-search-bar {
+    display: flex;
+
+    .beatmap-filter-textbox {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      background-color: $color-background-lighter;
+      color: $color-text;
+      border-radius: 20px;
+      font-size: 1.1em;
+
+      label {
+        font-size: 1.2em;
+        display: flex;
+        padding-left: $padding-small;
+
+        svg {
+          fill: $color-text-placeholder;
+        }
+      }
+
+      input {
+        border-radius: 20px;
+        border: none;
+        background-color: $color-background-lighter;
+        color: $color-text;
+        padding: $padding-small;
+        font-size: 1.1em;
+
+        &:focus {
+          outline-width: 0;
+        }
+
+        &::placeholder {
+          color: $color-text-placeholder;
+        }
+      }
+    }
+
+    button {
+      margin-left: $padding-small;
+    }
+  }
+}

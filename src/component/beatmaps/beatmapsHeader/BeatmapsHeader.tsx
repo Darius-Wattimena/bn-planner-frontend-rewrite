@@ -1,8 +1,7 @@
 import React from "react";
-import {ImFilter, ImPlus} from "react-icons/im";
 import "./BeatmapsHeader.scss"
 import {BeatmapFilter, BeatmapPage, UserContext} from "../../../models/Types";
-import QuickFilters from "./quickFilters/QuickFilters";
+import {IoAdd} from "react-icons/io5";
 
 interface BeatmapsHeaderProps {
   openAddBeatmap: boolean
@@ -28,6 +27,19 @@ function BeatmapsHeader(
   return (
     <div className={"beatmaps-header"}>
       <div className={"beatmaps-header-container"}>
+        <div className={"beatmaps-header-title"}>
+          Pending Beatmaps
+        </div>
+        <div className='beatmaps-header-right'>
+          <button disabled={userContext?.permission.osuRole === "Mapper" || openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
+            <IoAdd />
+            <div className='beatmap-button-text'>
+              Add beatmap
+            </div>
+          </button>
+        </div>
+      </div>
+{/*      <div className={"beatmaps-header-container"}>
         <div className='beatmaps-header-left'>
           <button data-tip data-for='filter' data-event='click' className='beatmap-button'>
             <ImFilter/>
@@ -43,15 +55,7 @@ function BeatmapsHeader(
             setBeatmapQueryFilter={setBeatmapQueryFilter}
           />
         </div>
-        <div className='beatmaps-header-right'>
-          <button disabled={userContext?.permission.osuRole === "Mapper" || openAddBeatmap || page !== "PENDING"} className='beatmap-button add-beatmap-button' onClick={() => setOpenAddBeatmap(true)}>
-            <ImPlus/>
-            <div className='beatmap-button-text'>
-              Add beatmap
-            </div>
-          </button>
-        </div>
-      </div>
+      </div>*/}
     </div>
   )
 }

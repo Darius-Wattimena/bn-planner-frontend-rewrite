@@ -20,9 +20,10 @@ function AppRoutes({viewMode, userContext, setUserContext}: RoutesProps) {
   const Layout = () => {
     return (
       <>
-        <Nav userContext={userContext} />
-        <Outlet />
-        <div className={"footer"} />
+        <Nav userContext={userContext} setUserContext={setUserContext} />
+        <div className={"content-container"}>
+          <Outlet />
+        </div>
       </>
     )
   }

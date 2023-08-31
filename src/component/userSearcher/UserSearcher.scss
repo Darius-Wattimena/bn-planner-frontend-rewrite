@@ -22,7 +22,7 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
       height: fit-content;
 
       .user-searcher-header {
-        background-color: $color-table-background;
+        background-color: $color-primary;
         padding: $padding-small;
       }
     }
@@ -181,7 +181,7 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
             display: flex;
 
             .user-searcher-user-role {
-              border-radius: 5px;
+              border-radius: $border-radius;
               width: fit-content;
               padding: 2px $padding-smallest;
               display: flex;

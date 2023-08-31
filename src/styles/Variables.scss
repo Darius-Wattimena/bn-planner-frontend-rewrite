@@ -19,27 +19,54 @@ $status-disqualified-colour: #a54e4b;
 $status-graved-colour: #a5a5a5;
 $status-unfinished-colour: #6253a5;
 
+$text: #f7f6f2;
+$background: #212121;
+$primary: #2d3449;
+$secondary: #833232;
+$accent: #4f6ac9;
+
+// New Theme
+$color-text: $text;
+$color-text-placeholder: #818181;
+$color-background: $background;
+$color-primary: $primary;
+$color-secondary: $secondary;
+$color-secondary-light: lighten($color-secondary, 10%);
+$color-accent: $accent;
+$color-accent-dark: darken($color-accent, 10%);
+$color-accent-light: lighten($color-accent, 10%);
+$color-primary-light: lighten($color-primary, 10%);
+$color-highlight-background: $color-accent;
+$color-text-light: $color-text;
+$color-background-dark: darken($color-background, 2%);
+$color-background-light: lighten($color-background, 2%);
+$color-background-lighter: lighten($color-background, 10%);
+$color-table-background: lighten($color-background, 5%);
+$color-confirmed: $color-primary;
+$color-highlight-confirmed: lighten($color-confirmed, 10%);
+
 // Application colours
-$color-primary: #2d2d2d;
-$color-primary-light: lighten($color-primary, 3%);
-$color-secondary: #6d6d6d;
+// $color-primary: #2d2d2d;
+// $color-primary-light: lighten($color-primary, 3%);
+// $color-secondary: #6d6d6d;
 $color-secondary-dark: darken($color-secondary, 5%);
-$color-text: #f6f6f6;
+// $color-text: #f6f6f6;
 $color-text-secondary: #d3d3d3;
-$color-text-light: #ffffff;
-$color-text-dark: #0a0a0a;
+// $color-text-light: #ffffff;
+$color-text-dark: #040401;
 $color-text-disabled: #323232;
 $color-link: #527ad0;
-$color-background: #1d1d1d;
-$color-background-light: lighten($color-background, 5%);
-$color-table-background: #404040;
+// $color-background: #1d1d1d;
+// $color-background-light: lighten($color-background, 5%);
+// $color-background-lighter: lighten($color-background, 10%);
+// $color-table-background: #404040;
 $color-table-hover: lighten($color-table-background, 5%);
 $color-table-border: lighten($color-table-background, 20%);
-$color-highlight-background: #EE4266;
+// $color-highlight-background: #EE4266;
 $color-beta: #cc9c33;
 $color-highlight-beta: lighten($color-beta, 5%);
-$color-confirmed: $status-qualified-colour;
-$color-highlight-confirmed: darken($color-confirmed, 5%);
+// $color-confirmed: $status-qualified-colour;
+// $color-highlight-confirmed: darken($color-confirmed, 5%);
 $color-error: $status-disqualified-colour;
 $color-footer-background: darken(#1d1d1d, 2%);
 
@@ -60,3 +87,5 @@ $padding-smallest: 0.25em;
 $padding-small: 0.5em;
 $padding: 1em;
 $padding-large: 2em;
+
+$border-radius: 5px;

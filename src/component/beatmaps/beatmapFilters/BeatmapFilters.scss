@@ -3,12 +3,12 @@
 $font-size: 1.1em;
 
 .beatmap-filter {
-  background-color: $color-primary-light;
+  background-color: $color-background-light;
   align-self: stretch;
   min-width: 250px;
   height: 100%;
   font-size: $font-size;
-  border-radius: 5px;
+  border-radius: $border-radius;
 
   .beatmap-filter-groups {
     display: flex;
@@ -29,7 +29,7 @@ $font-size: 1.1em;
     display: flex;
     flex-direction: column;
     padding: $padding-small;
-    background-color: $color-primary;
+    background-color: $color-background-lighter;
 
     &:not(:first-child) {
       margin-top: $padding-small;

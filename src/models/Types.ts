@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FunctionComponent, ReactElement, SVGProps} from "react";
 
 export type UserRole = 'Mapper' | 'Nominator' | 'Probation' | 'NominationAssessment'
 export type ViewMode = 'CARDS' | 'TABLE'
@@ -90,6 +90,7 @@ export interface UserSearchFilter {
 }
 
 export interface BeatmapFilter {
+  search: string | null,
   artist: string | null,
   title: string | null,
   mapper: string | null,

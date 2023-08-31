@@ -4,6 +4,8 @@ import "./Home.scss"
 import {osuUrl} from "../../AppRoutes";
 import {UserContext} from "../../models/Types";
 import {NavLink, useLocation} from "react-router-dom";
+import PageHeader from "../generic/PageHeader";
+import {IoHome} from "react-icons/io5";
 
 interface HomeProps {
   userContext: UserContext | undefined
@@ -28,37 +30,40 @@ function Home({userContext}: HomeProps) {
   }, [location])
 
   return (
-    <div className={"landing-page"}>
-      <div className={"welcome-screen"}>
-        <Logo className={"logo"}/>
-        <h1>Nomination Planner</h1>
-        <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for <a href="https://osu.ppy.sh/wiki/en/People/Beatmap_Nominators">Beatmap Bominators</a></p>
+    <>
+      <PageHeader title={"Home"} icon={<IoHome />} />
+      <div className={"landing-page"}>
+        <div className={"welcome-screen"}>
+          <Logo className={"logo"}/>
+          <h1>Nomination Planner</h1>
+          <p>By <a href="https://osu.ppy.sh/users/2369776">Greaper</a>, for <a href="https://osu.ppy.sh/wiki/en/People/Beatmap_Nominators">Beatmap Bominators</a></p>
 
-        <div className={"actions"}>
-          {!userContext ? (
-            <>
-              <a href={osuUrl} className={"button osu-button main-action"}>
-                Authenticate with osu!
-              </a>
-              {errorLogin &&
-                <div className={"message-container login-message-container"}>
-                  <div className={"message error-message"}>
-                    <div className={"header"}>Could not login!</div>
-                    <div className={"content"}>
-                      Something went wrong while trying to login with your osu credentials. If this keeps occurring contact Greaper.
+          <div className={"actions"}>
+            {!userContext ? (
+              <>
+                <a href={osuUrl} className={"button osu-button main-action"}>
+                  Authenticate with osu!
+                </a>
+                {errorLogin &&
+                  <div className={"message-container login-message-container"}>
+                    <div className={"message error-message"}>
+                      <div className={"header"}>Could not login!</div>
+                      <div className={"content"}>
+                        Something went wrong while trying to login with your osu credentials. If this keeps occurring contact Greaper.
+                      </div>
                     </div>
                   </div>
-                </div>
-              }
-            </>
-          ) : (
-            <NavLink to="/beatmaps" className={"button button-submit sub-action"}>
-              Beatmaps
-            </NavLink>
-          )}
+                }
+              </>
+            ) : (
+              <NavLink to="/beatmaps" className={"button button-submit sub-action"}>
+                Beatmaps
+              </NavLink>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

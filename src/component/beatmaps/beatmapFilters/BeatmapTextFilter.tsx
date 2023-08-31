@@ -4,7 +4,8 @@ import {BeatmapFilter} from "../../../models/Types";
 
 interface BeatmapTextFilterProps {
   target: keyof BeatmapFilter
-  label: string
+  label?: string | JSX.Element
+  placeholder?: string
   beatmapFilter: BeatmapFilter
   setBeatmapFormFilter: React.Dispatch<React.SetStateAction<BeatmapFilter>>
   timeout: number
@@ -16,6 +17,7 @@ function BeatmapTextFilter(
   {
     target,
     label,
+    placeholder,
     beatmapFilter,
     setBeatmapFormFilter,
     timeout,
@@ -38,11 +40,14 @@ function BeatmapTextFilter(
 
   return (
     <div className={`beatmap-filter-textbox`}>
-      <label htmlFor={target}>
-        {label}
-      </label>
+      {label &&
+        <label htmlFor={target}>
+          {label}
+        </label>
+      }
       <input
         id={target}
+        placeholder={placeholder}
         value={value?.toString()}
         onChange={event => {
           updateBeatmapFilter(event.target.value)
