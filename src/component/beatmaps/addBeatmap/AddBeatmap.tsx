@@ -14,13 +14,14 @@ const beatmapUrlRegex = /https:\/\/(?:old|osu)(?:\.ppy\.sh\/s|\.ppy\.sh\/beatmap
 interface AddBeatmapProps {
   setOpenAddBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setOpenBeatmapId: React.Dispatch<React.SetStateAction<number | undefined>>
+  userGamemodes: Gamemode[]
 }
 
-function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId}: AddBeatmapProps) {
+function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId, userGamemodes}: AddBeatmapProps) {
   const [incorrectUrl, setIncorrectUrl] = useState(false)
   const [missingGamemodes, setMissingGamemodes] = useState(false)
   const [value, setValue] = useState("")
-  const [gamemodes, setGamemodes] = useState<Gamemode[]>([])
+  const [gamemodes, setGamemodes] = useState<Gamemode[]>(userGamemodes)
   const [, execute] = useAxios<Beatmap>("", {manual: true})
 
   function onAddBeatmap() {

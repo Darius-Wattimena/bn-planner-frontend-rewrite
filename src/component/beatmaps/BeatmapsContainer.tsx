@@ -171,7 +171,11 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
           setBeatmapFilter={setBeatmapFilter}
           setQueryFilter={setQueryFilter}/>
       </ReactTooltip>
-      <AddBeatmapModal openAddBeatmap={openAddBeatmap} setOpenAddBeatmap={setOpenAddBeatmap} setOpenBeatmapId={setOpenBeatmapId} />
+      <AddBeatmapModal
+        openAddBeatmap={openAddBeatmap}
+        setOpenAddBeatmap={setOpenAddBeatmap}
+        setOpenBeatmapId={setOpenBeatmapId}
+        userGamemodes={userContext?.user?.gamemodes?.map(it => it.gamemode)} />
     </>
   )
 }
