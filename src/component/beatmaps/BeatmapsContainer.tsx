@@ -126,7 +126,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
     setLastSet(0)
     setLoadedBeatmapData([])
     executeTotal(Api.fetchCountBeatmapsByFilter(queryFilter))
-      .catch(reason => console.log(reason))
+      .catch(() => {})
   }
 
   const preparedPageName = page.charAt(0) + page.toLowerCase().slice(1)
