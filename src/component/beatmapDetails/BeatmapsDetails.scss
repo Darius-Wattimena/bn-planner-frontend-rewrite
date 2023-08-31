@@ -183,6 +183,7 @@ body .ReactModal__Overlay {
             .beatmap-metadata-item {
               display: flex;
               align-items: center;
+              padding-bottom: $padding-smallest;
 
               &.beatmap-note {
                 flex-wrap: wrap;
@@ -192,6 +193,7 @@ body .ReactModal__Overlay {
                 .beatmap-status-label {
                   padding: 1px $padding-small;
                   margin: unset;
+                  border-radius: 5px;
                 }
               }
 

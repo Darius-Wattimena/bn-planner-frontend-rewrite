@@ -37,6 +37,7 @@ export default function NoteChangeBeatmap({beatmap, setBeatmap, setIsModalOpen, 
               Beatmap Note
             </label>
             <input
+              type={"text"}
               id={"note-change-beatmap"}
               value={newNote?.toString()}
               onChange={event => {
