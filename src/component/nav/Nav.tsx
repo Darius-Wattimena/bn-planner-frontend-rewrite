@@ -56,14 +56,11 @@ function Nav({userContext, setUserContext}: NavProps) {
                 </div>
               </NavLink>
               {userContext &&
-                <NavLink className={"disabled"} to={"/profile"} onClick={disabledOnClick}>
-                  <div className={"navbar-item navbar-item-disabled"}>
+                <NavLink to={"/profile"} className={(navData) => navData.isActive ? "navbar-active" : ""}>
+                  <div className={"navbar-item"}>
                     <IoPerson/>
                     <div className={"navbar-item-text"}>
                       Profile
-                    </div>
-                    <div className={"navbar-item-badge"}>
-                      WIP
                     </div>
                   </div>
                 </NavLink>
