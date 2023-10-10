@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {ImMap, ImPlus} from "react-icons/im";
+import PageHeader from "../generic/PageHeader";
+import {IoColorWand} from "react-icons/io5";
 
 interface HomeProps {
   userContext: UserContext | undefined
@@ -14,10 +16,8 @@ function Admin({userContext}: HomeProps) {
 
   return (
     <>
+      <PageHeader title={"Syncing Panel"} icon={<IoColorWand />} />
       <div className={`page-container admin-page`}>
-        <h3 className="admin-page-header">
-          Admin Panel
-        </h3>
         <div className={"page-container-content admin-page-content"}>
           {
             (userContext?.permission.osuRole === "NominationAssessment")
@@ -33,11 +33,21 @@ function Admin({userContext}: HomeProps) {
 
 function AdminPanel() {
   return (
-    <div className="panel">
-      <SyncUsers />
-      <hr />
-      <SyncBeatmaps />
-    </div>
+    <>
+      <h3 className="admin-page-header">
+        User Syncing Panel
+      </h3>
+      <div className="panel">
+        <SyncUsers />
+      </div>
+      <h3 className="admin-page-header">
+        Beatmap Syncing Panel
+      </h3>
+      <div className="panel">
+        <SyncBeatmaps />
+      </div>
+    </>
+
   )
 }
 

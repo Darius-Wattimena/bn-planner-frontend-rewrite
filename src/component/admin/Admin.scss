@@ -4,13 +4,12 @@
   margin: $padding-small;
 
   .admin-page-header {
-    border-radius: 3px;
+    border-radius: $border-radius $border-radius 0 0;
     padding: $padding-small;
     background-color: $color-primary;
   }
 
   .admin-page-content {
-    background-color: $color-background-light;
   }
 }
 
@@ -23,8 +22,10 @@
 .admin-page-content {
   margin: $padding-small 0;
   .panel {
+    margin-bottom: $padding;
     border-radius: 3px;
     padding: $padding;
+    background-color: $color-background-light;
 
     hr {
       margin: $padding 0;
@@ -32,6 +33,8 @@
 
     .panel-item {
       padding: $padding-small 0;
+      width: 50%;
+      min-width: 500px;
 
       .textbox {
         input, select {
