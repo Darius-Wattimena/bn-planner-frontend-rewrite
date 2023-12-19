@@ -521,6 +521,7 @@ body .ReactModal__Overlay {
   z-index: 1000;
 
   .ReactModal__Content {
+    width: 100%;
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
 

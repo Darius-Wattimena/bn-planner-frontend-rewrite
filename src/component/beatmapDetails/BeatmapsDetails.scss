@@ -4,7 +4,7 @@ body .ReactModal__Overlay {
   .ReactModal__Content.beatmap-details-modal {
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
-    width: 1200px;
+    max-width: 1200px;
 
     .beatmap-details-container {
       width: 100%;

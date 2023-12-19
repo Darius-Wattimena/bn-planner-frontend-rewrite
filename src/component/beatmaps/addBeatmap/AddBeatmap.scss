@@ -2,7 +2,7 @@
 
 body .ReactModal__Overlay {
   .ReactModal__Content.add-beatmap-modal {
-    width: 400px;
+    max-width: 400px;
 
     .beatmap-gamemodes {
       padding: $padding-small;
