@@ -43,7 +43,7 @@ function Nav({userContext, setUserContext}: NavProps) {
           <div className={"navbar-items"}>
             <div className={"navbar-user"}>
               {userContext &&
-                <NavProfile user={userContext.user} role={userContext.permission.osuRole}/>
+                <NavProfile user={userContext.user} />
               }
             </div>
             <div className={"navbar-section"}>
@@ -61,6 +61,9 @@ function Nav({userContext, setUserContext}: NavProps) {
                     <IoPerson/>
                     <div className={"navbar-item-text"}>
                       Profile
+                    </div>
+                    <div className={"navbar-item-badge"}>
+                      WIP
                     </div>
                   </div>
                 </NavLink>
