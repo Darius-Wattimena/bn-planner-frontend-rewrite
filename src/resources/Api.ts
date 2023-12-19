@@ -183,6 +183,13 @@ const Api = {
       headers: getAuthHeader(),
       url: url,
     }
+  },
+  fetchProfilePairings: (userId: string): AxiosRequestConfig => {
+    return {
+      method: 'GET',
+      headers: getAuthHeader(),
+      url: `/v2/profile/${userId}/pairing`
+    }
   }
 }
 

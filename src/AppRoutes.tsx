@@ -7,6 +7,7 @@ import {UserContext, ViewMode} from "./models/Types";
 import Login from "./component/login/Login";
 import {CONFIG} from "./Settings";
 import Admin from "./component/admin/Admin";
+import Profile from "./component/profile/Profile";
 
 export const osuUrl = `https://osu.ppy.sh/oauth/authorize?response_type=code&client_id=${CONFIG.osu_id}&redirect_uri=${CONFIG.osu_redirect}&scope=identify public`
 
@@ -44,6 +45,11 @@ function AppRoutes({viewMode, userContext, setUserContext}: RoutesProps) {
         <Route element={<Layout />}>
           <Route path="/" element={<Home userContext={userContext}/>}/>
           <Route path="/login" element={<Login userContext={userContext} setUserContext={setUserContext}/>}/>
+          <Route path="/profile" element={
+            <RequireAuth>
+              <Profile userContext={userContext!!} />
+            </RequireAuth>
+          } />
           <Route path="/beatmaps" element={
             <RequireAuth>
               <BeatmapsContainer viewMode={viewMode} userContext={userContext} page={"PENDING"} />

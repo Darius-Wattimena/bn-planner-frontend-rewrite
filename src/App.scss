@@ -116,6 +116,16 @@ body {
   }
 }
 
+.custom-tooltip {
+  background-color: $color-background-lighter;
+  padding: $padding-smallest;
+  border-radius: $border-radius;
+
+  .label {
+    font-weight: bold;
+  }
+}
+
 .react-icons {
   vertical-align: middle;
 

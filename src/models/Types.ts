@@ -123,3 +123,8 @@ export interface SyncInfo {
   duration: number
   totalSynced: number
 }
+
+export interface ProfileStatisticsPairInfo {
+  otherNominatorName: string
+  amountOfPairing: number
+}

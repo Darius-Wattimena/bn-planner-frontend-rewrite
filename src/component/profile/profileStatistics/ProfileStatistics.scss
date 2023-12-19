@@ -1,0 +1,18 @@
+@import "../../../styles/Variables";
+
+.profile-statistics-card {
+  height: 100%;
+
+  .profile-statistics-card-title {
+    background-color: $color-primary;
+    border-radius: $border-radius $border-radius 0 0;
+    padding: $padding-small;
+  }
+
+  .profile-statistics-card-chart {
+    background-color: $color-background-light;
+    padding: $padding;
+    height: 300px;
+    width: calc(100% - $padding);
+  }
+}
