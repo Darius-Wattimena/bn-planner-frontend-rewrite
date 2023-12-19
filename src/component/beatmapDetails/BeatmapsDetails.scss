@@ -228,13 +228,13 @@ body .ReactModal__Overlay {
 
             &.actions-button-group-left {
               .button:not(:first-child) {
-                margin: 0 $padding-smallest;
+                margin-left: $padding-smallest;
               }
             }
 
             &.actions-button-group-right {
               .button:not(:last-child) {
-                margin: 0 $padding-smallest;
+                margin-right: $padding-smallest;
               }
             }
 

@@ -1,0 +1,7 @@
+@import "src/styles/Variables";
+
+body .ReactModal__Overlay {
+  .ReactModal__Content.sync-beatmap-modal {
+    width: 900px;
+  }
+}

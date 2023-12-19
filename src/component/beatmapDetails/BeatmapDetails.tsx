@@ -1,5 +1,5 @@
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
-import {ImBin2, ImCross} from "react-icons/im";
+import {ImBin2, ImCross, ImSpinner11} from "react-icons/im";
 import {FaStickyNote} from "react-icons/fa";
 import React, {useEffect, useState} from "react";
 import {Beatmap, BeatmapGamemode, BeatmapNominator, BeatmapStatus, Gamemode, UserContext} from "../../models/Types";
@@ -23,6 +23,7 @@ interface BeatmapDetailsProps {
   setChangingUser: React.Dispatch<React.SetStateAction<string | undefined>>
   onDeleteNominator: (gamemode: Gamemode, osuId: string) => void
   setOpenDeleteBeatmap: React.Dispatch<React.SetStateAction<boolean>>
+  setOpenSyncBeatmap: React.Dispatch<React.SetStateAction<boolean>>
   setRefreshOnClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -38,6 +39,7 @@ function BeatmapDetails(
     setChangingUser,
     onDeleteNominator,
     setOpenDeleteBeatmap,
+    setOpenSyncBeatmap,
     setRefreshOnClose
   }: BeatmapDetailsProps) {
   let beatmapStatus = getBeatmapStatus(beatmap.status)
@@ -101,50 +103,57 @@ function BeatmapDetails(
         </div>
         <div className={"beatmap-details-sub-container beatmap-actions"}>
           <div className={"actions-row"}>
-            <div className={"actions-button-group actions-button-group-left"}>
-              <button onClick={() => {
-                setOpenDeleteBeatmap(true)
-              }} className={"button button-cancel button-text"}>
-                <ImBin2/> Delete
-              </button>
-              {beatmap.status !== BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
-                <ChangeBeatmapStatusButton
-                  beatmap={beatmap}
-                  newStatus={BeatmapStatus.Graved}
-                  setOpenBeatmapId={setOpenBeatmapId}
-                  setRefreshOnClose={setRefreshOnClose}
-                  buttonClassName={"button button-grave button-text"}>
-                  <ImBin2/> Grave
-                </ChangeBeatmapStatusButton>
-              }
-
-              {beatmap.status === BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
-                <ChangeBeatmapStatusButton
-                  beatmap={beatmap}
-                  newStatus={BeatmapStatus.Pending}
-                  setOpenBeatmapId={setOpenBeatmapId}
-                  setRefreshOnClose={setRefreshOnClose}
-                  buttonClassName={"button button-grave button-text"}>
-                  <ImBin2/> Ungrave
-                </ChangeBeatmapStatusButton>
-              }
-
-            </div>
-            <div className={"actions-button-group actions-button-group-right"}>
-              <>
+            {userContext?.permission.osuRole !== 'Mapper' &&
+              <div className={"actions-button-group actions-button-group-left"}>
                 <button onClick={() => {
-                  setIsNoteChangeModelOpen(true)
-                }} className={"button button-edit button-text"}>
-                  <FaStickyNote/> Edit Note
+                  setOpenDeleteBeatmap(true)
+                }} className={"button button-cancel button-text"}>
+                  <ImBin2/> Delete
                 </button>
-                <NoteChangeBeatmapModal
-                  beatmap={beatmap}
-                  setBeatmap={setBeatmap}
-                  isModalOpen={isNoteChangeModelOpen}
-                  setIsModalOpen={setIsNoteChangeModelOpen}
-                  setRefreshOnClose={setRefreshOnClose} />
-              </>
+                {beatmap.status !== BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
+                  <ChangeBeatmapStatusButton
+                    beatmap={beatmap}
+                    newStatus={BeatmapStatus.Graved}
+                    setOpenBeatmapId={setOpenBeatmapId}
+                    setRefreshOnClose={setRefreshOnClose}
+                    buttonClassName={"button button-grave button-text"}>
+                    <ImBin2/> Grave
+                  </ChangeBeatmapStatusButton>
+                }
+                <button onClick={() => {
+                  setOpenSyncBeatmap(true)
+                }} className={"button button-submit button-text"}>
+                  <ImSpinner11 /> Sync
+                </button>
 
+                {beatmap.status === BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
+                  <ChangeBeatmapStatusButton
+                    beatmap={beatmap}
+                    newStatus={BeatmapStatus.Pending}
+                    setOpenBeatmapId={setOpenBeatmapId}
+                    setRefreshOnClose={setRefreshOnClose}
+                    buttonClassName={"button button-grave button-text"}>
+                    <ImBin2/> Ungrave
+                  </ChangeBeatmapStatusButton>
+                }
+              </div>
+            }
+            <div className={"actions-button-group actions-button-group-right"}>
+              {userContext?.permission.osuRole !== 'Mapper' &&
+                <>
+                  <button onClick={() => {
+                    setIsNoteChangeModelOpen(true)
+                  }} className={"button button-edit button-text"}>
+                    <FaStickyNote/> Edit Note
+                  </button>
+                  <NoteChangeBeatmapModal
+                    beatmap={beatmap}
+                    setBeatmap={setBeatmap}
+                    isModalOpen={isNoteChangeModelOpen}
+                    setIsModalOpen={setIsNoteChangeModelOpen}
+                    setRefreshOnClose={setRefreshOnClose} />
+                </>
+              }
 
               <button onClick={() => {
                 setOpenBeatmapId(undefined)

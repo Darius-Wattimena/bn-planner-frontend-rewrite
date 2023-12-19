@@ -184,6 +184,13 @@ const Api = {
       url: url,
     }
   },
+  syncSingleBeatmap: (beatmapId: number): AxiosRequestConfig => {
+    return {
+      method: 'POST',
+      headers: getAuthHeader(),
+      url: `/v2/admin/sync/beatmaps/single?id=${beatmapId}`
+    }
+  },
   fetchProfilePairings: (userId: string): AxiosRequestConfig => {
     return {
       method: 'GET',

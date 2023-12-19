@@ -6,6 +6,7 @@ import UserSearcher from "../userSearcher/UserSearcher";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import DeleteBeatmapModal from "./deleteBeatmap/DeleteBeatmapModal";
+import SyncBeatmapModal from "./syncBeatmap/SyncBeatmapModal";
 
 interface BeatmapDetailsModalProps {
   userContext: UserContext | undefined
@@ -29,6 +30,7 @@ function BeatmapDetailsModal(
   }: BeatmapDetailsModalProps) {
   const [openUserSearcher, setOpenUserSearcher] = useState(false)
   const [openDeleteBeatmap, setOpenDeleteBeatmap] = useState(false)
+  const [openSyncBeatmap, setOpenSyncBeatmap] = useState(false)
   const [changingGamemode, setChangingGamemode] = useState<Gamemode>()
   const [changingUser, setChangingUser] = useState<string>()
   const [{data}, execute] = useAxios<Beatmap>("", {manual: true})
@@ -84,6 +86,7 @@ function BeatmapDetailsModal(
           setChangingUser={setChangingUser}
           onDeleteNominator={onDeleteNominator}
           setOpenDeleteBeatmap={setOpenDeleteBeatmap}
+          setOpenSyncBeatmap={setOpenSyncBeatmap}
           setRefreshOnClose={setRefreshOnClose}
         />
         }
@@ -105,6 +108,13 @@ function BeatmapDetailsModal(
             beatmap={beatmap}
             openDeleteBeatmap={openDeleteBeatmap}
             setOpenDeleteBeatmap={setOpenDeleteBeatmap}
+            setOpenBeatmapId={setOpenBeatmapId}
+            setRefreshOnClose={setRefreshOnClose}
+          />
+          <SyncBeatmapModal
+            beatmap={beatmap}
+            openSyncBeatmap={openSyncBeatmap}
+            setOpenSyncBeatmap={setOpenSyncBeatmap}
             setOpenBeatmapId={setOpenBeatmapId}
             setRefreshOnClose={setRefreshOnClose}
           />
