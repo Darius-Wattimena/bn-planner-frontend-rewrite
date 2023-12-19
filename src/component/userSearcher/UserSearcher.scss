@@ -3,9 +3,9 @@
 body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
   position: absolute;
   max-width: 800px;
-  height: 300px;
+  min-height: 560px;
   left: 50%;
-  top: 30%;
+  top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   box-shadow: unset;

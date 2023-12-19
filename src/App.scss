@@ -49,6 +49,28 @@
     }
   }
 
+  body .ReactModal__Overlay {
+    z-index: 1000;
+
+    .ReactModal__Content {
+      .actions-row {
+        flex-direction: column;
+        padding: $padding !important;
+
+        .actions-button-group {
+          flex-direction: column;
+          width: 100%;
+
+          button {
+            margin: $padding-smallest !important;
+            justify-self: start;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
   .table-container {
     table {
       height: 75vh;
@@ -521,6 +543,9 @@ body .ReactModal__Overlay {
   z-index: 1000;
 
   .ReactModal__Content {
+    max-height: 100vh;
+    overflow: auto;
+
     width: 100%;
     box-shadow: $color-table-background 0 0 0 4px;
     background-color: $color-table-background;
