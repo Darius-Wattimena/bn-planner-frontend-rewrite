@@ -222,9 +222,9 @@ select, select option {
 
       .beatmap-table-actions {
         display: flex;
-        justify-content: space-evenly; // or `space-between` if you want edge-aligned
-        width: 100%; // ✅ full width of the parent
-        gap: $padding-small; // optional: spacing between buttons
+        justify-content: space-evenly;
+        width: 100%;
+        gap: $padding-small;
 
         button {
           flex: 1 1 0;

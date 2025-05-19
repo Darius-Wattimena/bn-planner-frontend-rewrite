@@ -133,7 +133,7 @@ table {
 
 .beatmap-table-user {
   &.nominated .beatmap-nominator-container {
-    box-shadow: 0 0 5px 1px $status-qualified-colour;
+    //box-shadow: 0 0 5px 1px $status-qualified-colour;
   }
 
   &.beatmap-table-user-multiple {
@@ -145,13 +145,30 @@ table {
   }
 
   .beatmap-nominator-container {
+    background-color: unset;
+    border: 2px solid $color-table-border;
     height: $padding-large;
-    //width: 80%;
     display: flex;
     align-items: center;
     padding: $padding-smallest;
     margin: 0 $padding-smallest;
     border-radius: 25px;
+
+    &.role-nat path {
+      fill: $nat-colour;
+    }
+
+    &.role-bn path {
+      fill: $bn-colour;
+    }
+
+    &.role-pbn path {
+      fill: $pbn-colour;
+    }
+
+    &.role-retired path {
+      fill: $retired-colour;
+    }
 
     .beatmap-nominator-picture {
       background-size: cover;
@@ -168,6 +185,20 @@ table {
       text-overflow: ellipsis;
       overflow: hidden;
       width: fit-content;
+    }
+
+    .beatmap-nominator-icons {
+      display: flex;
+      margin-left: auto;
+      gap: $padding-smallest;
+
+      .beatmap-nominator-nominated-icon {
+        text-align: center;
+
+        path {
+          fill: $status-qualified-colour;
+        }
+      }
     }
 
     svg {

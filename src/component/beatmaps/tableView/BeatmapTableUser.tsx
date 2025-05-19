@@ -5,6 +5,7 @@ import OsuLogo from "../../../assets/osu.svg?react";
 import TaikoLogo from "../../../assets/taiko.svg?react";
 import CatchLogo from "../../../assets/catch.svg?react";
 import ManiaLogo from "../../../assets/mania.svg?react";
+import {FaCheck, FaRegThumbsUp} from "react-icons/fa6";
 
 interface BeatmapTableUserProps {
   user: User
@@ -45,7 +46,13 @@ function BeatmapTableUser(props: BeatmapTableUserProps) {
         <div className={"beatmap-nominator-text"}>
           {name}
         </div>
-        {gamemodeText}
+        <div className={"beatmap-nominator-icons"}>
+          {props.nominated &&
+            <FaCheck className={"beatmap-nominator-nominated-icon"} />
+          }
+          {gamemodeText}
+        </div>
+
       </div>
     </td>
   )
