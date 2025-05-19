@@ -1,9 +1,9 @@
 import React from "react";
-import {ImCheckmark, ImCross} from "react-icons/im";
 import "./DeleteBeatmap.scss"
 import useAxios from "axios-hooks";
 import {Beatmap} from "../../../models/Types";
 import Api from "../../../resources/Api";
+import {FaCheck, FaXmark} from "react-icons/fa6";
 
 interface DeleteBeatmapProps {
   beatmap: Beatmap
@@ -40,12 +40,12 @@ function DeleteBeatmap({beatmap, setOpenDeleteBeatmap, setOpenBeatmapId, setRefr
         <button onClick={() => {
           setOpenDeleteBeatmap(false)
         }} className={"button button-cancel button-text"}>
-          <ImCross/> Cancel
+          <FaXmark /> Cancel
         </button>
         <button onClick={() => {
           onDeleteBeatmap()
         }} className={"button button-submit button-text"}>
-          <ImCheckmark/> Delete Beatmap
+          <FaCheck /> Delete Beatmap
         </button>
       </div>
     </div>

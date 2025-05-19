@@ -1,0 +1,65 @@
+@use "sass:color";
+
+// Osu colours
+$osu-colour: #cc5288;
+$osu-colour-dark: color.adjust($osu-colour, $lightness: -20%);
+$osu-colour-darker: color.adjust($osu-colour, $lightness: -30%);
+$bn-colour: #7249A5;
+$pbn-colour: #995BA5;
+$nat-colour: #A53D3C;
+$retired-colour: #696969;
+$user-colour: #4c49a5;
+
+// Beatmap status colours
+$status-pending-colour: #538ea5;
+$status-bubbled-colour: #2b56a5;
+$status-qualified-colour: #2da554;
+$status-ranked-colour: #5aa500;
+$status-popped-colour: #a57d5d;
+$status-disqualified-colour: #a54e4b;
+$status-graved-colour: #a5a5a5;
+$status-unfinished-colour: #6253a5;
+
+// Main colors
+$color-background: #212121;
+$color-text: #f7f6f2;
+$color-primary: #2d3449;
+$color-secondary: #833232;
+$color-accent: #4f6ac9;
+
+// Text colors
+$color-text-secondary: #d3d3d3;
+$color-text-placeholder: #818181;
+$color-text-dark: #040401;
+$color-text-disabled: #323232;
+$color-link: #527ad0;
+
+// Color variations
+$color-secondary-light: color.adjust($color-secondary, $lightness: 10%);
+$color-secondary-dark: color.adjust($color-secondary, $lightness: -5%);
+$color-beta: #cc9c33;
+$color-highlight-beta: color.adjust($color-beta, $lightness: 5%);
+$color-accent-dark: color.adjust($color-accent, $lightness: -10%);
+$color-accent-light: color.adjust($color-accent, $lightness: 10%);
+$color-primary-light: color.adjust($color-primary, $lightness: 10%);
+$color-highlight-background: $color-accent;
+$color-background-dark: color.adjust($color-background, $lightness: -2%);
+$color-background-light: color.adjust($color-background, $lightness: 2%);
+$color-background-lighter: color.adjust($color-background, $lightness: 10%);
+$color-table-background: color.adjust($color-background, $lightness: 5%);
+$color-table-hover: color.adjust($color-table-background, $lightness: 5%);
+$color-table-border: color.adjust($color-table-background, $lightness: 20%);
+$color-footer-background: color.adjust(#1d1d1d, $lightness: -2%);
+$color-error: $status-disqualified-colour;
+$color-confirmed: $color-primary;
+$color-highlight-confirmed: color.adjust($color-confirmed, $lightness: 10%);
+
+// Paddings
+$padding-smallest: 0.25em;
+$padding-small: 0.5em;
+$padding: 1em;
+$padding-large: 2em;
+
+$border-radius: 5px;
+$border-radius-large: 10px;
+$box-shadow: 1px 1px 20px $color-background;

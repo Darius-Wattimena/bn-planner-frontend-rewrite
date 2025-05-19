@@ -1,4 +1,4 @@
-@import "../../../styles/Variables";
+@import "../../../styles/variables.scss";
 
 @function boxShadowWithColor($color) {
   @return 0px 0px 0px 2px $color;

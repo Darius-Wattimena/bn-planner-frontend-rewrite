@@ -1,4 +1,4 @@
-@import "src/styles/Variables";
+@import "../../styles/variables.scss";
 
 .admin-page {
   .admin-page-header {
@@ -31,16 +31,31 @@
 
     .panel-item {
       padding: $padding-small 0;
-      width: 50%;
-      min-width: 500px;
+      display: grid;
+      gap: 10px;
 
       .textbox {
-        input, select {
+        padding: $padding 0;
+        input {
           width: 100%;
           padding: $padding;
           border: 1px solid $color-secondary;
           border-radius: 4px;
           box-sizing: border-box;
+        }
+      }
+
+      .button-group {
+        display: flex;
+      }
+
+      @media only screen and (max-width: 800px) {
+        .button-group {
+            flex-direction: column;
+            button {
+                margin-right: 0;
+                margin-bottom: $padding-small;
+            }
         }
       }
     }

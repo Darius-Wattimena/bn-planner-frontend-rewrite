@@ -7,11 +7,9 @@ import Beatmaps from "./Beatmaps";
 import _, {cloneDeep} from "lodash";
 import {IndexRange} from "react-virtualized";
 import {useParams} from "react-router-dom";
-import ReactTooltip from "react-tooltip";
-import BeatmapFilters from "./beatmapFilters/BeatmapFilters";
 import AddBeatmapModal from "./addBeatmap/AddBeatmapModal";
 import PageHeader from "../generic/PageHeader";
-import {IoMusicalNotes} from "react-icons/io5";
+import {FaMusic} from "react-icons/fa6";
 import BeatmapFilterRow from "./beatmapFilterRow/BeatmapFilterRow";
 
 const filterDefaultState: BeatmapFilter = {
@@ -53,6 +51,8 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
     if (currentUser) {
       filter.gamemodes = currentUser.gamemodes.map(it => it.gamemode)
+      // TODO add settings so the behaviour can be opt-in
+      // filter.nominators = (currentUser.gamemodes.length !== 0) ? [currentUser.osuId] : []
     }
 
     return filter
@@ -133,7 +133,7 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
 
   return (
     <>
-      <PageHeader title={`${preparedPageName} Beatmaps`} icon={<IoMusicalNotes />} />
+      <PageHeader title={`${preparedPageName} Beatmaps`} icon={<FaMusic />} />
       <div className={`page-container beatmap-page beatmap-page-table`}>
         <BeatmapFilterRow
           userContext={userContext}
@@ -164,13 +164,6 @@ function BeatmapsContainer({viewMode, userContext, page}: BeatmapsContainerProps
             )
         }
       </div>
-      <ReactTooltip id='filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
-        <BeatmapFilters
-          currentUser={userContext?.user}
-          beatmapFilter={beatmapFilter}
-          setBeatmapFilter={setBeatmapFilter}
-          setQueryFilter={setQueryFilter}/>
-      </ReactTooltip>
       <AddBeatmapModal
         openAddBeatmap={openAddBeatmap}
         setOpenAddBeatmap={setOpenAddBeatmap}

@@ -2,7 +2,7 @@ import BeatmapTextFilter from "../beatmapFilters/BeatmapTextFilter";
 import React, {Dispatch, SetStateAction, useState} from "react";
 import {BeatmapFilter, BeatmapPage, UserContext} from "../../../models/Types";
 import "./BeatmapFilterRow.scss";
-import {IoAdd, IoSearch} from "react-icons/io5";
+import {FaPlus, FaMagnifyingGlass} from "react-icons/fa6";
 import UserSearcher from "../../userSearcher/UserSearcher";
 import QuickFilters from "../beatmapsHeader/quickFilters/QuickFilters";
 
@@ -25,7 +25,7 @@ export default function BeatmapFilterRow(props: BeatmapFilterRowProps) {
       <div className={"beatmap-search-bar"}>
         <BeatmapTextFilter
           target={"search"}
-          label={<IoSearch />}
+          label={<FaMagnifyingGlass />}
           placeholder={"Search artist, title, mapper..."}
           beatmapFilter={props.beatmapFilter}
           setBeatmapFormFilter={props.setBeatmapFilter}
@@ -43,7 +43,7 @@ export default function BeatmapFilterRow(props: BeatmapFilterRowProps) {
       </div>
       <div className={"beatmap-filter-row-buttons"}>
         <button className={"primary"} onClick={() => setOpenUserSearcher(true)}>
-          <IoSearch />
+          <FaMagnifyingGlass />
           <div className={"beatmap-button-text"}>
             Nominators
           </div>
@@ -53,7 +53,7 @@ export default function BeatmapFilterRow(props: BeatmapFilterRowProps) {
           className='accent'
           onClick={() => props.setOpenAddBeatmap(true)}
         >
-          <IoAdd />
+          <FaPlus />
           <div className='beatmap-button-text'>
             Add Beatmap
           </div>

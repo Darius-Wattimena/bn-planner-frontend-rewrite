@@ -1,15 +1,14 @@
 import BeatmapDetailsUser from "./BeatmapDetailsUser";
-import {ImBin2, ImCross, ImSpinner11} from "react-icons/im";
-import {FaStickyNote} from "react-icons/fa";
+import {FaNoteSticky, FaTrashCan, FaRotate, FaXmark} from "react-icons/fa6";
 import React, {useEffect, useState} from "react";
 import {Beatmap, BeatmapGamemode, BeatmapNominator, BeatmapStatus, Gamemode, UserContext} from "../../models/Types";
 import {getBeatmapStatus} from "../../utils/BeatmapUtils";
 import StatusChangeBeatmapModal from "./statusChangeBeatmap/StatusChangeBeatmapModal";
 import NoteChangeBeatmapModal from "./noteChangeBeatmap/NoteChangeBeatmapModal";
-import {ReactComponent as OsuLogo} from "../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../assets/mania.svg";
+import OsuLogo from "../../assets/osu.svg?react";
+import TaikoLogo from "../../assets/taiko.svg?react";
+import CatchLogo from "../../assets/catch.svg?react";
+import ManiaLogo from "../../assets/mania.svg?react";
 import {sortByBeatmapGamemode} from "../beatmaps/tableView/BeatmapTableRow";
 
 interface BeatmapDetailsProps {
@@ -108,7 +107,7 @@ function BeatmapDetails(
                 <button onClick={() => {
                   setOpenDeleteBeatmap(true)
                 }} className={"button button-cancel button-text"}>
-                  <ImBin2/> Delete
+                  <FaTrashCan /> Delete
                 </button>
                 {beatmap.status !== BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
                   <ChangeBeatmapStatusButton
@@ -117,13 +116,13 @@ function BeatmapDetails(
                     setOpenBeatmapId={setOpenBeatmapId}
                     setRefreshOnClose={setRefreshOnClose}
                     buttonClassName={"button button-grave button-text"}>
-                    <ImBin2/> Grave
+                    <FaTrashCan /> Grave
                   </ChangeBeatmapStatusButton>
                 }
                 <button onClick={() => {
                   setOpenSyncBeatmap(true)
                 }} className={"button button-submit button-text"}>
-                  <ImSpinner11 /> Sync
+                  <FaRotate /> Sync
                 </button>
 
                 {beatmap.status === BeatmapStatus.Graved && userContext?.permission.osuRole === "NominationAssessment" &&
@@ -133,7 +132,7 @@ function BeatmapDetails(
                     setOpenBeatmapId={setOpenBeatmapId}
                     setRefreshOnClose={setRefreshOnClose}
                     buttonClassName={"button button-grave button-text"}>
-                    <ImBin2/> Ungrave
+                    <FaTrashCan /> Ungrave
                   </ChangeBeatmapStatusButton>
                 }
               </div>
@@ -144,7 +143,7 @@ function BeatmapDetails(
                   <button onClick={() => {
                     setIsNoteChangeModelOpen(true)
                   }} className={"button button-edit button-text"}>
-                    <FaStickyNote/> Edit Note
+                    <FaNoteSticky /> Edit Note
                   </button>
                   <NoteChangeBeatmapModal
                     beatmap={beatmap}
@@ -158,7 +157,7 @@ function BeatmapDetails(
               <button onClick={() => {
                 setOpenBeatmapId(undefined)
               }} className={"button button-cancel button-text"}>
-                <ImCross/> Close
+                <FaXmark /> Close
               </button>
             </div>
           </div>

@@ -4,9 +4,8 @@ import Api from "../../resources/Api";
 import {Navigate, useLocation} from 'react-router-dom';
 import {UserContext} from "../../models/Types";
 import "./Login.scss"
-import {ImSpinner3} from "react-icons/im";
 import PageHeader from "../generic/PageHeader";
-import {IoLogIn} from "react-icons/io5";
+import {FaRightToBracket, FaSpinner} from "react-icons/fa6";
 
 interface LoginProps {
   userContext: UserContext | undefined
@@ -50,10 +49,10 @@ function Login({userContext, setUserContext}: LoginProps) {
   } else {
     return (
       <>
-        <PageHeader title={"Login"} icon={<IoLogIn />} />
+        <PageHeader title={"Login"} icon={<FaRightToBracket />} />
         <div className={"landing-page"}>
           <div className={"login-screen"}>
-            <ImSpinner3 className={"login-icon icon-spin"} />
+            <FaSpinner className={"login-icon icon-spin"} />
             <h3>Logging in</h3>
             <p>Please wait while we validate your osu! token.</p>
           </div>

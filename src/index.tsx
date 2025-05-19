@@ -1,14 +1,15 @@
 import React from 'react';
-import {render} from "react-dom";
+import { createRoot } from 'react-dom/client'
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 import {IconContext} from 'react-icons';
 
-render(
+const container = document.getElementById('root')
+const root = createRoot(container!)
+root.render(
   <BrowserRouter>
     <IconContext.Provider value={{className: 'react-icons'}}>
       <App/>
     </IconContext.Provider>
-  </BrowserRouter>,
-  document.getElementById('root')
+  </BrowserRouter>
 );

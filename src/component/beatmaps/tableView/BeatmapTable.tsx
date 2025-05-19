@@ -34,17 +34,17 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
     <div className={"table-container"}>
       <table className={"beatmap-table"}>
         <thead>
-        <tr>
-          <th className={"beatmap-banner-header"}>#</th>
-          <th className={"beatmap-text-header"}>Artist</th>
-          <th className={"beatmap-text-header"}>Title</th>
-          <th className={"beatmap-table-mode-header"}>Mode</th>
-          <th className={"beatmap-table-user-header"}>Mapper</th>
-          <th className={"beatmap-table-user-header"}>Nominator #1</th>
-          <th className={"beatmap-table-user-header"}>Nominator #2</th>
-          <th className={"beatmap-table-note-header"}>Note</th>
-          <th className={"beatmap-table-actions-header"}>Actions</th>
-        </tr>
+          <tr>
+            <th className={"beatmap-banner-header"}>#</th>
+            <th className={"beatmap-text-header"}>Artist</th>
+            <th className={"beatmap-text-header"}>Title</th>
+            <th className={"beatmap-table-mode-header"}>Mode</th>
+            <th className={"beatmap-table-user-header"}>Mapper</th>
+            <th className={"beatmap-table-user-header"}>Nominator #1</th>
+            <th className={"beatmap-table-user-header"}>Nominator #2</th>
+            <th className={"beatmap-table-note-header"}>Note</th>
+            <th className={"beatmap-table-actions-header"}>Actions</th>
+          </tr>
         </thead>
         <tbody>
         {beatmaps.map(beatmap => {
@@ -55,25 +55,32 @@ function BeatmapTable({total, beatmaps, fetchNewPage, setOpenBeatmapId}: Beatmap
           }
         })}
         </tbody>
+        <tfoot className="table-footer">
+          <tr>
+            <td>
+              <div className={"table-footer-start"}>
+                {total} Beatmaps found
+              </div>
+            </td>
+            <td colSpan={4} />
+            <td colSpan={4}>
+              <div className={"table-footer-end"}>
+                <div className={"table-footer-limit-selector"}>
+                  <div>Limit:</div>
+                  <select onChange={event => setLimit(event.target.value as PageLimit)} value={limit}>
+                    <option value={"TEN"}>10</option>
+                    <option value={"TWENTY"}>20</option>
+                    <option value={"FIFTY"}>50</option>
+                  </select>
+                </div>
+                <div className={"table-footer-pagination"}>
+                  <BasicPagination currentPage={currentPage} lastPage={possibleLastPage} setPage={setCurrentPage}/>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
-      <div className={"table-footer"}>
-        <div>
-          {total} Beatmaps found
-        </div>
-        <div className={"table-footer-end"}>
-          <div className={"table-footer-limit-selector"}>
-            <div>Limit:</div>
-            <select onChange={event => setLimit(event.target.value as PageLimit)} value={limit}>
-              <option value={"TEN"}>10</option>
-              <option value={"TWENTY"}>20</option>
-              <option value={"FIFTY"}>50</option>
-            </select>
-          </div>
-          <div className={"table-footer-pagination"}>
-            <BasicPagination currentPage={currentPage} lastPage={possibleLastPage} setPage={setCurrentPage}/>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

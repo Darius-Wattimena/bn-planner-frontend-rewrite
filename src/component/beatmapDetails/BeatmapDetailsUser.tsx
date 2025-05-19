@@ -1,9 +1,13 @@
 import {getProfilePictureUri, getUserRole} from "../../utils/UserUtils";
 import {IconContext} from "react-icons";
-import {ImBin, ImCheckmark, ImCross, ImPencil} from "react-icons/im";
 import React from "react";
 import {Gamemode, User} from "../../models/Types";
 import {USER_ROLES} from "../../Constants";
+import OsuLogo from "../../assets/osu.svg?react";
+import TaikoLogo from "../../assets/taiko.svg?react";
+import CatchLogo from "../../assets/catch.svg?react";
+import ManiaLogo from "../../assets/mania.svg?react";
+import {FaCheck, FaPencil, FaTrashCan, FaXmark} from "react-icons/fa6";
 
 interface BeatmapDetailsUserProps {
   user: User
@@ -46,6 +50,26 @@ function BeatmapDetailsUser(
           <div className={`beatmap-user-ribbon`}>
             <div className={`beatmap-user-role ${roleDetails.className}`}>
               {roleDetails.short}
+              <div className={"beatmap-user-role-icons"}>
+                {user.gamemodes.map(beatmapGamemode => {
+                  let gamemodeLogo = <></>
+                  if (beatmapGamemode.gamemode === Gamemode.Osu) {
+                    gamemodeLogo = <OsuLogo/>
+                  } else if (beatmapGamemode.gamemode === Gamemode.Taiko) {
+                    gamemodeLogo = <TaikoLogo/>
+                  } else if (beatmapGamemode.gamemode === Gamemode.Catch) {
+                    gamemodeLogo = <CatchLogo/>
+                  } else if (beatmapGamemode.gamemode === Gamemode.Mania) {
+                    gamemodeLogo = <ManiaLogo/>
+                  }
+
+                  return (
+                    <div className={"beatmap-user-role-icon"}>
+                      {gamemodeLogo}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
           }
@@ -67,14 +91,14 @@ function BeatmapDetailsUser(
               setChangingGamemode(gamemode)
               setChangingUser(user.osuId)
             }}>
-              <ImPencil className={"beatmap-nominator-edit-button"} />
+              <FaPencil className={"beatmap-nominator-edit-button"} />
             </button>
           }
           {deletable && gamemode && onDeleteNominator && user.osuId !== "0" &&
             <button className={"beatmap-button"} onClick={() => {
               onDeleteNominator(gamemode, user.osuId)
             }}>
-              <ImBin className={"beatmap-nominator-edit-button"} />
+              <FaTrashCan className={"beatmap-nominator-edit-button"} />
             </button>
           }
         </div>
@@ -82,14 +106,14 @@ function BeatmapDetailsUser(
           {hasNominated === true &&
           <IconContext.Provider value={{className: "beatmap-user-nominated"}}>
             <div className={"beatmap-user-nominated"}>
-              <ImCheckmark/> Nominated
+              <FaCheck /> Nominated
             </div>
           </IconContext.Provider>
           }
           {hasNominated === false &&
           <IconContext.Provider value={{className: "beatmap-user-not-nominated"}}>
             <div className={"beatmap-user-not-nominated"}>
-              <ImCross/> Not Nominated
+              <FaXmark /> Not Nominated
             </div>
           </IconContext.Provider>
           }

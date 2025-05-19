@@ -4,9 +4,8 @@ import {BeatmapStatus, SyncInfo, UserContext} from "../../models/Types";
 import {useNavigate} from "react-router-dom";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
-import {ImMap, ImPlus} from "react-icons/im";
 import PageHeader from "../generic/PageHeader";
-import {IoColorWand} from "react-icons/io5";
+import {FaArrowsRotate, FaMap, FaWandMagicSparkles} from "react-icons/fa6";
 
 interface HomeProps {
   userContext: UserContext | undefined
@@ -16,7 +15,7 @@ function Admin({userContext}: HomeProps) {
 
   return (
     <>
-      <PageHeader title={"Syncing Panel"} icon={<IoColorWand />} />
+      <PageHeader title={"Syncing Panel"} icon={<FaWandMagicSparkles />} />
       <div className={`page-container admin-page`}>
         <div className={"page-container-content admin-page-content"}>
           {
@@ -114,12 +113,12 @@ function SyncBeatmaps() {
           <button disabled={syncing} onClick={() => {
             onSyncBeatmaps()
           }} className={"button button-submit button-text"}>
-            <ImMap /> Sync Beatmaps
+            <FaMap /> Sync Beatmaps
           </button>
           <button disabled={syncing} onClick={() => {
             onSyncBeatmaps([BeatmapStatus.Qualified, BeatmapStatus.Nominated, BeatmapStatus.Disqualified, BeatmapStatus.Reset])
           }} className={"button button-edit button-text"}>
-            <ImMap /> Sync Qualified/Nominated/Popped/Disqualified Beatmaps
+            <FaMap /> Sync Qualified/Nominated/Popped/Disqualified Beatmaps
           </button>
         </div>
       </div>
@@ -193,7 +192,7 @@ function SyncUsers() {
         <button disabled={syncing} onClick={() => {
           onSyncUsers()
         }} className={"button button-submit button-text"}>
-          <ImPlus/> Sync Users
+          <FaArrowsRotate /> Sync Users
         </button>
       </div>
     </div>

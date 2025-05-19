@@ -1,4 +1,4 @@
-@import "src/styles/Variables";
+@import "../../styles/variables.scss";
 
 header.site-header {
   flex: 0 1 auto;
@@ -111,7 +111,7 @@ header.site-header {
         padding: $padding-small;
 
         /*.username, .role .role-text {
-          color: $color-text-light;
+          color: $color-text;
         }*/
 
         .username {
@@ -191,7 +191,7 @@ header.site-header {
 
         .react-icons {
           height: 100%;
-          fill: $color-text-light;
+          fill: $color-text;
           font-size: 1.5em;
         }
       }

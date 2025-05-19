@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {ReactComponent as Logo} from '../../assets/catch.svg';
+import Logo from '../../assets/catch.svg?react';
 import "./Home.scss"
 import {osuUrl} from "../../AppRoutes";
 import {UserContext} from "../../models/Types";
 import {NavLink, useLocation} from "react-router-dom";
 import PageHeader from "../generic/PageHeader";
-import {IoHome} from "react-icons/io5";
+import {FaHouse} from "react-icons/fa6";
 
 interface HomeProps {
   userContext: UserContext | undefined
@@ -31,7 +31,7 @@ function Home({userContext}: HomeProps) {
 
   return (
     <>
-      <PageHeader title={"Home"} icon={<IoHome />} />
+      <PageHeader title={"Home"} icon={<FaHouse />} />
       <div className={"landing-page"}>
         <div className={"welcome-screen"}>
           <Logo className={"logo"}/>

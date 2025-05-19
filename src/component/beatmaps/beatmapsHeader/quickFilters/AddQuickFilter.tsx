@@ -1,8 +1,8 @@
 import {AvailableQuickFilter, BeatmapFilter} from "../../../../models/Types";
-import {IoFilter} from "react-icons/io5";
-import ReactTooltip from "react-tooltip";
+import {FaFilter} from "react-icons/fa6";
 import React from "react";
 import AvailableQuickFiltersList from "./AvailableQuickFiltersList";
+import {Tooltip} from "react-tooltip";
 
 interface AddQuickFilterProps {
   beatmapFilter: BeatmapFilter
@@ -18,13 +18,13 @@ function AddQuickFilter(
 ) {
   return (
     <>
-      <button data-tip data-for='add-quick-filter' data-event='click' className='primary'>
-        <IoFilter/>
+      <button data-tooltip-id="add-quick-filter" className='accent'>
+        <FaFilter />
         <div className='beatmap-button-text'>
           Filters
         </div>
       </button>
-      <ReactTooltip id='add-quick-filter' place='bottom' effect='solid' clickable={true} className={"beatmap-filter-tooltip"}>
+      <Tooltip id='add-quick-filter' place='bottom' clickable openOnClick closeEvents={{click: true}} className={"beatmap-filter-tooltip"} border="1px solid #4f6ac9">
         <AvailableQuickFiltersList
           beatmapFilter={beatmapFilter}
           setBeatmapFilter={setBeatmapFilter}
@@ -33,7 +33,7 @@ function AddQuickFilter(
           selectedFilters={selectedFilters}
           setSelectedFilters={setSelectedFilters}
         />
-      </ReactTooltip>
+      </Tooltip>
     </>
   )
 }

@@ -198,44 +198,48 @@ function UserSearcherHotbar(
   return (
     <div className={"user-searcher-hotbar"}>
       <h4 className={"user-searcher-header"}>Gamemodes</h4>
-      {filterGamemodes.map((selectItem, index) => {
-        return (
-          <div key={index}
-               className={`user-searcher-select-item ${selectItem.disabled ? "disabled" : ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
-            <input
-              type="checkbox"
-              id={`${selectItem.index}-usersearcher-gamemode`}
-              checked={selectItem.selected}
-              disabled={selectItem.disabled}
-              onChange={event => {
-                updateSelectedGamemodes(selectItem.value, event.target.checked)
-              }}
-            />
-            <label className={"todo"} htmlFor={`${selectItem.index}-usersearcher-gamemode`}>
-              {selectItem.label}
-            </label>
-          </div>
-        )
-      })}
+      <div className={"user-searcher-hotbar-container"}>
+        {filterGamemodes.map((selectItem, index) => {
+          return (
+            <div key={index}
+                 className={`user-searcher-select-item ${selectItem.disabled ? "disabled" : ""} ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
+              <input
+                type="checkbox"
+                id={`${selectItem.index}-usersearcher-gamemode`}
+                checked={selectItem.selected}
+                disabled={selectItem.disabled}
+                onChange={event => {
+                  updateSelectedGamemodes(selectItem.value, event.target.checked)
+                }}
+              />
+              <label className={"todo"} htmlFor={`${selectItem.index}-usersearcher-gamemode`}>
+                {selectItem.label}
+              </label>
+            </div>
+          )
+        })}
+      </div>
       <h4 className={"user-searcher-header"}>Roles</h4>
-      {filterRoles.map((selectItem, index) => {
-        return (
-          <div key={index}
-               className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
-            <input
-              type="checkbox"
-              id={`${selectItem.index}-roles`}
-              checked={selectItem.selected}
-              onChange={event => {
-                updateSelectedRoles(selectItem.value, event.target.checked)
-              }}
-            />
-            <label className={"todo"} htmlFor={`${selectItem.index}-roles`}>
-              {selectItem.label}
-            </label>
-          </div>
-        )
-      })}
+      <div className={"user-searcher-hotbar-container"}>
+        {filterRoles.map((selectItem, index) => {
+          return (
+            <div key={index}
+                 className={`user-searcher-select-item ${index !== 0 ? "user-searcher-select-item-not-first" : ""}`}>
+              <input
+                type="checkbox"
+                id={`${selectItem.index}-roles`}
+                checked={selectItem.selected}
+                onChange={event => {
+                  updateSelectedRoles(selectItem.value, event.target.checked)
+                }}
+              />
+              <label className={"todo"} htmlFor={`${selectItem.index}-roles`}>
+                {selectItem.label}
+              </label>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

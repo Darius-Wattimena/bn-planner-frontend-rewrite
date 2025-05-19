@@ -1,4 +1,4 @@
-@import "../../styles/Variables";
+@import "../../styles/variables.scss";
 
 .beatmap-button {
   color: $color-text;
@@ -16,13 +16,12 @@
 }
 
 .beatmap-filter-tooltip {
-  background-color: $color-footer-background;
+  background-color: $color-background !important;
+  box-shadow: $box-shadow !important;
   border-radius: $border-radius !important;
-  padding: unset !important;
+  padding: $padding-smallest !important;
 
-  &.show {
-    opacity: 1 !important;
-  }
+  opacity: 1 !important;
 }
 
 .beatmap-page {

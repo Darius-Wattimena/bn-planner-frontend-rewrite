@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import {ImCross, ImPlus} from "react-icons/im";
 import useAxios from "axios-hooks";
 import {Beatmap, Gamemode} from "../../../models/Types";
 import Api from "../../../resources/Api";
-import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
+import OsuLogo from "../../../assets/osu.svg?react";
+import TaikoLogo from "../../../assets/taiko.svg?react";
+import CatchLogo from "../../../assets/catch.svg?react";
+import ManiaLogo from "../../../assets/mania.svg?react";
 import {cloneDeep} from "lodash";
+import {FaPlus, FaXmark} from "react-icons/fa6";
 
 const beatmapUrlRegex = /https:\/\/(?:old|osu)(?:\.ppy\.sh\/s|\.ppy\.sh\/beatmapsets)\/(?<id>[0-9]+)/
 
@@ -133,12 +133,12 @@ function AddBeatmap({setOpenAddBeatmap, setOpenBeatmapId, userGamemodes}: AddBea
         <button onClick={() => {
           setOpenAddBeatmap(false)
         }} className={"button button-cancel button-text"}>
-          <ImCross/> Close
+          <FaXmark /> Close
         </button>
         <button onClick={() => {
           onAddBeatmap()
         }} className={"button button-submit button-text"}>
-          <ImPlus/> Add Beatmap
+          <FaPlus /> Add Beatmap
         </button>
       </div>
     </div>

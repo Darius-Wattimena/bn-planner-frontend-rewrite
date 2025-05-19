@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import AppRoutes from "./AppRoutes"
-import './styles/simple-grid.scss'
 import './App.scss'
 import useAxios, {configure} from 'axios-hooks'
 import Axios from 'axios'

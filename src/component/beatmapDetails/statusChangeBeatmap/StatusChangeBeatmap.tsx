@@ -1,9 +1,9 @@
 import React from "react";
-import {ImCheckmark, ImCross} from "react-icons/im";
 import "./StatusChangeBeatmap.scss"
 import useAxios from "axios-hooks";
 import Api from "../../../resources/Api";
 import {Beatmap, BeatmapStatus} from "../../../models/Types";
+import {FaCheck, FaXmark} from "react-icons/fa6";
 
 interface StatusChangeBeatmapProps {
   beatmap: Beatmap
@@ -38,12 +38,12 @@ export default function StatusChangeBeatmap({beatmap, newStatus, setIsChangeModa
         <button onClick={() => {
           setIsChangeModalOpen(false)
         }} className={"button button-cancel button-text"}>
-          <ImCross/> Cancel
+          <FaXmark /> Cancel
         </button>
         <button onClick={() => {
           onChangeBeatmapStatus()
         }} className={"button button-submit button-text"}>
-          <ImCheckmark/> Change Status
+          <FaCheck /> Change Status
         </button>
       </div>
     </div>

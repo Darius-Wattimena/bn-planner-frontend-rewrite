@@ -1,6 +1,6 @@
 import {AvailableQuickFilter, BeatmapFilter, UserContext} from "../../../../../models/Types";
 import React, {useState} from "react";
-import {IoPerson} from "react-icons/io5";
+import {FaUser} from "react-icons/fa6";
 
 interface MyIconsFilterProps {
   userContext: UserContext | undefined
@@ -40,7 +40,7 @@ const MyIconsFilter = ({userContext, initialBeatmapFilter}: MyIconsFilterProps):
     value: userContext?.user.osuId,
     label: "My Icons",
     description: "Hide Others",
-    icon: IoPerson({}),
+    icon: FaUser({}),
   }
 }
 

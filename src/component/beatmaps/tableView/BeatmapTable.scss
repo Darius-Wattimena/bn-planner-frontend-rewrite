@@ -1,23 +1,21 @@
-@import 'src/styles/Variables';
+@import '../../../styles/Variables';
 
 $row-height: 3em;
 $font-size: 0.8em;
 
-.table-container {
-  border-radius: 3px;
-  background-color: $color-background-light;
-}
-
 .table-footer {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: $padding-small $padding;
   background-color: $color-background-dark;
+  .table-footer-start {
+    text-align: left;
+    padding: $padding-small $padding;
+  }
 
   .table-footer-end {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    padding: $padding-small $padding;
   }
 
   .table-footer-limit-selector {
@@ -26,12 +24,6 @@ $font-size: 0.8em;
 
     select {
       margin-left: $padding-small;
-    }
-
-    select, select option {
-      font-size: 1em;
-      color: $color-text-dark;
-      border-radius: unset;
     }
   }
 
@@ -105,6 +97,8 @@ table {
 
 .beatmap-table {
   width: 100%;
+  border-radius: $border-radius-large;
+  overflow: hidden;
 }
 
 .beatmap-text-cell {
@@ -204,7 +198,7 @@ table {
     background-size: cover;
     background-position: center;
     height: 100%;
-
+    border-radius: $border-radius;
   }
 }
 

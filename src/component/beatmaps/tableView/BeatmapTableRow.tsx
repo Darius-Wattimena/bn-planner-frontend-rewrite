@@ -5,15 +5,15 @@ import "./BeatmapTable.scss"
 import {GoCommentDiscussion} from "react-icons/go";
 import {FiInfo} from "react-icons/fi";
 import {AiOutlinePaperClip} from "react-icons/ai";
-import ReactTooltip from "react-tooltip";
 import {FaStickyNote} from "react-icons/fa";
 import {getBeatmapStatus} from "../../../utils/BeatmapUtils";
 import {openInNewTab} from "../../../utils/LinkUtils";
 import BeatmapTableMultipleUsers, {UserNominatedGamemode} from "./BeatmapTableMultipleUsers";
-import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
+import OsuLogo from "../../../assets/osu.svg?react";
+import TaikoLogo from "../../../assets/taiko.svg?react";
+import CatchLogo from "../../../assets/catch.svg?react";
+import ManiaLogo from "../../../assets/mania.svg?react";
+import { Tooltip } from "react-tooltip";
 
 interface BeatmapTableRowProps {
   beatmap: Beatmap
@@ -55,10 +55,10 @@ function BeatmapTableRow({beatmap, setOpenBeatmapId}: BeatmapTableRowProps) {
       <td key={`beatmap-table-row-${beatmap.osuId}-note`} className={"beatmap-table-note"}>
         {beatmap.note &&
         <>
-          <a className={"beatmap-button"} data-tip data-for={`${beatmap.osuId}-nominator-note`}><FaStickyNote/></a>
-          <ReactTooltip id={`${beatmap.osuId}-nominator-note`} type="dark" effect="solid">
+          <a className={"beatmap-button"} data-tooltip-id={`${beatmap.osuId}-nominator-note`}><FaStickyNote/></a>
+          <Tooltip id={`${beatmap.osuId}-nominator-note`} variant="dark">
             {beatmap.note}
-          </ReactTooltip>
+          </Tooltip>
         </>
         }
       </td>

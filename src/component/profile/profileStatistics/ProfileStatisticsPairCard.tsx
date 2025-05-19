@@ -1,15 +1,10 @@
 import React from "react";
-import PageHeader from "../../generic/PageHeader";
-import {IoPerson} from "react-icons/io5";
-import {Beatmap, BeatmapPage, ProfileStatisticsPairInfo, UserContext} from "../../../models/Types";
+import {ProfileStatisticsPairInfo, UserContext} from "../../../models/Types";
 import useAxios from "axios-hooks";
 import Api from "../../../resources/Api";
 import {
-  Area,
-  AreaChart,
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,

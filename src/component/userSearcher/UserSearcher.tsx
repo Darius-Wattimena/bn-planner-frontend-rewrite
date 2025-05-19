@@ -6,20 +6,17 @@ import {
   BeatmapFilter,
   BeatmapGamemode,
   Gamemode,
-  SelectFilterItem,
   User,
-  UserRole,
   UserSearchFilter
 } from "../../models/Types";
-import {USER_ROLES} from "../../Constants";
 import {debouncingFilter, instantFilter} from "../../utils/FilterUtils";
 import UserSearcherListContainer from "./UserSearcherListContainer";
-import {ImSearch} from "react-icons/im";
 import Api from "../../resources/Api";
 import {cloneDeep} from "lodash";
 import {AxiosPromise, AxiosRequestConfig} from "axios";
 import {RefetchOptions} from "axios-hooks";
 import UserSearcherHotbar from "./UserSearcherHotbar";
+import {FaSearch} from "react-icons/fa";
 
 const filterDefaultState: UserSearchFilter = {
   username: null,
@@ -143,27 +140,30 @@ function UserSearcher(
           <div className={"user-searcher-header"}>
             <h3>User Searcher</h3>
           </div>
-          <div className={`user-searcher-textbox`}>
-            <div className={"user-searcher-textbox-icon"}>
-              <ImSearch/>
+          <div className={"user-searcher-body"}>
+            <div className={`user-searcher-textbox`}>
+              <div className={"user-searcher-textbox-icon"}>
+                <FaSearch />
+              </div>
+              <input
+                placeholder={"osu! Username"}
+                value={userSearchFilter["username"]?.toString()}
+                onChange={event => {
+                  updateUsernameFilter(event.target.value)
+                }}
+              />
             </div>
-            <input
-              placeholder={"osu! Username"}
-              value={userSearchFilter["username"]?.toString()}
-              onChange={event => {
-                updateUsernameFilter(event.target.value)
-              }}
+            <hr />
+            <UserSearcherListContainer
+              currentUser={currentUser}
+              queryFilter={queryFilter}
+              beatmapGamemodes={beatmapGamemodes}
+              changingGamemode={changingGamemode}
+              changingUserId={changingUserId}
+              onSelectNominator={onSelectNominator}
+              beatmapFilter={beatmapFilter}
             />
           </div>
-          <UserSearcherListContainer
-            currentUser={currentUser}
-            queryFilter={queryFilter}
-            beatmapGamemodes={beatmapGamemodes}
-            changingGamemode={changingGamemode}
-            changingUserId={changingUserId}
-            onSelectNominator={onSelectNominator}
-            beatmapFilter={beatmapFilter}
-          />
         </div>
       </div>
     </Modal>

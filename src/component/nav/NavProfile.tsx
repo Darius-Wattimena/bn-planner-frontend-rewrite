@@ -1,10 +1,10 @@
-import React from "react";
+import React, {JSX} from "react";
 import {getFrontendRole, getProfilePictureUri} from "../../utils/UserUtils";
 import {Gamemode, User, UserGamemode} from "../../models/Types";
-import {ReactComponent as OsuLogo} from "../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../assets/mania.svg";
+import OsuLogo from "../../assets/osu.svg?react";
+import TaikoLogo from "../../assets/taiko.svg?react";
+import CatchLogo from "../../assets/catch.svg?react";
+import ManiaLogo from "../../assets/mania.svg?react";
 import {Dictionary, groupBy} from "lodash";
 
 interface NavProfileProps {
@@ -20,7 +20,7 @@ function NavProfile({user}: NavProfileProps) {
     for (const [role, gamemodes] of Object.entries(proficientGamemodes)) {
       const roleDetails = getFrontendRole(role as "Mapper" | "Nominator" | "Probation" | "NominationAssessment")
       let icons = (
-        <div className={`navbar-user-role ${roleDetails.className}`}>
+        <div key={"user-roles-" + role + "-" + user.osuId} className={`navbar-user-role ${roleDetails.className}`}>
           <div className={"navbar-user-role-name"}>{roleDetails.short}</div>
           <div className={"navbar-user-role-icons"}>
             {gamemodes.map(beatmapGamemode => {
@@ -36,7 +36,7 @@ function NavProfile({user}: NavProfileProps) {
               }
 
               return (
-                <div className={"navbar-user-role-icon"}>
+                <div key={beatmapGamemode.gamemode} className={"navbar-user-role-icon"}>
                   {gamemodeLogo}
                 </div>
               )
@@ -52,8 +52,8 @@ function NavProfile({user}: NavProfileProps) {
       <div className={"navbar-profile"}>
         <img src={profilePictureUri} alt={""}/>
         <div className={"navbar-profile-details"}>
-          <div className={"username"}>{user.username}</div>
-          <div className={"navbar-user-roles"}>
+          <div key={"navbar-user-username-" + user.osuId} className={"username"}>{user.username}</div>
+          <div key={"navbar-user-roles" + user.osuId} className={"navbar-user-roles"}>
             {preparedGamemodes}
           </div>
         </div>

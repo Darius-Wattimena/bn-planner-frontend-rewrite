@@ -1,18 +1,19 @@
-@import "../../../../styles/Variables";
+@import "../../../../styles/variables.scss";
 
 .quick-filters {
   display: flex;
   align-items: center;
 }
 
+.beatmap-filter {
+  border-radius: $border-radius;
+}
+
 .available-quick-filters {
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: scroll;
 
   .available-quick-filter-container {
-    &:not(:last-child) {
-      border-bottom: 1px solid $color-table-border;
-    }
 
     .available-quick-filter {
       display: flex;
@@ -20,9 +21,10 @@
       margin: $padding-smallest;
       align-items: center;
       border-radius: $border-radius;
+      background-color: $color-primary;
 
       &:hover {
-        background-color: $color-background-light;
+        background-color: $color-primary-light;
       }
 
       .available-quick-filter-icon {

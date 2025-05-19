@@ -1,4 +1,4 @@
-@import "../../styles/Variables";
+@import "../../styles/variables.scss";
 
 body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
   position: absolute;
@@ -10,6 +10,7 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
   transform: translate(-50%, -50%);
   box-shadow: unset;
   background-color: unset;
+  //overflow: hidden;
 
   .user-searcher-content {
     display: flex;
@@ -17,13 +18,28 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
     height: 0;
 
     .user-searcher, .user-searcher-hotbar {
-      box-shadow: $color-table-background 0 0 0 4px;
       background-color: $color-table-background;
       height: fit-content;
+
+      border: 3px solid $color-primary;
+      border-radius: $border-radius-large;
+
+      .user-searcher-hotbar-container {
+        padding: $padding-small;
+      }
 
       .user-searcher-header {
         background-color: $color-primary;
         padding: $padding-small;
+      }
+
+      .user-searcher-body {
+        padding: $padding-small;
+
+        hr {
+          border: 1px solid $color-table-border;
+          margin: $padding-small;
+        }
       }
     }
 
@@ -37,7 +53,6 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
       .user-searcher-select-item {
         display: flex;
         align-items: center;
-        background-color: $color-background;
 
         &.disabled {
           label {
@@ -60,22 +75,25 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
       .user-searcher-textbox {
         display: flex;
         align-items: stretch;
+        border-radius: 20px;
+        background-color: $color-background-dark;
 
         .user-searcher-textbox-icon {
-          background-color: $color-table-background;
-          border: 2px solid $color-table-border;
-          border-right: unset;
           padding: $padding-small;
           display: flex;
           align-items: center;
+
+          path {
+            fill: $color-text-placeholder;
+          }
         }
 
         input {
           width: 100%;
           box-sizing: border-box;
           padding: $padding-small $padding-smallest;
-          background-color: $color-table-background;
-          border: 2px solid $color-table-border;
+          background-color: unset;
+          border: unset;
 
           &:focus {
             outline-width: 0;
@@ -87,7 +105,6 @@ body .ReactModalPortal .ReactModal__Content.user-searcher-modal {
         max-height: 400px;
         overflow-y: scroll;
         padding: $padding-small;
-        background-color: $color-background;
 
         p:not(:last-child) {
           border-bottom: 1px solid $color-table-border;

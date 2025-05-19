@@ -3,7 +3,6 @@ import {Beatmap, PageLimit, UserContext, ViewMode} from "../../models/Types";
 import {IndexRange} from "react-virtualized";
 import BeatmapDetailsContainer from "../beatmapDetails/BeatmapDetailsContainer";
 import BeatmapTable from "./tableView/BeatmapTable";
-import BeatmapCards from "./cardView/BeatmapCards";
 
 interface BeatmapsProps {
   userContext: UserContext | undefined

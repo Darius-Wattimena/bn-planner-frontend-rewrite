@@ -1,10 +1,10 @@
 import React from "react";
 import {Gamemode, User} from "../../../models/Types";
 import {getProfilePictureUri, getUserRole} from "../../../utils/UserUtils";
-import {ReactComponent as OsuLogo} from "../../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../../assets/mania.svg";
+import OsuLogo from "../../../assets/osu.svg?react";
+import TaikoLogo from "../../../assets/taiko.svg?react";
+import CatchLogo from "../../../assets/catch.svg?react";
+import ManiaLogo from "../../../assets/mania.svg?react";
 
 interface BeatmapTableUserProps {
   user: User

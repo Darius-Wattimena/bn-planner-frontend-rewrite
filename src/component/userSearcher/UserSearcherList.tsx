@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 import {BeatmapFilter, BeatmapGamemode, Gamemode, User, UserGamemode} from "../../models/Types";
 import {getFrontendRole, getProfilePictureUri} from "../../utils/UserUtils";
-import {ImCheckmark, ImMinus, ImPlus} from "react-icons/im";
-import {ReactComponent as OsuLogo} from "../../assets/osu.svg";
-import {ReactComponent as TaikoLogo} from "../../assets/taiko.svg";
-import {ReactComponent as CatchLogo} from "../../assets/catch.svg";
-import {ReactComponent as ManiaLogo} from "../../assets/mania.svg";
+import OsuLogo from "../../assets/osu.svg?react";
+import TaikoLogo from "../../assets/taiko.svg?react";
+import CatchLogo from "../../assets/catch.svg?react";
+import ManiaLogo from "../../assets/mania.svg?react";
 import {Dictionary, groupBy} from "lodash";
+import {FaCheck, FaPlus, FaXmark} from "react-icons/fa6";
 
 interface UserSearcherListProps {
   data: User[] | undefined
@@ -188,7 +188,7 @@ function UserSearcherUserButton(
           setUserSelected(true)
           onSelectNominator(userId, undefined)
         }}>
-          <ImMinus/>
+          <FaXmark />
           <div className={`user-select-button-text ${alreadySelected ? "already-nominator" : ""}`}>
             Deselect
           </div>
@@ -198,7 +198,7 @@ function UserSearcherUserButton(
 
     return (
       <div className={"already-nominator"}>
-        <ImCheckmark/> Already Selected
+        <FaCheck /> Already Selected
       </div>
     )
   }
@@ -209,7 +209,7 @@ function UserSearcherUserButton(
         setUserSelected(true)
         onSelectNominator(changingUserId, userId)
       }}>
-        <ImPlus/>
+        <FaPlus />
         <div className={`user-select-button-text ${alreadySelected ? "already-nominator" : ""}`}>
           Select
         </div>

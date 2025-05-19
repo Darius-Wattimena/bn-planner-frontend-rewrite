@@ -1,7 +1,7 @@
 import {AvailableQuickFilter, BeatmapFilter, BeatmapPage, BeatmapStatus} from "../../../../../models/Types";
 import {useState} from "react";
 import {remove} from "lodash";
-import {ImBubble} from "react-icons/im";
+import {FaComment} from "react-icons/fa6";
 
 interface StatusQuickFilterProps {
   status: BeatmapStatus
@@ -52,7 +52,7 @@ const StatusQuickFilter = ({status, initialBeatmapFilter, page}: StatusQuickFilt
     value: status,
     label: `${Object.keys(BeatmapStatus)[Object.values(BeatmapStatus).indexOf(status)]}`,
     description: `Show ${Object.keys(BeatmapStatus)[Object.values(BeatmapStatus).indexOf(status)]} beatmaps`,
-    icon: ImBubble({})
+    icon: FaComment({})
   }
 }
 

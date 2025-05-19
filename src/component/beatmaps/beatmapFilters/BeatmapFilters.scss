@@ -1,9 +1,9 @@
-@import "../../../styles/Variables";
+@import "../../../styles/variables.scss";
 
 $font-size: 1.1em;
 
 .beatmap-filter {
-  background-color: $color-background-light;
+  background-color: $color-background;
   align-self: stretch;
   min-width: 250px;
   height: 100%;

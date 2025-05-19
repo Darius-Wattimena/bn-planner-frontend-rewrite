@@ -1,9 +1,9 @@
 import React from "react";
-import {ImCheckmark, ImCross} from "react-icons/im";
 import "./SyncBeatmap.scss"
 import useAxios from "axios-hooks";
 import {Beatmap} from "../../../models/Types";
 import Api from "../../../resources/Api";
+import {FaCheck, FaX, FaXmark} from "react-icons/fa6";
 
 interface SyncBeatmapProps {
   beatmap: Beatmap
@@ -42,12 +42,12 @@ function SyncBeatmap(props: SyncBeatmapProps) {
         <button onClick={() => {
           props.setOpenSyncBeatmap(false)
         }} className={"button button-cancel button-text"}>
-          <ImCross/> Cancel
+          <FaXmark/> Cancel
         </button>
         <button onClick={() => {
           onSyncBeatmap()
         }} className={"button button-submit button-text"}>
-          <ImCheckmark/> Sync Beatmap
+          <FaCheck /> Sync Beatmap
         </button>
       </div>
     </div>
