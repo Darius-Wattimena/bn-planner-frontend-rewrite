@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import useAxios from "axios-hooks";
 import Api from "../../resources/Api";
 import {Navigate, useLocation} from 'react-router-dom';
@@ -23,7 +23,14 @@ function Login({userContext, setUserContext}: LoginProps) {
   // const state = urlParams.get('state')
 
   useEffect(() => {
-    if (code !== null && code !== "") {
+    // When redirecting back from osu! to the app, we still have the code in the URL
+    // Avoid executing the login request as we fully refresh the app when changing the user context
+    if (userContext) {
+        setRedirectToHome(true)
+        return
+    }
+
+    if (code && code !== "") {
       execute(Api.login(code))
         .then(onResult => setUserContext(onResult.data))
         .catch(reason => {
@@ -31,18 +38,14 @@ function Login({userContext, setUserContext}: LoginProps) {
           setRedirectToHome(true)
         })
     }
-  }, [execute, code])
+  }, [code])
 
   useEffect(() => {
     if (error) {
       // TODO replace with error popup?
       console.error(error)
-    } else if (!loading) {
-      if (data) {
-        setUserContext(data)
-      }
     }
-  }, [data, loading, error, setUserContext])
+  }, [error])
 
   if (redirectToHome || (userContext?.accessToken && userContext?.accessToken !== "")) {
     return <Navigate to={"/"} state={true} />
