@@ -231,6 +231,29 @@ select, select option {
           width: 100%;
         }
       }
+
+      .table-footer-end {
+        align-items: stretch;
+        flex-direction: column;
+
+        div {
+          margin-left: unset;
+          padding-top: $padding-small;
+        }
+
+        .table-footer-pagination {
+          width: 100%;
+          justify-content: center;
+
+          .table-pagination {
+            width: 100%;
+
+            .beatmap-button {
+              width: 20%;
+            }
+          }
+        }
+      }
     }
   }
 }
