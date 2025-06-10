@@ -13,7 +13,7 @@ interface LoginProps {
 }
 
 function Login({userContext, setUserContext}: LoginProps) {
-  const [{data, loading, error}, execute] = useAxios<UserContext>("", {manual: true})
+  const [{error}, execute] = useAxios<UserContext>("", {manual: true})
   const [redirectToHome, setRedirectToHome] = useState(false)
   const location = useLocation()
 
