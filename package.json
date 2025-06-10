@@ -3,12 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "6.6.3",
-    "@testing-library/react": "16.3.0",
-    "@testing-library/user-event": "14.6.1",
-    "@types/jest": "29.5.14",
-    "@types/react": "19.0.14",
-    "@types/react-dom": "19.0.6",
     "axios": "1.8.4",
     "axios-hooks": "5.1.1",
     "lodash-es": "4.17.21",
@@ -22,17 +16,16 @@
     "react-select": "5.10.1",
     "react-tooltip": "5.28.1",
     "react-virtualized": "9.22.6",
-    "recharts": "2.15.3",
     "sass": "1.87.0",
     "typescript": "4.3.5",
     "url": "0.11.0",
     "usehooks-ts": "3.1.1",
-    "vite": "6.3.2",
+    "vite": "6.3.5",
     "web-vitals": "1.1.2"
   },
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "browserslist": {
@@ -48,13 +41,20 @@
     ]
   },
   "devDependencies": {
+
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.3.0",
+    "@testing-library/user-event": "14.6.1",
+    "@types/jest": "29.5.14",
     "@types/lodash": "4.14.172",
     "@types/node": "22.14.1",
+    "@types/react": "19.0.14",
+    "@types/react-dom": "19.0.6",
     "@types/react-modal": "3.13.1",
     "@types/react-router-dom": "5.3.3",
     "@types/react-virtualized": "9.21.15",
     "@vitejs/plugin-react-swc": "3.9.0",
-    "vite-plugin-svgr": "^4.3.0"
+    "vite-plugin-svgr": "4.3.0"
   },
   "overrides": {
     "react-collapsible": {
